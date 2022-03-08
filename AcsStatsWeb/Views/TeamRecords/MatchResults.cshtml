@@ -1,0 +1,124 @@
+@inherits AcsStatsWeb.Custom.BaseRazorPage<TeamResultsModel>
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<h1>@Model.Title</h1>
+<h1>Limit: @Model.Limit</h1>
+
+<h2>@Model.Team v @Model.Opponents @Model.AtGroundName() @Model.GetHostCountry() (@Model.GetVenue()) (@Model.GetMatchType())</h2>
+
+@if (Model.ResultDetails.Count == 0)
+{
+    <h3>No Matches</h3>
+}
+else
+{
+    SetClasses();
+
+    if (!Context.Request.Query.ContainsKey("sortorder"))
+    {
+        StartDateClass = Model.SortDirection.ToUpper() == "ASC" ? "fas fa-arrow-down" : "fas fa-arrow-up";
+    }
+
+    <table class="table table-striped table-hover table-sm">
+        <thead class="thead-dark">
+        <tr>
+            @if (Model.ShowTeamInList)
+            {
+                <th class="text-left">
+                    <a href="?@BaseUrl&sortorder=team" class="btn btn-link">Team<i class="@TeamClass"></i></a>
+                </th>
+            }
+            <th nowrap="nowrap">
+                Result
+            </th>
+            <th nowrap="nowrap">
+                <a href="?@BaseUrl&sortorder=VictoryMargin" class="btn btn-link">Margin<i class="@MarginClass"></i></a>
+            </th>
+            <th nowrap="nowrap">
+                Toss
+            </th>
+            @if (Model.ShowOpponentsInList)
+            {
+                <th class="text-left">
+                    <a href="?@BaseUrl&sortorder=opponents" class="btn btn-link">Opposition<i class="@OpponentsClass"></i></a>
+                </th>
+            }
+            <th nowrap="nowrap">Ground</th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=matchstartdate" class="btn btn-link">Start Date<i class="@StartDateClass"></i></a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var detail in Model.ResultDetails)
+        {
+            var victoryType = "";
+            var victoryMargin = "";
+
+            if (detail.TeamId == detail.WhoWonId)
+                victoryType = "Won";
+            else
+                victoryType = "Lost";
+
+
+            switch (detail.VictoryType)
+            {
+                case 0:
+                    victoryType = "Awarded";
+                    break;
+                case 1:
+                    victoryType = "Drawn";
+                    break;
+                case 5:
+                    victoryType = "Tied";
+                    break;
+                case 6:
+                    victoryType = "Abandoned";
+                    break;
+                case 7:
+                    victoryType = "No Result";
+                    break;
+                case 8:
+                    victoryType = "Run rate";
+                    break;
+                case 9:
+                    victoryType = "Faster Scoring Rate";
+                    break;
+                case 10:
+                    victoryType = "Unknown";
+                    break;
+                case 2:
+                    victoryMargin = $"{detail.HowMuch} runs";
+                    break;
+                case 3:
+                    victoryMargin = $"{detail.HowMuch} wickets";
+                    break;
+                case 4:
+                    victoryMargin = $"Innings and {detail.HowMuch} runs";
+                    break;
+            }
+
+
+            var toss = detail.TeamId == detail.TossTeamId ? "won" : "loss";
+
+            <tr>
+                @if (Model.ShowTeamInList)
+                {
+                    <td class="text-left" nowrap="nowrap">@detail.Team</td>
+                }
+                <td nowrap="nowrap">@victoryType</td>
+                <td>@victoryMargin</td>
+                <td>@toss</td>
+                @if (Model.ShowOpponentsInList)
+                {
+                    <td class="text-left" nowrap="nowrap">@detail.Opponents</td>
+                }
+                <td>@detail.KnownAs</td>
+                <td>@detail.MatchStartDate</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

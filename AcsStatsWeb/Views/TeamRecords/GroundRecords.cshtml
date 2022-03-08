@@ -1,0 +1,97 @@
+@inherits AcsStatsWeb.Custom.BaseRazorPage<TeamResultsModel>
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<h1>@Model.Title</h1>
+<h1>Limit: @Model.Limit</h1>
+
+<h2>@Model.Team v @Model.Opponents @Model.AtGroundName() @Model.GetHostCountry() (@Model.GetVenue()) (@Model.GetMatchType())</h2>
+
+@if (Model.TeamRecordDetails.Count == 0)
+{
+    <h3>No Matches</h3>
+}
+else
+{
+    SetClasses();
+
+    if (!Context.Request.Query.ContainsKey("sortorder"))
+    {
+        WinsClass = Model.SortDirection.ToUpper() == "ASC" ? "fas fa-arrow-down" : "fas fa-arrow-up";
+    }
+
+    <table class="table table-striped table-hover table-sm table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            @if (Model.ShowTeamInList)
+            {
+                <th class="text-left table-primary">
+                    <a href="?@BaseUrl&sortorder=team" class="btn btn-link">Team<i class="@TeamClass"></i></a>
+                </th>
+            }
+            <th class="text-left table-primary">
+                <a href="?@BaseUrl&sortorder=ground" class="btn btn-link">Ground<i class="@GroundClass"></i></a>
+            </th>
+            <th class="text-left table-primary">
+                <a href="?@BaseUrl&sortorder=played" class="btn btn-link">Matches<i class="@PlayedClass"></i></a>
+            </th>
+            <th class="text-left table-primary">
+                <a href="?@BaseUrl&sortorder=wins" class="btn btn-link">Won<i class="@WinsClass"></i></a>
+            </th>
+            <th class="text-left table-primary">
+                <a href="?@BaseUrl&sortorder=lost" class="btn btn-link">Lost<i class="@LossesClass"></i></a>
+            </th>
+            <th class="text-left table-primary">
+                <a href="?@BaseUrl&sortorder=tied" class="btn btn-link">Tied<i class="@TiedClass"></i></a>
+            </th>
+            <th class="text-left table-primary">
+                <a href="?@BaseUrl&sortorder=drawn" class="btn btn-link">Drawn<i class="@DrawsClass"></i></a>
+            </th>
+            <th nowrap="nowrap" class="table-primary">W/L</th>
+            <th nowrap="nowrap" class="table-primary">Innings</th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=runs" class="btn btn-link">Runs<i class="@RunsClass"></i></a>
+            </th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=wickets" class="btn btn-link">Wickets<i class="@WicketsClass"></i></a>
+            </th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=avg" class="btn btn-link">Avg<i class="@AvgClass"></i></a>
+            </th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=rpo" class="btn btn-link">Rpo<i class="@RpoClass"></i></a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var detail in Model.TeamRecordDetails)
+        {
+            var wl = detail.Lost != 0 ? ((double) detail.Wins) / detail.Lost : 0.0;
+
+            var wonLost = $"{wl,12:F2}";
+            var Avg = $"{detail.Avg,12:F2}";
+            var Rpo = $"{detail.Rpo,12:F2}";
+
+            <tr>
+                @if (Model.ShowTeamInList)
+                {
+                    <td class="text-left" nowrap="nowrap">@detail.Team</td>
+                }
+                <td class="text-left" nowrap="nowrap">@detail.KnownAs</td>
+                <td class="text-left" nowrap="nowrap">@detail.Played</td>
+                <td class="text-left" nowrap="nowrap">@detail.Wins</td>
+                <td class="text-left" nowrap="nowrap">@detail.Lost</td>
+                <td class="text-left" nowrap="nowrap">@detail.Tied</td>
+                <td class="text-left" nowrap="nowrap">@detail.Drawn</td>
+                <td class="text-left" nowrap="nowrap">@wonLost</td>
+                <td class="text-left" nowrap="nowrap">@detail.Innings</td>
+                <td class="text-left" nowrap="nowrap">@detail.TotalRuns</td>
+                <td class="text-left" nowrap="nowrap">@detail.WicketsLost</td>
+                <td class="text-left" nowrap="nowrap">@Avg</td>
+                <td class="text-left" nowrap="nowrap">@Rpo</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

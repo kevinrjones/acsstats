@@ -1,0 +1,93 @@
+<div class="row mb-1 mt-2 acs-form-row">
+    <div class="col-2">Team</div>
+    <div class="col-3">
+        <select name="teamid" id="teamid">
+        </select>
+    </div>
+    <div class="col-2">Opposition</div>
+    <div class="col-3">
+        <select name="opponentsid" id="opponentsid">
+        </select>
+    </div>
+    <div class="col-2">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" name="teamGrouping" id="teamGrouping">
+            <label class="form-check-label" for="teamGrouping">Group by Team?</label>
+        </div>
+    </div>
+</div>
+<div class="row mb-1 mt-2 acs-form-row">
+    <div class="col-2">Home or Away</div>
+    <div class="col-4">
+        <div class="form-check  form-check-inline">
+            <input class="form-check-input" type="checkbox" name="homevenue" id="homeVenue" value="1">
+            <label class="form-check-label" for="homeVenue">Home venue</label>
+        </div>
+        <div class="form-check  form-check-inline">
+            <input class="form-check-input" type="checkbox" name="awayvenue" id="awayVenue" value="2">
+            <label class="form-check-label" for="awayVenue">Away venue</label>
+        </div>
+        <div class="form-check  form-check-inline">
+            <input class="form-check-input" type="checkbox" name="neutralvenue" id="neutralVenue" value="4">
+            <label class="form-check-label" for="neutralVenue">Neutral venue</label>
+        </div>
+    </div>
+</div>
+<div class="row mb-1 mt-2 acs-form-row">
+    <div class="col-2">Host Country</div>
+    <div class="col-4">
+        <select name="hostcountryid" id="hostcountryid">
+        </select>
+    </div>
+</div>
+<div class="row mb-1 mt-2 acs-form-row">
+    <div class="col-2">Ground</div>
+    <div class="col-4">
+        <select name="groundid" id="groundid">
+        </select>
+    </div>
+</div>
+<div class="row mb-1 mt-2 acs-form-row align-items-center">
+    <div class="col-2">Date range</div>
+    <div class="col-1">
+        <label class="form-check-label" for="startdateid">Start date</label>
+    </div>
+    <div class="col-2">
+        <input class="form-control" type="text" name="startdate" id="startdateid">
+    </div>
+    <div class="col-1">
+        <label class="form-check-label" for="enddateid">End date</label>
+    </div>
+    <div class="col-2">
+        <input class="form-control" type="text" name="enddate" id="enddateid">
+    </div>
+</div>
+<div class="row mb-1 mt-2 acs-form-row">
+    <div class="col-2">Season</div>
+    <div class="col-4">
+        <select name="season" id="seasonid">
+        </select>
+    </div>
+</div>
+<div class="row mb-1 mt-2 acs-form-row">
+    <div class="col-2">Result</div>
+    <div class="col-4">
+        <div class="form-check  form-check-inline">
+            <input class="form-check-input" type="checkbox" name="matchresult" id="matchWon" value="1">
+            <label class="form-check-label" for="matchWon">Won</label>
+        </div>
+        <div class="form-check  form-check-inline">
+            <input class="form-check-input" type="checkbox" name="matchresult" id="matchLost" value="2">
+            <label class="form-check-label" for="matchLost">Lost</label>
+        </div>
+        <div class="form-check  form-check-inline">
+            <input class="form-check-input" type="checkbox" name="matchresult" id="matchDrawn" value="4">
+            <label class="form-check-label" for="matchDrawn">Drawn</label>
+        </div>
+        <div class="form-check  form-check-inline">
+            <input class="form-check-input" type="checkbox" name="matchresult" id="matchTied" value="8">
+            <label class="form-check-label" for="matchTied">Tied</label>
+        </div>
+    </div>
+</div>
+

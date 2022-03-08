@@ -1,0 +1,98 @@
+<form asp-controller="TeamRecords" asp-action="TeamRecords" method="GET">
+    @await Html.PartialAsync("_form_header")
+    <div class="row mb-1 mt-2 acs-form-row">
+        <div class="col-6">
+            Limit <input type="text" name="limit" id="teamlimit" value="350"/>
+        </div>
+    </div>
+    @await Html.PartialAsync("_form_main")
+    <div class="row mb-1 mt-2 acs-form-row">
+        <div class="col-2">View format:</div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="format" id="overallFigures" value="1" checked>
+                <label class="form-check-label" for="overallFigures">
+                    Overall figures
+                </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="format" id="InningsByInnings" value="2">
+            <label class="form-check-label" for="InningsByInnings">
+                Innings by Innings list
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="format" id="matchTotals" value="3">
+            <label class="form-check-label" for="matchTotals">
+                Match totals
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="format" id="matchResult" value="4">
+            <label class="form-check-label" for="matchResult">
+                Match results
+            </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="format" id="SeriesAverages" value="5">
+            <label class="form-check-label" for="SeriesAverages">
+                Series averages
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="format" id="Groundaverages" value="6">
+            <label class="form-check-label" for="Groundaverages">
+                Ground Averages
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="format" id="byHostCountry" value="7">
+            <label class="form-check-label" for="byHostCountry">
+                By Host Country
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="format" id="byOppositionTeam" value="8">
+            <label class="form-check-label" for="byOppositionTeam">
+                By Opposition Team
+            </label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="format" id="byYearOfMatchStart" value="9">
+                <label class="form-check-label" for="byYearOfMatchStart">
+                    By Year Of Match Start
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="format" id="bySeason" value="10">
+                <label class="form-check-label" for="bySeason">
+                    By Season
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="format" id="overallExtras" value="11">
+                <label class="form-check-label" for="overallExtras">
+                    Overall Extras
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="format" id="extrasByInnings" value="12">
+                <label class="form-check-label" for="extrasByInnings">
+                    Extras by Innings
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-1 mt-2 acs-form-row">
+        <div class="col">
+            <input type="submit" name="submit" id="submit" class="btn btn-primary"/>
+        </div>
+        <div class="col">
+            <input type="button" name="reset" id="reset" class="btn btn-primary" value="Reset"/>
+        </div>
+    </div>
+</form>

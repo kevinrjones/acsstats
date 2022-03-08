@@ -1,0 +1,20 @@
+<div class="row acs-form-selection">
+    <div class="col-md-2 @ViewBag.BattingClass">
+        <a class="btn @ViewBag.BattingClass acs-tab-button" asp-controller="BattingRecords">Batting</a>
+    </div>
+    <div class="col-md-2 @ViewBag.BowlingClass">
+        <a class="btn @ViewBag.BowlingClass acs-tab-button" asp-controller="BowlingRecords">Bowling</a>
+    </div>
+    <div class="col-md-2 @ViewBag.Fieldindlass">
+        <a class="btn @ViewBag.FieldingClass acs-tab-button" asp-controller="FieldingRecords">Fielding</a>
+    </div>
+    <div class="col-md-2 @ViewBag.TeamClass">
+        <a class="btn @ViewBag.TeamClass acs-tab-button" asp-controller="TeamRecords">Team</a>
+    </div>
+    <div class="col-md-2 @ViewBag.PartnershipsClass">
+        <a class="btn @ViewBag.PartnershipsClass acs-tab-button" asp-controller="PartnershipRecords">Partnerships</a>
+    </div>
+    <div class="col-md-2">
+        <a class="btn acs-tab-button" href="?type=umpires">Umpires</a>
+    </div>
+</div>

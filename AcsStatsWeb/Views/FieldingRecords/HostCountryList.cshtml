@@ -1,0 +1,96 @@
+﻿@inherits AcsStatsWeb.Custom.BaseRazorPage<ResultsFieldingModel>
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<h1>@Model.Title</h1>
+
+<h2>@Model.Team v @Model.Opponents @Model.AtGroundName() @Model.GetHostCountry() (@Model.GetVenue()) (@Model.GetMatchType())</h2>
+
+@if (Model.PlayerRecordDetails.Count == 0)
+{
+    <h3>No Matches</h3>
+}
+else
+{
+    SetClasses();
+
+    if (!Context.Request.Query.ContainsKey("sortorder"))
+    {
+        WicketsClass = Model.SortDirection.ToUpper() == "ASC" ? "fas fa-arrow-down" : "fas fa-arrow-up";
+    }
+
+    <table class="table table-striped table-hover table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=name" class="btn btn-link">Name <i class="@NameClass"></i></a>
+            </th>
+            @if (Model.ShowOpponentsInList)
+            {
+                <th class="text-left">
+                    <a href="?@BaseUrl&sortorder=opponents" class="btn btn-link">Opponents <i class="@OpponentsClass"></i></a>
+                </th>
+            }
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=played" class="btn btn-link">Matches <i class="@PlayedClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=innings" class="btn btn-link">Innings <i class="@InningsClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=dismissals" class="btn btn-link">Dismissals <i class="@DismissalsClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=caught" class="btn btn-link">Caught <i class="@CaughtClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=stumpings" class="btn btn-link">Stumped <i class="@StumpedClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=cwk" class="btn btn-link">CWk <i class="@CwkClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=cf" class="btn btn-link">CF <i class="@CfClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=bestdismissals" class="btn btn-link">Best <i class="@BestDismissalsClass"></i></a>
+            </th>
+            <th class="text-right">D/I</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        @foreach (var detail in Model.PlayerRecordDetails)
+        {
+            var bestCaught = detail.BestCaughtFielder + detail.BestCaughtKeeper;
+
+            double? di = (detail.Dismissals / (double) detail.Innings);
+            var dis = $"{di,12:F3}";
+
+            var name = Model.ShowTeamInList ? $"{detail.Name} ({detail.Team})" : detail.Name;
+
+            <tr>
+                <td class="text-left" nowrap="nowrap">
+                    @name<br/><text>in</text> @detail.CountryName
+                </td>
+                @if (Model.ShowOpponentsInList)
+                {
+                    <td class="text-left" nowrap="nowrap">@detail.Opponents</td>
+                }
+                <td class="text-right" nowrap="nowrap">@detail.Matches</td>
+                <td class="text-right" nowrap="nowrap">@detail.Innings</td>
+                <td class="text-right" nowrap="nowrap">@detail.Dismissals</td>
+                <td class="text-right" nowrap="nowrap">@detail.Caught</td>
+                <td class="text-right" nowrap="nowrap">@detail.Stumpings</td>
+                <td class="text-right" nowrap="nowrap">@detail.CaughtKeeper</td>
+                <td class="text-right" nowrap="nowrap">@detail.CaughtFielder</td>
+                <td class="text-right" nowrap="nowrap">@detail.BestDismissals (@bestCaught<text>/</text>@detail.BestStumpings)</td>
+                <td>@dis</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,137 @@
+﻿@inherits AcsStatsWeb.Custom.BaseRazorPage<ResultsBowlingModel>
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<h1>@Model.Title</h1>
+
+<h2>@Model.Team v @Model.Opponents @Model.AtGroundName() @Model.GetHostCountry() (@Model.GetVenue()) (@Model.GetMatchType())</h2>
+
+@if (Model.PlayerRecordDetails.Count == 0)
+{
+    <h3>No Matches</h3>
+}
+else
+{
+    var firstEntry = Model.PlayerRecordDetails[0];
+    
+    SetClasses();
+    
+    if (!Context.Request.Query.ContainsKey("sortorder"))
+    {
+        WicketsClass = Model.SortDirection.ToUpper() == "ASC" ? "fas fa-arrow-down" : "fas fa-arrow-up";
+    }
+    
+    <table class="table table-striped table-hover table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=name" class="btn btn-link">Name <i class="@NameClass"></i></a>
+            </th>
+            @if (Model.ShowOpponentsInList)
+            {
+                <th class="text-left">
+                    <a href="?@BaseUrl&sortorder=opponents" class="btn btn-link">Opponents <i class="@OpponentsClass"></i></a>
+                </th>
+            }
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=played" class="btn btn-link">M<i class="@PlayedClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=innings" class="btn btn-link">I<i class="@InningsClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=balls" class="btn btn-link">Balls<i class="@BallsClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=maidens" class="btn btn-link">Maidens<i class="@MaidensClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=runs" class="btn btn-link">Runs <i class="@RunsClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=wickets" class="btn btn-link">Wickets<i class="@WicketsClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=avg" class="btn btn-link">Avg<i class="@AvgClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=bbi" class="btn btn-link">BBI<i class="@BBIClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=bbm" class="btn btn-link">BBM<i class="@BBMClass"></i></a>
+            </th>
+            <th class="text-right">Econ</th>
+            <th class="text-right">SR</th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=fivefor" class="btn btn-link">5wi<i class="@FiveForClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=tenfor" class="btn btn-link">10wm<i class="@TenForClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=fours" class="btn btn-link">4s<i class="@FoursClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=sixes" class="btn btn-link">6s<i class="@SixesClass"></i></a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        @foreach (var detail in Model.PlayerRecordDetails)
+        {
+            var sr = "-";
+            if (detail.Balls != null && detail.Balls != 0)
+            {
+                double? strikerate = (detail?.Balls / (double) detail?.Wickets);
+                sr = strikerate != null ? $"{strikerate,12:F2}" : "-";
+            }
+
+            var econ = "-";
+            if (detail.Balls != null && detail.Balls != 0)
+            {
+                double? economy = (detail?.Runs / (double) detail?.Balls) * 6;
+                econ = economy != null ? $"{economy,12:F2}" : "-";
+            }
+
+            var bbi = $"{detail.bbiw}/{detail.bbir}";
+            var bbm = $"{detail.bbmw}/{detail.bbmr}";
+
+            var name = Model.ShowTeamInList ? $"{detail.Name} ({detail.Team})" : detail.Name;
+
+            <tr>
+                <td class="text-left" nowrap="nowrap">@name<br/><text>in</text> @detail.CountryName</td>
+                @if (Model.ShowOpponentsInList)
+                {
+                    <td class="text-left" nowrap="nowrap">@detail.Opponents</td>
+                }
+                <td class="text-right" nowrap="nowrap">@detail.Matches</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Innings == null ? "-" : detail.Innings)</td>
+                <td class="text-right acs-column-width-100">@(detail.Balls == null ? "-" : detail.Balls)</td>
+                <td class="text-right acs-column-width-100">@(detail.Maidens == null ? "-" : detail.Maidens)</td>
+                <td class="text-right acs-column-width-100">@(detail.Runs == null ? "-" : detail.Runs)</td>
+                <td class="text-right acs-column-width-100">@detail.Wickets</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Avg == null ? "-" : $"{detail.Avg,12:F2}")</td>
+                <td class="text-right" nowrap="nowrap">
+                    @Html.Raw(bbi)
+                </td>
+                <td class="text-right" nowrap="nowrap">
+                    @Html.Raw(bbm)
+                </td>
+                <td class="text-right" nowrap="nowrap">
+                    @Html.Raw(econ)
+                </td>
+                <td class="text-right" nowrap="nowrap">
+                    @Html.Raw(sr)
+                </td>
+                <td class="text-right" nowrap="nowrap">@(detail.FiveFor == null || detail.FiveFor == 0 ? "-" : @detail.FiveFor)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.TenFor == null || detail.TenFor == 0 ? "-" : @detail.TenFor)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Fours == null || detail.Fours == 0 ? "-" : @detail.Fours)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Sixes == null || detail.Sixes == 0 ? "-" : @detail.Sixes)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

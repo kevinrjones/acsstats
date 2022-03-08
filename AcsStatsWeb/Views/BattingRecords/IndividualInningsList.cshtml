@@ -1,0 +1,101 @@
+﻿@inherits AcsStatsWeb.Custom.BaseRazorPage<ResultsBattingModel>
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<h1>@Model.Title</h1>
+
+<h2>@Model.Team v @Model.Opponents @Model.AtGroundName() @Model.GetHostCountry() (@Model.GetVenue()) (@Model.GetMatchType())</h2>
+
+@if (Model.IndividualBattingDetails.Count == 0)
+{
+    <h3>No Matches</h3>
+}
+else
+{
+    SetClasses();
+    
+    if (!Context.Request.Query.ContainsKey("sortorder"))
+    {
+        RunsClass = Model.SortDirection.ToUpper() == "ASC" ? "fas fa-arrow-down" : "fas fa-arrow-up";
+    }
+
+
+    <table class="table table-striped table-hover table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=name" class="btn btn-link">Name <i class="@NameClass"></i></a>
+            </th>
+            @if (Model.ShowTeamInList)
+            {
+                <th class="text-left">
+                    <a href="?@BaseUrl&sortorder=team" class="btn btn-link">Team <i class="@TeamClass"></i></a>
+                </th>
+            }
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=runs" class="btn btn-link acs-column-width-80">Runs <i class="@RunsClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=minutes" class="btn btn-link acs-column-width-80">Minutes <i class="@MinutesClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=balls" class="btn btn-link">Balls <i class="@BallsClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=fours" class="btn btn-link">4s <i class="@FoursClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=sixes" class="btn btn-link">6s <i class="@SixesClass"></i></a>
+            </th>
+            <th class="text-right">SR</th>
+            @if (Model.ShowOpponentsInList)
+            {
+                <th class="text-left">
+                    <a href="?@BaseUrl&sortorder=opponents" class="btn btn-link">Opponents <i class="@OpponentsClass"></i></a>
+                </th>
+            }
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=ground" class="btn btn-link acs-column-width-80">Ground <i class="@GroundClass"></i></a>
+            </th>
+            <th class="text-right">
+                <a href="?@BaseUrl&sortorder=matchstartdate" class="btn btn-link acs-column-width-80">Match Date <i class="@StartDateClass"></i></a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        @foreach (var detail in Model.IndividualBattingDetails)
+        {
+            var hs = detail.NotOut ? $"{detail.PlayerScore}*" : $"{detail.PlayerScore}&nbsp;";
+
+            var sr = "-";
+            if (detail.Balls != null && detail.Balls != 0)
+            {
+                double? strikerate = (detail?.PlayerScore / (double) detail?.Balls) * 100;
+                sr = strikerate != null ? $"{strikerate,12:F2}" : "-";
+            }
+
+            <tr>
+                <td class="text-left" nowrap="nowrap">@detail.FullName</td>
+                <td class="text-left" nowrap="nowrap">@detail.Team</td>
+                <td class="text-right" nowrap="nowrap">@Html.Raw(hs)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Minutes == null ? "-" : @detail.Minutes)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Balls == null || detail.Balls == 0 ? "-" : @detail.Balls)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Fours == null ? "-" : @detail.Fours)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Sixes == null ? "-" : @detail.Sixes)</td>
+                <td class="text-right" nowrap="nowrap">@sr</td>
+                @if (detail.InningsNumber != 0)
+                {
+                    <td class="text-right" nowrap="nowrap">@detail.InningsNumber</td>
+                }
+                <td class="text-left" nowrap="nowrap">@detail.Opponents</td>
+                <td class="text-right" nowrap="nowrap">@detail.Ground</td>
+                <td class="text-right" nowrap="nowrap">@detail.MatchDate</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

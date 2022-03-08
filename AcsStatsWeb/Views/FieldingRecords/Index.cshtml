@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Html
+@using System.Text.Encodings.Web
+
+@{
+    ViewData.Add("battingClass", "btn-secondary");
+    ViewData.Add("teamClass", "btn-secondary");
+    ViewData.Add("bowlingClass", "btn-secondary");
+    ViewData.Add("fieldingClass", "btn-primary");
+    ViewData.Add("partnershipsClass", "btn-secondary");
+    IHtmlContent formheader = await Html.PartialAsync("_record_form_header", ViewData);
+    IHtmlContent formui = await Html.PartialAsync("_fielding_form", ViewData);
+
+}
+
+<div class="container pl-5 pr-5">
+    <div class="row ">
+        <div class="col-12">
+            <div asp-validation-summary="All"></div>
+        </div>
+    </div>
+    @{ formheader.WriteTo(this.Output, HtmlEncoder.Default); }
+    @{ formui?.WriteTo(this.Output, HtmlEncoder.Default); }
+</div>
+
+@section Scripts
+{
+    <script>
+    document.onload = setupWomensHomePage()
+</script>
+}

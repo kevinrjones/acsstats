@@ -1,0 +1,107 @@
+@inherits AcsStatsWeb.Custom.BaseRazorPage<TeamResultsModel>
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<h1>@Model.Title</h1>
+<h1>Limit: @Model.Limit</h1>
+
+<h2>@Model.Team v @Model.Opponents @Model.AtGroundName() @Model.GetHostCountry() (@Model.GetVenue()) (@Model.GetMatchType())</h2>
+
+@if (Model.InningsExtrasDetails.Count == 0)
+{
+    <h3>No Matches</h3>
+}
+else
+{
+    SetClasses();
+
+    if (!Context.Request.Query.ContainsKey("sortorder"))
+    {
+        ExtrasClass = Model.SortDirection.ToUpper() == "ASC" ? "fas fa-arrow-down" : "fas fa-arrow-up";
+    }
+
+    <table class="table table-striped table-hover table-sm">
+        <thead class="thead-dark">
+        <tr>
+            @if (Model.ShowTeamInList)
+            {
+                <th class="text-left">
+                    <a href="?@BaseUrl&sortorder=team" class="btn btn-link">Team<i class="@TeamClass"></i></a>
+                </th>
+            }
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=extras" class="btn btn-link">Extras<i class="@ExtrasClass"></i></a>
+            </th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=byes" class="btn btn-link">Byes<i class="@ByesClass"></i></a>
+            </th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=legbyes" class="btn btn-link">Leg Byes<i class="@LegByesClass"></i></a>
+            </th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=wides" class="btn btn-link">Wides<i class="@WidesClass"></i></a>
+            </th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=noballs" class="btn btn-link">No Balls<i class="@NoBallsClass"></i></a>
+            </th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=penalties" class="btn btn-link">Penalties<i class="@PenaltiesClass"></i></a>
+            </th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=runs" class="btn btn-link">Score<i class="@RunsClass"></i></a>
+            </th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=percentage" class="btn btn-link">%<i class="@PercentageClass"></i></a>
+            </th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=overs" class="btn btn-link">Overs<i class="@OversClass"></i></a>
+            </th>
+            @if (Model.ShowOpponentsInList)
+            {
+                <th class="text-left">
+                    <a href="?@BaseUrl&sortorder=opponents" class="btn btn-link">Team<i class="@OpponentsClass"></i></a>
+                </th>
+            }
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=ground" class="btn btn-link">Ground<i class="@GroundClass"></i></a>
+            </th>
+            <th class="text-left">
+                <a href="?@BaseUrl&sortorder=matchstartdate" class="btn btn-link">Start Date<i class="@StartDateClass"></i></a>
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var detail in Model.InningsExtrasDetails)
+        {
+            const int maxLength = 40;
+
+            var detailGroundName = detail.KnownAs.Length < maxLength ? detail.KnownAs : detail.KnownAs.Substring(0, 20) + "..."
+                                                                                        + detail.KnownAs.Substring(detail.KnownAs.Length - 20, 20);
+            <tr>
+                @if (Model.ShowTeamInList)
+                {
+                    <td class="text-left" nowrap="nowrap">@detail.Team</td>
+                }
+
+                <td class="text-left" nowrap="nowrap">@detail.Extras</td>
+                <td class="text-left" nowrap="nowrap">@detail.Byes</td>
+                <td class="text-left" nowrap="nowrap">@detail.LegByes</td>
+                <td class="text-left" nowrap="nowrap">@detail.Wides</td>
+                <td class="text-left" nowrap="nowrap">@detail.NoBalls</td>
+                <td class="text-left" nowrap="nowrap">@detail.Penalties</td>
+                <td class="text-left" nowrap="nowrap">@detail.Total</td>
+                <td class="text-left" nowrap="nowrap">@(detail.Percentage == null ? "-" : $"{detail.Percentage,12:F2}")</td>
+                <td class="text-left" nowrap="nowrap">@detail.Overs</td>
+                @if (Model.ShowOpponentsInList)
+                {
+                    <td class="text-left" nowrap="nowrap">@detail.Opponents</td>
+                }
+                <td class="text-left" nowrap="nowrap">@detailGroundName</td>
+                <td class="text-left" nowrap="nowrap">@detail.MatchStartDate</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,77 @@
+@inherits AcsStatsWeb.Custom.BaseRazorPage<TeamResultsModel>
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<h1>@Model.Title</h1>
+<h1>Limit: @Model.Limit</h1>
+
+<h2>@Model.Team v @Model.Opponents @Model.AtGroundName() @Model.GetHostCountry() (@Model.GetVenue()) (@Model.GetMatchType())</h2>
+
+@if (Model.MatchRecordDetails.Count == 0)
+{
+    <h3>No Matches</h3>
+}
+else
+{
+    SetClasses();
+
+    if (!Context.Request.Query.ContainsKey("sortorder"))
+    {
+        TotalsClass = Model.SortDirection.ToUpper() == "ASC" ? "fas fa-arrow-down" : "fas fa-arrow-up";
+    }
+
+    <table class="table table-striped table-hover table-sm">
+        <thead class="thead-dark">
+        <tr>
+            @if (Model.ShowTeamInList)
+            {
+                <th class="text-left">
+                    <a href="?@BaseUrl&sortorder=team" class="btn btn-link">Team<i class="@TeamClass"></i></a>
+                </th>
+            }
+            @if (Model.ShowOpponentsInList)
+            {
+                <th class="text-left">
+                    <a href="?@BaseUrl&sortorder=opponents" class="btn btn-link">Opposition<i class="@OpponentsClass"></i></a>
+                </th>
+            }
+            <th class="text-left acs-column-width-100">
+                <a href="?@BaseUrl&sortorder=totals" class="btn btn-link">Score<i class="@TotalsClass"></i></a>
+            </th>
+            <th nowrap="nowrap">Overs</th>
+            <th nowrap="nowrap">Match</th>
+            <th nowrap="nowrap">Location</th>
+            <th nowrap="nowrap">Date</th>
+            <th nowrap="nowrap">Result</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var detail in Model.MatchRecordDetails)
+        {
+            var oversPart = detail.BallsBowled / detail.BallsPerOver;
+            var ballsPart = detail.BallsPerOver % detail.BallsPerOver;
+            var overs = detail.BallsBowled == 0 ? "-" : $"{oversPart}.{ballsPart}";
+
+            <tr>
+                @if (Model.ShowTeamInList)
+                {
+                    <td class="text-left" nowrap="nowrap">@detail.Team</td>
+                }
+                @if (Model.ShowOpponentsInList)
+                {
+                    <td class="text-left" nowrap="nowrap">@detail.Opponents</td>
+                }
+                <td nowrap="nowrap">
+                    @detail.TotalRuns<text>/@detail.TotalWickets</text>
+                </td>
+                <td nowrap="nowrap">@overs</td>
+                <td>@detail.MatchTitle</td>
+                <td>@detail.Location</td>
+                <td>@detail.MatchDate</td>
+                <td>@detail.ResultString</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
