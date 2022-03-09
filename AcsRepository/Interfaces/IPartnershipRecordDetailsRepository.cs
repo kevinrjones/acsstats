@@ -4,8 +4,7 @@ using AcsTypes.Error;
 using CSharpFunctionalExtensions;
 using Domain;
 
-
-namespace Repository
+namespace AcsRepository.Interfaces
 {
     public interface IPartnershipRecordDetailsRepository : IReadOnlyRepository<PartnershipIndividualRecordDetails>
     {

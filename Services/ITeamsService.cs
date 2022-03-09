@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AcsStatsWeb.Dtos;
 using AcsTypes.Error;
 using AcsTypes.Types;
 using CSharpFunctionalExtensions;
@@ -11,7 +10,7 @@ namespace Services
 {
     public interface ITeamsService
     {
-        public Task<Result<IReadOnlyList<TeamDto>, Error>> GetTeamsForMatchType(MatchType matchType);
+        public Task<Result<IReadOnlyList<Team>, Error>> GetTeamsForMatchType(MatchType matchType);
         public Task<Result<Team, Error>> GetTeam(TeamId teamIdValue);
         public Task<Result<IReadOnlyList<TeamRecordDetails>,Error>> GetTeamRecords(SharedModel sharedServiceModel);
         public Task<Result<IReadOnlyList<TeamRecordDetails>,Error>> GetTeamSeriesRecords(SharedModel sharedServiceModel);

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
-namespace Repository
+namespace AcsRepository.Interfaces
 {
     public interface IReadOnlyRepository<T> 
     {

@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AcsRepository;
-using AcsStatsWeb.Dtos;
 using AcsTypes.Error;
 using AcsTypes.Types;
 using CSharpFunctionalExtensions;
@@ -24,10 +22,9 @@ namespace Services.AcsServices
             _logger = logger;
         }
 
-        public async Task<Result<IReadOnlyList<TeamDto>, Error>> GetTeamsForMatchType(MatchType matchType)
+        public async Task<Result<IReadOnlyList<Team>, Error>> GetTeamsForMatchType(MatchType matchType)
         {
-            return await _unitOfWork.TeamsRepository.GetTeamsForMatchType(matchType)
-                .Map(l => (IReadOnlyList<TeamDto>) l.Map(t => new TeamDto(t.MatchType, t.Name, t.Id)).ToList());
+                return await _unitOfWork.TeamsRepository.GetTeamsForMatchType(matchType);
         }
 
         public async Task<Result<Team, Error>> GetTeam(TeamId teamIdValue)
