@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Services;
 using CSharpFunctionalExtensions;
+using MediatR;
 
 namespace AcsStatsWeb.Api
 {
@@ -19,25 +20,24 @@ namespace AcsStatsWeb.Api
     [ApiController]
     public class TeamsController : BaseApiController
     {
-        private readonly Messages _messages;
+        private readonly IMediator _mediator;
 
-        public TeamsController(Messages messages,
+        public TeamsController(IMediator mediator,
             ITeamsService teamsService,
             ILogger<TeamsController> logger) : base(
             teamsService, logger)
         {
-            _messages = messages;
+            _mediator = mediator;
         }
 
         // GET: api/Teams/wf
         [HttpGet("{matchType}")]
         public async Task<IActionResult> GetTeams(string matchType)
         {
-            return await (MatchType.Create(matchType)
-                    .Map(m => new GetTeamsQuery(m))
-                    .Bind(async m => (await _messages.Dispatch(m))))
-                .Match(Ok, (error) => Error(error.Message));
-            
+            return await MatchType.Create(matchType)
+                .Map(m => new GetTeamsQuery(m))
+                .Bind(async q => await _mediator.Send(q))
+                .Match(Ok, (it) => base.Error(it.Message));
         }
     }
 }

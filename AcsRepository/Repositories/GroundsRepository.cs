@@ -68,7 +68,7 @@ public class GroundsRepository : BaseEfRepository<Ground, int>, IGroundsReposito
     {
         try
         {
-            var ground = Entities.First(g => g.CountryId == id);
+            var ground = await Entities.FirstAsync(g => g.CountryId == id);
             return new Country {Id = id, Name = ground.CountryName, MatchType = ""};
         }
         catch (Exception e)

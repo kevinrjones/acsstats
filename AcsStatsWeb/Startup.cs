@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using AcsCommands;
+using AcsCommands.Query;
 using AcsHttpClient;
 using AcsRepository;
 using AcsRepository.Interfaces;
@@ -10,6 +12,7 @@ using AcsRepository.Repositories;
 using AcsRepository.Util;
 using AcsStatsWeb.AcsHttpClient;
 using AcsStatsWeb.Utils;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -45,14 +48,12 @@ namespace AcsStatsWeb
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMediatR(typeof(GetGroundsQuery).Assembly);
             services.AddControllersWithViews();
-            services.AddSingleton<Messages>();
-
 
             services.AddLogging();
             services.AddLocalization();
-            services.AddHandlers();
-
+            
             RegisterHttpProxyWithPolicy(services);
             
             services.AddScoped<IEfUnitOfWork, EfUnitOfWork>();

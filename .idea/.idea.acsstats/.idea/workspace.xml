@@ -9,33 +9,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf8de37e-105f-4943-aba0-ea97cb56b98b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AcsCommands/BaseHandlers.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/GetGroundsQuery.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/GetTeamsQuery.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsRepository/Util/ConnectionString.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsStatsWeb/Utils/HandlerRegistration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/GetGroundsQueryEx.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsDto/AcsDto.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/AcsDto.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsCommandHandlers/AcsCommandHandlers.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsCommands/AcsCommands.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsCommands/AcsCommands.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsCommands/BaseHandlers.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsCommands/Command.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsCommands/Messages.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsCommands/Query/GetGroundsQuery.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsCommands/Query/GetTeamsQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsCommands/Query/GetTeamsQuery.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsHttpClient/AcsHttpClient.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsHttpClient/AcsHttpClient.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsRepository/AcsRepository.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsRepository/AcsRepository.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsRepository/EFUnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsRepository/EFUnitOfWork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsRepository/Interfaces/ITeamsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsRepository/Interfaces/ITeamsRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsServices/AcsServices.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsServices/ITodoService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsServices/TodoService.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/GroundsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/GroundsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/TeamsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/TeamsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/cqrs/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsCommands/Command.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/cqrs/Messages.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsCommands/Messages.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Dtos/TeamDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Dtos/TeamDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Utils/ExceptionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Utils/ExceptionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.ts" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Utils/HandlerRegistration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Utils/HandlerRegistration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/Shared/_form_header.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/Shared/_form_header.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsTypes/AcsTypes.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsTypes/AcsTypes.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/AcsServices/CountriesService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/AcsServices/CountriesService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/AcsServices/TeamsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/AcsServices/TeamsService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/ITeamsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/ITeamsService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Services.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Services.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/acsstats.sln" beforeDir="false" afterPath="$PROJECT_DIR$/acsstats.sln" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,116 +37,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsCommands/Query/GetTeamsQuery.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Api/TeamsController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Api/TeamsController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Api/TeamsController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Api/TeamsController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Api/TeamsController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Utils/HandlerRegistration.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Utils/HandlerRegistration.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Utils/HandlerRegistration.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Utils/HandlerRegistration.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Utils/HandlerRegistration.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Utils/HandlerRegistration.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Utils/HandlerRegistration.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Utils/HandlerRegistration.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Utils/HandlerRegistration.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Utils/HandlerRegistration.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/Services/AcsServices/TeamsService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/Services/AcsServices/TeamsService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/Services/AcsServices/TeamsService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/Services/AcsServices/TeamsService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/Services/AcsServices/TeamsService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/Services/AcsServices/TeamsService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/Services/AcsServices/TeamsService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/Services/AcsServices/TeamsService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1ba52dc0b103422eba91ad87a1aa9fe312600/25/04db1aac/ServiceCollectionServiceExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21bca8243af74b5ba3d897d8e6c79e811f400/fb/bad6dd00/Log.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3c9d93d676ff4df296d28f5346b33c8262400/8b/5633569d/Result.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/831b7afb4f024d399aa7f21c2ef99b9c25600/14/83aa0d3f/HttpClientFactoryServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/abee6fad7d99478eba53ae10c8437832b51e00/24/5da480c2/List`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/abee6fad7d99478eba53ae10c8437832b51e00/2c/9b737ede/Type.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/abee6fad7d99478eba53ae10c8437832b51e00/e9/a15fa50d/IDisposable.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b683c4942aac425c8d85460c4f955eef6ee00/52/7bc00160/Container.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d2cf5c6c492e4cea8f130f201f81cc2b6e00/34/5e97f113/SimpleInjectorServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ed92340b5670447ab78a69a564a858d31bfb88/c2/665c7bef/DbContext.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/33130dc7cf3deeff2b8d7e335f1932dfe25663e1269355ba584ea134c6a5e/EntityFrameworkServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5a5ae644fdbadec9bdc495c592ec7c1ba2fa382751f78a221412bfe43af5ce0/HttpResponseMessage.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7733bdb26b2be012c4266979a95d3728e74790201f91a02df4529ee6c2f37/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a189637ee62ade5a353f967e8f9214fb749ea16c9375dc6d2b6df37388f81/CastHelpers.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/abee6fad7d99478eba53ae10c8437832b51e00/_1d1cd/MatchType.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d5db2531eca49888259931d2b32e2f6a12c63942891a08934daeac985594b0/BadRequestObjectResult.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/db5f89df1c97f4f6dc89cb5cc3f7076f2d05684e19a9df0af813e86bb4dbbf/DbSet.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e3c8222238698d59c5eb80e051da73e6ea9634276e7bb3e86d64058bfd49f/Log.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ff21753a87fbe448b90a5c61fbe614a4a3ffbef4352c46484e84179fedf852/HttpClientJsonExtensions.Get.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -221,7 +106,7 @@
       <workItem from="1646504373678" duration="11206000" />
       <workItem from="1646762938505" duration="3087000" />
       <workItem from="1646777630491" duration="18110000" />
-      <workItem from="1647168479262" duration="2750000" />
+      <workItem from="1647168479262" duration="3878000" />
     </task>
     <servers />
   </component>
