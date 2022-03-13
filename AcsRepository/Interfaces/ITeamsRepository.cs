@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AcsTypes.Error;
 using CSharpFunctionalExtensions;
 using Domain;
 
-namespace Repository
+namespace AcsRepository.Interfaces
 {
     public interface ITeamsRepository : IRepository<Team>
     {

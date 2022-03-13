@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AcsStatsWeb.Api.cqrs;
+using AcsStatsWeb.Dtos;
 using AcsTypes.Types;
 using Domain;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +22,7 @@ namespace AcsStatsWeb.Api
 
         public TeamsController(Messages messages,
             ITeamsService teamsService,
-            ILogger<TeamsController> logger): base(
+            ILogger<TeamsController> logger) : base(
             teamsService, logger)
         {
             _messages = messages;
@@ -32,8 +33,10 @@ namespace AcsStatsWeb.Api
         public async Task<IActionResult> GetTeams(string matchType)
         {
             return await (MatchType.Create(matchType)
-                .Bind(async m => (await TeamsService.GetTeamsForMatchType(m))))
-                .Match(Ok, (it) => Error(it.Message));;
+                    .Bind(async m => (await TeamsService.GetTeamsForMatchType(m))))
+                .Match(list =>
+                        Ok(list.Map(i => new TeamDto(i.MatchType, i.Name, i.Id))),
+                    (it) => Error(it.Message));
         }
     }
 }

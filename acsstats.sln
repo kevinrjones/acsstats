@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{22C1B0C6-1934-4AA0-97C2-ECC9CF55FFE1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcsRepository", "AcsRepository\AcsRepository.csproj", "{FA521509-16E9-47B0-BF7A-5020EFF34E33}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{A1ED56D6-79A3-45F2-A1CA-BE9E1A198352}"
@@ -14,18 +12,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcsTypes", "AcsTypes\AcsTyp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcsHttpClient", "AcsHttpClient\AcsHttpClient.csproj", "{3D1A2CBD-767E-45FB-8DC2-890185944944}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcsDto", "AcsDto\AcsDto.csproj", "{2BBC4A27-875C-4C2D-88F1-EDFD2B9BC56A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{22C1B0C6-1934-4AA0-97C2-ECC9CF55FFE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22C1B0C6-1934-4AA0-97C2-ECC9CF55FFE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22C1B0C6-1934-4AA0-97C2-ECC9CF55FFE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22C1B0C6-1934-4AA0-97C2-ECC9CF55FFE1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA521509-16E9-47B0-BF7A-5020EFF34E33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA521509-16E9-47B0-BF7A-5020EFF34E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA521509-16E9-47B0-BF7A-5020EFF34E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,9 +42,5 @@ Global
 		{3D1A2CBD-767E-45FB-8DC2-890185944944}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D1A2CBD-767E-45FB-8DC2-890185944944}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D1A2CBD-767E-45FB-8DC2-890185944944}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2BBC4A27-875C-4C2D-88F1-EDFD2B9BC56A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2BBC4A27-875C-4C2D-88F1-EDFD2B9BC56A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2BBC4A27-875C-4C2D-88F1-EDFD2B9BC56A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2BBC4A27-875C-4C2D-88F1-EDFD2B9BC56A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

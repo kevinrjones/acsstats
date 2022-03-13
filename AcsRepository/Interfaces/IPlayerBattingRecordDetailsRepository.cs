@@ -1,13 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AcsTypes.Error;
-using AcsTypes.Types;
 using CSharpFunctionalExtensions;
 using Domain;
-using MatchResult = Domain.MatchResult;
-using MatchType = System.IO.MatchType;
 
-namespace Repository
+namespace AcsRepository.Interfaces
 {
     public interface IPlayerBattingRecordDetailsRepository : IReadOnlyRepository<PlayerBattingCareerRecordDetails>
     {
