@@ -334,7 +334,6 @@ class CountryEnvelope extends Envelope<Country> {
 class Ground {
     matchType: string;
     knownAs: string;
-    countryName: string;
     code: string;
     groundId: number;
     id: number;

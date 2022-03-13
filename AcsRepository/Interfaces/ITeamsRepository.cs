@@ -8,6 +8,6 @@ namespace AcsRepository.Interfaces
 {
     public interface ITeamsRepository : IRepository<Team>
     {
-        Task<Result<IReadOnlyList<Team>, Error>> GetTeamsForMatchType(string matchType);
+        // Task<Result<IReadOnlyList<Team>, Error>> GetTeamsForMatchType(string matchType);
     }
 }

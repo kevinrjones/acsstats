@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AcsStatsWeb.Api.cqrs;
+using AcsCommands;
+using AcsCommands.Query;
 using AcsStatsWeb.Dtos;
 using AcsTypes.Types;
 using Domain;
@@ -33,10 +34,10 @@ namespace AcsStatsWeb.Api
         public async Task<IActionResult> GetTeams(string matchType)
         {
             return await (MatchType.Create(matchType)
-                    .Bind(async m => (await TeamsService.GetTeamsForMatchType(m))))
-                .Match(list =>
-                        Ok(list.Map(i => new TeamDto(i.MatchType, i.Name, i.Id))),
-                    (it) => Error(it.Message));
+                    .Map(m => new GetTeamsQuery(m))
+                    .Bind(async m => (await _messages.Dispatch(m))))
+                .Match(Ok, (error) => Error(error.Message));
+            
         }
     }
 }

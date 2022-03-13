@@ -22,7 +22,7 @@ namespace Services.AcsServices
             return (await _unitOfWork.GroundsRepository.GetCountryForMatchType(matchType)).Map(r => r);
         }
 
-        public async Task<Result<Country, AcsTypes.Error.Error>> getCountryFromId(CountryId id)
+        public async Task<Result<Country, Error>> getCountryFromId(CountryId id)
         {
             return await _unitOfWork.GroundsRepository.GetCountryFromId(id);
         }

@@ -22,11 +22,6 @@ namespace Services.AcsServices
             _logger = logger;
         }
 
-        public async Task<Result<IReadOnlyList<Team>, Error>> GetTeamsForMatchType(MatchType matchType)
-        {
-                return await _unitOfWork.TeamsRepository.GetTeamsForMatchType(matchType);
-        }
-
         public async Task<Result<Team, Error>> GetTeam(TeamId teamIdValue)
         {
             if (teamIdValue == 0)

@@ -26,18 +26,15 @@ namespace AcsRepository
         public IPartnershipRecordDetailsRepository PartnershipDetailsRepository { get; }
         public IMatchRecordDetailsRepository MatchRecordDetailsRepository { get; }
         
-        public EfUnitOfWork(AcsDbContext dbCtx, IMatchesRepository matchesRepository, ITeamsRepository teamsRepository
-            , IGroundsRepository groundsRepository, // ICountriesRepository countriesRepository, 
+        public EfUnitOfWork(AcsDbContext dbCtx, IMatchesRepository matchesRepository, ITeamsRepository teamsRepository, IGroundsRepository groundsRepository, 
             IIndividualBattingDetailsRepository individualBattingDetailsRepository, IIndividualBowlingDetailsRepository individualBowlingDetailsRepository,
-            IIndividualFieldingDetailsRepository individualFieldingDetailsRepository,
-            IPlayerBattingRecordDetailsRepository playerBattingRecordDetailsRepository, IPlayerBowlingRecordDetailsRepository playerBowlingRecordDetailsRepository,
-            IPlayerFieldingRecordDetailsRepository playerFieldingRecordDetailsRepository,IMatchRecordDetailsRepository matchRecordDetailsRepository,
-            IPartnershipRecordDetailsRepository partnershipDetailsRepository)
+            IIndividualFieldingDetailsRepository individualFieldingDetailsRepository, IPlayerBattingRecordDetailsRepository playerBattingRecordDetailsRepository, 
+            IPlayerBowlingRecordDetailsRepository playerBowlingRecordDetailsRepository, IPlayerFieldingRecordDetailsRepository playerFieldingRecordDetailsRepository,
+            IMatchRecordDetailsRepository matchRecordDetailsRepository, IPartnershipRecordDetailsRepository partnershipDetailsRepository)
         {
             MatchesRepository = matchesRepository;
             TeamsRepository = teamsRepository;
             GroundsRepository = groundsRepository;
-            // CountriesRepository = countriesRepository;
             IndividualBattingDetailsRepository = individualBattingDetailsRepository;
             IndividualBowlingDetailsRepository = individualBowlingDetailsRepository;
             IndividualFieldingDetailsRepository = individualFieldingDetailsRepository;
