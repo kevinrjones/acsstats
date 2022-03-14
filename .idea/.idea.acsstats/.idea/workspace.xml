@@ -9,27 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf8de37e-105f-4943-aba0-ea97cb56b98b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/GetGroundsQueryEx.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsCommandHandlers/AcsCommandHandlers.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsCommands/AcsCommands.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsCommands/AcsCommands.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsCommands/BaseHandlers.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsCommands/Command.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsCommands/Messages.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsCommands/Query/GetGroundsQuery.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsCommands/Query/GetTeamsQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsCommands/Query/GetTeamsQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsHttpClient/AcsHttpClient.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsHttpClient/AcsHttpClient.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsServices/AcsServices.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsServices/ITodoService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsServices/TodoService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/GroundsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/GroundsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/TeamsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/TeamsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Utils/HandlerRegistration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Utils/HandlerRegistration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/BattingOverall.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/BattingOverall.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/Shared/_form_header.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/Shared/_form_header.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsTypes/AcsTypes.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsTypes/AcsTypes.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Services.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Services.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -48,21 +31,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/kevinjones/Library/Application Support/JetBrains/Toolbox/apps/Rider/ch-1/221.4906.10/Rider EAP.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "ts.external.directory.path": "/Users/kevinjones/Library/Application Support/JetBrains/Toolbox/apps/Rider/ch-0/221.4906.10/Rider EAP.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.AcsStatsWeb">
     <configuration name="AcsStatsWeb" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" />
@@ -106,7 +89,7 @@
       <workItem from="1646504373678" duration="11206000" />
       <workItem from="1646762938505" duration="3087000" />
       <workItem from="1646777630491" duration="18110000" />
-      <workItem from="1647168479262" duration="3878000" />
+      <workItem from="1647168479262" duration="4835000" />
     </task>
     <servers />
   </component>
