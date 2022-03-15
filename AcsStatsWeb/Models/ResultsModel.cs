@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using AcsDto.Dtos;
+using AcsStatsWeb.Dtos;
 using Domain;
 using Services;
 using Services.Models;
@@ -117,15 +119,15 @@ namespace AcsStatsWeb.Models
 
     public class ResultsBattingModel : ResultsModel
     {
-        public List<PlayerBattingCareerRecordDetails> PlayerRecordDetails { get; set; }
-        public List<IndividualBattingDetails> IndividualBattingDetails { get; set; }
+        public List<PlayerBattingRecordDto> PlayerRecordDetails { get; set; }
+        public List<IndividualBattingDetailsDto> IndividualBattingDetails { get; set; }
         
     }
 
     public class ResultsBowlingModel : ResultsModel
     {
-        public List<PlayerBowlingCareerRecordDetails> PlayerRecordDetails { get; set; }
-        public List<IndividualBowlingDetails> IndividualBowlingDetails { get; set; }
+        public List<PlayerBowlingCareerRecordDetailsDto> PlayerRecordDetails { get; set; }
+        public List<IndividualBowlingDetailsDto> IndividualBowlingDetails { get; set; }
         
     }
 

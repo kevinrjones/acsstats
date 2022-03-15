@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsDto.Dtos;
 using AcsStatsWeb.Models;
 using AcsTypes.Error;
 using AcsTypes.Types;
@@ -18,19 +19,16 @@ namespace AcsStatsWeb.Controllers
     public class BowlingRecordsController : AcsRecordsController
     {
         private readonly IRemoteBowlingRecordsService _remoteBowlingRecordsService;
-        private readonly IPlayersService _playersService;
         private readonly IGroundsService _groundsService;
 
         public BowlingRecordsController(ILogger<BowlingRecordsController> logger,
             IRemoteBowlingRecordsService remoteBowlingRecordsService,
-            IPlayersService playersService,
             IGroundsService groundsService,
             IValidation validation,
             ITeamsService teamsService, ICountriesService countriesService) : base(teamsService, countriesService,
             validation, logger)
         {
             _remoteBowlingRecordsService = remoteBowlingRecordsService;
-            _playersService = playersService;
             _groundsService = groundsService;
             ViewData["Title"] = "Bowling Records";
         }
@@ -77,11 +75,11 @@ namespace AcsStatsWeb.Controllers
             var serviceModel =
                 InitializeSharedServiceModel<BattingBowlingFieldingModel>(recordInputModel, requestDates, matchResult);
 
-            Result<List<IndividualBowlingDetails>, Error> resultIndBowlingDetails =
-                Result.Failure<List<IndividualBowlingDetails>, Error>("Not initialized");
-            Result<List<PlayerBowlingCareerRecordDetails>, Error>
+            Result<List<IndividualBowlingDetailsDto>, Error> resultIndBowlingDetails =
+                Result.Failure<List<IndividualBowlingDetailsDto>, Error>("Not initialized");
+            Result<List<PlayerBowlingCareerRecordDetailsDto>, Error>
                 resultPlayerCareerBowlingDetails =
-                    Result.Failure<List<PlayerBowlingCareerRecordDetails>, Error>("Not initialized");
+                    Result.Failure<List<PlayerBowlingCareerRecordDetailsDto>, Error>("Not initialized");
 
             var viewName = "Index";
 
