@@ -9,9 +9,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf8de37e-105f-4943-aba0-ea97cb56b98b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/BattingCareerRecordDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/BowlingCareerRecordDetailsDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/FieldingCareerRecordDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/IndividualFieldingDetailsDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsStatsWeb/Formatter/CsvOutputFormatter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/IndividualBowlingDetails.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/IndividualDetails.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/IndividualFieldingDetails.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/PlayerBattingCareerRecordDetails.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/PlayerBowlingCareerRecordDetails.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/PlayerFieldingCareerRecordDetails.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBattingDetailsDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBattingDetailsDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBowlingDetailsDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBowlingDetailsDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/PlayerBattingRecordDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/PlayerBowlingCareerRecordDetailsDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/EFUnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsRepository/EFUnitOfWork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/PlayerFieldingRecordDetailsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsRepository/Repositories/PlayerFieldingRecordDetailsRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/BattingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/BattingRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/BowlingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/BowlingRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/FieldingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/FieldingRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/BattingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/BattingRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/BowlingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/BowlingRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/FieldingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/FieldingRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Models/ResultsModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Models/ResultsModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Startup.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/BattingOverall.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/BattingOverall.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/Shared/_form_header.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/Shared/_form_header.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BowlingRecords/BowlingOverall.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BowlingRecords/BowlingOverall.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/FieldingRecords/FieldingOverall.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/FieldingRecords/FieldingOverall.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.ts" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/CareerRecordDetails.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/CareerRecordDetails.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/IndividualBattingDetails.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/IndividualBattingDetails.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/AcsServices/PlayersService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/AcsServices/PlayersService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/IPlayersService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/IPlayersService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Remote/IRemoteBattingRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/IRemoteBattingRecordsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Remote/IRemoteBowlingRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/IRemoteBowlingRecordsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Remote/RemoteBattingRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/RemoteBattingRecordsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Remote/RemoteBowlingRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/RemoteBowlingRecordsService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +57,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/AcsDto/Dtos/BowlingCareerRecordDetailsDto.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css.old/bootstrap-grid.css.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -31,21 +71,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "ts.external.directory.path": "/Users/kevinjones/Library/Application Support/JetBrains/Toolbox/apps/Rider/ch-0/221.4906.10/Rider EAP.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/kevinjones/Library/Application Support/JetBrains/Toolbox/apps/Rider/ch-1/221.4906.10/Rider EAP.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.AcsStatsWeb">
     <configuration name="AcsStatsWeb" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" />
@@ -89,7 +129,10 @@
       <workItem from="1646504373678" duration="11206000" />
       <workItem from="1646762938505" duration="3087000" />
       <workItem from="1646777630491" duration="18110000" />
-      <workItem from="1647168479262" duration="4835000" />
+      <workItem from="1647168479262" duration="5584000" />
+      <workItem from="1647508900572" duration="387000" />
+      <workItem from="1647640701353" duration="608000" />
+      <workItem from="1647675667038" duration="2459000" />
     </task>
     <servers />
   </component>
@@ -100,5 +143,24 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AcsRepository/BaseEfRepository.cs</url>
+          <line>27</line>
+          <properties documentPath="$PROJECT_DIR$/AcsRepository/BaseEfRepository.cs" initialLine="27" containingFunctionPresentation="method 'Dispose'">
+            <startOffsets>
+              <option value="629" />
+            </startOffsets>
+            <endOffsets>
+              <option value="649" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

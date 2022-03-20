@@ -76,7 +76,7 @@ else
                 detail.NotOut ? $"{detail.HighestScore}*" : $"{detail.HighestScore}&nbsp;";
 
             var sr = "-";
-            if (detail.Balls != null && detail.Balls != 0)
+            if (detail.Balls != 0)
             {
                 double? strikerate = (detail?.Runs / (double) detail?.Balls) * 100;
                 sr = strikerate != null ? $"{strikerate,12:F2}" : "-";
@@ -85,7 +85,9 @@ else
             var name = Model.ShowTeamInList ? $"{detail.Name} ({detail.Team})" : detail.Name;
 
             <tr>
-                <td class="text-left" nowrap="nowrap">@name<br/><text>v </text>@detail.Opponents</td>
+                <td class="text-left" nowrap="nowrap">
+                    @name<br/><text>v </text>@detail.Opponents
+                </td>
                 <td class="text-right" nowrap="nowrap">@detail.Matches</td>
                 <td class="text-right" nowrap="nowrap">@(detail.Innings == null ? "-" : detail.Innings)</td>
                 <td class="text-right" nowrap="nowrap">@(detail.NotOuts == null ? "-" : detail.NotOuts)</td>
@@ -94,12 +96,12 @@ else
                     @Html.Raw(hs)
                 </td>
                 <td class="text-right" nowrap="nowrap">@(detail.Avg == null ? "-" : $"{detail.Avg,12:F2}")</td>
-                <td class="text-right" nowrap="nowrap">@(detail.Hundreds == 0 || detail.Hundreds == null ? "-" : @detail.Hundreds)</td>
-                <td class="text-right" nowrap="nowrap">@(detail.Fifties == 0 || detail.Fifties == null ? "-" : @detail.Fifties)</td>
-                <td class="text-right" nowrap="nowrap">@(detail.Ducks == null || detail.Ducks == 0 ? "-" : @detail.Ducks)</td>
-                <td class="text-right" nowrap="nowrap">@(detail.Fours == null || detail.Fours == 0 ? "-" : @detail.Fours)</td>
-                <td class="text-right" nowrap="nowrap">@(detail.Sixes == null || detail.Sixes == 0 ? "-" : @detail.Sixes)</td>
-                <td class="text-right" nowrap="nowrap">@(detail.Balls == null || detail.Balls == 0 ? "-" : @detail.Balls)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Hundreds == 0 ? "-" : @detail.Hundreds)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Fifties == 0 ? "-" : @detail.Fifties)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Ducks == 0 ? "-" : @detail.Ducks)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Fours == 0 ? "-" : @detail.Fours)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Sixes == 0 ? "-" : @detail.Sixes)</td>
+                <td class="text-right" nowrap="nowrap">@(detail.Balls == 0 ? "-" : @detail.Balls)</td>
                 <td class="text-right" nowrap="nowrap">@sr</td>
             </tr>
         }

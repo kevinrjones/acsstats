@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsDto.Dtos;
+using AcsStatsWeb.Dtos;
 using AcsStatsWeb.Models;
 using AcsTypes.Error;
 using AcsTypes.Types;
@@ -81,9 +83,9 @@ namespace AcsStatsWeb.Controllers
 
 
             var resultIndBatingDetails =
-                Result.Failure<List<IndividualBattingDetails>, Error>("Not initialized");
+                Result.Failure<List<IndividualBattingDetailsDto>, Error>("Not initialized");
             var resultPlayerCareerBattingDetails =
-                Result.Failure<List<PlayerBattingCareerRecordDetails>, Error>("Not initialized");
+                Result.Failure<List<BattingCareerRecordDto>, Error>("Not initialized");
 
             var viewName = "Index";
 

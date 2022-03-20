@@ -216,6 +216,7 @@ class WomensHomePageMatches extends WomensHomePage {
 
     matchTypeOnChange = (evt: Event) => {
         this.getTeamsForMatchTypes(this.team, this.opponents, this.matchType)
+        this.getGroundsForMatchTypes(this.ground, this.matchType)
         this.getStartAndEndDateForMatchTypes(this.startDate, this.endDate, this.matchType)
     }
 

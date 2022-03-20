@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsDto.Dtos;
 using AcsStatsWeb.Models.api;
 using AcsTypes.Error;
 using AcsTypes.Types;
@@ -22,12 +23,12 @@ namespace AcsStatsWeb.Api
   {
     private readonly
       Dictionary<string, Func<BattingBowlingFieldingModel,
-        Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>>>> _careerRecordDetailsServiceFuncs =
+        Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>>>> _careerRecordDetailsServiceFuncs =
         new();
 
     private readonly
       Dictionary<string, Func<BattingBowlingFieldingModel,
-        Task<Result<IReadOnlyList<IndividualFieldingDetails>, Error>>>> _individualFieldingDetailsServiceFuncs =
+        Task<Result<IReadOnlyList<IndividualFieldingDetailsDto>, Error>>>> _individualFieldingDetailsServiceFuncs =
         new();
 
     public FieldingRecordsController(ITeamsService teamsService,

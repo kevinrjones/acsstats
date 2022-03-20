@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AcsDto.Dtos;
+using AcsStatsWeb.Dtos;
 using AcsStatsWeb.Models;
 using AcsStatsWeb.Models.api;
 using AcsTypes.Error;
@@ -24,35 +26,41 @@ namespace AcsStatsWeb.Api
 
         private readonly
             Dictionary<string, Func<BattingBowlingFieldingModel,
-                Task<Result<IReadOnlyList<PlayerBattingCareerRecordDetails>, Error>>>> _careerRecordDetailsServiceFuncs =
+                Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>>>> _careerRecordDetailsServiceFuncs =
                 new();
 
         private readonly
             Dictionary<string, Func<BattingBowlingFieldingModel,
-                Task<Result<IReadOnlyList<IndividualBattingDetails>, Error>>>> _individualBattingDetailsServiceFuncs =
+                Task<Result<IReadOnlyList<IndividualBattingDetailsDto>, Error>>>>
+            _individualBattingDetailsServiceFuncs =
                 new();
 
         public BattingRecordsController(ITeamsService teamsService,
             IPlayersService playerService,
-            ICountriesService countriesService, 
+            ICountriesService countriesService,
             IValidation validation,
             ILogger<BattingRecordsController> logger) : base(
             teamsService, countriesService, validation, logger)
         {
             _playerService = playerService;
             _logger = logger;
-            
-            _careerRecordDetailsServiceFuncs.Add("GetBattingCareerRecords", playerService.GetBattingCareerRecords);
-            _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualSeries", playerService.GetBattingIndividualSeries);
-            _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualGrounds", playerService.GetBattingIndividualGrounds);
-            _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualHost", playerService.GetBattingIndividualHost);
-            _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualOpponents", playerService.GetBattingIndividualOpponents);
-            _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualYear", playerService.GetBattingIndividualYear);
-            _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualSeason", playerService.GetBattingIndividualSeason);
-            
-            _individualBattingDetailsServiceFuncs.Add("GetBattingIndividualInnings",_playerService.GetBattingIndividualInnings);
-            _individualBattingDetailsServiceFuncs.Add("GetBattingIndividualMatches",_playerService.GetBattingIndividualMatches);
 
+            _careerRecordDetailsServiceFuncs.Add("GetBattingCareerRecords", playerService.GetBattingCareerRecords);
+            _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualSeries",
+                playerService.GetBattingIndividualSeries);
+            _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualGrounds",
+                playerService.GetBattingIndividualGrounds);
+            _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualHost", playerService.GetBattingIndividualHost);
+            _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualOpponents",
+                playerService.GetBattingIndividualOpponents);
+            _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualYear", playerService.GetBattingIndividualYear);
+            _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualSeason",
+                playerService.GetBattingIndividualSeason);
+
+            _individualBattingDetailsServiceFuncs.Add("GetBattingIndividualInnings",
+                playerService.GetBattingIndividualInnings);
+            _individualBattingDetailsServiceFuncs.Add("GetBattingIndividualMatches",
+                playerService.GetBattingIndividualMatches);
         }
 
 
@@ -81,7 +89,7 @@ namespace AcsStatsWeb.Api
         public async Task<IActionResult> GerSeriesRecords(
             [FromRoute] ApiRecordInputModel recordInputModel)
         {
-            return await Handle(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingCareerRecords"]);
+            return await Handle(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualSeries"]);
         }
 
         [HttpGet("grounds/{matchType}/{teamId}/{opponentsId}")]

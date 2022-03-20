@@ -12,8 +12,6 @@ using Microsoft.Extensions.Logging;
 
 namespace AcsRepository.Repositories;
 
-//todo: add error handling for all repository code
-// todo: have code throw an exception and see what the result is (and logging)
 public class PlayerFieldingRecordDetailsRepository : BaseEfNoKeyRepository<PlayerFieldingCareerRecordDetails>,
     IPlayerFieldingRecordDetailsRepository
 {

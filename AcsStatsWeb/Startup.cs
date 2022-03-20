@@ -11,10 +11,12 @@ using AcsRepository.Interfaces;
 using AcsRepository.Repositories;
 using AcsRepository.Util;
 using AcsStatsWeb.AcsHttpClient;
+using AcsStatsWeb.Formatter;
 using AcsStatsWeb.Utils;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,6 +50,13 @@ namespace AcsStatsWeb
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(config =>
+            {
+                config.RespectBrowserAcceptHeader = true;
+                config.ReturnHttpNotAcceptable = true;
+                config.OutputFormatters.Add(new CsvOutputFormatter());
+            });
+            
             services.AddMediatR(typeof(GetGroundsQuery).Assembly);
             services.AddControllersWithViews();
 
@@ -58,7 +67,11 @@ namespace AcsStatsWeb
             
             services.AddScoped<IEfUnitOfWork, EfUnitOfWork>();
             InitializeContainer(services);
-
+            
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
 
             services.AddDbContext<AcsDbContext>(options =>
             {
