@@ -9,26 +9,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf8de37e-105f-4943-aba0-ea97cb56b98b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBattingDetailsDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBowlingDetailsDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/PlayerBattingRecordDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/PlayerBowlingCareerRecordDetailsDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/BattingCareerRecordDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/BowlingCareerRecordDetailsDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/FieldingCareerRecordDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/IndividualFieldingDetailsDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsStatsWeb/Formatter/CsvOutputFormatter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/IndividualBowlingDetails.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/IndividualDetails.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/IndividualFieldingDetails.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/PlayerBattingCareerRecordDetails.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/PlayerBowlingCareerRecordDetails.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Domain/PlayerFieldingCareerRecordDetails.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBattingDetailsDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBattingDetailsDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBowlingDetailsDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBowlingDetailsDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/PlayerBattingRecordDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/PlayerBowlingCareerRecordDetailsDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/EFUnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsRepository/EFUnitOfWork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/PlayerFieldingRecordDetailsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsRepository/Repositories/PlayerFieldingRecordDetailsRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/BattingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/BattingRecordsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/BowlingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/BowlingRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/FieldingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/FieldingRecordsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/BattingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/BattingRecordsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/BowlingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/BowlingRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/FieldingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/FieldingRecordsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Models/ResultsModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Models/ResultsModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Startup.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/BattingOverall.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/BattingOverall.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/BySeasonList.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/BySeasonList.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/ByYearList.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/ByYearList.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/GroundList.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/GroundList.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/HostCountryList.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/HostCountryList.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/OppositionList.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/OppositionList.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/SeriesList.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/SeriesList.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsTypes/AcsTypes.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsTypes/AcsTypes.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BowlingRecords/BowlingOverall.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BowlingRecords/BowlingOverall.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/FieldingRecords/FieldingOverall.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/FieldingRecords/FieldingOverall.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.ts" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Domain/CareerRecordDetails.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/CareerRecordDetails.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/IndividualBattingDetails.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/IndividualBattingDetails.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/AcsServices/PlayersService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/AcsServices/PlayersService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/IPlayersService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/IPlayersService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Remote/IRemoteBattingRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/IRemoteBattingRecordsService.cs" afterDir="false" />
@@ -42,28 +57,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/AcsDto/Dtos/BowlingCareerRecordDetailsDto.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css.old/bootstrap-grid.css.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1ba52dc0b103422eba91ad87a1aa9fe312600/25/04db1aac/ServiceCollectionServiceExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21bca8243af74b5ba3d897d8e6c79e811f400/fb/bad6dd00/Log.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3c9d93d676ff4df296d28f5346b33c8262400/8b/5633569d/Result.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/831b7afb4f024d399aa7f21c2ef99b9c25600/14/83aa0d3f/HttpClientFactoryServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/abee6fad7d99478eba53ae10c8437832b51e00/24/5da480c2/List`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/abee6fad7d99478eba53ae10c8437832b51e00/2c/9b737ede/Type.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/abee6fad7d99478eba53ae10c8437832b51e00/e9/a15fa50d/IDisposable.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b683c4942aac425c8d85460c4f955eef6ee00/52/7bc00160/Container.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d2cf5c6c492e4cea8f130f201f81cc2b6e00/34/5e97f113/SimpleInjectorServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ed92340b5670447ab78a69a564a858d31bfb88/c2/665c7bef/DbContext.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/33130dc7cf3deeff2b8d7e335f1932dfe25663e1269355ba584ea134c6a5e/EntityFrameworkServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5a5ae644fdbadec9bdc495c592ec7c1ba2fa382751f78a221412bfe43af5ce0/HttpResponseMessage.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7733bdb26b2be012c4266979a95d3728e74790201f91a02df4529ee6c2f37/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a189637ee62ade5a353f967e8f9214fb749ea16c9375dc6d2b6df37388f81/CastHelpers.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/abee6fad7d99478eba53ae10c8437832b51e00/_1d1cd/MatchType.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d5db2531eca49888259931d2b32e2f6a12c63942891a08934daeac985594b0/BadRequestObjectResult.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/db5f89df1c97f4f6dc89cb5cc3f7076f2d05684e19a9df0af813e86bb4dbbf/DbSet.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e3c8222238698d59c5eb80e051da73e6ea9634276e7bb3e86d64058bfd49f/Log.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ff21753a87fbe448b90a5c61fbe614a4a3ffbef4352c46484e84179fedf852/HttpClientJsonExtensions.Get.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -132,8 +129,10 @@
       <workItem from="1646504373678" duration="11206000" />
       <workItem from="1646762938505" duration="3087000" />
       <workItem from="1646777630491" duration="18110000" />
-      <workItem from="1647168479262" duration="4835000" />
-      <workItem from="1647258052021" duration="9703000" />
+      <workItem from="1647168479262" duration="5584000" />
+      <workItem from="1647508900572" duration="387000" />
+      <workItem from="1647640701353" duration="608000" />
+      <workItem from="1647675667038" duration="2459000" />
     </task>
     <servers />
   </component>
@@ -144,5 +143,24 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AcsRepository/BaseEfRepository.cs</url>
+          <line>27</line>
+          <properties documentPath="$PROJECT_DIR$/AcsRepository/BaseEfRepository.cs" initialLine="27" containingFunctionPresentation="method 'Dispose'">
+            <startOffsets>
+              <option value="629" />
+            </startOffsets>
+            <endOffsets>
+              <option value="649" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

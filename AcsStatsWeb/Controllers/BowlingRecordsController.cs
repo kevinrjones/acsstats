@@ -66,10 +66,8 @@ namespace AcsStatsWeb.Controllers
 
             var requestDates = GetEpochDates(recordInputModel.StartDate, recordInputModel.EndDate);
 
-
-            recordInputModel.UpdateSortOrder(SortOrder.Runs);
-
-            recordInputModel.UpdateSortOrder(SortOrder.Runs);
+            
+            recordInputModel.UpdateSortOrder(SortOrder.Wickets);
             resultsModel.UpdateMatchResult(recordInputModel.MatchResult);
             resultsModel.Ground = ground.Value.KnownAs;
             var serviceModel =
@@ -77,9 +75,9 @@ namespace AcsStatsWeb.Controllers
 
             Result<List<IndividualBowlingDetailsDto>, Error> resultIndBowlingDetails =
                 Result.Failure<List<IndividualBowlingDetailsDto>, Error>("Not initialized");
-            Result<List<PlayerBowlingCareerRecordDetailsDto>, Error>
+            Result<List<BowlingCareerRecordDetailsDto>, Error>
                 resultPlayerCareerBowlingDetails =
-                    Result.Failure<List<PlayerBowlingCareerRecordDetailsDto>, Error>("Not initialized");
+                    Result.Failure<List<BowlingCareerRecordDetailsDto>, Error>("Not initialized");
 
             var viewName = "Index";
 

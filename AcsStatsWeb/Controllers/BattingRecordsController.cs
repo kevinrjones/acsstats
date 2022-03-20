@@ -85,7 +85,7 @@ namespace AcsStatsWeb.Controllers
             var resultIndBatingDetails =
                 Result.Failure<List<IndividualBattingDetailsDto>, Error>("Not initialized");
             var resultPlayerCareerBattingDetails =
-                Result.Failure<List<PlayerBattingRecordDto>, Error>("Not initialized");
+                Result.Failure<List<BattingCareerRecordDto>, Error>("Not initialized");
 
             var viewName = "Index";
 

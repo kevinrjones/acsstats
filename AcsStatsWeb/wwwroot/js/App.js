@@ -129,6 +129,7 @@ var WomensHomePageMatches = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.matchTypeOnChange = function (evt) {
             _this.getTeamsForMatchTypes(_this.team, _this.opponents, _this.matchType);
+            _this.getGroundsForMatchTypes(_this.ground, _this.matchType);
             _this.getStartAndEndDateForMatchTypes(_this.startDate, _this.endDate, _this.matchType);
         };
         _this.setLimit = function (evt) {

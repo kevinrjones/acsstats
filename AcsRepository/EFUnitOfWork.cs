@@ -50,9 +50,7 @@ namespace AcsRepository
         {
             DbContext.Dispose();
         }
-
-
-
+        
         public void Commit()
         {
             DbContext.SaveChanges();

@@ -82,7 +82,6 @@ else
             }
 
             var name = Model.ShowTeamInList ? $"{detail.Name} ({detail.Team})" : detail.Name;
-//            var detailGroundName = detail.Ground.Length < maxLength ? detail.Ground : detail.Ground.Substring(0, 20) + "...";
             name = name.Length < maxLength ? name : name.Substring(0, 20) + "...";
 
             <tr>

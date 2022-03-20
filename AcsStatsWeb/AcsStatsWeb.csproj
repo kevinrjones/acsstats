@@ -101,7 +101,6 @@
 
     <ItemGroup>
       <Folder Include="Api\cqrs" />
-      <Folder Include="Formatter" />
     </ItemGroup>
 
 </Project>

@@ -69,9 +69,8 @@ namespace AcsStatsWeb.Controllers
             var requestDates = GetEpochDates(recordInputModel.StartDate, recordInputModel.EndDate);
 
 
-            recordInputModel.UpdateSortOrder(SortOrder.Runs);
-
-            recordInputModel.UpdateSortOrder(SortOrder.Runs);
+            recordInputModel.UpdateSortOrder(SortOrder.Dismissals);
+            
             resultsModel.UpdateMatchResult(recordInputModel.MatchResult);
             resultsModel.Ground = ground.Value.KnownAs;
             

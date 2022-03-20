@@ -119,14 +119,14 @@ namespace AcsStatsWeb.Models
 
     public class ResultsBattingModel : ResultsModel
     {
-        public List<PlayerBattingRecordDto> PlayerRecordDetails { get; set; }
+        public List<BattingCareerRecordDto> PlayerRecordDetails { get; set; }
         public List<IndividualBattingDetailsDto> IndividualBattingDetails { get; set; }
         
     }
 
     public class ResultsBowlingModel : ResultsModel
     {
-        public List<PlayerBowlingCareerRecordDetailsDto> PlayerRecordDetails { get; set; }
+        public List<BowlingCareerRecordDetailsDto> PlayerRecordDetails { get; set; }
         public List<IndividualBowlingDetailsDto> IndividualBowlingDetails { get; set; }
         
     }

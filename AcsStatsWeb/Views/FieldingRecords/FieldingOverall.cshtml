@@ -62,6 +62,7 @@ else
         </thead>
         <tbody>
 
+        @{ const int maxLength = 40; }
 
         @foreach (var detail in Model.PlayerRecordDetails)
         {
@@ -71,7 +72,8 @@ else
             var dis = $"{di,12:F3}";
             
             var name = Model.ShowTeamInList ? $"{detail.Name} ({detail.Team})" : detail.Name;
-            
+            name = name.Length < maxLength ? name : name.Substring(0, 20) + "...";
+
             <tr>
                 <td class="text-left" nowrap="nowrap">@name</td>
                 @if (Model.ShowOpponentsInList)

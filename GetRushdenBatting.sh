@@ -1,0 +1,1 @@
+curl -H "accept: text/csv"  https://localhost:9001/api/BattingRecords/overall/f/0/0\?groundid\=15274\&hostcountryid\=0\&venue\=0\&Limit\=200\&matchresult\=0\&sortorder\=Totals\&sortdirection\=Desc\&startDate\=-6233155200\&endDate\=1646870400\&season\=0 > rushdenbatting.csv

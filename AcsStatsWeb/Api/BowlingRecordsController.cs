@@ -19,7 +19,7 @@ namespace AcsStatsWeb.Api
     {
         private readonly
             Dictionary<string, Func<BattingBowlingFieldingModel,
-                Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>, Error>>>> _careerRecordDetailsServiceFuncs =
+                Task<Result<IReadOnlyList<BowlingCareerRecordDetailsDto>, Error>>>> _careerRecordDetailsServiceFuncs =
                 new();
 
         private readonly

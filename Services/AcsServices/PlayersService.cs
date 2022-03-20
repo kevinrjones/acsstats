@@ -8,6 +8,7 @@ using AcsTypes.Error;
 using CSharpFunctionalExtensions;
 using Domain;
 using LanguageExt.ClassInstances.Pred;
+using LanguageExt.UnitsOfMeasure;
 using Services.Models;
 
 namespace Services.AcsServices
@@ -21,7 +22,7 @@ namespace Services.AcsServices
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBattingRecordDto>, Error>> GetBattingCareerRecords(
+        public async Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingCareerRecords(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -104,8 +105,8 @@ namespace Services.AcsServices
             }
 
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBattingRecordDto>) r.Map(item =>
-                    new PlayerBattingRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                (IReadOnlyList<BattingCareerRecordDto>) r.Map(item =>
+                    new BattingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Runs, item.NotOuts,
                         item.HighestScore, item.NotOut, item.Avg, item.Hundreds ?? 0, item.Fifties ?? 0,
                         item.Ducks ?? 0, item.Fours ?? 0, item.Sixes ?? 0, item.Balls ?? 0)).ToList());
@@ -162,7 +163,7 @@ namespace Services.AcsServices
                         item.Position, item.Balls, item.Fours, item.Sixes ?? 0, item.Minutes ?? 0)).ToList());
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBattingRecordDto>, Error>> GetBattingIndividualSeries(
+        public async Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualSeries(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -181,15 +182,15 @@ namespace Services.AcsServices
                 sortBy, sortDirection);
 
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBattingRecordDto>) r.Map(item =>
-                    new PlayerBattingRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                (IReadOnlyList<BattingCareerRecordDto>) r.Map(item =>
+                    new BattingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Runs, item.NotOuts,
                         item.HighestScore, item.NotOut, item.Avg, item.Hundreds ?? 0, item.Fifties ?? 0,
                         item.Ducks ?? 0, item.Fours ?? 0, item.Sixes ?? 0, item.Balls ?? 0)).ToList());
             return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBattingRecordDto>, Error>> GetBattingIndividualGrounds(
+        public async Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualGrounds(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -277,15 +278,15 @@ namespace Services.AcsServices
             }
 
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBattingRecordDto>) r.Map(item =>
-                    new PlayerBattingRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                (IReadOnlyList<BattingCareerRecordDto>) r.Map(item =>
+                    new BattingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Runs, item.NotOuts,
                         item.HighestScore, item.NotOut, item.Avg, item.Hundreds ?? 0, item.Fifties ?? 0,
                         item.Ducks ?? 0, item.Fours ?? 0, item.Sixes ?? 0, item.Balls ?? 0)).ToList());
             return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>, Error>> GetBowlingCareerRecords(
+        public async Task<Result<IReadOnlyList<BowlingCareerRecordDetailsDto>, Error>> GetBowlingCareerRecords(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -369,8 +370,8 @@ namespace Services.AcsServices
             }
 
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>) r.Map(item =>
-                    new PlayerBowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year,
+                (IReadOnlyList<BowlingCareerRecordDetailsDto>) r.Map(item =>
+                    new BowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year,
                         item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Balls, item.Maidens,
                         item.Runs, item.Wickets, item.Avg ?? 0.0f, item.Fours ?? 0, item.Sixes ?? 0,
@@ -425,7 +426,7 @@ namespace Services.AcsServices
                     item.PlayerWickets, item.BallsPerOver)).ToList());
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>, Error>> GetBowlingIndividualSeries(
+        public async Task<Result<IReadOnlyList<BowlingCareerRecordDetailsDto>, Error>> GetBowlingIndividualSeries(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -445,8 +446,8 @@ namespace Services.AcsServices
                 sortBy, sortDirection);
 
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>) r.Map(item =>
-                    new PlayerBowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year,
+                (IReadOnlyList<BowlingCareerRecordDetailsDto>) r.Map(item =>
+                    new BowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year,
                         item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Balls, item.Maidens,
                         item.Runs, item.Wickets, item.Avg ?? 0.0f, item.Fours ?? 0, item.Sixes ?? 0,
@@ -455,7 +456,7 @@ namespace Services.AcsServices
             return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>, Error>>
+        public async Task<Result<IReadOnlyList<BowlingCareerRecordDetailsDto>, Error>>
             GetBowlingIndividualGrounds(
                 BattingBowlingFieldingModel fieldingModel)
         {
@@ -541,8 +542,8 @@ namespace Services.AcsServices
             }
 
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>) r.Map(item =>
-                    new PlayerBowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year,
+                (IReadOnlyList<BowlingCareerRecordDetailsDto>) r.Map(item =>
+                    new BowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year,
                         item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Balls, item.Maidens,
                         item.Runs, item.Wickets, item.Avg ?? 0.0f, item.Fours ?? 0, item.Sixes ?? 0,
@@ -551,7 +552,7 @@ namespace Services.AcsServices
             return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBattingRecordDto>, Error>> GetBattingIndividualHost(
+        public async Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualHost(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -639,15 +640,15 @@ namespace Services.AcsServices
             }
 
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBattingRecordDto>) r.Map(item =>
-                    new PlayerBattingRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                (IReadOnlyList<BattingCareerRecordDto>) r.Map(item =>
+                    new BattingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Runs, item.NotOuts,
                         item.HighestScore, item.NotOut, item.Avg, item.Hundreds ?? 0, item.Fifties ?? 0,
                         item.Ducks ?? 0, item.Fours ?? 0, item.Sixes ?? 0, item.Balls ?? 0)).ToList());
             return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>, Error>> GetBowlingIndividualHost(
+        public async Task<Result<IReadOnlyList<BowlingCareerRecordDetailsDto>, Error>> GetBowlingIndividualHost(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -730,8 +731,8 @@ namespace Services.AcsServices
             }
 
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>) r.Map(item =>
-                    new PlayerBowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year,
+                (IReadOnlyList<BowlingCareerRecordDetailsDto>) r.Map(item =>
+                    new BowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year,
                         item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Balls, item.Maidens,
                         item.Runs, item.Wickets, item.Avg ?? 0.0f, item.Fours ?? 0, item.Sixes ?? 0,
@@ -740,7 +741,7 @@ namespace Services.AcsServices
             return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBattingRecordDto>, Error>> GetBattingIndividualOpponents(
+        public async Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualOpponents(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -824,15 +825,15 @@ namespace Services.AcsServices
             }
 
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBattingRecordDto>) r.Map(item =>
-                    new PlayerBattingRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                (IReadOnlyList<BattingCareerRecordDto>) r.Map(item =>
+                    new BattingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Runs, item.NotOuts,
                         item.HighestScore, item.NotOut, item.Avg, item.Hundreds ?? 0, item.Fifties ?? 0,
                         item.Ducks ?? 0, item.Fours ?? 0, item.Sixes ?? 0, item.Balls ?? 0)).ToList());
             return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>, Error>>
+        public async Task<Result<IReadOnlyList<BowlingCareerRecordDetailsDto>, Error>>
             GetBowlingIndividualOpponents(
                 BattingBowlingFieldingModel fieldingModel)
         {
@@ -857,7 +858,6 @@ namespace Services.AcsServices
             }
             else
             {
-
                 if (fieldingModel.TeamId.Value != 0)
                 {
                     if (!fieldingModel.TeamGrouping)
@@ -871,7 +871,6 @@ namespace Services.AcsServices
                     }
                     else
                     {
-
                         res = await _unitOfWork.PlayerBowlingRecordDetailsRepository
                             .GetBowlingOpponentsRecordsForTeamAgainstTeam(
                                 fieldingModel.TeamId.Value, fieldingModel.OpponentsId.Value,
@@ -898,7 +897,6 @@ namespace Services.AcsServices
                     }
                     else
                     {
-
                         res = await _unitOfWork.PlayerBowlingRecordDetailsRepository
                             .GetBowlingOpponentsRecordsForTeamAgainstTeam(
                                 fieldingModel.TeamId.Value, fieldingModel.OpponentsId.Value,
@@ -911,7 +909,6 @@ namespace Services.AcsServices
                 }
                 else
                 {
-
                     res = await _unitOfWork.PlayerBowlingRecordDetailsRepository.GetCompleteBowlingOpponentsRecords(
                         fieldingModel.MatchType.Value, fieldingModel.GroundId.Value,
                         fieldingModel.HostCountryId.Value, venueId, fieldingModel.StartDateEpoch,
@@ -920,16 +917,18 @@ namespace Services.AcsServices
                         sortBy, sortDirection);
                 }
             }
+
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>) r.Map(item =>
-                    new PlayerBowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                (IReadOnlyList<BowlingCareerRecordDetailsDto>) r.Map(item =>
+                    new BowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Balls, item.Maidens,
                         item.Runs, item.Wickets, item.Avg ?? 0.0f, item.Fours ?? 0, item.Sixes ?? 0,
-                        item.FiveFor ?? 0, item.TenFor ?? 0, item.bbiw ?? 0, item.bbir ?? 0, item.bbmw ?? 0, item.bbmr ?? 0)).ToList());
+                        item.FiveFor ?? 0, item.TenFor ?? 0, item.bbiw ?? 0, item.bbir ?? 0, item.bbmw ?? 0,
+                        item.bbmr ?? 0)).ToList());
             return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBattingRecordDto>, Error>> GetBattingIndividualSeason(
+        public async Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualSeason(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -1018,15 +1017,15 @@ namespace Services.AcsServices
             }
 
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBattingRecordDto>) r.Map(item =>
-                    new PlayerBattingRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                (IReadOnlyList<BattingCareerRecordDto>) r.Map(item =>
+                    new BattingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Runs, item.NotOuts,
                         item.HighestScore, item.NotOut, item.Avg, item.Hundreds ?? 0, item.Fifties ?? 0,
                         item.Ducks ?? 0, item.Fours ?? 0, item.Sixes ?? 0, item.Balls ?? 0)).ToList());
             return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>, Error>> GetBowlingIndividualSeason(
+        public async Task<Result<IReadOnlyList<BowlingCareerRecordDetailsDto>, Error>> GetBowlingIndividualSeason(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -1109,16 +1108,18 @@ namespace Services.AcsServices
                         sortBy, sortDirection);
                 }
             }
+
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>) r.Map(item =>
-                    new PlayerBowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                (IReadOnlyList<BowlingCareerRecordDetailsDto>) r.Map(item =>
+                    new BowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Balls, item.Maidens,
                         item.Runs, item.Wickets, item.Avg ?? 0.0f, item.Fours ?? 0, item.Sixes ?? 0,
-                        item.FiveFor ?? 0, item.TenFor ?? 0, item.bbiw ?? 0, item.bbir ?? 0, item.bbmw ?? 0, item.bbmr ?? 0)).ToList());
+                        item.FiveFor ?? 0, item.TenFor ?? 0, item.bbiw ?? 0, item.bbir ?? 0, item.bbmw ?? 0,
+                        item.bbmr ?? 0)).ToList());
             return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBattingRecordDto>, Error>> GetBattingIndividualYear(
+        public async Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualYear(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -1206,15 +1207,15 @@ namespace Services.AcsServices
             }
 
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBattingRecordDto>) r.Map(item =>
-                    new PlayerBattingRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                (IReadOnlyList<BattingCareerRecordDto>) r.Map(item =>
+                    new BattingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Runs, item.NotOuts,
                         item.HighestScore, item.NotOut, item.Avg, item.Hundreds ?? 0, item.Fifties ?? 0,
                         item.Ducks ?? 0, item.Fours ?? 0, item.Sixes ?? 0, item.Balls ?? 0)).ToList());
             return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>, Error>> GetBowlingIndividualYear(
+        public async Task<Result<IReadOnlyList<BowlingCareerRecordDetailsDto>, Error>> GetBowlingIndividualYear(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -1238,7 +1239,6 @@ namespace Services.AcsServices
             }
             else
             {
-
                 if (fieldingModel.TeamId.Value != 0)
                 {
                     if (!fieldingModel.TeamGrouping)
@@ -1252,7 +1252,6 @@ namespace Services.AcsServices
                     }
                     else
                     {
-
                         res = await _unitOfWork.PlayerBowlingRecordDetailsRepository
                             .GetBowlingYearRecordsForTeamAgainstTeam(
                                 fieldingModel.TeamId.Value, fieldingModel.OpponentsId.Value,
@@ -1278,7 +1277,6 @@ namespace Services.AcsServices
                     }
                     else
                     {
-
                         res = await _unitOfWork.PlayerBowlingRecordDetailsRepository
                             .GetBowlingYearRecordsForTeamAgainstTeam(
                                 fieldingModel.TeamId.Value, fieldingModel.OpponentsId.Value,
@@ -1299,17 +1297,18 @@ namespace Services.AcsServices
                         sortBy, sortDirection);
                 }
             }
+
             var dtos = res.Map(r =>
-                (IReadOnlyList<PlayerBowlingCareerRecordDetailsDto>) r.Map(item =>
-                    new PlayerBowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                (IReadOnlyList<BowlingCareerRecordDetailsDto>) r.Map(item =>
+                    new BowlingCareerRecordDetailsDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Balls, item.Maidens,
                         item.Runs, item.Wickets, item.Avg ?? 0.0f, item.Fours ?? 0, item.Sixes ?? 0,
-                        item.FiveFor ?? 0, item.TenFor ?? 0, item.bbiw ?? 0, item.bbir ?? 0, item.bbmw ?? 0, item.bbmr ?? 0)).ToList());
+                        item.FiveFor ?? 0, item.TenFor ?? 0, item.bbiw ?? 0, item.bbir ?? 0, item.bbmw ?? 0,
+                        item.bbmr ?? 0)).ToList());
             return dtos;
-
         }
 
-        public async Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>> GetFieldingCareerRecords(
+        public async Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>> GetFieldingCareerRecords(
             BattingBowlingFieldingModel model)
         {
             var venueId = model.HomeVenue.Value | model.AwayVenue.Value |
@@ -1318,10 +1317,11 @@ namespace Services.AcsServices
             var sortBy = (int) model.SortOrder;
             var sortDirection = model.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
 
+            Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error> res;
 
             if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
             {
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
                     .GetFieldingCareerRecordsForTeamAgainstTeam(
                         model.TeamId.Value, model.OpponentsId.Value,
                         model.MatchType.Value, model.GroundId.Value,
@@ -1330,60 +1330,79 @@ namespace Services.AcsServices
                         model.Limit.Value,
                         sortBy, sortDirection);
             }
-
-            if (model.TeamId.Value != 0)
+            else
             {
-                if (!model.TeamGrouping)
+                if (model.TeamId.Value != 0)
                 {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsForTeam(
-                        model.TeamId.Value, model.MatchType.Value,
-                        model.GroundId.Value, model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
-                        sortBy, sortDirection);
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsForTeam(
+                            model.TeamId.Value, model.MatchType.Value,
+                            model.GroundId.Value, model.HostCountryId.Value, venueId,
+                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                            model.Limit.Value,
+                            sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
                 }
 
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
-                        model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
-                        sortBy, sortDirection);
-            }
-
-            if (model.OpponentsId.Value != 0)
-            {
-                if (!model.TeamGrouping)
+                if (model.OpponentsId.Value != 0)
                 {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsAgainstTeam(
-                        model.OpponentsId.Value, model.MatchType.Value,
-                        model.GroundId.Value, model.HostCountryId.Value,
-                        venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsAgainstTeam(
+                                model.OpponentsId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value,
+                                venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                }
+                else
+                {
+                    res = await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetCompleteFieldingCareerRecords(
+                        model.MatchType.Value, model.GroundId.Value,
+                        model.HostCountryId.Value, venueId, model.StartDateEpoch,
+                        model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
                         sortBy, sortDirection);
                 }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
-                        model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
-                        sortBy, sortDirection);
             }
 
-            return await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetCompleteFieldingCareerRecords(
-                model.MatchType.Value, model.GroundId.Value,
-                model.HostCountryId.Value, venueId, model.StartDateEpoch,
-                model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
-                sortBy, sortDirection);
+            var dtos = res.Map(r =>
+                (IReadOnlyList<FieldingCareerRecordDto>) r.Map(item =>
+                    new FieldingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                        item.Innings ?? 0
+                        , item.Ground, item.CountryName, item.Dismissals, item.Caught, item.Stumpings,
+                        item.CaughtKeeper,
+                        item.CaughtFielder, item.BestDismissals, item.BestCaughtFielder, item.BestCaughtKeeper,
+                        item.BestStumpings)).ToList());
+            return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<IndividualFieldingDetails>, Error>> GetFieldingIndividualInnings(
+        public async Task<Result<IReadOnlyList<IndividualFieldingDetailsDto>, Error>> GetFieldingIndividualInnings(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -1399,10 +1418,14 @@ namespace Services.AcsServices
                 fieldingModel.Season,
                 fieldingModel.MatchResult.Value, fieldingModel.Limit.Value,
                 sortBy, sortDirection);
-            return data;
+            return data.Map(r =>
+                (IReadOnlyList<IndividualFieldingDetailsDto>) r.Map(item =>
+                    new IndividualFieldingDetailsDto(item.FullName, item.Team, item.Opponents, item.InningsNumber,
+                        item.Ground, item.MatchDate, item.Dismissals, item.Caught, item.Stumpings,
+                        item.CaughtKeeper, item.CaughtFielder)).ToList());
         }
 
-        public async Task<Result<IReadOnlyList<IndividualFieldingDetails>, Error>> GetFieldingIndividualMatches(
+        public async Task<Result<IReadOnlyList<IndividualFieldingDetailsDto>, Error>> GetFieldingIndividualMatches(
             BattingBowlingFieldingModel fieldingModel)
         {
             var venueId = fieldingModel.HomeVenue.Value | fieldingModel.AwayVenue.Value |
@@ -1418,10 +1441,15 @@ namespace Services.AcsServices
                 fieldingModel.Season,
                 fieldingModel.MatchResult.Value, fieldingModel.Limit.Value,
                 sortBy, sortDirection);
-            return data;
+
+            return data.Map(r =>
+                (IReadOnlyList<IndividualFieldingDetailsDto>) r.Map(item =>
+                    new IndividualFieldingDetailsDto(item.FullName, item.Team, item.Opponents, item.InningsNumber,
+                        item.Ground, item.MatchDate, item.Dismissals, item.Caught, item.Stumpings,
+                        item.CaughtKeeper, item.CaughtFielder)).ToList());
         }
 
-        public async Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>>
+        public async Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>>
             GetFieldingCareerRecordsBySeries(
                 BattingBowlingFieldingModel model)
         {
@@ -1431,10 +1459,11 @@ namespace Services.AcsServices
             var sortBy = (int) model.SortOrder;
             var sortDirection = model.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
 
+            Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error> res;
 
             if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
             {
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
                     .GetFieldingCareerRecordsBySeriesForTeamAgainstTeam(
                         model.TeamId.Value, model.OpponentsId.Value,
                         model.MatchType.Value, model.GroundId.Value,
@@ -1443,62 +1472,80 @@ namespace Services.AcsServices
                         model.Limit.Value,
                         sortBy, sortDirection);
             }
-
-            if (model.TeamId.Value != 0)
+            else
             {
-                if (!model.TeamGrouping)
+                if (model.TeamId.Value != 0)
                 {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                        .GetFieldingCareerRecordsBySeriesForTeam(
-                            model.TeamId.Value, model.MatchType.Value,
-                            model.GroundId.Value, model.HostCountryId.Value, venueId,
-                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                            model.Limit.Value,
-                            sortBy, sortDirection);
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsBySeriesForTeam(
+                                model.TeamId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsBySeriesForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
                 }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsBySeriesForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
+                else if (model.OpponentsId.Value != 0)
+                {
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsBySeriesAgainstTeam(
+                                model.OpponentsId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value,
+                                venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsBySeriesForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                }
+                else
+                {
+                    res = await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsBySeries(
                         model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
+                        model.HostCountryId.Value, venueId, model.StartDateEpoch,
+                        model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
                         sortBy, sortDirection);
+                }
             }
 
-            if (model.OpponentsId.Value != 0)
-            {
-                if (!model.TeamGrouping)
-                {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                        .GetFieldingCareerRecordsBySeriesAgainstTeam(
-                            model.OpponentsId.Value, model.MatchType.Value,
-                            model.GroundId.Value, model.HostCountryId.Value,
-                            venueId,
-                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                            model.Limit.Value,
-                            sortBy, sortDirection);
-                }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsBySeriesForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
-                        model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
-                        sortBy, sortDirection);
-            }
-
-            return await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsBySeries(
-                model.MatchType.Value, model.GroundId.Value,
-                model.HostCountryId.Value, venueId, model.StartDateEpoch,
-                model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
-                sortBy, sortDirection);
+            var dtos = res.Map(r =>
+                (IReadOnlyList<FieldingCareerRecordDto>) r.Map(item =>
+                    new FieldingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                        item.Innings ?? 0
+                        , item.Ground, item.CountryName, item.Dismissals, item.Caught, item.Stumpings,
+                        item.CaughtKeeper,
+                        item.CaughtFielder, item.BestDismissals, item.BestCaughtFielder, item.BestCaughtKeeper,
+                        item.BestStumpings)).ToList());
+            return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>>
+
+        public async Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>>
             GetFieldingCareerRecordsByGround(
                 BattingBowlingFieldingModel model)
         {
@@ -1508,10 +1555,11 @@ namespace Services.AcsServices
             var sortBy = (int) model.SortOrder;
             var sortDirection = model.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
 
+            Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error> res;
 
             if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
             {
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
                     .GetFieldingCareerRecordsByGroundForTeamAgainstTeam(
                         model.TeamId.Value, model.OpponentsId.Value,
                         model.MatchType.Value, model.GroundId.Value,
@@ -1520,62 +1568,79 @@ namespace Services.AcsServices
                         model.Limit.Value,
                         sortBy, sortDirection);
             }
-
-            if (model.TeamId.Value != 0)
+            else
             {
-                if (!model.TeamGrouping)
+                if (model.TeamId.Value != 0)
                 {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                        .GetFieldingCareerRecordsByGroundForTeam(
-                            model.TeamId.Value, model.MatchType.Value,
-                            model.GroundId.Value, model.HostCountryId.Value, venueId,
-                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                            model.Limit.Value,
-                            sortBy, sortDirection);
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByGroundForTeam(
+                                model.TeamId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByGroundForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
                 }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsByGroundForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
+                else if (model.OpponentsId.Value != 0)
+                {
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByGroundAgainstTeam(
+                                model.OpponentsId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value,
+                                venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByGroundForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                }
+                else
+                {
+                    res = await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsByGround(
                         model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
+                        model.HostCountryId.Value, venueId, model.StartDateEpoch,
+                        model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
                         sortBy, sortDirection);
+                }
             }
 
-            if (model.OpponentsId.Value != 0)
-            {
-                if (!model.TeamGrouping)
-                {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                        .GetFieldingCareerRecordsByGroundAgainstTeam(
-                            model.OpponentsId.Value, model.MatchType.Value,
-                            model.GroundId.Value, model.HostCountryId.Value,
-                            venueId,
-                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                            model.Limit.Value,
-                            sortBy, sortDirection);
-                }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsByGroundForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
-                        model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
-                        sortBy, sortDirection);
-            }
-
-            return await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsByGround(
-                model.MatchType.Value, model.GroundId.Value,
-                model.HostCountryId.Value, venueId, model.StartDateEpoch,
-                model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
-                sortBy, sortDirection);
+            var dtos = res.Map(r =>
+                (IReadOnlyList<FieldingCareerRecordDto>) r.Map(item =>
+                    new FieldingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                        item.Innings ?? 0
+                        , item.Ground, item.CountryName, item.Dismissals, item.Caught, item.Stumpings,
+                        item.CaughtKeeper,
+                        item.CaughtFielder, item.BestDismissals, item.BestCaughtFielder, item.BestCaughtKeeper,
+                        item.BestStumpings)).ToList());
+            return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>>
+        public async Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>>
             GetFieldingCareerRecordsByHost(
                 BattingBowlingFieldingModel model)
         {
@@ -1585,10 +1650,11 @@ namespace Services.AcsServices
             var sortBy = (int) model.SortOrder;
             var sortDirection = model.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
 
+            Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error> res;
 
             if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
             {
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
                     .GetFieldingCareerRecordsByHostForTeamAgainstTeam(
                         model.TeamId.Value, model.OpponentsId.Value,
                         model.MatchType.Value, model.GroundId.Value,
@@ -1597,62 +1663,79 @@ namespace Services.AcsServices
                         model.Limit.Value,
                         sortBy, sortDirection);
             }
-
-            if (model.TeamId.Value != 0)
+            else
             {
-                if (!model.TeamGrouping)
+                if (model.TeamId.Value != 0)
                 {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                        .GetFieldingCareerRecordsByHostForTeam(
-                            model.TeamId.Value, model.MatchType.Value,
-                            model.GroundId.Value, model.HostCountryId.Value, venueId,
-                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                            model.Limit.Value,
-                            sortBy, sortDirection);
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByHostForTeam(
+                                model.TeamId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByHostForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
                 }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsByHostForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
+                else if (model.OpponentsId.Value != 0)
+                {
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByHostAgainstTeam(
+                                model.OpponentsId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value,
+                                venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByHostForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                }
+                else
+                {
+                    res = await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsByHost(
                         model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
+                        model.HostCountryId.Value, venueId, model.StartDateEpoch,
+                        model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
                         sortBy, sortDirection);
+                }
             }
 
-            if (model.OpponentsId.Value != 0)
-            {
-                if (!model.TeamGrouping)
-                {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                        .GetFieldingCareerRecordsByHostAgainstTeam(
-                            model.OpponentsId.Value, model.MatchType.Value,
-                            model.GroundId.Value, model.HostCountryId.Value,
-                            venueId,
-                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                            model.Limit.Value,
-                            sortBy, sortDirection);
-                }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsByHostForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
-                        model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
-                        sortBy, sortDirection);
-            }
-
-            return await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsByHost(
-                model.MatchType.Value, model.GroundId.Value,
-                model.HostCountryId.Value, venueId, model.StartDateEpoch,
-                model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
-                sortBy, sortDirection);
+            var dtos = res.Map(r =>
+                (IReadOnlyList<FieldingCareerRecordDto>) r.Map(item =>
+                    new FieldingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                        item.Innings ?? 0
+                        , item.Ground, item.CountryName, item.Dismissals, item.Caught, item.Stumpings,
+                        item.CaughtKeeper,
+                        item.CaughtFielder, item.BestDismissals, item.BestCaughtFielder, item.BestCaughtKeeper,
+                        item.BestStumpings)).ToList());
+            return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>>
+        public async Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>>
             GetFieldingCareerRecordsByOpposition(
                 BattingBowlingFieldingModel model)
         {
@@ -1662,10 +1745,11 @@ namespace Services.AcsServices
             var sortBy = (int) model.SortOrder;
             var sortDirection = model.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
 
+            Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error> res;
 
             if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
             {
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
                     .GetFieldingCareerRecordsByOppositionForTeamAgainstTeam(
                         model.TeamId.Value, model.OpponentsId.Value,
                         model.MatchType.Value, model.GroundId.Value,
@@ -1674,62 +1758,79 @@ namespace Services.AcsServices
                         model.Limit.Value,
                         sortBy, sortDirection);
             }
-
-            if (model.TeamId.Value != 0)
+            else
             {
-                if (!model.TeamGrouping)
+                if (model.TeamId.Value != 0)
                 {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                        .GetFieldingCareerRecordsByOppositionForTeam(
-                            model.TeamId.Value, model.MatchType.Value,
-                            model.GroundId.Value, model.HostCountryId.Value, venueId,
-                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                            model.Limit.Value,
-                            sortBy, sortDirection);
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByOppositionForTeam(
+                                model.TeamId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByOppositionForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
                 }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsByOppositionForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
+                else if (model.OpponentsId.Value != 0)
+                {
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByOppositionAgainstTeam(
+                                model.OpponentsId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value,
+                                venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByOppositionForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                }
+                else
+                {
+                    res = await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsByOpposition(
                         model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
+                        model.HostCountryId.Value, venueId, model.StartDateEpoch,
+                        model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
                         sortBy, sortDirection);
+                }
             }
 
-            if (model.OpponentsId.Value != 0)
-            {
-                if (!model.TeamGrouping)
-                {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                        .GetFieldingCareerRecordsByOppositionAgainstTeam(
-                            model.OpponentsId.Value, model.MatchType.Value,
-                            model.GroundId.Value, model.HostCountryId.Value,
-                            venueId,
-                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                            model.Limit.Value,
-                            sortBy, sortDirection);
-                }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsByOppositionForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
-                        model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
-                        sortBy, sortDirection);
-            }
-
-            return await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsByOpposition(
-                model.MatchType.Value, model.GroundId.Value,
-                model.HostCountryId.Value, venueId, model.StartDateEpoch,
-                model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
-                sortBy, sortDirection);
+            var dtos = res.Map(r =>
+                (IReadOnlyList<FieldingCareerRecordDto>) r.Map(item =>
+                    new FieldingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                        item.Innings ?? 0
+                        , item.Ground, item.CountryName, item.Dismissals, item.Caught, item.Stumpings,
+                        item.CaughtKeeper,
+                        item.CaughtFielder, item.BestDismissals, item.BestCaughtFielder, item.BestCaughtKeeper,
+                        item.BestStumpings)).ToList());
+            return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>>
+        public async Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>>
             GetFieldingCareerRecordsByYear(
                 BattingBowlingFieldingModel model)
         {
@@ -1739,10 +1840,11 @@ namespace Services.AcsServices
             var sortBy = (int) model.SortOrder;
             var sortDirection = model.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
 
+            Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error> res;
 
             if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
             {
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
                     .GetFieldingCareerRecordsByYearForTeamAgainstTeam(
                         model.TeamId.Value, model.OpponentsId.Value,
                         model.MatchType.Value, model.GroundId.Value,
@@ -1751,62 +1853,79 @@ namespace Services.AcsServices
                         model.Limit.Value,
                         sortBy, sortDirection);
             }
-
-            if (model.TeamId.Value != 0)
+            else
             {
-                if (!model.TeamGrouping)
+                if (model.TeamId.Value != 0)
                 {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                        .GetFieldingCareerRecordsByYearForTeam(
-                            model.TeamId.Value, model.MatchType.Value,
-                            model.GroundId.Value, model.HostCountryId.Value, venueId,
-                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                            model.Limit.Value,
-                            sortBy, sortDirection);
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByYearForTeam(
+                                model.TeamId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByYearForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
                 }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsByYearForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
+                else if (model.OpponentsId.Value != 0)
+                {
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByYearAgainstTeam(
+                                model.OpponentsId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value,
+                                venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsByYearForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                }
+                else
+                {
+                    res = await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsByYear(
                         model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
+                        model.HostCountryId.Value, venueId, model.StartDateEpoch,
+                        model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
                         sortBy, sortDirection);
+                }
             }
 
-            if (model.OpponentsId.Value != 0)
-            {
-                if (!model.TeamGrouping)
-                {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                        .GetFieldingCareerRecordsByYearAgainstTeam(
-                            model.OpponentsId.Value, model.MatchType.Value,
-                            model.GroundId.Value, model.HostCountryId.Value,
-                            venueId,
-                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                            model.Limit.Value,
-                            sortBy, sortDirection);
-                }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsByYearForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
-                        model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
-                        sortBy, sortDirection);
-            }
-
-            return await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsByYear(
-                model.MatchType.Value, model.GroundId.Value,
-                model.HostCountryId.Value, venueId, model.StartDateEpoch,
-                model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
-                sortBy, sortDirection);
+            var dtos = res.Map(r =>
+                (IReadOnlyList<FieldingCareerRecordDto>) r.Map(item =>
+                    new FieldingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                        item.Innings ?? 0
+                        , item.Ground, item.CountryName, item.Dismissals, item.Caught, item.Stumpings,
+                        item.CaughtKeeper,
+                        item.CaughtFielder, item.BestDismissals, item.BestCaughtFielder, item.BestCaughtKeeper,
+                        item.BestStumpings)).ToList());
+            return dtos;
         }
 
-        public async Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>>
+        public async Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>>
             GetFieldingCareerRecordsBySeason(
                 BattingBowlingFieldingModel model)
         {
@@ -1816,10 +1935,11 @@ namespace Services.AcsServices
             var sortBy = (int) model.SortOrder;
             var sortDirection = model.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
 
+            Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error> res;
 
             if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
             {
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
                     .GetFieldingCareerRecordsBySeasonForTeamAgainstTeam(
                         model.TeamId.Value, model.OpponentsId.Value,
                         model.MatchType.Value, model.GroundId.Value,
@@ -1828,59 +1948,76 @@ namespace Services.AcsServices
                         model.Limit.Value,
                         sortBy, sortDirection);
             }
-
-            if (model.TeamId.Value != 0)
+            else
             {
-                if (!model.TeamGrouping)
+                if (model.TeamId.Value != 0)
                 {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                        .GetFieldingCareerRecordsBySeasonForTeam(
-                            model.TeamId.Value, model.MatchType.Value,
-                            model.GroundId.Value, model.HostCountryId.Value, venueId,
-                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                            model.Limit.Value,
-                            sortBy, sortDirection);
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsBySeasonForTeam(
+                                model.TeamId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsBySeasonForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
                 }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsBySeasonForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
+                else if (model.OpponentsId.Value != 0)
+                {
+                    if (!model.TeamGrouping)
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsBySeasonAgainstTeam(
+                                model.OpponentsId.Value, model.MatchType.Value,
+                                model.GroundId.Value, model.HostCountryId.Value,
+                                venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                    else
+                    {
+                        res = await _unitOfWork.PlayerFieldingRecordDetailsRepository
+                            .GetFieldingCareerRecordsBySeasonForTeamAgainstTeam(
+                                model.TeamId.Value, model.OpponentsId.Value,
+                                model.MatchType.Value, model.GroundId.Value,
+                                model.HostCountryId.Value, venueId,
+                                model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
+                                model.Limit.Value,
+                                sortBy, sortDirection);
+                    }
+                }
+                else
+                {
+                    res = await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsBySeason(
                         model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
+                        model.HostCountryId.Value, venueId, model.StartDateEpoch,
+                        model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
                         sortBy, sortDirection);
+                }
             }
 
-            if (model.OpponentsId.Value != 0)
-            {
-                if (!model.TeamGrouping)
-                {
-                    return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                        .GetFieldingCareerRecordsBySeasonAgainstTeam(
-                            model.OpponentsId.Value, model.MatchType.Value,
-                            model.GroundId.Value, model.HostCountryId.Value,
-                            venueId,
-                            model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                            model.Limit.Value,
-                            sortBy, sortDirection);
-                }
-
-                return await _unitOfWork.PlayerFieldingRecordDetailsRepository
-                    .GetFieldingCareerRecordsBySeasonForTeamAgainstTeam(
-                        model.TeamId.Value, model.OpponentsId.Value,
-                        model.MatchType.Value, model.GroundId.Value,
-                        model.HostCountryId.Value, venueId,
-                        model.StartDateEpoch, model.EndDateEpoch, model.Season, model.MatchResult.Value,
-                        model.Limit.Value,
-                        sortBy, sortDirection);
-            }
-
-            return await _unitOfWork.PlayerFieldingRecordDetailsRepository.GetFieldingCareerRecordsBySeason(
-                model.MatchType.Value, model.GroundId.Value,
-                model.HostCountryId.Value, venueId, model.StartDateEpoch,
-                model.EndDateEpoch, model.Season, model.MatchResult.Value, model.Limit.Value,
-                sortBy, sortDirection);
+            var dtos = res.Map(r =>
+                (IReadOnlyList<FieldingCareerRecordDto>) r.Map(item =>
+                    new FieldingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                        item.Innings ?? 0
+                        , item.Ground, item.CountryName, item.Dismissals, item.Caught, item.Stumpings,
+                        item.CaughtKeeper,
+                        item.CaughtFielder, item.BestDismissals, item.BestCaughtFielder, item.BestCaughtKeeper,
+                        item.BestStumpings)).ToList());
+            return dtos;
         }
     }
 }
