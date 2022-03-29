@@ -13,8 +13,6 @@ namespace AcsStatsWeb.Models.api
         public string Opponents { get; set; }
         public int HostCountryId { get; set; }
         public string HostCountryName { get; set; }
-        public string TeamGrouping { get; set; }
-
         public int HomeVenue { get; set; }
         public int AwayVenue { get; set; }
         public int NeutralVenue { get; set; }

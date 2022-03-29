@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsStatsWeb.Models;
 using AcsStatsWeb.Models.api;
 using AcsTypes.Error;
@@ -21,12 +23,12 @@ namespace AcsStatsWeb.Api
     {
         private readonly
             Dictionary<string, Func<PartnershipModel,
-                Task<Result<IReadOnlyList<PartnershipCareerRecordDetails>, Error>>>> _careerRecordDetailsServiceFuncs =
+                Task<Result<IReadOnlyList<PartnershipCareerRecordDetailsDto>, Error>>>> _careerRecordDetailsServiceFuncs =
                 new();
 
         private readonly
             Dictionary<string, Func<PartnershipModel,
-                Task<Result<IReadOnlyList<PartnershipIndividualRecordDetails>, Error>>>>
+                Task<Result<IReadOnlyList<PartnershipIndividualRecordDetailsDto>, Error>>>>
             _individualPartnershipDetailsServiceFuncs =
                 new();
 

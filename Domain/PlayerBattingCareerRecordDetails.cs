@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using AcsDto.Dtos;
+
 namespace Domain;
 
 public class PlayerBattingCareerRecordDetails : PlayerCareerRecordDetails
@@ -14,3 +17,4 @@ public class PlayerBattingCareerRecordDetails : PlayerCareerRecordDetails
     public int? Sixes { get; set; }
     public int? Balls { get; set; }
 }
+

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsStatsWeb.AcsHttpClient;
 using AcsTypes.Error;
 using CSharpFunctionalExtensions;
@@ -18,7 +19,7 @@ namespace Services.Remote
             _httpClientProxy = httpClientProxy;
         }
         
-        public async Task<Result<List<BowlingCareerRecordDetailsDto>, Error>> GetOverall(SharedModel sharedServiceModel)
+        public async Task<Result<List<BowlingCareerRecordDto>, Error>> GetOverall(SharedModel sharedServiceModel)
         {
             var url =
                 $"BowlingRecords/overall/" +
@@ -26,7 +27,7 @@ namespace Services.Remote
                 $"{sharedServiceModel.TeamId.Value}/" +
                 $"{sharedServiceModel.OpponentsId.Value}" +
                 $"{sharedServiceModel.BuildQueryString()}";
-            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDetailsDto>>(url);
+            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDto>>(url);
         }
 
         public async Task<Result<List<IndividualBowlingDetailsDto>, Error>> GetInningsByInnings(SharedModel sharedServiceModel)
@@ -51,7 +52,7 @@ namespace Services.Remote
             return await _httpClientProxy.GetJsonAsync<List<IndividualBowlingDetailsDto>>(url);
         }
 
-        public async Task<Result<List<BowlingCareerRecordDetailsDto>, Error>> GetRecordsForSeries(SharedModel sharedServiceModel)
+        public async Task<Result<List<BowlingCareerRecordDto>, Error>> GetRecordsForSeries(SharedModel sharedServiceModel)
         {
             var url =
                 $"BowlingRecords/series/" +
@@ -59,10 +60,10 @@ namespace Services.Remote
                 $"{sharedServiceModel.TeamId.Value}/" +
                 $"{sharedServiceModel.OpponentsId.Value}" +
                 $"{sharedServiceModel.BuildQueryString()}";
-            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDetailsDto>>(url);
+            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDto>>(url);
         }
 
-        public async Task<Result<List<BowlingCareerRecordDetailsDto>, Error>> GetRecordsForGrounds(SharedModel sharedServiceModel)
+        public async Task<Result<List<BowlingCareerRecordDto>, Error>> GetRecordsForGrounds(SharedModel sharedServiceModel)
         {
             var url =
                 $"BowlingRecords/grounds/" +
@@ -70,10 +71,10 @@ namespace Services.Remote
                 $"{sharedServiceModel.TeamId.Value}/" +
                 $"{sharedServiceModel.OpponentsId.Value}" +
                 $"{sharedServiceModel.BuildQueryString()}";
-            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDetailsDto>>(url);
+            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDto>>(url);
         }
 
-        public async Task<Result<List<BowlingCareerRecordDetailsDto>, Error>> GetRecordsForHost(SharedModel sharedServiceModel)
+        public async Task<Result<List<BowlingCareerRecordDto>, Error>> GetRecordsForHost(SharedModel sharedServiceModel)
         {
             var url =
                 $"BowlingRecords/host/" +
@@ -81,10 +82,10 @@ namespace Services.Remote
                 $"{sharedServiceModel.TeamId.Value}/" +
                 $"{sharedServiceModel.OpponentsId.Value}" +
                 $"{sharedServiceModel.BuildQueryString()}";
-            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDetailsDto>>(url);
+            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDto>>(url);
         }
 
-        public async Task<Result<List<BowlingCareerRecordDetailsDto>, Error>> GetRecordsForOpponents(SharedModel sharedServiceModel)
+        public async Task<Result<List<BowlingCareerRecordDto>, Error>> GetRecordsForOpponents(SharedModel sharedServiceModel)
         {
             var url =
                 $"BowlingRecords/opposition/" +
@@ -92,10 +93,10 @@ namespace Services.Remote
                 $"{sharedServiceModel.TeamId.Value}/" +
                 $"{sharedServiceModel.OpponentsId.Value}" +
                 $"{sharedServiceModel.BuildQueryString()}";
-            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDetailsDto>>(url);
+            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDto>>(url);
         }
 
-        public async Task<Result<List<BowlingCareerRecordDetailsDto>, Error>> GetRecordsByYear(SharedModel sharedServiceModel)
+        public async Task<Result<List<BowlingCareerRecordDto>, Error>> GetRecordsByYear(SharedModel sharedServiceModel)
         {
             var url =
                 $"BowlingRecords/year/" +
@@ -103,10 +104,10 @@ namespace Services.Remote
                 $"{sharedServiceModel.TeamId.Value}/" +
                 $"{sharedServiceModel.OpponentsId.Value}" +
                 $"{sharedServiceModel.BuildQueryString()}";
-            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDetailsDto>>(url);
+            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDto>>(url);
         }
 
-        public async Task<Result<List<BowlingCareerRecordDetailsDto>, Error>> GetRecordsBySeason(SharedModel sharedServiceModel)
+        public async Task<Result<List<BowlingCareerRecordDto>, Error>> GetRecordsBySeason(SharedModel sharedServiceModel)
         {
             var url =
                 $"BowlingRecords/season/" +
@@ -114,7 +115,7 @@ namespace Services.Remote
                 $"{sharedServiceModel.TeamId.Value}/" +
                 $"{sharedServiceModel.OpponentsId.Value}" +
                 $"{sharedServiceModel.BuildQueryString()}";
-            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDetailsDto>>(url);
+            return await _httpClientProxy.GetJsonAsync<List<BowlingCareerRecordDto>>(url);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsStatsWeb.Dtos;
 using AcsStatsWeb.Models;
 using AcsStatsWeb.Models.api;

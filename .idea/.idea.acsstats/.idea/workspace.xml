@@ -9,47 +9,158 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf8de37e-105f-4943-aba0-ea97cb56b98b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/BattingCareerRecordDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/BowlingCareerRecordDetailsDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/FieldingCareerRecordDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/IndividualFieldingDetailsDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsStatsWeb/Formatter/CsvOutputFormatter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domain/IndividualBowlingDetails.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domain/IndividualDetails.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domain/IndividualFieldingDetails.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domain/PlayerBattingCareerRecordDetails.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domain/PlayerBowlingCareerRecordDetails.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Domain/PlayerFieldingCareerRecordDetails.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BattingIndividualCareerRecordsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BattingIndividualSeriesQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BattingRecordsCompleteQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BattingRecordsForTeamQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BattingRecordsForTeamVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BattingRecordsVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BowlingIndividualCareerRecordsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BowlingIndividualSeriesQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BowlingRecordsCompleteQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BowlingRecordsForTeamQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BowlingRecordsForTeamVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BowlingRecordsVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/CountryForMatchTypeQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/CountryQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/FieldingIndividualCareerRecordsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/FieldingIndividualSeriesQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/FieldingRecordsCompleteQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/FieldingRecordsForTeamQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/FieldingRecordsForTeamVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/FieldingRecordsVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/GroundQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/GroundsForMatchQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/MatchDatesQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/MatchResultCompleteQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/MatchResultForTeamQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/MatchResultForTeamVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/MatchResultVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/MatchScoresCompleteQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/MatchScoresForTeamQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/MatchScoresForTeamVsOpponentQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/MatchScoresVsOpponentQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/MatchSeriesDatesQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/PartnershipIndividualCareerRecordsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/PartnershipIndividualSeriesQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/PartnershipRecordsCompleteQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/PartnershipRecordsForTeamQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/PartnershipRecordsForTeamVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/PartnershipRecordsVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamOverallExtrasCompleteQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamOverallExtrasForTeamQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamOverallExtrasForTeamVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamOverallExtrasVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamOverallInningsExtrasCompleteQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamOverallInningsExtrasForTeamQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamOverallInningsExtrasForTeamVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamOverallInningsExtrasVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamRecordsCompleteQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamRecordsForTeamQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamRecordsForTeamVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamRecordsVsOpponentsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsCommands/Util/DtoExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/InningsExtrasDetailsDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/MatchDateDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/MatchRecordDetailsDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/MatchResultDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/PartnershipCareerRecordDetailsDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/PartnershipIndividualRecordDetailsDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/TeamExtrasDetailsDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/TeamRecordDetailsDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBattingDetailsDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBattingDetailsDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBowlingDetailsDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Dtos/IndividualBowlingDetailsDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/PlayerBattingRecordDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/PlayerBowlingCareerRecordDetailsDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsCommands/Query/GetGroundsQueryEx.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsCommands/Query/GroundsQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsCommands/Query/GetTeamsQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsCommands/Query/TeamsQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/AcsDto.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/AcsDto.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/BattingCareerRecordDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Dtos/BattingCareerRecordDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/BowlingCareerRecordDetailsDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Dtos/BowlingCareerRecordDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/TeamDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Dtos/TeamDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsRepository/EFUnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsRepository/EFUnitOfWork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/PlayerFieldingRecordDetailsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsRepository/Repositories/PlayerFieldingRecordDetailsRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Interfaces/IGroundsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsRepository/Interfaces/IGroundsRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Interfaces/IIndividualBattingDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Interfaces/IIndividualBowlingDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Interfaces/IIndividualFieldingDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Interfaces/IMatchRecordDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Interfaces/IMatchesRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Interfaces/IPartnershipRecordDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Interfaces/IPlayerBowlingRecordDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Interfaces/IPlayerFieldingRecordDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Interfaces/ITeamsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Interfaces/IUnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsRepository/Interfaces/IUnitOfWork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/GroundsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsRepository/Repositories/GroundsRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/IndividualBattingDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/IndividualBowlingDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/IndividualFieldingDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/MatchRecordDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/MatchesRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/PartnershipRecordDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/PlayerBowlingRecordDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/PlayerFieldingRecordDetailsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsRepository/Repositories/TeamsRepository.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/BaseApiController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/BaseApiController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/BattingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/BattingRecordsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/BowlingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/BowlingRecordsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/FieldingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/FieldingRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/GroundsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/GroundsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/PartnershipRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/PartnershipRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/TeamRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/TeamRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/TeamsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/TeamsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/AcsRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/AcsRecordsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/BattingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/BattingRecordsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/BowlingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/BowlingRecordsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/FieldingRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/FieldingRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/PartnershipsRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/PartnershipsRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/TeamRecordsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/TeamRecordsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Formatter/CsvOutputFormatter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Formatter/CsvOutputFormatter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Models/RecordInputModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Models/RecordInputModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Models/ResultsModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Models/ResultsModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Models/api/ApiRecordInputModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Models/api/ApiRecordInputModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Models/api/ApiResultsModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Models/api/ApiResultsModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/BattingOverall.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BattingRecords/BattingOverall.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/BowlingRecords/BowlingOverall.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/BowlingRecords/BowlingOverall.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/FieldingRecords/FieldingOverall.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/FieldingRecords/FieldingOverall.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.ts" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Domain/CareerRecordDetails.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/CareerRecordDetails.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/Shared/_form_main.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/Shared/_form_main.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Domain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Domain.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Domain/IndividualBattingDetails.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/IndividualBattingDetails.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/IndividualDetails.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/IndividualDetails.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/PlayerBattingCareerRecordDetails.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/PlayerBattingCareerRecordDetails.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/AcsServices/CountriesService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/AcsServices/CountriesService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/AcsServices/GroundsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/AcsServices/GroundsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/AcsServices/MatchesService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/AcsServices/MatchesService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/AcsServices/PartnershipService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/AcsServices/PartnershipService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/AcsServices/PlayersService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/AcsServices/PlayersService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/AcsServices/TeamsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/AcsServices/TeamsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/ICountriesService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/ICountriesService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/IGroundsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/IGroundsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/IMatchesService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/IMatchesService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/IPartnershipService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/IPartnershipService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/IPlayersService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/IPlayersService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/ITeamsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/ITeamsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Models/SharedModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Models/SharedModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Models/SortOrder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Models/SortOrder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Remote/BaseRemoteService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/BaseRemoteService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Remote/IRemoteBattingRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/IRemoteBattingRecordsService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Remote/IRemoteBowlingRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/IRemoteBowlingRecordsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Remote/IRemoteFieldingRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/IRemoteFieldingRecordsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Remote/IRemotePartnershipsRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/IRemotePartnershipsRecordsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Remote/IRemoteTeamsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/IRemoteTeamsService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Remote/RemoteBattingRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/RemoteBattingRecordsService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Remote/RemoteBowlingRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/RemoteBowlingRecordsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Remote/RemoteFieldingRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/RemoteFieldingRecordsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Remote/RemotePartnershipRecordsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/RemotePartnershipRecordsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Remote/RemoteTeamsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/RemoteTeamsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Services.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Services.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/countygroundbowlinginnings.csv" beforeDir="false" afterPath="$PROJECT_DIR$/countygroundbowlinginnings.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/countygroundfielding.csv" beforeDir="false" afterPath="$PROJECT_DIR$/countygroundfielding.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ketteringbowlinginnings.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ketteringbowlinginnings.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ketteringdfielding.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ketteringfielding.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ketteringfielding.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/peterboroughbowlinginnings.csv" beforeDir="false" afterPath="$PROJECT_DIR$/peterboroughbowlinginnings.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/peterboroughfielding.csv" beforeDir="false" afterPath="$PROJECT_DIR$/peterboroughfielding.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rushdenbowlinginnings.csv" beforeDir="false" afterPath="$PROJECT_DIR$/rushdenbowlinginnings.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rushdenfielding.csv" beforeDir="false" afterPath="$PROJECT_DIR$/rushdenfielding.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wellingboroughbowlinginnings.csv" beforeDir="false" afterPath="$PROJECT_DIR$/wellingboroughbowlinginnings.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wellingboroughfielding.csv" beforeDir="false" afterPath="$PROJECT_DIR$/wellingboroughfielding.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,10 +168,19 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/AcsDto/Dtos/BowlingCareerRecordDetailsDto.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AcsDto/Dtos/BowlingCareerRecordDto.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css.old/bootstrap-grid.css.map" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css.old/bootstrap-reboot.min.css.map" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/js.old/bootstrap.min.js.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/Services/AcsServices/GroundsService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/Services/AcsServices/GroundsService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/Services/AcsServices/GroundsService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/Services/AcsServices/GroundsService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3c9d93d676ff4df296d28f5346b33c8262400/65/cff79cb7/ResultExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b8c56d5b036f2a6fe79726c905c982bb3e77beec6526d3695d5daf1286da/SqlMapper.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -71,21 +191,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/kevinjones/Library/Application Support/JetBrains/Toolbox/apps/Rider/ch-1/221.4906.10/Rider EAP.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "ts.external.directory.path": "/Users/kevinjones/Library/Application Support/JetBrains/Toolbox/apps/Rider/ch-1/221.5080.29/Rider EAP.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.AcsStatsWeb">
     <configuration name="AcsStatsWeb" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/AcsStatsWeb/AcsStatsWeb.csproj" />
@@ -132,7 +256,10 @@
       <workItem from="1647168479262" duration="5584000" />
       <workItem from="1647508900572" duration="387000" />
       <workItem from="1647640701353" duration="608000" />
-      <workItem from="1647675667038" duration="2459000" />
+      <workItem from="1647675667038" duration="3825000" />
+      <workItem from="1647792713321" duration="22583000" />
+      <workItem from="1648470738137" duration="1538000" />
+      <workItem from="1648538893605" duration="8716000" />
     </task>
     <servers />
   </component>
@@ -141,6 +268,17 @@
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
@@ -159,6 +297,64 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AcsCommands/Query/BattingRecordsForTeamVsOpponentsQuery.cs</url>
+          <line>45</line>
+          <properties documentPath="$PROJECT_DIR$/AcsCommands/Query/GetBattingCareerRecordsForTeamVsOpponentsQuery.cs" initialLine="67" containingFunctionPresentation="method 'Handle'" />
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Services/AcsServices/PartnershipService.cs</url>
+          <line>121</line>
+          <properties documentPath="$PROJECT_DIR$/Services/AcsServices/PartnershipService.cs" initialLine="121" containingFunctionPresentation="method 'GetPartnershipIndividualOpponents'">
+            <startOffsets>
+              <option value="4728" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4788" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AcsRepository/Repositories/GroundsRepository.cs</url>
+          <line>28</line>
+          <properties documentPath="$PROJECT_DIR$/AcsRepository/Repositories/GroundsRepository.cs" initialLine="28" containingFunctionPresentation="method 'GetCountryForMatchType'">
+            <startOffsets>
+              <option value="826" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1053" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AcsRepository/Repositories/GroundsRepository.cs</url>
+          <line>47</line>
+          <properties documentPath="$PROJECT_DIR$/AcsRepository/Repositories/GroundsRepository.cs" initialLine="47" containingFunctionPresentation="method 'GetCountryFromId'">
+            <startOffsets>
+              <option value="1562" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1634" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Services/AcsServices/CountriesService.cs</url>
+          <line>38</line>
+          <properties documentPath="$PROJECT_DIR$/Services/AcsServices/CountriesService.cs" initialLine="38" containingFunctionPresentation="method 'getCountryFromId'">
+            <startOffsets>
+              <option value="1109" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1159" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -28,13 +28,9 @@ namespace AcsStatsWeb.Api
         public async Task<IActionResult> GetGrounds(string matchType)
         {
             return await MatchType.Create(matchType)
-                .Map(m => new GetGroundsQuery(m))
+                .Map(m => new GroundsQuery(m))
                 .Bind(async q => await _mediator.Send(q))
                 .Match(Ok, (it) => base.Error(it.Message));
-            
-            // return await (MatchType.Create(matchType)
-            //         .Bind(async m => (await _groundsService.GetGroundsForMatchType(m))))
-            //     .Match(Ok, (it) => base.Error(it.Message));
         }
     }
 }

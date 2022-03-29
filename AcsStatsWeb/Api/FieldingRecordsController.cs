@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsStatsWeb.Models.api;
 using AcsTypes.Error;
 using AcsTypes.Types;

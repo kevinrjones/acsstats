@@ -99,8 +99,4 @@
       <TypeScriptCompile Include="wwwroot\js\App.ts" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Api\cqrs" />
-    </ItemGroup>
-
 </Project>

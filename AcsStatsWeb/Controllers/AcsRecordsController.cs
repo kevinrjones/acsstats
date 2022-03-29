@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using AcsDto.Models;
 using AcsStatsWeb.Models;
 using AcsTypes.Error;
 using AcsTypes.Types;
@@ -33,7 +34,6 @@ namespace AcsStatsWeb.Controllers
     {
       var resultsModel = new T
       {
-        TeamGrouping = recordInputModel.TeamGrouping,
         HomeVenue =  recordInputModel.HomeVenue,
         AwayVenue = recordInputModel.AwayVenue,
         NeutralVenue = recordInputModel.NeutralVenue,
@@ -67,8 +67,7 @@ namespace AcsStatsWeb.Controllers
         }).Bind((_) => Result.Success<T, Error>(resultsModel));
     }
 
-    protected void SetShowTeamsInLists(ResultsModel resultsModel, TeamId teamId, TeamId opponentsId,
-      bool teamGrouping)
+    protected void SetShowTeamsInLists(ResultsModel resultsModel, TeamId teamId, TeamId opponentsId)
     {
       if (teamId.Value == 0 && opponentsId.Value == 0)
       {

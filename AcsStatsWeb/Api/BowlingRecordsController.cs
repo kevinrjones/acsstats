@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsStatsWeb.Models.api;
 using AcsTypes.Error;
 using CSharpFunctionalExtensions;
@@ -19,7 +20,7 @@ namespace AcsStatsWeb.Api
     {
         private readonly
             Dictionary<string, Func<BattingBowlingFieldingModel,
-                Task<Result<IReadOnlyList<BowlingCareerRecordDetailsDto>, Error>>>> _careerRecordDetailsServiceFuncs =
+                Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>>>> _careerRecordDetailsServiceFuncs =
                 new();
 
         private readonly

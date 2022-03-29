@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AcsCommands.Query;
+using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsRepository;
 using AcsTypes.Error;
+using AcsTypes.Types;
 using CSharpFunctionalExtensions;
 using Domain;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using Services.Models;
 
@@ -14,151 +19,109 @@ namespace Services.AcsServices
     public class MatchesService : IMatchesService
     {
         private readonly IEfUnitOfWork _unitOfWork;
+        private readonly IMediator _mediator;
         private readonly ILogger<MatchesService> _logger;
 
-        public MatchesService(IEfUnitOfWork unitOfWork, ILogger<MatchesService> logger)
+        public MatchesService(IEfUnitOfWork unitOfWork, IMediator mediator, ILogger<MatchesService> logger)
         {
             _unitOfWork = unitOfWork;
+            _mediator = mediator;
             _logger = logger;
         }
 
         // recordInputModel.homeVenue.Value | recordInputModel.awayVenue.Value | recordInputModel.neutralVenue.Value
-        public async Task<Result<IReadOnlyList<MatchRecordDetails>, AcsTypes.Error.Error>> GetHighestInningsForTeam(
-            SharedModel teamModel)
+        public async Task<Result<IReadOnlyList<MatchRecordDetailsDto>, AcsTypes.Error.Error>> GetHighestInningsForTeam(
+            SharedModel model)
         {
-            var venueId = teamModel.HomeVenue.Value | teamModel.AwayVenue.Value |
-                          teamModel.NeutralVenue.Value;
-            var sortBy = (int) teamModel.SortOrder;
-            var sortDirection = teamModel.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
+            if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new MatchScoresForTeamVsOpponentQuery(model,
+                    "team_records_highest_innings_for_team_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0 && teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetInningsByInnings(teamModel.MatchType.Value,
-                    teamModel.Limit.Value, teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            if (model.TeamId.Value != 0)
+            {
+                return await _mediator.Send(
+                    new MatchScoresForTeamQuery(model, "team_records_highest_innings_for_team"));
+            }
 
-            if (teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetInningsByInningsForTeam(
-                    teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.Limit.Value, teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy,
-                    sortDirection);
+            if (model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new MatchScoresVsOpponentQuery(model,
+                    "team_records_highest_innings_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetInningsByInningsAgainstOpponents(
-                    teamModel.MatchType.Value, teamModel.OpponentsId.Value, teamModel.Limit.Value,
-                    teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId,
-                    teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
-
-            return await _unitOfWork.MatchRecordDetailsRepository.GetInningsByInningsForTeamAgainstOpponents(
-                teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.OpponentsId.Value, teamModel.Limit.Value,
-                teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                venueId,
-                teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                teamModel.MatchResult.Value,
-                sortBy, sortDirection);
+            return await _mediator.Send(
+                new MatchScoresForTeamVsOpponentQuery(model, "team_records_highest_innings_overall"));
         }
 
-        public async Task<Result<IReadOnlyList<MatchRecordDetails>, AcsTypes.Error.Error>> GetMatchTotals(
-            SharedModel teamModel)
+        public async Task<Result<IReadOnlyList<MatchRecordDetailsDto>, AcsTypes.Error.Error>> GetMatchTotals(
+            SharedModel model)
         {
-            var venueId = teamModel.HomeVenue.Value | teamModel.AwayVenue.Value |
-                          teamModel.NeutralVenue.Value;
-            var sortBy = (int) teamModel.SortOrder;
-            var sortDirection = teamModel.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
+            if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new MatchScoresForTeamVsOpponentQuery(model,
+                    "team_records_match_totals_for_team_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0 && teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetMatchTotalsHigherThan(
-                    teamModel.MatchType.Value,
-                    teamModel.Limit.Value, teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            if (model.TeamId.Value != 0)
+            {
+                return await _mediator.Send(
+                    new MatchScoresForTeamQuery(model, "team_records_match_totals_for_team"));
+            }
 
-            if (teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetMatchTotalsHigherThanForTeam(
-                    teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.Limit.Value, teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy,
-                    sortDirection);
+            if (model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new MatchScoresVsOpponentQuery(model,
+                    "team_records_match_totals_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetMatchTotalsHigherThanAgainstOpponents(
-                    teamModel.MatchType.Value, teamModel.OpponentsId.Value, teamModel.Limit.Value,
-                    teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId,
-                    teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
-
-            return await _unitOfWork.MatchRecordDetailsRepository.GetMatchTotalsHigherThanForTeamAgainstOpponents(
-                teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.OpponentsId.Value, teamModel.Limit.Value,
-                teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                venueId,
-                teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                teamModel.MatchResult.Value,
-                sortBy, sortDirection);
+            return await _mediator.Send(
+                new MatchScoresCompleteQuery(model, "team_records_match_totals_overall"));
         }
 
-        public async Task<Result<IReadOnlyList<MatchResult>, Error>> GetMatchResults(SharedModel teamModel)
+        public async Task<Result<IReadOnlyList<MatchResultDto>, Error>> GetMatchResults(SharedModel model)
         {
-            var venueId = teamModel.HomeVenue.Value | teamModel.AwayVenue.Value |
-                          teamModel.NeutralVenue.Value;
-            var sortBy = (int) teamModel.SortOrder;
-            var sortDirection = teamModel.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
+            if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new MatchResultForTeamVsOpponentsQuery(model,
+                    "team_records_match_totals_for_team_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0 && teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetMatchResults(
-                    teamModel.MatchType.Value, teamModel.Limit.Value,
-                    teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            if (model.TeamId.Value != 0)
+            {
+                return await _mediator.Send(
+                    new MatchResultForTeamQuery(model, "team_records_match_totals_for_team"));
+            }
 
-            if (teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetMatchResultsForTeam(
-                    teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.Limit.Value, teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy,
-                    sortDirection);
+            if (model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new MatchResultVsOpponentsQuery(model,
+                    "team_records_match_totals_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetMatchResultsAgainstOpponents(
-                    teamModel.MatchType.Value, teamModel.OpponentsId.Value, teamModel.Limit.Value,
-                    teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId,
-                    teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season, teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
-
-            return await _unitOfWork.MatchRecordDetailsRepository.GetMatchResultsForTeamAgainstOpponents(
-                teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.OpponentsId.Value, teamModel.Limit.Value,
-                teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                venueId,
-                teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season, teamModel.MatchResult.Value,
-                sortBy, sortDirection);
+            return await _mediator.Send(
+                new MatchResultCompleteQuery(model, "team_records_match_totals_overall"));
         }
 
-        public async Task<Result<IReadOnlyList<MatchDate>, Error>> GetDatesForMatchType(string matchType)
+        public async Task<Result<IReadOnlyList<MatchDateDto>, Error>> GetDatesForMatchType(string matchType)
         {
-            return await _unitOfWork.MatchesRepository.GetTeamsForMatchType(matchType);
+            var m = MatchType.Create(matchType);
+            if (m.IsSuccess)
+            {
+                return await _mediator.Send(new MatchDatesQuery(m.Value));
+            }
+            return Result.Failure<IReadOnlyList<MatchDateDto>, Error>(m.Error);
         }
 
         public async Task<Result<IReadOnlyList<string>, Error>> GetSeriesDatesForMatchType(string matchType)
         {
-            return await _unitOfWork.MatchesRepository.GetSeriesDatesForMatchType(matchType);
+            var m = MatchType.Create(matchType);
+            if (m.IsSuccess)
+            {
+                return await _mediator.Send(new MatchSeriesDatesQuery(m.Value));
+            }
+            return Result.Failure<IReadOnlyList<string>, Error>(m.Error);
         }
     }
 }

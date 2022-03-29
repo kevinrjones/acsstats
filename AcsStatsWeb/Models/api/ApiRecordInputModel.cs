@@ -38,7 +38,6 @@ namespace AcsStatsWeb.Models.api
 
         [FromQuery] public SortOrder SortOrder { get; set; }
         [FromQuery] public SortDirection SortDirection { get; set; }
-        [FromQuery] public string TeamGrouping { get; set; }
         [FromQuery] public long StartDate { get; set; }
         [FromQuery] public long EndDate { get; set; }
         [FromQuery] public string Season { get; set; }
@@ -46,9 +45,9 @@ namespace AcsStatsWeb.Models.api
         public override string ToString()
         {
             return
-                $"matchResult: {MatchResult}, matchType: {MatchType}, teamId: {TeamGrouping}, opponentsId: {OpponentsId}, " +
+                $"matchResult: {MatchResult}, matchType: {MatchType}, teamId: {TeamId}, opponentsId: {OpponentsId}, " +
                 $"groundId: {GroundId}, hostCountryId: {HostCountryId}, venue: {Venue}, limit: {Limit}." +
-                $"SortOrder {SortOrder}, SortDirection: {SortDirection}, TeamGrouping: {TeamGrouping}, " +
+                $"SortOrder {SortOrder}, SortDirection: {SortDirection}, " +
                 $"StartDate: {StartDate}, EndDate: {EndDate}, Season: {Season}";
         }
     }

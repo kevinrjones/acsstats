@@ -5,4 +5,8 @@
         <LangVersion>10</LangVersion>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\AcsDto\AcsDto.csproj" />
+    </ItemGroup>
+
 </Project>

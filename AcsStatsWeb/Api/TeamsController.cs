@@ -35,7 +35,7 @@ namespace AcsStatsWeb.Api
         public async Task<IActionResult> GetTeams(string matchType)
         {
             return await MatchType.Create(matchType)
-                .Map(m => new GetTeamsQuery(m))
+                .Map(m => new TeamsQuery(m))
                 .Bind(async q => await _mediator.Send(q))
                 .Match(Ok, (it) => base.Error(it.Message));
         }

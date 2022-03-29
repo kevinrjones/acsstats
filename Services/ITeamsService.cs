@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsDto.Dtos;
+using AcsDto.Models;
+using AcsStatsWeb.Dtos;
 using AcsTypes.Error;
 using AcsTypes.Types;
 using CSharpFunctionalExtensions;
@@ -10,15 +13,15 @@ namespace Services
 {
     public interface ITeamsService
     {
-        public Task<Result<Team, Error>> GetTeam(TeamId teamIdValue);
-        public Task<Result<IReadOnlyList<TeamRecordDetails>,Error>> GetTeamRecords(SharedModel sharedServiceModel);
-        public Task<Result<IReadOnlyList<TeamRecordDetails>,Error>> GetTeamSeriesRecords(SharedModel sharedServiceModel);
-        public Task<Result<IReadOnlyList<TeamRecordDetails>,Error>> GetTeamGroundRecords(SharedModel sharedServiceModel);
-        public Task<Result<IReadOnlyList<TeamRecordDetails>,Error>> GetTeamHostCountryRecords(SharedModel sharedServiceModel);
-        public Task<Result<IReadOnlyList<TeamRecordDetails>,Error>> GetTeamOppositionRecords(SharedModel sharedServiceModel);
-        public Task<Result<IReadOnlyList<TeamRecordDetails>,Error>> GetTeamByYearRecords(SharedModel sharedServiceModel);
-        public Task<Result<IReadOnlyList<TeamRecordDetails>,Error>> GetTeamBySeasonRecords(SharedModel sharedServiceModel);
-        public Task<Result<IReadOnlyList<TeamExtrasDetails>, Error>> GetTeamOverallExtrasRecords(SharedModel sharedServiceModel);
-        public Task<Result<IReadOnlyList<InningsExtrasDetails>, Error>> GetTeamInningsExtrasRecords(SharedModel sharedServiceModel);
+        public Task<Result<TeamDto, Error>> GetTeam(TeamId teamIdValue);
+        public Task<Result<IReadOnlyList<TeamRecordDetailsDto>,Error>> GetTeamRecords(SharedModel sharedServiceModel);
+        public Task<Result<IReadOnlyList<TeamRecordDetailsDto>,Error>> GetTeamSeriesRecords(SharedModel sharedServiceModel);
+        public Task<Result<IReadOnlyList<TeamRecordDetailsDto>,Error>> GetTeamGroundRecords(SharedModel sharedServiceModel);
+        public Task<Result<IReadOnlyList<TeamRecordDetailsDto>,Error>> GetTeamHostCountryRecords(SharedModel sharedServiceModel);
+        public Task<Result<IReadOnlyList<TeamRecordDetailsDto>,Error>> GetTeamOppositionRecords(SharedModel sharedServiceModel);
+        public Task<Result<IReadOnlyList<TeamRecordDetailsDto>,Error>> GetTeamByYearRecords(SharedModel sharedServiceModel);
+        public Task<Result<IReadOnlyList<TeamRecordDetailsDto>,Error>> GetTeamBySeasonRecords(SharedModel sharedServiceModel);
+        public Task<Result<IReadOnlyList<TeamExtrasDetailsDto>, Error>> GetTeamOverallExtrasRecords(SharedModel sharedServiceModel);
+        public Task<Result<IReadOnlyList<InningsExtrasDetailsDto>, Error>> GetTeamInningsExtrasRecords(SharedModel sharedServiceModel);
     }
 }

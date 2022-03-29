@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsStatsWeb.Models;
 using AcsTypes.Error;
 using AcsTypes.Types;
@@ -54,7 +55,7 @@ namespace AcsStatsWeb.Controllers
 
             var matchResult = MatchResult.Create(recordInputModel.MatchResult).Value;
             var maybeResultsModel = await InitializeResultModel<ResultsBowlingModel>(recordInputModel);
-            var ground = await _groundsService.getGround(recordInputModel.GroundId);
+            var ground = await _groundsService.GetGround(recordInputModel.GroundId);
 
             if (maybeResultsModel.IsFailure || ground.IsFailure)
             {
@@ -75,9 +76,9 @@ namespace AcsStatsWeb.Controllers
 
             Result<List<IndividualBowlingDetailsDto>, Error> resultIndBowlingDetails =
                 Result.Failure<List<IndividualBowlingDetailsDto>, Error>("Not initialized");
-            Result<List<BowlingCareerRecordDetailsDto>, Error>
+            Result<List<BowlingCareerRecordDto>, Error>
                 resultPlayerCareerBowlingDetails =
-                    Result.Failure<List<BowlingCareerRecordDetailsDto>, Error>("Not initialized");
+                    Result.Failure<List<BowlingCareerRecordDto>, Error>("Not initialized");
 
             var viewName = "Index";
 
@@ -153,8 +154,7 @@ namespace AcsStatsWeb.Controllers
                             resultsModel.IndividualBowlingDetails = record;
                             resultsModel.MatchType = recordInputModel.MatchType;
                             SetShowTeamsInLists(resultsModel, (TeamId)recordInputModel.TeamId,
-                                (TeamId)recordInputModel.OpponentsId,
-                                resultsModel.TeamGrouping == "on");
+                                (TeamId)recordInputModel.OpponentsId);
                         })
                         .OnFailure(error => { ModelState.AddModelError("OpponentsId", error.Message); })
                         .Finally(res =>
@@ -171,8 +171,7 @@ namespace AcsStatsWeb.Controllers
                             resultsModel.PlayerRecordDetails = record;
                             resultsModel.MatchType = recordInputModel.MatchType;
                             SetShowTeamsInLists(resultsModel, (TeamId)recordInputModel.TeamId,
-                                (TeamId)recordInputModel.OpponentsId,
-                                resultsModel.TeamGrouping == "on");
+                                (TeamId)recordInputModel.OpponentsId);
                         })
                         .OnFailure(error => { ModelState.AddModelError("OpponentsId", error.Message); })
                         .Finally(res =>

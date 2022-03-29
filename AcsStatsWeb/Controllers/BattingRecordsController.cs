@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsStatsWeb.Dtos;
 using AcsStatsWeb.Models;
 using AcsTypes.Error;
@@ -63,7 +64,7 @@ namespace AcsStatsWeb.Controllers
 
             var matchResult = MatchResult.Create(recordInputModel.MatchResult).Value;
             var maybeResultsModel = await InitializeResultModel<ResultsBattingModel>(recordInputModel);
-            var ground = await _groundsService.getGround(recordInputModel.GroundId);
+            var ground = await _groundsService.GetGround(recordInputModel.GroundId);
 
             if (maybeResultsModel.IsFailure || ground.IsFailure)
             {
@@ -171,8 +172,7 @@ namespace AcsStatsWeb.Controllers
                         {
                             resultsModel.MatchType = recordInputModel.MatchType;
                             SetShowTeamsInLists(resultsModel, (TeamId) recordInputModel.TeamId,
-                                (TeamId) recordInputModel.OpponentsId,
-                                resultsModel.TeamGrouping == "on");
+                                (TeamId) recordInputModel.OpponentsId);
                         })
                         .Match(t => View(viewName, resultsModel), e =>
                         {
@@ -193,8 +193,7 @@ namespace AcsStatsWeb.Controllers
                         {
                             resultsModel.MatchType = recordInputModel.MatchType;
                             SetShowTeamsInLists(resultsModel, (TeamId) recordInputModel.TeamId,
-                                (TeamId) recordInputModel.OpponentsId,
-                                resultsModel.TeamGrouping == "on");
+                                (TeamId) recordInputModel.OpponentsId);
                         })
                         .Match(t => View(viewName, resultsModel), e =>
                         {

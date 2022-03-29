@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsCommands.Query;
 using AcsRepository;
+using AcsStatsWeb.Dtos;
 using AcsTypes.Error;
 using AcsTypes.Types;
 using CSharpFunctionalExtensions;
 using Domain;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -14,39 +17,23 @@ namespace Services.AcsServices
     public class GroundsService : IGroundsService
     {
         private readonly IEfUnitOfWork _unitOfWork;
+        private readonly IMediator _mediator;
         private readonly ILogger<GroundsService> _logger;
 
-        public GroundsService(IEfUnitOfWork unitOfWork, ILogger<GroundsService> logger)
+        public GroundsService(IEfUnitOfWork unitOfWork, IMediator mediator, ILogger<GroundsService> logger)
         {
             _unitOfWork = unitOfWork;
+            _mediator = mediator;
             _logger = logger;
         }
 
-        public async Task<Result<IEnumerable<GroundsWithCodes>, Error>> GetGroundsForMatchType(MatchType matchType)
-        {
-            var groundsOrError = await _unitOfWork.GroundsRepository.GetGroundsForMatchType(matchType);
-
-            return groundsOrError.Match(Result.Success<IEnumerable<GroundsWithCodes>, Error>
-                , Result.Failure<IEnumerable<GroundsWithCodes>, Error>);
-
-        }
-
-        public async Task<Result<Ground, Error>> getGround(int id)
+        public async Task<Result<GroundDto, Error>> GetGround(int id)
         {
             if (id == 0)
             {
-                return new Ground();
+                return new GroundDto(0, 0, "", 0, "", "");
             }
-
-            try
-            {
-                return await _unitOfWork.GroundsRepository.Entities.FirstAsync(g => g.Id == id);
-            }
-            catch (Exception e)
-            {
-                _logger.LogCritical(e, "Unable to get ground for id {Id}", id);
-                return Result.Failure<Ground, Error>(Errors.UnexpectedError);
-            }
+            return await _mediator.Send(new GroundQuery(id));
         }
     }
 }

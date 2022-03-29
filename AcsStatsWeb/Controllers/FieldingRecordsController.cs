@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsDto.Models;
 using AcsStatsWeb.Models;
 using AcsTypes.Error;
 using AcsTypes.Types;
@@ -56,7 +57,7 @@ namespace AcsStatsWeb.Controllers
 
             var matchResult = MatchResult.Create(recordInputModel.MatchResult).Value;
             var maybeResultsModel = await InitializeResultModel<ResultsFieldingModel>(recordInputModel);
-            var ground = await _groundsService.getGround(recordInputModel.GroundId);
+            var ground = await _groundsService.GetGround(recordInputModel.GroundId);
 
             if (maybeResultsModel.IsFailure || ground.IsFailure)
             {
@@ -151,8 +152,7 @@ namespace AcsStatsWeb.Controllers
                             resultsModel.IndividualFieldingDetails = record;
                             resultsModel.MatchType = recordInputModel.MatchType;
                             SetShowTeamsInLists(resultsModel, (TeamId)recordInputModel.TeamId,
-                                (TeamId)recordInputModel.OpponentsId,
-                                resultsModel.TeamGrouping == "on");
+                                (TeamId)recordInputModel.OpponentsId);
                         })
                         .OnFailure(error => { ModelState.AddModelError("OpponentsId", error.Message); })
                         .Finally(res =>
@@ -172,8 +172,7 @@ namespace AcsStatsWeb.Controllers
                             resultsModel.PlayerRecordDetails = record;
                             resultsModel.MatchType = recordInputModel.MatchType;
                             SetShowTeamsInLists(resultsModel, (TeamId)recordInputModel.TeamId,
-                                (TeamId)recordInputModel.OpponentsId,
-                                resultsModel.TeamGrouping == "on");
+                                (TeamId)recordInputModel.OpponentsId);
                         })
                         .OnFailure(error => { ModelState.AddModelError("OpponentsId", error.Message); })
                         .Finally(res =>

@@ -24,7 +24,7 @@ public class CsvOutputFormatter : TextOutputFormatter
         if (typeof(Envelope<IReadOnlyList<IndividualBattingDetailsDto>>).IsAssignableFrom(type)
             || typeof(Envelope<IReadOnlyList<BattingCareerRecordDto>>).IsAssignableFrom(type)
             || typeof(Envelope<IReadOnlyList<IndividualBowlingDetailsDto>>).IsAssignableFrom(type)
-            || typeof(Envelope<IReadOnlyList<BowlingCareerRecordDetailsDto>>).IsAssignableFrom(type)
+            || typeof(Envelope<IReadOnlyList<BowlingCareerRecordDto>>).IsAssignableFrom(type)
             || typeof(Envelope<IReadOnlyList<IndividualBowlingDetailsDto>>).IsAssignableFrom(type)
             || typeof(Envelope<IReadOnlyList<FieldingCareerRecordDto>>).IsAssignableFrom(type)
            )
@@ -58,7 +58,7 @@ public class CsvOutputFormatter : TextOutputFormatter
                 buffer.AppendLine(dto.Format());
             }
         }
-        else if (context.Object is Envelope<IReadOnlyList<BowlingCareerRecordDetailsDto>> playerBowlingEnv)
+        else if (context.Object is Envelope<IReadOnlyList<BowlingCareerRecordDto>> playerBowlingEnv)
         {
             buffer.AppendLine(playerBowlingEnv.Result.FormatHeader());
 

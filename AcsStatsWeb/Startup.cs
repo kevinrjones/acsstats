@@ -8,7 +8,6 @@ using AcsCommands.Query;
 using AcsHttpClient;
 using AcsRepository;
 using AcsRepository.Interfaces;
-using AcsRepository.Repositories;
 using AcsRepository.Util;
 using AcsStatsWeb.AcsHttpClient;
 using AcsStatsWeb.Formatter;
@@ -57,7 +56,7 @@ namespace AcsStatsWeb
                 config.OutputFormatters.Add(new CsvOutputFormatter());
             });
             
-            services.AddMediatR(typeof(GetGroundsQuery).Assembly);
+            services.AddMediatR(typeof(GroundsQuery).Assembly);
             services.AddControllersWithViews();
 
             services.AddLogging();
@@ -85,9 +84,7 @@ namespace AcsStatsWeb
             // todo: use these in place of raw connection string
             var commandsConnectionString = new CommandsConnectionString(Configuration.GetConnectionString("commands"));
             var queriesConnectionString = new QueriesConnectionString(Configuration.GetConnectionString("queries"));
-
-
-            RegisterRepositories(services);
+            
             RegisterServices(services);
 
             services.AddSingleton(commandsConnectionString);
@@ -109,22 +106,7 @@ namespace AcsStatsWeb
             services.AddScoped<IGroundsService, GroundsService>();
             services.AddScoped<IValidation, Validation>();
         }
-
-        private void RegisterRepositories(IServiceCollection services)
-        {
-            services.AddScoped<IMatchesRepository, MatchesRepository>();
-            services.AddScoped<ITeamsRepository, TeamsRepository>();
-            services.AddScoped<IGroundsRepository, GroundsRepository>();
-            services.AddScoped<IIndividualBattingDetailsRepository, IndividualBattingDetailsRepository>();
-            services.AddScoped<IIndividualBowlingDetailsRepository, IndividualBowlingDetailsRepository>();
-            services.AddScoped<IIndividualFieldingDetailsRepository, IndividualFieldingDetailsRepository>();
-            services.AddScoped<IPlayerBattingRecordDetailsRepository, PlayerBattingRecordDetailsRepository>();
-            services.AddScoped<IPlayerBowlingRecordDetailsRepository, PlayerBowlingRecordDetailsRepository>();
-            services.AddScoped<IPlayerFieldingRecordDetailsRepository, PlayerFieldingRecordDetailsRepository>();
-            services.AddScoped<IMatchRecordDetailsRepository, MatchRecordDetailsRepository>();
-            services.AddScoped<IPartnershipRecordDetailsRepository, PartnershipRecordDetailsRepository>();
-        }
-
+        
         private static void RegisterHttpProxyWithPolicy(IServiceCollection services)
         {
             var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(HttpClientTimeoutSeconds);

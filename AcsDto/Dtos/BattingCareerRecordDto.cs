@@ -2,6 +2,13 @@ using System.Text;
 
 namespace AcsDto.Dtos;
 
+public record CountryDto
+(
+    int Id,
+    string Name,
+    string MatchType
+);
+
 public record BattingCareerRecordDto(
     string Name,
     string Team,
@@ -29,11 +36,10 @@ public static class PlayerBattingRecordDtoFormatter
     {
         StringBuilder buffer = new StringBuilder();
         var hs = dto.NotOut ? $"{dto.HighestScore}*" : $"{dto.HighestScore}";
-        
-        return    $"{dto.Name}, {dto.Team.Replace(",", ";")}, {dto.Matches}, {dto.Innings}, {dto.Runs}, {dto.NotOuts}, " +
-            $"{hs}, {dto.Avg}, {dto.Hundreds}, {dto.Fifties}, {dto.Ducks}, " +
-            $"{dto.Sixes}, {dto.Fours}, {dto.Balls}";
-        
+
+        return $"{dto.Name}, {dto.Team.Replace(",", ";")}, {dto.Matches}, {dto.Innings}, {dto.Runs}, {dto.NotOuts}, " +
+               $"{hs}, {dto.Avg}, {dto.Hundreds}, {dto.Fifties}, {dto.Ducks}, " +
+               $"{dto.Sixes}, {dto.Fours}, {dto.Balls}";
     }
 
     public static string FormatHeader(this IReadOnlyList<BattingCareerRecordDto> _)

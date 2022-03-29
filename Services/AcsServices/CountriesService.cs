@@ -1,30 +1,40 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsCommands.Query;
+using AcsDto.Dtos;
 using AcsRepository;
 using AcsTypes.Error;
 using AcsTypes.Types;
 using CSharpFunctionalExtensions;
 using Domain;
+using MediatR;
 
 namespace Services.AcsServices
 {
     public class CountriesService : ICountriesService
     {
-        private readonly IEfUnitOfWork _unitOfWork;
+        private readonly IMediator _mediator;
 
-        public CountriesService(IEfUnitOfWork unitOfWork)
+        public CountriesService(IMediator mediator)
         {
-            _unitOfWork = unitOfWork;
+            _mediator = mediator;
         }
 
-        public async Task<Result<IReadOnlyList<Country>, Error >> GetCountriesForMatchType(string matchType)
+        public async Task<Result<IReadOnlyList<CountryDto>, Error >> GetCountriesForMatchType(string matchType)
         {
-            return (await _unitOfWork.GroundsRepository.GetCountryForMatchType(matchType)).Map(r => r);
+            var m = MatchType.Create(matchType);
+
+            if (m.IsSuccess)
+            {
+                return await _mediator.Send(new CountryForMatchTypeQuery(m.Value));
+            }
+
+            return Result.Failure<IReadOnlyList<CountryDto>, Error>(m.Error);
         }
 
-        public async Task<Result<Country, Error>> getCountryFromId(CountryId id)
+        public async Task<Result<CountryDto, Error>> getCountryFromId(CountryId id)
         {
-            return await _unitOfWork.GroundsRepository.GetCountryFromId(id);
+            return await _mediator.Send(new CountryQuery(id));
         }
     }
 }
