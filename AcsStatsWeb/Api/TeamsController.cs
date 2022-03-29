@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AcsStatsWeb.Api.cqrs;
+using AcsCommands;
+using AcsCommands.Query;
 using AcsStatsWeb.Dtos;
 using AcsTypes.Types;
 using Domain;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Services;
 using CSharpFunctionalExtensions;
+using MediatR;
 
 namespace AcsStatsWeb.Api
 {
@@ -18,25 +20,24 @@ namespace AcsStatsWeb.Api
     [ApiController]
     public class TeamsController : BaseApiController
     {
-        private readonly Messages _messages;
+        private readonly IMediator _mediator;
 
-        public TeamsController(Messages messages,
+        public TeamsController(IMediator mediator,
             ITeamsService teamsService,
             ILogger<TeamsController> logger) : base(
             teamsService, logger)
         {
-            _messages = messages;
+            _mediator = mediator;
         }
 
         // GET: api/Teams/wf
         [HttpGet("{matchType}")]
         public async Task<IActionResult> GetTeams(string matchType)
         {
-            return await (MatchType.Create(matchType)
-                    .Bind(async m => (await TeamsService.GetTeamsForMatchType(m))))
-                .Match(list =>
-                        Ok(list.Map(i => new TeamDto(i.MatchType, i.Name, i.Id))),
-                    (it) => Error(it.Message));
+            return await MatchType.Create(matchType)
+                .Map(m => new TeamsQuery(m))
+                .Bind(async q => await _mediator.Send(q))
+                .Match(Ok, (it) => base.Error(it.Message));
         }
     }
 }

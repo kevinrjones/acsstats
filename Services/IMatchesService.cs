@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsTypes.Error;
 using AcsTypes.Types;
 using CSharpFunctionalExtensions;
@@ -12,16 +14,16 @@ namespace Services
 {
     public interface IMatchesService
     {
-        Task<CSharpFunctionalExtensions.Result<IReadOnlyList<MatchRecordDetails>, AcsTypes.Error.Error>>
+        Task<CSharpFunctionalExtensions.Result<IReadOnlyList<MatchRecordDetailsDto>, AcsTypes.Error.Error>>
             GetHighestInningsForTeam(SharedModel teamModel);
 
-        Task<CSharpFunctionalExtensions.Result<IReadOnlyList<MatchRecordDetails>, AcsTypes.Error.Error>> GetMatchTotals(
+        Task<CSharpFunctionalExtensions.Result<IReadOnlyList<MatchRecordDetailsDto>, AcsTypes.Error.Error>> GetMatchTotals(
             SharedModel teamModel);
 
-        Task<CSharpFunctionalExtensions.Result<IReadOnlyList<MatchResult>, AcsTypes.Error.Error>> GetMatchResults(
+        Task<CSharpFunctionalExtensions.Result<IReadOnlyList<MatchResultDto>, AcsTypes.Error.Error>> GetMatchResults(
             SharedModel teamModel);
 
-        public Task<Result<IReadOnlyList<MatchDate>, Error>> GetDatesForMatchType(string matchType);
+        public Task<Result<IReadOnlyList<MatchDateDto>, Error>> GetDatesForMatchType(string matchType);
 
         Task<Result<IReadOnlyList<string>, Error>> GetSeriesDatesForMatchType(string matchType);
     }

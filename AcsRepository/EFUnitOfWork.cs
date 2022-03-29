@@ -12,40 +12,11 @@ namespace AcsRepository
     public class EfUnitOfWork : IEfUnitOfWork
     {
         public AcsDbContext DbContext { get; set; }
-        public IMatchesRepository MatchesRepository { get; }
-        public ITeamsRepository TeamsRepository { get; }
-        public IGroundsRepository GroundsRepository { get; }
-        // public ICountriesRepository CountriesRepository { get; }
         
-        public IIndividualBattingDetailsRepository IndividualBattingDetailsRepository { get; }
-        public IIndividualBowlingDetailsRepository IndividualBowlingDetailsRepository { get; }
-        public IIndividualFieldingDetailsRepository IndividualFieldingDetailsRepository { get; }
-        public IPlayerBattingRecordDetailsRepository PlayerBattingRecordDetailsRepository { get; }
-        public IPlayerBowlingRecordDetailsRepository PlayerBowlingRecordDetailsRepository { get; }
-        public IPlayerFieldingRecordDetailsRepository PlayerFieldingRecordDetailsRepository { get; }
-        public IPartnershipRecordDetailsRepository PartnershipDetailsRepository { get; }
-        public IMatchRecordDetailsRepository MatchRecordDetailsRepository { get; }
         
-        public EfUnitOfWork(AcsDbContext dbCtx, IMatchesRepository matchesRepository, ITeamsRepository teamsRepository
-            , IGroundsRepository groundsRepository, // ICountriesRepository countriesRepository, 
-            IIndividualBattingDetailsRepository individualBattingDetailsRepository, IIndividualBowlingDetailsRepository individualBowlingDetailsRepository,
-            IIndividualFieldingDetailsRepository individualFieldingDetailsRepository,
-            IPlayerBattingRecordDetailsRepository playerBattingRecordDetailsRepository, IPlayerBowlingRecordDetailsRepository playerBowlingRecordDetailsRepository,
-            IPlayerFieldingRecordDetailsRepository playerFieldingRecordDetailsRepository,IMatchRecordDetailsRepository matchRecordDetailsRepository,
-            IPartnershipRecordDetailsRepository partnershipDetailsRepository)
+        public EfUnitOfWork(AcsDbContext dbCtx)
         {
-            MatchesRepository = matchesRepository;
-            TeamsRepository = teamsRepository;
-            GroundsRepository = groundsRepository;
-            // CountriesRepository = countriesRepository;
-            IndividualBattingDetailsRepository = individualBattingDetailsRepository;
-            IndividualBowlingDetailsRepository = individualBowlingDetailsRepository;
-            IndividualFieldingDetailsRepository = individualFieldingDetailsRepository;
-            PlayerBattingRecordDetailsRepository = playerBattingRecordDetailsRepository;
-            PlayerBowlingRecordDetailsRepository = playerBowlingRecordDetailsRepository;
-            PlayerFieldingRecordDetailsRepository = playerFieldingRecordDetailsRepository;
-            MatchRecordDetailsRepository = matchRecordDetailsRepository;
-            PartnershipDetailsRepository = partnershipDetailsRepository;
+
             DbContext = dbCtx;
         }
 
@@ -53,9 +24,7 @@ namespace AcsRepository
         {
             DbContext.Dispose();
         }
-
-
-
+        
         public void Commit()
         {
             DbContext.SaveChanges();

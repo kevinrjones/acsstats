@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using AcsDto.Dtos;
+using AcsStatsWeb.Dtos;
 using Domain;
 using Services;
 using Services.Models;
@@ -27,8 +29,6 @@ namespace AcsStatsWeb.Models
         public bool ShowOpponentsInList { get; set; }
         public string Title { get; set; }
         public string SortDirection { get; set; }
-        public string TeamGrouping { get; set; }
-
         public int HomeVenue { get; set; }
         public int AwayVenue { get; set; }
         public int NeutralVenue { get; set; }
@@ -55,7 +55,7 @@ namespace AcsStatsWeb.Models
         public virtual string GetBaseUrl()
         {
             var baseUrl = $"teamid={TeamId}&opponentsid={OpponentsId}&matchtype={MatchType}" +
-                          $"&sortdirection={SortDirection}&groundid={GroundId}&teamGrouping={TeamGrouping}" +
+                          $"&sortdirection={SortDirection}&groundid={GroundId}" +
                           $"&hostcountryid={HostCountryId}&venue={HomeVenue}&startDate={StartDate}&endDate={EndDate}" +
                           $"&season={Season}&won={MatchResult[0]}&lost={MatchResult[1]}&drawn={MatchResult[2]}&tied={MatchResult[3]}" +
                           $"&format={Format}&Limit={Limit}";
@@ -117,15 +117,15 @@ namespace AcsStatsWeb.Models
 
     public class ResultsBattingModel : ResultsModel
     {
-        public List<PlayerBattingCareerRecordDetails> PlayerRecordDetails { get; set; }
-        public List<IndividualBattingDetails> IndividualBattingDetails { get; set; }
+        public List<BattingCareerRecordDto> PlayerRecordDetails { get; set; }
+        public List<IndividualBattingDetailsDto> IndividualBattingDetails { get; set; }
         
     }
 
     public class ResultsBowlingModel : ResultsModel
     {
-        public List<PlayerBowlingCareerRecordDetails> PlayerRecordDetails { get; set; }
-        public List<IndividualBowlingDetails> IndividualBowlingDetails { get; set; }
+        public List<BowlingCareerRecordDto> PlayerRecordDetails { get; set; }
+        public List<IndividualBowlingDetailsDto> IndividualBowlingDetails { get; set; }
         
     }
 

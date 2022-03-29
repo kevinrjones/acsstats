@@ -1,10 +1,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsCommands.Query;
+using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsRepository;
+using AcsStatsWeb.Dtos;
 using AcsTypes.Error;
 using AcsTypes.Types;
 using CSharpFunctionalExtensions;
 using Domain;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Services.Models;
@@ -13,419 +18,245 @@ namespace Services.AcsServices
 {
     public class TeamsService : ITeamsService
     {
-        private readonly IEfUnitOfWork _unitOfWork;
+        private readonly IMediator _mediator;
         private readonly ILogger<TeamsService> _logger;
 
-        public TeamsService(IEfUnitOfWork unitOfWork, ILogger<TeamsService> logger)
+        public TeamsService(IEfUnitOfWork unitOfWork, IMediator mediator, ILogger<TeamsService> logger)
         {
-            _unitOfWork = unitOfWork;
+            _mediator = mediator;
             _logger = logger;
         }
 
-        public async Task<Result<IReadOnlyList<Team>, Error>> GetTeamsForMatchType(MatchType matchType)
-        {
-                return await _unitOfWork.TeamsRepository.GetTeamsForMatchType(matchType);
-        }
-
-        public async Task<Result<Team, Error>> GetTeam(TeamId teamIdValue)
+        public async Task<Result<TeamDto, Error>> GetTeam(TeamId teamIdValue)
         {
             if (teamIdValue == 0)
-                return await Task.FromResult(Result.Success<Team, Error>(new Team {Name = "All"}));
-
-            return await _unitOfWork.TeamsRepository.Entities.FirstAsync(t => t.Id == teamIdValue);
+                return await Task.FromResult(Result.Success<Team, Error>(new Team {Name = "All"})).Map(t => new TeamDto(t.Id, t.Name, t.MatchType));
+            
+            return await _mediator.Send(new TeamQuery(teamIdValue));
         }
 
-        public async Task<Result<IReadOnlyList<TeamRecordDetails>, Error>> GetTeamRecords(
-            SharedModel teamModel)
+        public async Task<Result<IReadOnlyList<TeamRecordDetailsDto>, Error>> GetTeamRecords(
+            SharedModel model)
         {
-            var venueId = teamModel.HomeVenue.Value | teamModel.AwayVenue.Value |
-                          teamModel.NeutralVenue.Value;
-            var sortBy = (int) teamModel.SortOrder;
-            var sortDirection = teamModel.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
+            if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsForTeamVsOpponentsQuery(model,
+                    "team_records_for_team_vs_opponent"));
+            }
 
-            if (teamModel.TeamId.Value == 0 && teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetOverall(teamModel.MatchType.Value,
-                    teamModel.Limit.Value, teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            if (model.TeamId.Value != 0)
+            {
+                return await _mediator.Send(
+                    new TeamRecordsForTeamQuery(model, "team_records_for_team"));
+            }
 
-            if (teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetOverallForTeam(teamModel.MatchType.Value,
-                    teamModel.TeamId.Value, teamModel.Limit.Value, teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy,
-                    sortDirection);
+            if (model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsVsOpponentsQuery(model,
+                    "team_records_against_specified_opponent"));
+            }
 
-            if (teamModel.TeamId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetOverallAgainstOpponents(
-                    teamModel.MatchType.Value, teamModel.OpponentsId.Value, teamModel.Limit.Value,
-                    teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId,
-                    teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
-
-            return await _unitOfWork.MatchRecordDetailsRepository.GetOverallForTeamAgainstOpponents(
-                teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.OpponentsId.Value, teamModel.Limit.Value,
-                teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                venueId,
-                teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                teamModel.MatchResult.Value,
-                sortBy, sortDirection);
+            return await _mediator.Send(
+                new TeamRecordsCompleteQuery(model, "team_records_overall"));
         }
 
-        public async Task<Result<IReadOnlyList<TeamRecordDetails>, Error>> GetTeamSeriesRecords(
-            SharedModel teamModel)
+        public async Task<Result<IReadOnlyList<TeamRecordDetailsDto>, Error>> GetTeamSeriesRecords(
+            SharedModel model)
         {
-            var venueId = teamModel.HomeVenue.Value | teamModel.AwayVenue.Value |
-                          teamModel.NeutralVenue.Value;
-            var sortBy = (int) teamModel.SortOrder;
-            var sortDirection = teamModel.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
+            if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsForTeamVsOpponentsQuery(model,
+                    "team_records_by_series_for_team_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0 && teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetSeriesOverall(teamModel.MatchType.Value,
-                    teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            if (model.TeamId.Value != 0)
+            {
+                return await _mediator.Send(
+                    new TeamRecordsForTeamQuery(model, "team_records_by_series_for_team"));
+            }
 
-            if (teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetSeriesOverallForTeam(teamModel.MatchType.Value,
-                    teamModel.TeamId.Value, teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy,
-                    sortDirection);
+            if (model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsVsOpponentsQuery(model,
+                    "team_records_by_series_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetSeriesOverallAgainstOpponents(
-                    teamModel.MatchType.Value, teamModel.OpponentsId.Value,
-                    teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId,
-                    teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
-
-            return await _unitOfWork.MatchRecordDetailsRepository.GetSeriesOverallForTeamAgainstOpponents(
-                teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.OpponentsId.Value,
-                teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                venueId,
-                teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                teamModel.MatchResult.Value,
-                sortBy, sortDirection);
+            return await _mediator.Send(
+                new TeamRecordsCompleteQuery(model, "team_records_by_series_overall"));
         }
 
-        public async Task<Result<IReadOnlyList<TeamRecordDetails>, Error>> GetTeamGroundRecords(
-            SharedModel teamModel)
+        public async Task<Result<IReadOnlyList<TeamRecordDetailsDto>, Error>> GetTeamGroundRecords(
+            SharedModel model)
         {
-            var venueId = teamModel.HomeVenue.Value | teamModel.AwayVenue.Value |
-                          teamModel.NeutralVenue.Value;
-            var sortBy = (int) teamModel.SortOrder;
-            var sortDirection = teamModel.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
+            if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsForTeamVsOpponentsQuery(model,
+                    "team_records_by_ground_for_team_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0 && teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetGroundOverall(teamModel.MatchType.Value,
-                    teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            if (model.TeamId.Value != 0)
+            {
+                return await _mediator.Send(
+                    new TeamRecordsForTeamQuery(model, "team_records_by_ground_for_team"));
+            }
 
-            if (teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetGroundOverallForTeam(teamModel.MatchType.Value,
-                    teamModel.TeamId.Value, teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy,
-                    sortDirection);
+            if (model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsVsOpponentsQuery(model,
+                    "team_records_by_ground_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetGroundOverallAgainstOpponents(
-                    teamModel.MatchType.Value, teamModel.OpponentsId.Value,
-                    teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId,
-                    teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            return await _mediator.Send(
+                new TeamRecordsCompleteQuery(model, "team_records_by_ground_overall"));
 
-            return await _unitOfWork.MatchRecordDetailsRepository.GetGroundOverallForTeamAgainstOpponents(
-                teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.OpponentsId.Value,
-                teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                venueId,
-                teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                teamModel.MatchResult.Value,
-                sortBy, sortDirection);
         }
 
-        public async Task<Result<IReadOnlyList<TeamRecordDetails>, Error>> GetTeamHostCountryRecords(
-            SharedModel teamModel)
+        public async Task<Result<IReadOnlyList<TeamRecordDetailsDto>, Error>> GetTeamHostCountryRecords(
+            SharedModel model)
         {
-            var venueId = teamModel.HomeVenue.Value | teamModel.AwayVenue.Value |
-                          teamModel.NeutralVenue.Value;
-            var sortBy = (int) teamModel.SortOrder;
-            var sortDirection = teamModel.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
+            if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsForTeamVsOpponentsQuery(model,
+                    "team_records_by_host_for_team_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0 && teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetHostCountryOverall(teamModel.MatchType.Value,
-                    teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            if (model.TeamId.Value != 0)
+            {
+                return await _mediator.Send(
+                    new TeamRecordsForTeamQuery(model, "team_records_by_host_for_team"));
+            }
 
-            if (teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetHostCountryOverallForTeam(
-                    teamModel.MatchType.Value,
-                    teamModel.TeamId.Value, teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy,
-                    sortDirection);
+            if (model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsVsOpponentsQuery(model,
+                    "team_records_by_host_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetHostCountryOverallAgainstOpponents(
-                    teamModel.MatchType.Value, teamModel.OpponentsId.Value,
-                    teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId,
-                    teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
-
-            return await _unitOfWork.MatchRecordDetailsRepository.GetHostCountryOverallForTeamAgainstOpponents(
-                teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.OpponentsId.Value,
-                teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                venueId,
-                teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                teamModel.MatchResult.Value,
-                sortBy, sortDirection);
+            return await _mediator.Send(
+                new TeamRecordsCompleteQuery(model, "team_records_by_host_overall"));
         }
 
-        public async Task<Result<IReadOnlyList<TeamRecordDetails>, Error>> GetTeamOppositionRecords(
-            SharedModel teamModel)
+        public async Task<Result<IReadOnlyList<TeamRecordDetailsDto>, Error>> GetTeamOppositionRecords(
+            SharedModel model)
         {
-            var venueId = teamModel.HomeVenue.Value | teamModel.AwayVenue.Value |
-                          teamModel.NeutralVenue.Value;
-            var sortBy = (int) teamModel.SortOrder;
-            var sortDirection = teamModel.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
+            if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsForTeamVsOpponentsQuery(model,
+                    "team_records_by_opp_for__against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0 && teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetOppositionOverall(teamModel.MatchType.Value,
-                    teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            if (model.TeamId.Value != 0)
+            {
+                return await _mediator.Send(
+                    new TeamRecordsForTeamQuery(model, "team_records_by_opp_for_team"));
+            }
 
-            if (teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetOppositionOverallForTeam(
-                    teamModel.MatchType.Value,
-                    teamModel.TeamId.Value, teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy,
-                    sortDirection);
+            if (model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsVsOpponentsQuery(model,
+                    "team_records_by_opp_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetOppositionOverallAgainstOpponents(
-                    teamModel.MatchType.Value, teamModel.OpponentsId.Value,
-                    teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId,
-                    teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            return await _mediator.Send(
+                new TeamRecordsCompleteQuery(model, "team_records_by_opp_overall"));
 
-            return await _unitOfWork.MatchRecordDetailsRepository.GetOppositionOverallForTeamAgainstOpponents(
-                teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.OpponentsId.Value,
-                teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                venueId,
-                teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                teamModel.MatchResult.Value,
-                sortBy, sortDirection);
         }
 
-        public async Task<Result<IReadOnlyList<TeamRecordDetails>, Error>> GetTeamByYearRecords(
-            SharedModel teamModel)
+        public async Task<Result<IReadOnlyList<TeamRecordDetailsDto>, Error>> GetTeamByYearRecords(
+            SharedModel model)
         {
-            var venueId = teamModel.HomeVenue.Value | teamModel.AwayVenue.Value |
-                          teamModel.NeutralVenue.Value;
-            var sortBy = (int) teamModel.SortOrder;
-            var sortDirection = teamModel.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
+            if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsForTeamVsOpponentsQuery(model,
+                    "team_records_by_year_for_team_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0 && teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetByYearOverall(teamModel.MatchType.Value,
-                    teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            if (model.TeamId.Value != 0)
+            {
+                return await _mediator.Send(
+                    new TeamRecordsForTeamQuery(model, "team_records_by_year_for_team"));
+            }
 
-            if (teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetByYearOverallForTeam(
-                    teamModel.MatchType.Value,
-                    teamModel.TeamId.Value, teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy,
-                    sortDirection);
+            if (model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsVsOpponentsQuery(model,
+                    "team_records_by_year_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetByYearOverallAgainstOpponents(
-                    teamModel.MatchType.Value, teamModel.OpponentsId.Value,
-                    teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId,
-                    teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            return await _mediator.Send(
+                new TeamRecordsCompleteQuery(model, "team_records_by_year_overall"));
 
-            return await _unitOfWork.MatchRecordDetailsRepository.GetByYearOverallForTeamAgainstOpponents(
-                teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.OpponentsId.Value,
-                teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                venueId,
-                teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                teamModel.MatchResult.Value,
-                sortBy, sortDirection);
         }
 
-        public async Task<Result<IReadOnlyList<TeamRecordDetails>, Error>> GetTeamBySeasonRecords(
-            SharedModel teamModel)
+        public async Task<Result<IReadOnlyList<TeamRecordDetailsDto>, Error>> GetTeamBySeasonRecords(
+            SharedModel model)
         {
-            var venueId = teamModel.HomeVenue.Value | teamModel.AwayVenue.Value |
-                          teamModel.NeutralVenue.Value;
-            var sortBy = (int) teamModel.SortOrder;
-            var sortDirection = teamModel.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
+            if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsForTeamVsOpponentsQuery(model,
+                    "team_records_by_season_for_team_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0 && teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetBySeasonOverall(teamModel.MatchType.Value,
-                    teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            if (model.TeamId.Value != 0)
+            {
+                return await _mediator.Send(
+                    new TeamRecordsForTeamQuery(model, "team_records_by_season_for_team"));
+            }
 
-            if (teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetBySeasonOverallForTeam(
-                    teamModel.MatchType.Value,
-                    teamModel.TeamId.Value, teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy,
-                    sortDirection);
+            if (model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamRecordsVsOpponentsQuery(model,
+                    "team_records_by_season_against_opponents"));
+            }
 
-            if (teamModel.TeamId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetBySeasonOverallAgainstOpponents(
-                    teamModel.MatchType.Value, teamModel.OpponentsId.Value,
-                    teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId,
-                    teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
-
-            return await _unitOfWork.MatchRecordDetailsRepository.GetBySeasonOverallForTeamAgainstOpponents(
-                teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.OpponentsId.Value,
-                teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                venueId,
-                teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                teamModel.MatchResult.Value,
-                sortBy, sortDirection);
+            return await _mediator.Send(
+                new TeamRecordsCompleteQuery(model, "team_records_by_season_overall"));
         }
 
-        public async Task<Result<IReadOnlyList<TeamExtrasDetails>, Error>> GetTeamOverallExtrasRecords(
-            SharedModel teamModel)
+        public async Task<Result<IReadOnlyList<TeamExtrasDetailsDto>, Error>> GetTeamOverallExtrasRecords(
+            SharedModel model)
         {
-            var venueId = teamModel.HomeVenue.Value | teamModel.AwayVenue.Value |
-                          teamModel.NeutralVenue.Value;
-            var sortBy = (int) teamModel.SortOrder;
-            var sortDirection = teamModel.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
+            if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamOverallExtrasForTeamVsOpponentsQuery(model));
+            }
 
-            if (teamModel.TeamId.Value == 0 && teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetOverallExtrasOverall(teamModel.MatchType.Value,
-                    teamModel.Limit.Value, teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            if (model.TeamId.Value != 0)
+            {
+                return await _mediator.Send(
+                    new TeamOverallExtrasForTeamQuery(model));
+            }
 
-            if (teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetOverallExtrasOverallForTeam(
-                    teamModel.MatchType.Value,
-                    teamModel.TeamId.Value, teamModel.Limit.Value, teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy,
-                    sortDirection);
+            if (model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamOverallExtrasVsOpponentsQuery(model));
+            }
 
-            if (teamModel.TeamId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetOverallExtrasOverallAgainstOpponents(
-                    teamModel.MatchType.Value, teamModel.OpponentsId.Value, teamModel.Limit.Value,
-                    teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId,
-                    teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
-
-            return await _unitOfWork.MatchRecordDetailsRepository.GetOverallExtrasOverallForTeamAgainstOpponents(
-                teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.OpponentsId.Value, teamModel.Limit.Value,
-                teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                venueId,
-                teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                teamModel.MatchResult.Value,
-                sortBy, sortDirection);
+            return await _mediator.Send(
+                new TeamOverallExtrasCompleteQuery(model));
         }
 
-        public async Task<Result<IReadOnlyList<InningsExtrasDetails>, Error>> GetTeamInningsExtrasRecords(
-            SharedModel teamModel)
+        public async Task<Result<IReadOnlyList<InningsExtrasDetailsDto>, Error>> GetTeamInningsExtrasRecords(
+            SharedModel model)
         {
-            var venueId = teamModel.HomeVenue.Value | teamModel.AwayVenue.Value |
-                          teamModel.NeutralVenue.Value;
-            var sortBy = (int) teamModel.SortOrder;
-            var sortDirection = teamModel.SortDirection == SortDirection.Asc ? "ASC" : "DESC";
+            if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamOverallInningsExtrasForTeamVsOpponentsQuery(model));
+            }
 
-            if (teamModel.TeamId.Value == 0 && teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetInningsExtrasOverall(teamModel.MatchType.Value,
-                    teamModel.Limit.Value, teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
+            if (model.TeamId.Value != 0)
+            {
+                return await _mediator.Send(
+                    new TeamOverallInningsExtrasForTeamQuery(model));
+            }
 
-            if (teamModel.OpponentsId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetInningsExtrasOverallForTeam(
-                    teamModel.MatchType.Value,
-                    teamModel.TeamId.Value, teamModel.Limit.Value, teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId, teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy,
-                    sortDirection);
+            if (model.OpponentsId.Value != 0)
+            {
+                return await _mediator.Send(new TeamOverallInningsExtrasVsOpponentsQuery(model));
+            }
 
-            if (teamModel.TeamId.Value == 0)
-                return await _unitOfWork.MatchRecordDetailsRepository.GetInningsExtrasOverallAgainstOpponents(
-                    teamModel.MatchType.Value, teamModel.OpponentsId.Value, teamModel.Limit.Value,
-                    teamModel.GroundId.Value,
-                    teamModel.HostCountryId.Value,
-                    venueId,
-                    teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                    teamModel.MatchResult.Value,
-                    sortBy, sortDirection);
-
-            return await _unitOfWork.MatchRecordDetailsRepository.GetInningsExtrasOverallForTeamAgainstOpponents(
-                teamModel.MatchType.Value, teamModel.TeamId.Value, teamModel.OpponentsId.Value, teamModel.Limit.Value,
-                teamModel.GroundId.Value, teamModel.HostCountryId.Value,
-                venueId,
-                teamModel.StartDateEpoch, teamModel.EndDateEpoch, teamModel.Season,
-                teamModel.MatchResult.Value,
-                sortBy, sortDirection);
+            return await _mediator.Send(
+                new TeamOverallInningsExtrasCompleteQuery(model));
         }
     }
 }

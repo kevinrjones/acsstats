@@ -37,7 +37,7 @@ public sealed class ExceptionHandler
     private Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
         // Log exception here
-        _logger.Error(exception, "Something unexpected happended");
+        _logger.Error(exception, "Something unexpected happened");
         
         string result = JsonConvert.SerializeObject(Envelope.Error(exception.Message));
         context.Response.ContentType = "application/json";

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AcsDto.Models;
 using AcsStatsWeb.Models;
 using AcsTypes.Error;
 using AcsTypes.Types;
@@ -54,7 +55,7 @@ namespace AcsStatsWeb.Controllers
 
             var matchResult = MatchResult.Create(recordInputModel.MatchResult).Value;
             var maybeResultsModel = await InitializeResultModel<ResultsPartnershipModel>(recordInputModel);
-            var ground = await _groundsService.getGround(recordInputModel.GroundId);
+            var ground = await _groundsService.GetGround(recordInputModel.GroundId);
 
             if (maybeResultsModel.IsFailure || ground.IsFailure)
             {
@@ -159,8 +160,7 @@ namespace AcsStatsWeb.Controllers
                             resultsModel.IndividualPartnershipDetails = record.ToList();
                             resultsModel.MatchType = recordInputModel.MatchType;
                             SetShowTeamsInLists(resultsModel, (TeamId)recordInputModel.TeamId,
-                                (TeamId)recordInputModel.OpponentsId,
-                                resultsModel.TeamGrouping == "on");
+                                (TeamId)recordInputModel.OpponentsId);
                         })
                         .OnFailure(error => { ModelState.AddModelError("OpponentsId", error.Message); })
                         .Finally(res =>
@@ -177,8 +177,7 @@ namespace AcsStatsWeb.Controllers
                             resultsModel.PartnershipDetails = record.ToList();
                             resultsModel.MatchType = recordInputModel.MatchType;
                             SetShowTeamsInLists(resultsModel, (TeamId)recordInputModel.TeamId,
-                                (TeamId)recordInputModel.OpponentsId,
-                                resultsModel.TeamGrouping == "on");
+                                (TeamId)recordInputModel.OpponentsId);
                         })
                         .OnFailure(error => { ModelState.AddModelError("OpponentsId", error.Message); })
                         .Finally(res =>

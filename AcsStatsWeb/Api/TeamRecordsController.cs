@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsStatsWeb.Models;
 using AcsStatsWeb.Models.api;
 using AcsTypes.Error;
@@ -21,27 +23,27 @@ namespace AcsStatsWeb.Api
 
         private readonly
             Dictionary<string, Func<BattingBowlingFieldingModel,
-                Task<Result<IReadOnlyList<TeamRecordDetails>, Error>>>> _teamRecordDetailsFuncs =
+                Task<Result<IReadOnlyList<TeamRecordDetailsDto>, Error>>>> _teamRecordDetailsFuncs =
                 new();
 
         private readonly
             Dictionary<string, Func<BattingBowlingFieldingModel,
-                Task<Result<IReadOnlyList<MatchRecordDetails>, Error>>>> _matchRecordDetailsFuncs =
+                Task<Result<IReadOnlyList<MatchRecordDetailsDto>, Error>>>> _matchRecordDetailsFuncs =
                 new();
         
         private readonly
             Dictionary<string, Func<BattingBowlingFieldingModel,
-                Task<Result<IReadOnlyList<MatchResult>, Error>>>> _matchResultFuncs =
+                Task<Result<IReadOnlyList<MatchResultDto>, Error>>>> _matchResultFuncs =
                 new();
 
         private readonly
             Dictionary<string, Func<BattingBowlingFieldingModel,
-                Task<Result<IReadOnlyList<TeamExtrasDetails>, Error>>>> _teamExtraDetailsFuncs =
+                Task<Result<IReadOnlyList<TeamExtrasDetailsDto>, Error>>>> _teamExtraDetailsFuncs =
                 new();
 
         private readonly
             Dictionary<string, Func<BattingBowlingFieldingModel,
-                Task<Result<IReadOnlyList<InningsExtrasDetails>, Error>>>> _inningsExtraDetailsFuncs =
+                Task<Result<IReadOnlyList<InningsExtrasDetailsDto>, Error>>>> _inningsExtraDetailsFuncs =
                 new();
 
         public TeamRecordsController(ITeamsService teamsService,

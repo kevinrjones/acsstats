@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsStatsWeb.Models;
 using AcsTypes.Error;
 using AcsTypes.Types;
@@ -18,19 +20,16 @@ namespace AcsStatsWeb.Controllers
     public class BowlingRecordsController : AcsRecordsController
     {
         private readonly IRemoteBowlingRecordsService _remoteBowlingRecordsService;
-        private readonly IPlayersService _playersService;
         private readonly IGroundsService _groundsService;
 
         public BowlingRecordsController(ILogger<BowlingRecordsController> logger,
             IRemoteBowlingRecordsService remoteBowlingRecordsService,
-            IPlayersService playersService,
             IGroundsService groundsService,
             IValidation validation,
             ITeamsService teamsService, ICountriesService countriesService) : base(teamsService, countriesService,
             validation, logger)
         {
             _remoteBowlingRecordsService = remoteBowlingRecordsService;
-            _playersService = playersService;
             _groundsService = groundsService;
             ViewData["Title"] = "Bowling Records";
         }
@@ -56,7 +55,7 @@ namespace AcsStatsWeb.Controllers
 
             var matchResult = MatchResult.Create(recordInputModel.MatchResult).Value;
             var maybeResultsModel = await InitializeResultModel<ResultsBowlingModel>(recordInputModel);
-            var ground = await _groundsService.getGround(recordInputModel.GroundId);
+            var ground = await _groundsService.GetGround(recordInputModel.GroundId);
 
             if (maybeResultsModel.IsFailure || ground.IsFailure)
             {
@@ -68,20 +67,18 @@ namespace AcsStatsWeb.Controllers
 
             var requestDates = GetEpochDates(recordInputModel.StartDate, recordInputModel.EndDate);
 
-
-            recordInputModel.UpdateSortOrder(SortOrder.Runs);
-
-            recordInputModel.UpdateSortOrder(SortOrder.Runs);
+            
+            recordInputModel.UpdateSortOrder(SortOrder.Wickets);
             resultsModel.UpdateMatchResult(recordInputModel.MatchResult);
             resultsModel.Ground = ground.Value.KnownAs;
             var serviceModel =
                 InitializeSharedServiceModel<BattingBowlingFieldingModel>(recordInputModel, requestDates, matchResult);
 
-            Result<List<IndividualBowlingDetails>, Error> resultIndBowlingDetails =
-                Result.Failure<List<IndividualBowlingDetails>, Error>("Not initialized");
-            Result<List<PlayerBowlingCareerRecordDetails>, Error>
+            Result<List<IndividualBowlingDetailsDto>, Error> resultIndBowlingDetails =
+                Result.Failure<List<IndividualBowlingDetailsDto>, Error>("Not initialized");
+            Result<List<BowlingCareerRecordDto>, Error>
                 resultPlayerCareerBowlingDetails =
-                    Result.Failure<List<PlayerBowlingCareerRecordDetails>, Error>("Not initialized");
+                    Result.Failure<List<BowlingCareerRecordDto>, Error>("Not initialized");
 
             var viewName = "Index";
 
@@ -157,8 +154,7 @@ namespace AcsStatsWeb.Controllers
                             resultsModel.IndividualBowlingDetails = record;
                             resultsModel.MatchType = recordInputModel.MatchType;
                             SetShowTeamsInLists(resultsModel, (TeamId)recordInputModel.TeamId,
-                                (TeamId)recordInputModel.OpponentsId,
-                                resultsModel.TeamGrouping == "on");
+                                (TeamId)recordInputModel.OpponentsId);
                         })
                         .OnFailure(error => { ModelState.AddModelError("OpponentsId", error.Message); })
                         .Finally(res =>
@@ -175,8 +171,7 @@ namespace AcsStatsWeb.Controllers
                             resultsModel.PlayerRecordDetails = record;
                             resultsModel.MatchType = recordInputModel.MatchType;
                             SetShowTeamsInLists(resultsModel, (TeamId)recordInputModel.TeamId,
-                                (TeamId)recordInputModel.OpponentsId,
-                                resultsModel.TeamGrouping == "on");
+                                (TeamId)recordInputModel.OpponentsId);
                         })
                         .OnFailure(error => { ModelState.AddModelError("OpponentsId", error.Message); })
                         .Finally(res =>

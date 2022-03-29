@@ -36,7 +36,6 @@ namespace AcsStatsWeb.Models
     public SortOrder SortOrder { get; private set; }
     public SortDirection SortDirection { get; private set; }
 
-    public string TeamGrouping { get; set; }
     public string StartDate { get; set; }
     public string EndDate { get; set; }
     public string Season { get; set; }

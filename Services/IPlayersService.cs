@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsDto.Dtos;
+using AcsDto.Models;
+using AcsStatsWeb.Dtos;
 using AcsTypes.Error;
 using CSharpFunctionalExtensions;
 using Domain;
@@ -9,85 +12,85 @@ namespace Services
 {
     public interface IPlayersService
     {
-        Task<Result<IReadOnlyList<PlayerBattingCareerRecordDetails>, Error>> GetBattingCareerRecords(
+        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingCareerRecords(
             BattingBowlingFieldingModel sharedServiceFieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetails>, Error>> GetBowlingCareerRecords(
+        Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingCareerRecords(
             BattingBowlingFieldingModel sharedServiceFieldingModel);
 
-        Task<Result<IReadOnlyList<IndividualBattingDetails>, Error>> GetBattingIndividualInnings(
+        Task<Result<IReadOnlyList<IndividualBattingDetailsDto>, Error>> GetBattingIndividualInnings(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<IndividualBowlingDetails>, Error>> GetBowlingIndividualInnings(
+        Task<Result<IReadOnlyList<IndividualBowlingDetailsDto>, Error>> GetBowlingIndividualInnings(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<IndividualBattingDetails>, Error>> GetBattingIndividualMatches(
+        Task<Result<IReadOnlyList<IndividualBattingDetailsDto>, Error>> GetBattingIndividualMatches(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<IndividualBowlingDetails>, Error>> GetBowlingIndividualMatches(
+        Task<Result<IReadOnlyList<IndividualBowlingDetailsDto>, Error>> GetBowlingIndividualMatches(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBattingCareerRecordDetails>, Error>> GetBattingIndividualSeries(
+        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualSeries(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetails>, Error>> GetBowlingIndividualSeries(
+        Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualSeries(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBattingCareerRecordDetails>, Error>> GetBattingIndividualGrounds(
+        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualGrounds(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetails>, Error>> GetBowlingIndividualGrounds(
+        Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualGrounds(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBattingCareerRecordDetails>, Error>> GetBattingIndividualHost(
+        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualHost(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetails>, Error>> GetBowlingIndividualHost(
+        Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualHost(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBattingCareerRecordDetails>, Error>> GetBattingIndividualOpponents(
+        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualOpponents(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetails>, Error>> GetBowlingIndividualOpponents(
+        Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualOpponents(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBattingCareerRecordDetails>, Error>> GetBattingIndividualSeason(
+        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualSeason(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetails>, Error>> GetBowlingIndividualSeason(
+        Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualSeason(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBattingCareerRecordDetails>, Error>> GetBattingIndividualYear(
+        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualYear(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerBowlingCareerRecordDetails>, Error>> GetBowlingIndividualYear(
+        Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualYear(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>> GetFieldingCareerRecords(
+        Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>> GetFieldingCareerRecords(
             BattingBowlingFieldingModel model);
 
-        Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>> GetFieldingCareerRecordsBySeries(
+        Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>> GetFieldingCareerRecordsBySeries(
             BattingBowlingFieldingModel model);
 
-        Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>> GetFieldingCareerRecordsByGround(
+        Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>> GetFieldingCareerRecordsByGround(
             BattingBowlingFieldingModel model);
 
-        Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>> GetFieldingCareerRecordsByHost(
+        Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>> GetFieldingCareerRecordsByHost(
             BattingBowlingFieldingModel model);
 
-        Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>> GetFieldingCareerRecordsByOpposition(
+        Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>> GetFieldingCareerRecordsByOpposition(
             BattingBowlingFieldingModel model);
 
-        Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>> GetFieldingCareerRecordsByYear(
+        Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>> GetFieldingCareerRecordsByYear(
             BattingBowlingFieldingModel model);
 
-        Task<Result<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>> GetFieldingCareerRecordsBySeason(
+        Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>> GetFieldingCareerRecordsBySeason(
             BattingBowlingFieldingModel model);
 
-        Task<Result<IReadOnlyList<IndividualFieldingDetails>, Error>> GetFieldingIndividualInnings(
+        Task<Result<IReadOnlyList<IndividualFieldingDetailsDto>, Error>> GetFieldingIndividualInnings(
             BattingBowlingFieldingModel model);
 
-        Task<Result<IReadOnlyList<IndividualFieldingDetails>, Error>> GetFieldingIndividualMatches(
+        Task<Result<IReadOnlyList<IndividualFieldingDetailsDto>, Error>> GetFieldingIndividualMatches(
             BattingBowlingFieldingModel model);
     }
 }

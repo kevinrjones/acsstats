@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Dtos" />
+      <ProjectReference Include="..\AcsTypes\AcsTypes.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsDto.Dtos;
+using AcsDto.Models;
 using AcsTypes.Error;
 using CSharpFunctionalExtensions;
 using Domain;
@@ -9,14 +11,14 @@ namespace Services.Remote
 {
     public interface IRemoteBowlingRecordsService
     {
-        Task<Result<List<PlayerBowlingCareerRecordDetails>, Error>> GetOverall(SharedModel sharedServiceModel);
-        Task<Result<List<IndividualBowlingDetails>, Error>> GetInningsByInnings(SharedModel sharedServiceModel);
-        Task<Result<List<IndividualBowlingDetails>, Error>> GetMatchDetails(SharedModel sharedServiceModel);
-        Task<Result<List<PlayerBowlingCareerRecordDetails>, Error>> GetRecordsForSeries(SharedModel sharedServiceModel);
-        Task<Result<List<PlayerBowlingCareerRecordDetails>, Error>> GetRecordsForGrounds(SharedModel sharedServiceModel);
-        Task<Result<List<PlayerBowlingCareerRecordDetails>, Error>> GetRecordsForHost(SharedModel sharedServiceModel);
-        Task<Result<List<PlayerBowlingCareerRecordDetails>, Error>> GetRecordsForOpponents(SharedModel sharedServiceModel);
-        Task<Result<List<PlayerBowlingCareerRecordDetails>, Error>> GetRecordsByYear(SharedModel sharedServiceModel);
-        Task<Result<List<PlayerBowlingCareerRecordDetails>, Error>> GetRecordsBySeason(SharedModel sharedServiceModel);
+        Task<Result<List<BowlingCareerRecordDto>, Error>> GetOverall(SharedModel sharedServiceModel);
+        Task<Result<List<IndividualBowlingDetailsDto>, Error>> GetInningsByInnings(SharedModel sharedServiceModel);
+        Task<Result<List<IndividualBowlingDetailsDto>, Error>> GetMatchDetails(SharedModel sharedServiceModel);
+        Task<Result<List<BowlingCareerRecordDto>, Error>> GetRecordsForSeries(SharedModel sharedServiceModel);
+        Task<Result<List<BowlingCareerRecordDto>, Error>> GetRecordsForGrounds(SharedModel sharedServiceModel);
+        Task<Result<List<BowlingCareerRecordDto>, Error>> GetRecordsForHost(SharedModel sharedServiceModel);
+        Task<Result<List<BowlingCareerRecordDto>, Error>> GetRecordsForOpponents(SharedModel sharedServiceModel);
+        Task<Result<List<BowlingCareerRecordDto>, Error>> GetRecordsByYear(SharedModel sharedServiceModel);
+        Task<Result<List<BowlingCareerRecordDto>, Error>> GetRecordsBySeason(SharedModel sharedServiceModel);
     }
 }

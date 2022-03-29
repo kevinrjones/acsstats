@@ -2,14 +2,20 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
+using AcsCommands;
+using AcsCommands.Query;
 using AcsHttpClient;
 using AcsRepository;
-using AcsRepository.Repositories;
+using AcsRepository.Interfaces;
+using AcsRepository.Util;
 using AcsStatsWeb.AcsHttpClient;
-using AcsStatsWeb.Api.cqrs;
+using AcsStatsWeb.Formatter;
 using AcsStatsWeb.Utils;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,171 +25,135 @@ using Serilog;
 using Services;
 using Services.AcsServices;
 using Services.Remote;
-using SimpleInjector;
+
 // ReSharper disable InconsistentNaming
 
 namespace AcsStatsWeb
 {
-  public class Startup
-  {
-    private const int HttpClientTimeoutSeconds = 3000;
-    
-    private readonly Container container = new SimpleInjector.Container();
-    public Startup(IConfiguration configuration)
+    public class Startup
     {
-      Configuration = configuration;
-      
-      Log.Logger = new LoggerConfiguration()
-        .ReadFrom.Configuration(configuration)
-        .CreateLogger();
-    }
+        private const int HttpClientTimeoutSeconds = 3000;
 
-    public IConfiguration Configuration { get; }
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
 
-    // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services)
-    {
-      
-      services.AddControllersWithViews();
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
+        }
 
-      services.AddLogging();
-      services.AddLocalization();
-      RegisterHttpProxyWithPolicy(services);
+        public IConfiguration Configuration { get; }
 
-      services.AddSimpleInjector(container, options =>
-      {
-        options.AddAspNetCore()
-          .AddControllerActivation()
-          .AddViewComponentActivation();
+        // This method gets called by the runtime. Use this method to add services to the container.
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc(config =>
+            {
+                config.RespectBrowserAcceptHeader = true;
+                config.ReturnHttpNotAcceptable = true;
+                config.OutputFormatters.Add(new CsvOutputFormatter());
+            });
+            
+            services.AddMediatR(typeof(GroundsQuery).Assembly);
+            services.AddControllersWithViews();
+
+            services.AddLogging();
+            services.AddLocalization();
+            
+            RegisterHttpProxyWithPolicy(services);
+            
+            services.AddScoped<IEfUnitOfWork, EfUnitOfWork>();
+            InitializeContainer(services);
+            
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
+            services.AddDbContext<AcsDbContext>(options =>
+            {
+                options.UseMySQL(
+                    Configuration.GetConnectionString("acsstats"));
+            });
+        }
+
+        private void InitializeContainer(IServiceCollection services)
+        {
+            // todo: use these in place of raw connection string
+            var commandsConnectionString = new CommandsConnectionString(Configuration.GetConnectionString("commands"));
+            var queriesConnectionString = new QueriesConnectionString(Configuration.GetConnectionString("queries"));
+            
+            RegisterServices(services);
+
+            services.AddSingleton(commandsConnectionString);
+            services.AddSingleton(queriesConnectionString);
+        }
+
+        private void RegisterServices(IServiceCollection services)
+        {
+            services.AddScoped<IMatchesService, MatchesService>();
+            services.AddScoped<IPlayersService, PlayersService>();
+            services.AddScoped<ICountriesService, CountriesService>();
+            services.AddScoped<ITeamsService, TeamsService>();
+            services.AddScoped<IPartnershipService, PartnershipService>();
+            services.AddScoped<IRemoteTeamsService, RemoteTeamsService>();
+            services.AddScoped<IRemoteBattingRecordsService, RemoteBattingRecordsService>();
+            services.AddScoped<IRemoteFieldingRecordsService, RemoteFieldingRecordsService>();
+            services.AddScoped<IRemoteBowlingRecordsService, RemoteBowlingRecordsService>();
+            services.AddScoped<IRemotePartnershipsRecordsService, RemotePartnershipRecordsService>();
+            services.AddScoped<IGroundsService, GroundsService>();
+            services.AddScoped<IValidation, Validation>();
+        }
         
-        options.AddLogging();
-        options.AddLocalization();
-        options.CrossWire<AcsDbContext>();
-        options.CrossWire<IServiceProvider>();
-      });
-      
-      InitializeContainer();
-      
-      
-      services.AddDbContext<AcsDbContext>(options =>
-      {
-        options.UseMySQL(
-          Configuration.GetConnectionString("acsstats"));
-      });
-
-    }
-
-    private void InitializeContainer()
-    {
-      RegisterRepositories();
-      RegisterServices();
-
-      container.Register<IEfUnitOfWork, EfUnitOfWork>(Lifestyle.Scoped);
-      container.Register<Messages>(Lifestyle.Transient);
-
-    }
-
-    private void RegisterServices()
-    {
-
-      var repositoryAssembly = typeof(MatchesService).Assembly;
-      
-      
-      var registrations =
-        from type in repositoryAssembly.GetExportedTypes()
-        where type.Namespace.StartsWith("Services.AcsServices") 
-        from service in type.GetInterfaces()
-        select new { service, implementation = type };
-
-      foreach (var reg in registrations)
-      {
-        container.Register(reg.service, reg.implementation, Lifestyle.Scoped);
-      }
-
-      registrations =
-        from type in repositoryAssembly.GetExportedTypes()
-        where type.Namespace.StartsWith("Services.Remote") 
-        from service in type.GetInterfaces()
-        select new { service, implementation = type };
-
-      foreach (var reg in registrations)
-      {
-        container.Register(reg.service, reg.implementation, Lifestyle.Scoped);
-      }
-      
-    }
-
-    private void RegisterRepositories()
-    {
-      
-      var repositoryAssembly = typeof(MatchesRepository).Assembly;
-      
-      
-      var registrations =
-        from type in repositoryAssembly.GetExportedTypes()
-        where type.Namespace.StartsWith("AcsRepository.Repositories")
-        from service in type.GetInterfaces()
-        select new { service, implementation = type };
-
-      foreach (var reg in registrations)
-      {
-        container.Register(reg.service, reg.implementation, Lifestyle.Scoped);
-      }
-    }
-
-    private static void RegisterHttpProxyWithPolicy(IServiceCollection services)
-    {
-      var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(HttpClientTimeoutSeconds);
-
-      services.AddHttpClient<IHttpClientProxy, HttpClientProxy>(client =>
+        private static void RegisterHttpProxyWithPolicy(IServiceCollection services)
         {
-          client.DefaultRequestHeaders.Accept.Add(
-            new MediaTypeWithQualityHeaderValue("application/json"));
-        })
-        .AddPolicyHandler(timeoutPolicy)
-        .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+            var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(HttpClientTimeoutSeconds);
+
+            services.AddHttpClient<IHttpClientProxy, HttpClientProxy>(client =>
+                {
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json"));
+                })
+                .AddPolicyHandler(timeoutPolicy)
+                .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+                {
+                    TimeSpan.FromSeconds(1),
+                    TimeSpan.FromSeconds(5)
+                }));
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-          TimeSpan.FromSeconds(1),
-          TimeSpan.FromSeconds(5)
-        }));
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseMiddleware<ExceptionHandler>(Log.Logger);
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+        }
     }
-
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-      // UseSimpleInjector() finalizes the integration process.
-      app.ApplicationServices.UseSimpleInjector(container);
-      
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-      }
-      else
-      {
-        app.UseExceptionHandler("/Home/Error");
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-        app.UseHsts();
-      }
-
-      app.UseHttpsRedirection();
-      app.UseStaticFiles();
-
-      app.UseRouting();
-
-      app.UseAuthorization();
-
-      app.UseMiddleware<ExceptionHandler>(Log.Logger);
-      
-      app.UseEndpoints(endpoints =>
-      {
-        endpoints.MapControllerRoute(
-          name: "default",
-          pattern: "{controller=Home}/{action=Index}/{id?}");
-      });
-      
-      // Always verify the container
-      container.Verify();
-    }
-  }
 }

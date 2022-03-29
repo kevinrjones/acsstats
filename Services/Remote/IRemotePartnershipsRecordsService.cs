@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsDto.Models;
 using AcsTypes.Error;
 using CSharpFunctionalExtensions;
 using Domain;

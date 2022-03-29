@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AcsDto.Models;
 using AcsStatsWeb.Models.api;
 using AcsTypes.Error;
 using AcsTypes.Json;
@@ -49,7 +50,6 @@ namespace AcsStatsWeb.Api
         {
             var resultsModel = new T
             {
-                TeamGrouping = recordInputModel.TeamGrouping,
                 HomeVenue = recordInputModel.Venue & 1,
                 AwayVenue =  recordInputModel.Venue & 2,
                 NeutralVenue = recordInputModel.Venue & 4,
