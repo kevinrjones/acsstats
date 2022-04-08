@@ -300,7 +300,7 @@ class WomensHomePageMatches extends WomensHomePage {
         this.startDate.value = ""
         this.endDate.value = ""
 
-        localStorage.removeItem("pageState")
+        localStorage.setItem("pageState", JSON.stringify(new FormState()))
 
         this.getStartAndEndDateForMatchTypes(this.startDate, this.endDate, this.matchType)
     }

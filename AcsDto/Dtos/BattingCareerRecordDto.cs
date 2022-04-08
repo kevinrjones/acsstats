@@ -2,13 +2,6 @@ using System.Text;
 
 namespace AcsDto.Dtos;
 
-public record CountryDto
-(
-    int Id,
-    string Name,
-    string MatchType
-);
-
 public record BattingCareerRecordDto(
     string Name,
     string Team,

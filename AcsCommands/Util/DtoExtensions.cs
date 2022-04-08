@@ -135,5 +135,4 @@ public static class DtoExtensions
                 new MatchResultDto(item.Team, item.Opponents, item.VictoryType, item.HowMuch, item.KnownAs, item.MatchStartDate, item.TeamId, 
                     item.OpponentsId, item.WhoWonId, item.TossTeamId)).ToList());
     }
-
 }

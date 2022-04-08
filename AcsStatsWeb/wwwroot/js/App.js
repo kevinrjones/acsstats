@@ -160,7 +160,7 @@ var WomensHomePageMatches = /** @class */ (function (_super) {
             _this.season.selectedIndex = 0;
             _this.startDate.value = "";
             _this.endDate.value = "";
-            localStorage.removeItem("pageState");
+            localStorage.setItem("pageState", JSON.stringify(new FormState()));
             _this.getStartAndEndDateForMatchTypes(_this.startDate, _this.endDate, _this.matchType);
         };
         _this.matchType = document.getElementById("matchType");
