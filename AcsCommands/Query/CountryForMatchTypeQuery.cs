@@ -50,7 +50,7 @@ public class CountryForMatchTypeQuery : IRequest<Result<IReadOnlyList<CountryDto
             catch (Exception e)
             {
                 _logger.LogCritical(e, "Unable to process this request: {MatchType}", request.MatchType.Value);
-                return Result.Failure<IReadOnlyList<CountryDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<CountryDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
 
         }

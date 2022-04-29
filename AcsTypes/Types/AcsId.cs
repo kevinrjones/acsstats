@@ -122,8 +122,8 @@ namespace AcsTypes.Types
   
   public record RequestDates
   {
-    public long StartDateEpoch { get; set; }
-    public long EndDateEpoch { get; set; }
+    public EpochDateType StartDateEpoch { get; set; }
+    public EpochDateType EndDateEpoch { get; set; }
   }
 
 

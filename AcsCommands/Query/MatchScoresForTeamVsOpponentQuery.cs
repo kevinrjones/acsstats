@@ -71,7 +71,7 @@ public class MatchScoresForTeamVsOpponentQuery : IRequest<Result<IReadOnlyList<M
                     request.Model.HostCountryId.Value, request.Model.ToVenue(), request.Model.StartDateEpoch,
                     request.Model.EndDateEpoch, request.Model.Season, request.Model.MatchResult.Value,
                     (int) request.Model.SortOrder, request.Model.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<MatchRecordDetailsDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<MatchRecordDetailsDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

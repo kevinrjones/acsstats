@@ -13,7 +13,6 @@ namespace Domain
         public string Dismissal { get; set; }
         public string Bowler { get; set; }
         public string Fielder { get; set; }
-        public string Ground { get; set; }
         public int? Balls { get; set; }
         public int? Fours { get; set; }
         public int? Sixes { get; set; }

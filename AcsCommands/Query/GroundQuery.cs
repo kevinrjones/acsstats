@@ -48,7 +48,7 @@ public class GroundQuery : IRequest<Result<GroundDto, Error>>
             catch (Exception e)
             {
                 _logger.LogCritical(e, "Unable to process this request: {Id}", request.Id);
-                return Result.Failure<GroundDto, Error>(Errors.UnexpectedError);
+                return Result.Failure<GroundDto, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

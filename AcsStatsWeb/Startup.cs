@@ -1,13 +1,9 @@
 using System;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Reflection;
-using AcsCommands;
 using AcsCommands.Query;
 using AcsHttpClient;
 using AcsRepository;
-using AcsRepository.Interfaces;
 using AcsRepository.Util;
 using AcsStatsWeb.AcsHttpClient;
 using AcsStatsWeb.Formatter;
@@ -103,6 +99,8 @@ namespace AcsStatsWeb
             services.AddScoped<IRemoteFieldingRecordsService, RemoteFieldingRecordsService>();
             services.AddScoped<IRemoteBowlingRecordsService, RemoteBowlingRecordsService>();
             services.AddScoped<IRemotePartnershipsRecordsService, RemotePartnershipRecordsService>();
+            services.AddScoped<IRemoteScorecardsService, RemoteScorecardService>();
+            services.AddScoped<IRemoteMatchesService, RemoteMatchesService>();
             services.AddScoped<IGroundsService, GroundsService>();
             services.AddScoped<IValidation, Validation>();
         }

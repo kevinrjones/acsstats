@@ -72,7 +72,7 @@ public class TeamRecordsCompleteQuery : IRequest<Result<IReadOnlyList<TeamRecord
                     request.Model.EndDateEpoch, request.Model.Season,
                     request.Model.MatchResult.Value,
                     (int) request.Model.SortOrder, request.Model.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<TeamRecordDetailsDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<TeamRecordDetailsDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

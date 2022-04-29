@@ -1,6 +1,17 @@
 function setupWomensHomePage() {
     new WomensHomePageMatches()
-    // new WomensHomePageIndividuals()
+}
+
+function setupScorecardHomePage() {
+    new WomensScorecard()
+}
+
+interface LoadTeams {
+    (data: TeamEnvelope): void
+}
+
+interface LoadDates {
+    (data: DatesEnvelope): void
 }
 
 class WomensHomePage {
@@ -26,11 +37,10 @@ class WomensHomePage {
         }
     }
 
-    protected getTeamsForMatchTypes = (team: HTMLSelectElement, opponents: HTMLSelectElement, matchType: HTMLSelectElement) => {
+    protected getTeamsForMatchTypes = (team: HTMLSelectElement, opponents: HTMLSelectElement, matchType: HTMLSelectElement, loadTeams: LoadTeams) => {
         $.get(`/api/Teams/${matchType.selectedOptions[0].value}`)
             .done((data: TeamEnvelope) => {
-                this.buildTeamsSelectList(team, opponents, data)
-                this.loadState()
+                loadTeams(data)
             })
             .fail(function () {
                 alert("unable to connect to the server");
@@ -44,7 +54,7 @@ class WomensHomePage {
                 console.log("got dates: " + data.result[0].date + ", " + data.result[1].date)
                 this.formState.startDate = data.result[0].date;
                 this.formState.endDate = data.result[1].date;
-                
+
                 localStorage.setItem("pageState", JSON.stringify(this.formState))
                 this.loadState()
             })
@@ -102,12 +112,9 @@ class WomensHomePage {
             })
     }
     protected buildTeamsSelectList = (team: HTMLSelectElement, opponents: HTMLSelectElement, data: TeamEnvelope) => {
-        console.log(data)
         this.buildSelectListWithFirstEntry("all teams", team, data.result, "0")
         this.buildSelectListWithFirstEntry("all teams", opponents, data.result, "0")
     }
-
-
 
 
     protected buildSelectListWithFirstEntry = (firstRow: string, selectList: HTMLSelectElement, data: SelectData[], initialValue: string) => {
@@ -122,14 +129,89 @@ class WomensHomePage {
             this.addOption(selectList, d.name, d.id.toString());
         })
     }
-    
-    private addOption = (team: HTMLSelectElement, name: string, value: string) => {
+
+    protected addOption = (team: HTMLSelectElement, name: string, value: string) => {
         let newElement = new Option()
         newElement.label = name
         newElement.value = value
         team.add(newElement)
     }
 }
+
+class WomensScorecard extends WomensHomePage {
+    matchType: HTMLSelectElement
+    dates: HTMLSelectElement
+    getCard: HTMLButtonElement
+
+    constructor() {
+        super();
+
+        this.matchType = <HTMLSelectElement>document.getElementById("matchType");
+        this.matchType.onchange = this.matchTypeOnChange
+
+        this.team = <HTMLSelectElement>document.getElementById("teamid");
+        this.team.onchange = this.teamOnChange
+
+        this.opponents = <HTMLSelectElement>document.getElementById("opponentsid");
+        this.opponents.onchange = this.teamOnChange
+        
+        this.dates = <HTMLSelectElement>document.getElementById("datesid");
+        this.getCard = <HTMLButtonElement>document.getElementById("getcardid");
+
+        this.getTeamsForMatchTypes(this.team, this.opponents, this.matchType, data => {
+            this.buildSelectList(this.team, data.result)
+            this.buildSelectList(this.opponents, data.result)
+        });
+        
+        this.getCard.onclick = this.getScorecard
+        
+    }
+
+    protected getScorecard = (evt: Event) => {
+        evt.preventDefault()
+        
+        var url = `/scorecard/${encodeURIComponent(this.team.selectedOptions[0].label)}-v-${encodeURIComponent(this.opponents.selectedOptions[0].label)}-${encodeURIComponent(this.dates.selectedOptions[0].value)}`
+        console.log(`url '${url}'`)
+
+        window.location.href = url
+    }
+    
+    protected teamOnChange = (evt: Event) => {
+        this.getMatchDatesForTeamsAndMatchType(this.team, this.opponents, this.matchType, data => {
+            this.dates.options.length = 0
+            data.result.map((d: string) => {
+                this.addOption(this.dates, d, d);
+            })
+        });
+    }
+
+    protected getMatchDatesForTeamsAndMatchType = (team: HTMLSelectElement, opponents: HTMLSelectElement, matchType: HTMLSelectElement, loadDates: LoadDates) => {
+        $.get(`/api/Matches/matchdates/${team.selectedOptions[0].value}/${opponents.selectedOptions[0].value}/${matchType.selectedOptions[0].value}`)
+            .done((data: DatesEnvelope) => {
+                loadDates(data);
+            })
+            .fail(function () {
+                alert("unable to connect to the server");
+            })
+    }
+
+
+    matchTypeOnChange = (evt: Event) => {
+        this.getTeamsForMatchTypes(this.team, this.opponents, this.matchType, data => {
+            this.team.options.length = 0
+            this.opponents.options.length = 0
+            this.buildSelectList(this.team, data.result)
+            this.buildSelectList(this.opponents, data.result)
+        })
+        this.getMatchDatesForTeamsAndMatchType(this.team, this.opponents, this.matchType, data => {
+            this.dates.options.length = 0
+            data.result.map((d: string) => {
+                this.addOption(this.dates, d, d);
+            })
+        });
+    }
+}
+
 
 class WomensHomePageMatches extends WomensHomePage {
     season: HTMLSelectElement
@@ -202,7 +284,10 @@ class WomensHomePageMatches extends WomensHomePage {
         if (this.extrasByInnings != null)
             this.extrasByInnings.onchange = this.setLimit
 
-        this.getTeamsForMatchTypes(this.team, this.opponents, this.matchType);
+        this.getTeamsForMatchTypes(this.team, this.opponents, this.matchType, data => {
+            this.buildTeamsSelectList(this.team, this.opponents, data)
+            this.loadState()
+        });
         this.getGroundsForMatchTypes(this.ground, this.matchType);
         this.getCountriesForMatchTypes(this.hostcountry, this.matchType);
         this.getSeasonsForMatchTypes(this.season, this.matchType);
@@ -215,7 +300,10 @@ class WomensHomePageMatches extends WomensHomePage {
     }
 
     matchTypeOnChange = (evt: Event) => {
-        this.getTeamsForMatchTypes(this.team, this.opponents, this.matchType)
+        this.getTeamsForMatchTypes(this.team, this.opponents, this.matchType, data => {
+            this.buildTeamsSelectList(this.team, this.opponents, data)
+            this.loadState()
+        })
         this.getGroundsForMatchTypes(this.ground, this.matchType)
         this.getStartAndEndDateForMatchTypes(this.startDate, this.endDate, this.matchType)
     }
@@ -300,7 +388,7 @@ class WomensHomePageMatches extends WomensHomePage {
         this.startDate.value = ""
         this.endDate.value = ""
 
-        localStorage.removeItem("pageState")
+        localStorage.setItem("pageState", JSON.stringify(new FormState()))
 
         this.getStartAndEndDateForMatchTypes(this.startDate, this.endDate, this.matchType)
     }
@@ -319,8 +407,13 @@ class Team {
 }
 
 class TeamEnvelope extends Envelope<Team> {
-    
+
 }
+
+class DatesEnvelope extends Envelope<string> {
+
+}
+
 
 class Country {
     name: string;
@@ -371,6 +464,7 @@ class SelectData {
         this.matchType = matchType
     }
 }
+
 interface SelectDataParameters {
     id: number | string,
     matchType: string,

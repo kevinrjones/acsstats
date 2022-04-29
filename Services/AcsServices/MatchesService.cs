@@ -111,6 +111,7 @@ namespace Services.AcsServices
             {
                 return await _mediator.Send(new MatchDatesQuery(m.Value));
             }
+
             return Result.Failure<IReadOnlyList<MatchDateDto>, Error>(m.Error);
         }
 
@@ -121,7 +122,74 @@ namespace Services.AcsServices
             {
                 return await _mediator.Send(new MatchSeriesDatesQuery(m.Value));
             }
+
             return Result.Failure<IReadOnlyList<string>, Error>(m.Error);
+        }
+
+        public async Task<Result<IReadOnlyList<string>, Error>> GetSeriesDatesForMatchTypes(string[] matchTypes)
+        {
+            var listMatchTypes = new List<MatchType>();
+            foreach (var matchType in matchTypes)
+            {
+                var m = MatchType.Create(matchType);
+                if (!m.IsSuccess)
+                    return Result.Failure<IReadOnlyList<string>, Error>(m.Error);
+                listMatchTypes.Add(m.Value);
+            }
+
+            return await _mediator.Send(new MatchSeriesDatesForMatchTypesQuery(listMatchTypes));
+        }
+
+        public async Task<Result<IReadOnlyList<string>, Error>> GetSeriesDatesForMatches(int homeTeamId, int awayTeamId,
+            string matchType)
+        {
+            var m = MatchType.Create(matchType);
+            if (m.IsSuccess)
+            {
+                return await _mediator.Send(new MatchesDatesQuery(homeTeamId, awayTeamId, m.Value));
+            }
+
+            return Result.Failure<IReadOnlyList<string>, Error>(m.Error);
+        }
+
+        public async Task<Result<IReadOnlyList<string>, Error>> GetTournamentsForSeason(string[] matchTypes,
+            string season)
+        {
+            var listMatchTypes = new List<MatchType>();
+            foreach (var matchType in matchTypes)
+            {
+                var m = MatchType.Create(matchType);
+                if (!m.IsSuccess)
+                    return Result.Failure<IReadOnlyList<string>, Error>(m.Error);
+                listMatchTypes.Add(m.Value);
+            }
+
+            return await _mediator.Send(new TournamentByYearQuery(listMatchTypes, season));
+        }
+
+        public async Task<Result<IReadOnlyList<MatchListDto>, Error>> GetMatchesInTournament(string tournament)
+        {
+            var res = await _mediator.Send(new MatchesInTournamentQuery(tournament));
+            return res;
+        }
+
+        public async Task<Result<IReadOnlyList<MatchListDto>, Error>> GetMatchesFromSearch(
+            MatchSearchModel matchSearchModel)
+        {
+            string format = "yyyy-MM-dd";
+
+            var startDate = EpochDateType.Create(matchSearchModel.StartDate, format);
+            var endDate = EpochDateType.Create(matchSearchModel.EndDate, format);
+            if (startDate.IsFailure || endDate.IsFailure)
+                return Result.Failure<IReadOnlyList<MatchListDto>, Error>(
+                    Errors.InvalidDateError("Either the start or end date is invalid"));
+            var matchType = MatchType.Create(matchSearchModel.MatchType);
+            if (!matchType.IsSuccess)
+                return Result.Failure<IReadOnlyList<MatchListDto>, Error>(matchType.Error);
+
+            return await _mediator.Send(new SearchQuery(matchSearchModel.HomeTeam, matchSearchModel.AwayTeam,
+                startDate.Value,
+                endDate.Value, matchSearchModel.Venue, matchSearchModel.MatchResult, matchType.Value, matchSearchModel.ExactHomeTeamMatch, matchSearchModel.ExactAwayTeamMatch));
         }
     }
 }

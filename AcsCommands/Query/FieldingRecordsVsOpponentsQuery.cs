@@ -73,7 +73,7 @@ public class FieldingRecordsVsOpponentsQuery : IRequest<Result<IReadOnlyList<Fie
                     request.FieldingModel.EndDateEpoch, request.FieldingModel.Season,
                     request.FieldingModel.MatchResult.Value,
                     (int) request.FieldingModel.SortOrder, request.FieldingModel.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<FieldingCareerRecordDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<FieldingCareerRecordDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

@@ -72,7 +72,7 @@ public class TeamOverallExtrasForTeamQuery : IRequest<Result<IReadOnlyList<TeamE
                     request.Model.EndDateEpoch, request.Model.Season,
                     request.Model.MatchResult.Value,
                     (int) request.Model.SortOrder, request.Model.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<TeamExtrasDetailsDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<TeamExtrasDetailsDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

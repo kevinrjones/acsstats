@@ -36,8 +36,18 @@ namespace AcsHttpClient
             var completeUrl = $"{_baseUrl}/{uri}";
             try
             {
-                Envelope<T> res = await _client.GetFromJsonAsync<Envelope<T>>(completeUrl);
-                return string.IsNullOrEmpty(res.ErrorMessage) ? res.Result : Result.Failure<T, Error>(res.ErrorMessage);
+                var httpResponseMessage = await _client.GetAsync(completeUrl);
+
+                if (httpResponseMessage.IsSuccessStatusCode)
+                {
+                    Envelope<T> res = await httpResponseMessage.Content.ReadFromJsonAsync<Envelope<T>>();
+                    return string.IsNullOrEmpty(res.ErrorMessage) ? res.Result : Result.Failure<T, Error>(res.ErrorMessage);
+                }
+                else
+                {
+                    var content = await httpResponseMessage.Content.ReadFromJsonAsync<Envelope<T>>();
+                    return  Result.Failure<T, Error>(Errors.GetUnexpectedError(content.ErrorMessage));
+                }
             }
             catch (Exception e) // Invalid JSON or non-success code
             {

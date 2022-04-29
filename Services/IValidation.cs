@@ -1,3 +1,4 @@
+using AcsDto.Models;
 using AcsTypes.Error;
 using AcsTypes.Types;
 using CSharpFunctionalExtensions;
@@ -16,6 +17,7 @@ public interface IValidation
      public Result<MatchType, Error> ValidateMatchType(string type);
      public Result<VenueId, Error> ValidateVenueId(int id);
 
-     public Result<RequestDates, Error> ValidateEpochDates(string startDate, string endDate);
+     public Result<RequestDates, Error> ValidateEpochDates(string startDate, string endDate, string format = "dd MMMM yyyy");
      public Result<RequestDates, Error> ValidateEpochDates(long startDate, long endDate);
+     public Result<bool, Error>  ValidateMatchSearchModel(MatchSearchModel matchSearchModel);
 }

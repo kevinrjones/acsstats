@@ -72,7 +72,7 @@ public class BowlingRecordsCompleteQuery : IRequest<Result<IReadOnlyList<Bowling
                     request.FieldingModel.EndDateEpoch, request.FieldingModel.Season,
                     request.FieldingModel.MatchResult.Value,
                     (int) request.FieldingModel.SortOrder, request.FieldingModel.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<BowlingCareerRecordDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<BowlingCareerRecordDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

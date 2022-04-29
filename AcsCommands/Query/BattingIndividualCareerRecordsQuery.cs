@@ -75,7 +75,7 @@ public class BattingIndividualCareerRecordsQuery : IRequest<Result<IReadOnlyList
                     request.FieldingModel.EndDateEpoch, request.FieldingModel.Season,
                     request.FieldingModel.MatchResult.Value,
                     (int)request.FieldingModel.SortOrder, request.FieldingModel.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<IndividualBattingDetailsDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<IndividualBattingDetailsDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

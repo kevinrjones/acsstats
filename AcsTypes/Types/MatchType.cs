@@ -4,7 +4,7 @@ using LanguageExt;
 
 namespace AcsTypes.Types
 {
-    public class MatchType: ValueObject<MatchType>
+    public class MatchType : ValueObject<MatchType>
     {
         // todo: create list of possible values 't', 'itt' etc and compare against 'value; in the Create method
         public string Value { get; }
@@ -20,17 +20,16 @@ namespace AcsTypes.Types
                 return $"Value is invalid {value}";
 
             return new MatchType(value);
-      
         }
 
         public static Result<MatchType, Error.Error> Create(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                return Result.Failure<MatchType, Error.Error>( Errors.InvalidMatchTypeError());
-            
+                return Result.Failure<MatchType, Error.Error>(Errors.InvalidMatchTypeError());
+
             return Result.Success<MatchType, Error.Error>(new MatchType(value));
         }
-        
+
         public static implicit operator string(MatchType type)
         {
             return type.Value;
@@ -49,6 +48,6 @@ namespace AcsTypes.Types
         protected override int GetHashCodeCore()
         {
             return Value.GetHashCode();
-        }  
+        }
     }
 }
