@@ -70,7 +70,7 @@ public class TeamOverallInningsExtrasCompleteQuery : IRequest<Result<IReadOnlyLi
                     request.Model.EndDateEpoch, request.Model.Season,
                     request.Model.MatchResult.Value,
                     (int) request.Model.SortOrder, request.Model.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<InningsExtrasDetailsDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<InningsExtrasDetailsDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

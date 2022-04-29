@@ -50,7 +50,7 @@ public class TeamQuery : IRequest<Result<TeamDto, Error>>
             catch (Exception e)
             {
                 _logger.LogCritical(e, "Unable to process this request: {TeamId}", request.TeamId);
-                return Result.Failure<TeamDto, Error>(Errors.UnexpectedError);
+                return Result.Failure<TeamDto, Error>(Errors.GetUnexpectedError(e.Message));
             }
 
         }

@@ -1,0 +1,27 @@
+@using System.Text.Encodings.Web
+@model List<string>
+
+<div class="scorecard-container">
+    <div class="sidebar">
+    </div>
+
+    <div class="scorecard-main">
+        <ul>
+            @foreach (var tournament in Model)
+            {
+                <li>
+                    <a href="/scorecard/tournament/@UrlEncoder.Default.Encode(tournament)">@tournament</a>
+                </li>
+            }
+        </ul>
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+    <script>
+    document.onload = () => {}
+</script>
+}

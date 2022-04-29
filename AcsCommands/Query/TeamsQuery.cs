@@ -48,7 +48,7 @@ public class TeamsQuery : IRequest<Result<IReadOnlyList<TeamDto>, Error>>
             catch (Exception e)
             {
                 _logger.LogCritical(e, "Unable to process this request: {MatchType}", request.MatchType);
-                return Result.Failure<IReadOnlyList<TeamDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<TeamDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
 

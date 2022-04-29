@@ -69,7 +69,7 @@ public class MatchResultForTeamQuery : IRequest<Result<IReadOnlyList<MatchResult
                     request.Model.HostCountryId.Value, request.Model.ToVenue(), request.Model.StartDateEpoch,
                     request.Model.EndDateEpoch, request.Model.Season, request.Model.MatchResult.Value,
                     (int) request.Model.SortOrder, request.Model.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<MatchResultDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<MatchResultDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

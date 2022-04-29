@@ -77,7 +77,7 @@ public class BowlingIndividualCareerRecordsQuery
                     request.FieldingModel.EndDateEpoch, request.FieldingModel.Season,
                     request.FieldingModel.MatchResult.Value,
                     (int)request.FieldingModel.SortOrder, request.FieldingModel.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<IndividualBowlingDetailsDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<IndividualBowlingDetailsDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
 
         }

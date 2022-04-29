@@ -51,7 +51,7 @@ public class CountryQuery : IRequest<Result<CountryDto, Error>>
             catch (Exception e)
             {
                 _logger.LogCritical(e, "Unable to process this request: {Id}", request.Id);
-                return Result.Failure<CountryDto, Error>(Errors.UnexpectedError);
+                return Result.Failure<CountryDto, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

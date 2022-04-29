@@ -1,9 +1,15 @@
+using AcsTypes.Error;
+
 namespace AcsStatsWeb.Models
 {
   public class ErrorViewModel
   {
-    public string RequestId { get; set; }
 
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+    public Error Error { get; }
+
+    public ErrorViewModel(Error error)
+    {
+      Error = error;
+    }
   }
 }

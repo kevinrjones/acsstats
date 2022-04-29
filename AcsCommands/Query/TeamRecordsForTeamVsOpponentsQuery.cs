@@ -74,7 +74,7 @@ public class TeamRecordsForTeamVsOpponentsQuery : IRequest<Result<IReadOnlyList<
                     request.Model.EndDateEpoch, request.Model.Season,
                     request.Model.MatchResult.Value,
                     (int) request.Model.SortOrder, request.Model.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<TeamRecordDetailsDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<TeamRecordDetailsDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

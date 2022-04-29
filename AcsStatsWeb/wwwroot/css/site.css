@@ -92,7 +92,7 @@ body {
 }
 
 .acs-tab-button {
-    width:100%;
+    width: 100%;
 }
 
 .acs-column-width-80 {
@@ -148,7 +148,7 @@ div.scorecard > table > thead > tr > td {
     padding: 1rem;
 }
 
-div.scorecard > table > tbody > tr > td{
+div.scorecard > table > tbody > tr > td {
     padding: 1rem;
 }
 
@@ -163,18 +163,18 @@ td.batsman, td.howout {
 }
 
 .sidebar {
-    
+
 }
 
 .scorecard-scores-container > div {
     display: flex;
 }
 
-.scorecard-scores-container > div > div:nth-of-type(1){
+.scorecard-scores-container > div > div:nth-of-type(1) {
     flex: 1;
 }
 
-.scorecard-batting-footer > td:nth-of-type(1){
+.scorecard-batting-footer > td:nth-of-type(1) {
     font-weight: bold;
 }
 
@@ -182,7 +182,7 @@ td.batsman, td.howout {
     font-weight: bold;
 }
 
-.scorecard-batting-footer > td:nth-of-type(3){
+.scorecard-batting-footer > td:nth-of-type(3) {
     font-weight: bold;
 }
 
@@ -191,8 +191,65 @@ td.batsman, td.howout {
 div.scorecard-main > div:nth-child(2) > div:nth-child(1) > div,
 div.scorecard-main > div:nth-child(2) > div:nth-child(2) > div,
 div.scorecard-main > div:nth-child(2) > div:nth-child(3) > div,
-div.scorecard-main > div:nth-child(2) > div:nth-child(4) > div{
+div.scorecard-main > div:nth-child(2) > div:nth-child(4) > div {
     border-top: 1rem solid rgb(246, 247, 248);
-    padding-left: 1rem ;
+    padding-left: 1rem;
     padding-bottom: 1rem;
 }
+
+
+.search-form-style {
+    padding: 20px 12px 10px 20px;
+}
+
+.search-form-style-heading {
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    padding-bottom: 3px;
+}
+
+.search-form-style label {
+    margin: 0 0 15px 0;
+    width: 100px;
+    font-weight: bold;
+    padding-top: 8px;
+    padding-right: 5px;
+}
+
+.search-form-style input[type=text] {
+    width: 50%;
+}
+
+.field-validation-error {
+    color: red;
+}
+
+.venue > span > label > span {
+    vertical-align: text-bottom;
+    padding-right: 0.5rem;
+}
+
+form > div:nth-child(1) > span, div:nth-child(2) > span {
+    padding-left: 2rem;
+}
+
+form > div:nth-child(1) > span > label, div:nth-child(2) > span > label {
+    width: 8rem;
+}
+
+.scorecard-main > ul > li {
+    list-style: none;
+    padding-top: 1rem;
+}
+
+.scorecard-main > ul > li > span {
+    padding-right: 1rem;
+    display: inline-block;
+}
+
+.matchlist td {
+    padding-right: 1rem;
+}
+

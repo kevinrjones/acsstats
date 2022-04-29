@@ -53,7 +53,7 @@ public class GroundsQuery : IRequest<Result<IReadOnlyList<GroundWithCodeDto>, Er
             catch (Exception e)
             {
                 _logger.LogCritical(e, "Unable to process this request: {MatchType}", request.MatchType);
-                return Result.Failure<IReadOnlyList<GroundWithCodeDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<GroundWithCodeDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

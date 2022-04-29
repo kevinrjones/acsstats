@@ -71,7 +71,7 @@ public class BattingRecordsVsOpponentsQuery : IRequest<Result<IReadOnlyList<Batt
                     request.FieldingModel.HostCountryId.Value, request.FieldingModel.ToVenue(), request.FieldingModel.StartDateEpoch,
                     request.FieldingModel.EndDateEpoch, request.FieldingModel.Season, request.FieldingModel.MatchResult.Value,
                     (int) request.FieldingModel.SortOrder, request.FieldingModel.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<BattingCareerRecordDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<BattingCareerRecordDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

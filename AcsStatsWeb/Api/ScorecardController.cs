@@ -1,8 +1,10 @@
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using AcsCommands.Query;
 using AcsDto.Dtos;
 using AcsStatsWeb.Models.api;
+using AcsTypes.Types;
 using CSharpFunctionalExtensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +22,8 @@ public class ScorecardController : BaseApiController
         _mediator = mediator;
     }
 
-    [HttpGet("{matchId}")]
-    public async Task<IActionResult> GetOverallResults(
+    [HttpGet("byid/{matchId}")]
+    public async Task<IActionResult> GetCardById(
         [FromRoute] int matchId)
     {
         return (await _mediator.Send(new ScorecardQuery(matchId)))
@@ -30,15 +32,29 @@ public class ScorecardController : BaseApiController
                 var homeTeamScores = GetScoreStrings(it, it.Header.HomeTeam.Key);
                 var awayTeamScores = GetScoreStrings(it, it.Header.AwayTeam.Key);
 
-                var header = new ScorecardHeaderDto(it.Header.Toss, it.Header.Where, it.Header.Result, it.Header.TestNo,
-                    it.Header.Scorers, it.Header.Umpires, it.Header.AwayTeam, awayTeamScores,
-                    it.Header.DayNight,
-                    it.Header.HomeTeam, homeTeamScores, it.Header.TvUmpires, it.Header.MatchDate,
-                    it.Header.MatchType,
-                    it.Header.MatchTitle, it.Header.SeriesDate, it.Header.CloseOfPlay, it.Header.BallsPerOer,
-                    it.Header.MatchReferee,
-                    it.Header.MatchDesignator);
-                return new ScorecardDto(it.Notes, it.Debuts, header, it.Innings);
+                var header = it.Header with {AwayTeamScores = awayTeamScores, HomeTeamScores = homeTeamScores};
+                return it with {Header = header};
+            })
+            .Match(Ok, (it) => base.Error(it.Message));
+    }
+
+    [HttpGet("{urlTemplate}")]
+    public async Task<IActionResult> GetCardByTemplate(
+        [FromRoute] string urlTemplate)
+    {
+        var template = ScorecardSearchTemplate.Create(HttpUtility.UrlDecode(urlTemplate));
+
+        return await template.Bind(async t =>
+                await _mediator.Send(new ScorecardQuery(HttpUtility.UrlDecode(t.HomeTeam)
+                    , HttpUtility.UrlDecode(t.AwayTeam)
+                    , HttpUtility.UrlDecode(t.Date))))
+            .Map(it =>
+            {
+                var homeTeamScores = GetScoreStrings(it, it.Header.HomeTeam.Key);
+                var awayTeamScores = GetScoreStrings(it, it.Header.AwayTeam.Key);
+
+                var header = it.Header with {AwayTeamScores = awayTeamScores, HomeTeamScores = homeTeamScores};
+                return it with {Header = header};
             })
             .Match(Ok, (it) => base.Error(it.Message));
     }

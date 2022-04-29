@@ -15,7 +15,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 function setupWomensHomePage() {
     new WomensHomePageMatches();
-    // new WomensHomePageIndividuals()
+}
+function setupScorecardHomePage() {
+    new WomensScorecard();
 }
 var WomensHomePage = /** @class */ (function () {
     function WomensHomePage() {
@@ -32,11 +34,10 @@ var WomensHomePage = /** @class */ (function () {
                 _this.endDate.value = _this.formState.endDate;
             }
         };
-        this.getTeamsForMatchTypes = function (team, opponents, matchType) {
+        this.getTeamsForMatchTypes = function (team, opponents, matchType, loadTeams) {
             $.get("/api/Teams/".concat(matchType.selectedOptions[0].value))
                 .done(function (data) {
-                _this.buildTeamsSelectList(team, opponents, data);
-                _this.loadState();
+                loadTeams(data);
             })
                 .fail(function () {
                 alert("unable to connect to the server");
@@ -100,7 +101,6 @@ var WomensHomePage = /** @class */ (function () {
             });
         };
         this.buildTeamsSelectList = function (team, opponents, data) {
-            console.log(data);
             _this.buildSelectListWithFirstEntry("all teams", team, data.result, "0");
             _this.buildSelectListWithFirstEntry("all teams", opponents, data.result, "0");
         };
@@ -123,12 +123,73 @@ var WomensHomePage = /** @class */ (function () {
     }
     return WomensHomePage;
 }());
+var WomensScorecard = /** @class */ (function (_super) {
+    __extends(WomensScorecard, _super);
+    function WomensScorecard() {
+        var _this = _super.call(this) || this;
+        _this.getScorecard = function (evt) {
+            evt.preventDefault();
+            var url = "/scorecard/".concat(encodeURIComponent(_this.team.selectedOptions[0].label), "-v-").concat(encodeURIComponent(_this.opponents.selectedOptions[0].label), "-").concat(encodeURIComponent(_this.dates.selectedOptions[0].value));
+            console.log("url '".concat(url, "'"));
+            window.location.href = url;
+        };
+        _this.teamOnChange = function (evt) {
+            _this.getMatchDatesForTeamsAndMatchType(_this.team, _this.opponents, _this.matchType, function (data) {
+                _this.dates.options.length = 0;
+                data.result.map(function (d) {
+                    _this.addOption(_this.dates, d, d);
+                });
+            });
+        };
+        _this.getMatchDatesForTeamsAndMatchType = function (team, opponents, matchType, loadDates) {
+            $.get("/api/Matches/matchdates/".concat(team.selectedOptions[0].value, "/").concat(opponents.selectedOptions[0].value, "/").concat(matchType.selectedOptions[0].value))
+                .done(function (data) {
+                loadDates(data);
+            })
+                .fail(function () {
+                alert("unable to connect to the server");
+            });
+        };
+        _this.matchTypeOnChange = function (evt) {
+            _this.getTeamsForMatchTypes(_this.team, _this.opponents, _this.matchType, function (data) {
+                _this.team.options.length = 0;
+                _this.opponents.options.length = 0;
+                _this.buildSelectList(_this.team, data.result);
+                _this.buildSelectList(_this.opponents, data.result);
+            });
+            _this.getMatchDatesForTeamsAndMatchType(_this.team, _this.opponents, _this.matchType, function (data) {
+                _this.dates.options.length = 0;
+                data.result.map(function (d) {
+                    _this.addOption(_this.dates, d, d);
+                });
+            });
+        };
+        _this.matchType = document.getElementById("matchType");
+        _this.matchType.onchange = _this.matchTypeOnChange;
+        _this.team = document.getElementById("teamid");
+        _this.team.onchange = _this.teamOnChange;
+        _this.opponents = document.getElementById("opponentsid");
+        _this.opponents.onchange = _this.teamOnChange;
+        _this.dates = document.getElementById("datesid");
+        _this.getCard = document.getElementById("getcardid");
+        _this.getTeamsForMatchTypes(_this.team, _this.opponents, _this.matchType, function (data) {
+            _this.buildSelectList(_this.team, data.result);
+            _this.buildSelectList(_this.opponents, data.result);
+        });
+        _this.getCard.onclick = _this.getScorecard;
+        return _this;
+    }
+    return WomensScorecard;
+}(WomensHomePage));
 var WomensHomePageMatches = /** @class */ (function (_super) {
     __extends(WomensHomePageMatches, _super);
     function WomensHomePageMatches() {
         var _this = _super.call(this) || this;
         _this.matchTypeOnChange = function (evt) {
-            _this.getTeamsForMatchTypes(_this.team, _this.opponents, _this.matchType);
+            _this.getTeamsForMatchTypes(_this.team, _this.opponents, _this.matchType, function (data) {
+                _this.buildTeamsSelectList(_this.team, _this.opponents, data);
+                _this.loadState();
+            });
             _this.getGroundsForMatchTypes(_this.ground, _this.matchType);
             _this.getStartAndEndDateForMatchTypes(_this.startDate, _this.endDate, _this.matchType);
         };
@@ -208,7 +269,10 @@ var WomensHomePageMatches = /** @class */ (function (_super) {
             _this.bySeason.onchange = _this.setLimit;
         if (_this.extrasByInnings != null)
             _this.extrasByInnings.onchange = _this.setLimit;
-        _this.getTeamsForMatchTypes(_this.team, _this.opponents, _this.matchType);
+        _this.getTeamsForMatchTypes(_this.team, _this.opponents, _this.matchType, function (data) {
+            _this.buildTeamsSelectList(_this.team, _this.opponents, data);
+            _this.loadState();
+        });
         _this.getGroundsForMatchTypes(_this.ground, _this.matchType);
         _this.getCountriesForMatchTypes(_this.hostcountry, _this.matchType);
         _this.getSeasonsForMatchTypes(_this.season, _this.matchType);
@@ -279,6 +343,13 @@ var TeamEnvelope = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     return TeamEnvelope;
+}(Envelope));
+var DatesEnvelope = /** @class */ (function (_super) {
+    __extends(DatesEnvelope, _super);
+    function DatesEnvelope() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return DatesEnvelope;
 }(Envelope));
 var Country = /** @class */ (function () {
     function Country() {

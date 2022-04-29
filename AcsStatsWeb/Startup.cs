@@ -100,6 +100,7 @@ namespace AcsStatsWeb
             services.AddScoped<IRemoteBowlingRecordsService, RemoteBowlingRecordsService>();
             services.AddScoped<IRemotePartnershipsRecordsService, RemotePartnershipRecordsService>();
             services.AddScoped<IRemoteScorecardsService, RemoteScorecardService>();
+            services.AddScoped<IRemoteMatchesService, RemoteMatchesService>();
             services.AddScoped<IGroundsService, GroundsService>();
             services.AddScoped<IValidation, Validation>();
         }

@@ -1,207 +1,38 @@
-﻿@using System.Text
-@using Microsoft.AspNetCore.Html
-@model AcsDto.Dtos.ScorecardDto
-
 <div class="scorecard-container">
     <div class="sidebar">
-
     </div>
+
     <div class="scorecard-main">
-        <div>
+        <div class="col-2">
+            <select id="matchType">
+                <option value="wt">Women's Tests</option>
+                <option value="wo">Women's ODI</option>
+                <option value="witt">Women's International T20</option>
+                <option value="wf">Women's FC</option>
+                <option value="wa">Women's List A</option>
+                <option value="wtt">Women's T20</option>
+            </select>
+        </div>
+        <form asp-action="Get">
+            <div>Team</div>
             <div>
-                <h5>Result</h5>
-                <div>@Model.Header.MatchDesignator @Model.Header.Where.Name @Model.Header.MatchDate (@Model.Header.Toss.name won the toss)</div>
+                <select id="teamid">
+                </select>
             </div>
-            <div class="scorecard-scores-container">
-                <div>
-                    <div>
-                        @if (Model.Header.Result.VictoryType != "Drawn"
-                             && Model.Header.Result.WhoWon.Value.Key == Model.Header.HomeTeam.Key)
-                        {
-                            @:<strong>
-                        }
-                        @Model.Header.HomeTeam.name
-                        @if (Model.Header.Result.VictoryType != "Drawn"
-                             && Model.Header.Result.WhoWon.Value.Key == Model.Header.HomeTeam.Key)
-                        {
-                            @:</strong>
-                        }
-                    </div>
-                    <div>
-                        @if (Model.Header.Result.VictoryType != "Drawn"
-                             && Model.Header.Result.WhoWon.Value.Key == Model.Header.HomeTeam.Key)
-                        {
-                            @:<strong>
-                        }
-                        @Model.Header.HomeTeamScores[0]
-                        @if (Model.Header.HomeTeamScores.Length > 1)
-                        {
-                            <text>& </text>
-                            @Model.Header.HomeTeamScores[1]
-                        }
-                        @if (Model.Header.Result.VictoryType != "Drawn"
-                             && Model.Header.Result.WhoWon.Value.Key == Model.Header.HomeTeam.Key)
-                        {
-                            @:</strong>
-                        }
-                    </div>
-                </div>
-
-                <div>
-                    <div>
-                        @if (Model.Header.Result.VictoryType != "Drawn"
-                             && Model.Header.Result.WhoWon.Value.Key == Model.Header.AwayTeam.Key)
-                        {
-                            @:<strong>
-                        }
-                        @Model.Header.AwayTeam.name
-                        @if (Model.Header.Result.VictoryType != "Drawn"
-                             && Model.Header.Result.WhoWon.Value.Key == Model.Header.AwayTeam.Key)
-                        {
-                            @:</strong>
-                        }
-                    </div>
-                    <div>
-                        @if (Model.Header.Result.VictoryType != "Drawn"
-                             && Model.Header.Result.WhoWon.Value.Key == Model.Header.AwayTeam.Key)
-                        {
-                            @:<strong>
-                        }
-                        @Model.Header.AwayTeamScores[0]
-                        @if (Model.Header.AwayTeamScores.Length > 1)
-                        {
-                            <text>& </text>
-                            @Model.Header.AwayTeamScores[1]
-                        }
-                        @if (Model.Header.Result.VictoryType != "Drawn"
-                             && Model.Header.Result.WhoWon.Value.Key == Model.Header.AwayTeam.Key)
-                        {
-                            @:</strong>
-                        }
-                    </div>
-                </div>
-                <div>
-                    @Model.Header.Result.ResultString
-                </div>
+            <div>Opposition</div>
+            <div>
+                <select id="opponentsid">
+                </select>
             </div>
-        </div>
-        <div>
-            @{
-                foreach (var innings in  Model.Innings)
-                {
-                    var inningsDesc = innings.InningsNumber == 1 ? "1st" : "2nd";
-                    <div class="scorecard">
-                        <h4><a href="/teams/@innings.Team.Key">@innings.Team.name</a> @inningsDesc Innings</h4>
-
-                        <table>
-                            <thead>
-                            <tr>
-                                <td class="batsman">Batting</td>
-                                <td class="howout">&nbsp;</td>
-                                <td class="scoredetail">R</td>
-                                <td class="scoredetail">B</td>
-                                <td class="scoredetail">M</td>
-                                <td class="scoredetail">4s</td>
-                                <td class="scoredetail">6s</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach (var battingLine in innings.BattingLines)
-                            {
-                                <tr>
-                                    <td class="batsman">
-                                        <a href="@battingLine.Player.Key">@battingLine.Player.Name</a>
-                                    </td>
-                                    <td class="howout">@battingLine.Dismissal.dismissal</td>
-                                    <td class="scoredetail">@(battingLine.Runs == null ? "-" : battingLine.Runs)</td>
-                                    <td class="scoredetail">@(battingLine.Balls == null ? "-" : battingLine.Balls)</td>
-                                    <td class="scoredetail">@(battingLine.Minutes == null ? "-" : battingLine.Minutes)</td>
-                                    <td class="scoredetail">@(battingLine.Fours == null ? "-" : battingLine.Fours)</td>
-                                    <td class="scoredetail">@(battingLine.Sixes == null ? "-" : battingLine.Sixes)</td>
-                                </tr>
-                            }
-                            <tr class="scorecard-batting-footer">
-                                <td>TOTAL</td>
-                                <td><span>@innings.Total.Overs</span> Ov</td>
-                                @{
-                                var totalString = "";
-                                if (innings.Total.Declared)
-                                    totalString = $"{innings.Total.Total}/{innings.Total.Wickets}d";
-                                else if (innings.Total.Wickets < 10)
-                                    totalString = $"{innings.Total.Total} for {innings.Total.Wickets}";
-                                else
-                                    totalString = innings.Total.Total.ToString();
-                                }
-                                <td class="scoredetail">@totalString</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div>
-                            <b>FoW</b>
-                            <span>
-                                @{
-                                    var sb = new StringBuilder();
-                                    var fows = new List<string>();
-                                    foreach (var fow in innings.FallOfWickets)
-                                    {
-                                        var score = fow.Score != null ? fow.Score.ToString() : "?";
-                                        sb.Append($"{fow.Wicket}-{score} ");
-                                        sb.Append($"<a href='{fow.Player.Key}'>({fow.Player.Name}</a>");
-                                        if (!string.IsNullOrEmpty(fow.overs))
-                                        {
-                                            sb.Append($", {fow.overs} ov");
-                                        }
-                                        sb.Append($")");
-                                        fows.Add(sb.ToString());
-                                        sb.Clear();
-                                    }
-
-                                    var fowValues = string.Join(", ", fows);
-                                    
-                                    var str = new HtmlString(fowValues);
-
-                                    @Html.Raw(str)
-                                }
-                            </span>
-                        </div>
-                        @if (innings.BowlingLines.Count > 0)
-                        {
-                            <table>
-                                <thead>
-                                <tr>
-                                    <td>Bowling</td><td>O</td><td>M</td><td>R</td><td>W</td><td>wd</td><td>nb</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach (var bowlingLine in innings.BowlingLines)
-                                {
-                                    <tr>
-                                        <td>
-                                            <a href="@bowlingLine.Player.Key">@bowlingLine.Player.Name</a>
-                                        </td>
-                                        <td>@bowlingLine.Overs</td>
-                                        <td>@bowlingLine.Maidens</td>
-                                        <td>@(bowlingLine.Runs == null ? "-" : bowlingLine.Runs)</td>
-                                        <td>@(bowlingLine.Wickets == null ? "-" : bowlingLine.Wickets)</td>
-                                        <td>@(bowlingLine.wides == null ? "-" : bowlingLine.wides)</td>
-                                        <td>@(bowlingLine.NoBalls == null ? "-" : bowlingLine.NoBalls)</td>
-                                    </tr>
-                                }
-                                </tbody>
-                            </table>
-                        }
-                    </div>
-                }
-            }
-
-        </div>
-    </div>
-    <div class="sidebar">
-
+            <div>Dates</div>
+            <div>
+                <select id="datesid">
+                </select>
+            </div>
+            <div>
+                <button id="getcardid">Get Card</button>
+            </div>
+        </form>
     </div>
 
 </div>
@@ -209,6 +40,6 @@
 @section Scripts
 {
     <script>
-    document.onload = setupWomensHomePage()
+    document.onload = setupScorecardHomePage()
 </script>
 }

@@ -3,7 +3,7 @@ using LanguageExt;
 
 namespace AcsTypes.Types
 {
-    public class ScoreLimit: ValueObject<ScoreLimit>
+    public class ScoreLimit : ValueObject<ScoreLimit>
     {
         public int Value { get; }
 
@@ -18,17 +18,16 @@ namespace AcsTypes.Types
                 return $"Value is outside range of 0..2000 {value}";
 
             return new ScoreLimit(value);
-      
         }
 
         public static Result<ScoreLimit, Error.Error> Create(int value)
         {
             if (value < 0)
                 return Result.Failure<ScoreLimit, Error.Error>("Limit is too low");
-            
+
             return Result.Success<ScoreLimit, Error.Error>(new ScoreLimit(value));
         }
-        
+
         public static implicit operator int(ScoreLimit type)
         {
             return type.Value;
@@ -47,6 +46,6 @@ namespace AcsTypes.Types
         protected override int GetHashCodeCore()
         {
             return Value.GetHashCode();
-        }  
+        }
     }
 }

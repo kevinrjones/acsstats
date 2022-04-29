@@ -73,7 +73,7 @@ public class MatchDatesQuery : IRequest<Result<IReadOnlyList<MatchDateDto>, Erro
             catch (Exception e)
             {
                 _logger.LogCritical(e, "Unable to process this request: {MatchType}", request.MatchType);
-                return Result.Failure<IReadOnlyList<MatchDateDto>, Error>(Errors.UnexpectedError);
+                return Result.Failure<IReadOnlyList<MatchDateDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
 
         }

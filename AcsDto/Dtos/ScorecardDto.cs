@@ -1,13 +1,12 @@
 namespace AcsDto.Dtos;
 
-public record  ScorecardDto(List<string> Notes, PersonDto[] Debuts, ScorecardHeaderDto Header,
+public record  ScorecardDto(List<string> Notes, List<DebutDto> Debuts, ScorecardHeaderDto Header,
     List<InningDto> Innings);
 
 public record struct ScorecardHeaderDto(
-    ScorecardTeamDto Toss,
+    ScorecardTeamDto? Toss,
     LocationDto Where,
     ResultDto Result,
-    int TestNo,
     List<PersonDto> Scorers,
     List<PersonDto> Umpires,
     ScorecardTeamDto AwayTeam,
@@ -20,16 +19,32 @@ public record struct ScorecardHeaderDto(
     string MatchType,
     string MatchTitle,
     string SeriesDate,
-    List<string> CloseOfPlay,
-    int BallsPerOer,
+    List<CloseOfPlayDto> CloseOfPlay,
+    int BallsPerOver,
     List<PersonDto> MatchReferee,
     string MatchDesignator
 );
 
+public enum  VictoryType {
+    Awarded = 0,
+    Drawn,
+    Runs,
+    Wickets,
+    Innings,
+    Tied,
+    Abandoned,
+    NoResult,
+    RunRate,
+    LosingFewerWickets,
+    FasterScoringRate,
+    Unknown
+}
 
-public record struct LocationDto(int Key, string Name, string VictoryType, string ResultString, int VictoryMargin);
+public record struct LocationDto(int Key, string Name);
+public record struct CloseOfPlayDto(int Day, string Note); 
+public record struct DebutDto(int PlayerId, string FullName, int TeamId, string TeamName);
 
-public record ResultDto(ScorecardTeamDto? WhoWon, ScorecardTeamDto? WhoLost, string ResultString, string VictoryType);
+public record ResultDto(ScorecardTeamDto? WhoWon, ScorecardTeamDto? WhoLost, string ResultString, VictoryType VictoryType);
 
 public record struct InningDto(ScorecardTeamDto Team,
     ScorecardTeamDto Opponents,
@@ -49,7 +64,6 @@ public record struct TotalDto(
     int Wickets,
     bool Declared,
     string Overs,
-    int Balls,
     int Minutes,
     int Total
 );
@@ -77,7 +91,7 @@ public record struct BattlingLineDto(
     bool IsWicketKeeper
 );
 
-public record DismissalDto(String dismissal);
+public record DismissalDto(String Dismissal, PersonDto Bowler, PersonDto Fielder);
 
 public record struct BowlingLineDto(
     int? Dots,
@@ -86,7 +100,7 @@ public record struct BowlingLineDto(
     int? Fours,
     int? Sixes,
     string Overs,
-    int? wides,
+    int? Wides,
     PersonDto Player,
     int? Maidens,
     int? NoBalls,
@@ -94,4 +108,4 @@ public record struct BowlingLineDto(
     bool IsCaptain
 );
 
-public record struct FallOfWicketDto(int Wicket, int? Score, bool Unbroken, PersonDto Player, string overs);    
+public record struct FallOfWicketDto(int Wicket, int? Score, PersonDto Player, string overs);    
