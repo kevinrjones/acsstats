@@ -117,6 +117,14 @@
                             {
                                 <tr>
                                     <td class="batsman">
+                                        @if (battingLine.IsCaptain)
+                                        {
+                                            <span>*</span>
+                                        }
+                                        @if (battingLine.IsWicketKeeper)
+                                        {
+                                            <span>+</span>
+                                        }
                                         <a href="@battingLine.Player.Key">@battingLine.Player.Name</a>
                                     </td>
                                     <td class="howout">@battingLine.Dismissal.Dismissal</td>

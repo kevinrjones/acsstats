@@ -37,7 +37,8 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
         private readonly QueriesConnectionString _queriesConnectionString;
         private readonly ILogger<ScorecardQueryHandler> _logger;
 
-        private string findMatch = @"select M.Id, M.HomeTeamId, M.HomeTeamName, M.AwayTeamId, M.AwayTeamName, M.MatchDesignator, M.MatchTitle, M.Location, M.LocationId, M.MatchDate,
+        private string findMatch =
+            @"select M.Id, M.HomeTeamId, M.HomeTeamName, M.AwayTeamId, M.AwayTeamName, M.MatchDesignator, M.MatchTitle, M.Location, M.LocationId, M.MatchDate,
                M.SeriesDate, M.ResultString, M.BallsPerOver, M.DayNight, M.TossTeamId, t.name as Toss, 
                M.WhoWonId, w.name as WhoWon, M.WhoLostId, l.name as WhoLost, M.VictoryType, M.MatchType
                from Matches M
@@ -47,7 +48,7 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
           where HomeTeamName=@HomeTeamName
           and AwayTeamName=@AwayTeamName
           and MatchStartDate=@MatchStartDate";
-        
+
         private string matchSql =
             @"select M.Id, M.HomeTeamId, M.HomeTeamName, M.AwayTeamId, M.AwayTeamName, M.MatchDesignator, M.MatchTitle, M.Location, M.LocationId, M.MatchDate,
                M.SeriesDate, M.ResultString, M.BallsPerOver, M.DayNight, M.TossTeamId, t.name as Toss, 
@@ -84,14 +85,14 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
 
         private string battingSql =
             @"select BattingDetails.PlayerId,
-               P.FullName as PlayerName,
+               FullName as PlayerName,
                InningsNumber,
                InningsOrder,
                Dismissal,
                BowlerId,
-               B.SortNamePart as BowlerName,
+               BowlerName as BowlerName,
                FielderId,
-               P.SortNamePart as FielderName,
+               FielderName as FielderName,
                Score,
                Position,
                NotOut,
@@ -102,15 +103,12 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
                Captain,
                WicketKeeper
                 from BattingDetails
-                left join players P on BattingDetails.PlayerId = P.Id
-                left join players B on BattingDetails.PlayerId = B.Id
-                left join players F on BattingDetails.PlayerId = F.Id
       where BattingDetails.matchid = @MatchId
       order by InningsOrder, Position";
 
         private string bowlingSql =
-            @"select P.Id,
-               P.FullName,
+            @"select PlayerId,
+               Name as FullName,
                InningsOrder,
                Overs,
                Balls,
@@ -124,7 +122,6 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
                NoBalls,
                Captain
         from BowlingDetails
-         join Players P on BowlingDetails.PlayerId = P.Id
       where BowlingDetails.matchid = @MatchId
         order by InningsOrder, Position";
 
@@ -328,7 +325,7 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
                                     , b.Sixes
                                     , b.Overs
                                     , b.Wides
-                                    , new PersonDto(b.Id, b.FullName)
+                                    , new PersonDto(b.PlayerId, b.FullName)
                                     , b.Maidens
                                     , b.NoBalls
                                     , b.Wickets
@@ -373,7 +370,7 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
                 else
                 {
                     _logger.LogError("Unable to precess query");
-                    return Result.Failure<ScorecardDto, Error>(Errors.GetUnexpectedError("Unable to precess query"));    
+                    return Result.Failure<ScorecardDto, Error>(Errors.GetUnexpectedError("Unable to precess query"));
                 }
             }
             catch (Exception e)
@@ -405,9 +402,10 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
         , string Dismissal, int BowlerId, string BowlerName, int FielderId, string FielderName
         , int? Score, int Position, ulong NotOut
         , int? Balls, int? Minutes, int? Fours, int? Sixes, ulong Captain, ulong WicketKeeper);
-
-
-    record LocalBowlingDetailDto(int Id, string FullName, int InningsOrder, string Overs, int? Balls, int? Runs, int? Maidens,
+    
+    record LocalBowlingDetailDto(int PlayerId, string FullName, int InningsOrder, string Overs, int? Balls, int? Runs,
+        int? Maidens,
         int? Wickets, int? Fours,
         int? Sixes, int? Dots, int? Wides, int? NoBalls, ulong Captain);
+  
 }
