@@ -9,9 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf8de37e-105f-4943-aba0-ea97cb56b98b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/dataSources/a2829ee5-06d8-4294-b22e-ed7fcd191d43.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/dataSources/a2829ee5-06d8-4294-b22e-ed7fcd191d43.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsCommands/Query/ScorecardQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsCommands/Query/ScorecardQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/ScorecardDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Dtos/ScorecardDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/Scorecard/Card.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/Scorecard/Card.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -144,6 +144,7 @@
       <workItem from="1651154997536" duration="2943000" />
       <workItem from="1651158846358" duration="607000" />
       <workItem from="1651238242004" duration="4608000" />
+      <workItem from="1651308567008" duration="2240000" />
     </task>
     <servers />
   </component>

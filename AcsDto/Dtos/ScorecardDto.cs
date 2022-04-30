@@ -91,7 +91,7 @@ public record struct BattlingLineDto(
     bool IsWicketKeeper
 );
 
-public record DismissalDto(String Dismissal, PersonDto Bowler, PersonDto Fielder);
+public record DismissalDto(int DismissalType, String Dismissal, PersonDto Bowler, PersonDto Fielder);
 
 public record struct BowlingLineDto(
     int? Dots,

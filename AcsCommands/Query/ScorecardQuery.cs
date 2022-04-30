@@ -89,6 +89,7 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
                InningsNumber,
                InningsOrder,
                Dismissal,
+               DismissalType,
                BowlerId,
                BowlerName as BowlerName,
                FielderId,
@@ -176,11 +177,6 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
                     AwayTeamName = request.AwayTeam,
                     MatchStartDate = request.Date
                 }).FirstOrDefault();
-
-                // var matchData = connection.Query<LocalMatchDto>(matchSql, new
-                // {
-                //     MatchId = request.MatchId
-                // }).First();
 
                 if (matchData != null)
                 {
@@ -302,7 +298,7 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
                                     , b.NotOut != 0
                                     , b.Minutes
                                     , b.Position
-                                    , new DismissalDto(b.Dismissal, new PersonDto(b.BowlerId, b.BowlerName),
+                                    , new DismissalDto(b.DismissalType, b.Dismissal, new PersonDto(b.BowlerId, b.BowlerName),
                                         new PersonDto(b.FielderId, b.FielderName))
                                     , b.Captain != 0
                                     , b.WicketKeeper != 0
@@ -379,6 +375,7 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
                 return Result.Failure<ScorecardDto, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
+
     }
 
 
@@ -399,7 +396,7 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
 
 
     record LocalBattingDetailDto(int PlayerId, string PlayerName, int InningsNumber, int InningsOrder
-        , string Dismissal, int BowlerId, string BowlerName, int FielderId, string FielderName
+        , string Dismissal, int DismissalType, int BowlerId, string BowlerName, int FielderId, string FielderName
         , int? Score, int Position, ulong NotOut
         , int? Balls, int? Minutes, int? Fours, int? Sixes, ulong Captain, ulong WicketKeeper);
     
