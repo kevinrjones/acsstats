@@ -96,13 +96,14 @@ public class ScorecardController : Controller
         ViewBag.Type = type;
 
         return await _remoteMatchesService.GetSeriesDates(type)
-            .Bind(ConvertToByDecade).OnFailure(error => { ModelState.AddModelError("OpponentsId", error.Message); })
+            .Bind(ConvertToByDecade)
+            .OnFailure(error => { ModelState.AddModelError("OpponentsId", error.Message); })
             .Finally(res =>
                 res.IsSuccess ? View("ByDecade", res.Value) : View("Error", new ErrorViewModel(res.Error)));
         ;
     }
 
-    [HttpGet("[controller]/byyear/{type}/{season}")]
+    [HttpGet("[controller]/byyear/{type}/{*season}")]
     public async Task<IActionResult> Search(string type, string season)
     {
         ViewBag.Type = type;
@@ -114,10 +115,9 @@ public class ScorecardController : Controller
         ;
     }
 
-    [HttpGet("[controller]/tournament/{tournament}")]
+    [HttpGet("[controller]/tournament/{*tournament}")]
     public async Task<IActionResult> GetMatchesInTournament(string tournament)
     {
-        // todo: show error page on error
         var res = await _remoteMatchesService.GetMatchesForTournament(tournament);
         return    res.OnFailure(error => { ModelState.AddModelError("OpponentsId", error.Message); })
             .Finally(res =>

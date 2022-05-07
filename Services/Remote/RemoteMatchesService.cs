@@ -39,7 +39,7 @@ public class RemoteMatchesService : IRemoteMatchesService
 
     public async Task<Result<List<string>, Error>> GetTournamentsForSeason(string type, string season)
     {
-        var url = $"Matches/tournamentsforseason?season={season}&";
+        var url = $"Matches/tournamentsforseason/{season}?";
         if (type == "women")
         {
             url += "matchtypes=wt&matchtypes=wf&matchtypes=wo&matchtypes=wa&matchtypes=wtt&matchtypes=witt";

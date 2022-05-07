@@ -1,0 +1,279 @@
+@using AcsDto.Dtos
+@using System.Text
+@model AcsDto.Dtos.PlayerRecordComplete
+
+@{
+    string CaluclateOvers(int balls, int ballsPerOver)
+    {
+        var overs = balls / ballsPerOver;
+        var ballsLeft = balls % ballsPerOver;
+
+        return ballsLeft > 0 ? $"{overs}.{ballsLeft}" : overs.ToString();
+    }
+}
+
+@{
+    var listOfSortedMatchType = new List<string> {"wt", "wo", "witt", "wf", "wa", "wtt", "t", "o", "itt", "f", "a", "tt"};
+
+    Dictionary<string, string> matchTypeDictionary = new Dictionary<string, string>
+    {
+        {"wf", "First Class"},
+        {"wt", "Test"},
+        {"wa", "List-A"},
+        {"wo", "ODI"},
+        {"wtt", "T-20"},
+        {"witt", "Internation T-20"},
+        {"f", "First Class"},
+        {"t", "Test"},
+        {"a", "List-A"},
+        {"o", "ODI"},
+        {"tt", "T-20"},
+        {"itt", "International T-20"},
+    };
+
+    string BuildCaptainOrWk(BattingDetailsDto row)
+    {
+        StringBuilder score = new StringBuilder();
+        if (row.Captain != 0)
+        {
+            score.Append("*");
+        }
+        if (row.WicketKeeper != 0)
+        {
+            score.Append("+");
+        }
+        return score.ToString();
+    }
+
+    string ConvertMatchType(string matchType)
+    {
+        if (matchTypeDictionary.TryGetValue(matchType, out string fullMatchType))
+        {
+            return fullMatchType;
+        }
+        return "Unknown";
+    }
+}
+
+<div class="scorecard-container">
+<div class="sidebar">
+
+</div>
+<div class="scorecard-main">
+@if (Model == null || (Model.PlayerDetails.Count == 0 && Model.BattingDetails.Count == 0 && Model.BowlingDetails.Count == 0))
+{
+    <h1>Sorry, that player cannot be found</h1>
+}
+else
+{
+    <section id="biography">
+        <table>
+            @for (var ndx = 0; ndx < Model.PlayerBiography.NameDetails.Count; ndx++)
+            {
+                <tr>
+                    <td>@(ndx == 0 ? "Name: " : "")</td>
+                    <td>@Model.PlayerBiography.NameDetails[ndx].FullName</td>
+                </tr>
+            }
+        </table>
+    </section>
+    <section id="overall">
+        <table>
+            <thead>
+            <tr>
+                <td class="teamname">Team</td>
+                <td class="matchType">Match Type</td>
+                <td class="matches">Matches</td>
+                <td class="innings">Innings</td>
+                <td class="batRuns">Runs</td>
+                <td class="notOuts">Not Outs</td>
+                <td class="average">Avg</td>
+                <td class="batBalls">Balls</td>
+                <td class="hundreds">Hundreds</td>
+                <td class="fifties">Fifties</td>
+                <td class="batFours">Fours</td>
+                <td class="batSixes">Sixes</td>
+                <td>-</td>
+                <td class="bowlBalls">Balls</td>
+                <td class="bowlRuns">Runs</td>
+                <td class="maidens">Maidens</td>
+                <td class="wickets">Wickets</td>
+                <td class="average">Avg</td>
+                <td class="bowlFours">Fours</td>
+                <td class="bowlSixes">Sixes</td>
+                <td class="bowlBalls">Wides</td>
+                <td class="noBalls">No Balls</td>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var row in Model.PlayerDetails)
+            {
+                var batavg = row.Innings - row.Notouts == 0 ? "-" : $"{Decimal.Truncate((row.Runs*100)/(row.Innings - row.Notouts))/100,12:F2}";
+                var bowlavg = row.Wickets == 0 || row.BowlingRuns == null || row.Wickets == null ? "-" : $"{Decimal.Truncate((100* row.BowlingRuns ?? 0 )/ row.Wickets ?? 1)/100,12:F2}";
+                <tr>
+                    <td class="teamname @(row.Team == "Total" ? ", totalRow" : "")">@row.Team</td>
+                    <td class="matchType @(row.Team == "Total" ? ", totalRow" : "")">@ConvertMatchType(@row.MatchType)</td>
+                    <td class="matches @(row.Team == "Total" ? ", totalRow" : "")">@row.Matches</td>
+                    <td class="innings @(row.Team == "Total" ? ", totalRow" : "")">@row.Innings</td>
+                    <td class="batRuns @(row.Team == "Total" ? ", totalRow" : "")">@row.Runs</td>
+                    <td class="notOuts @(row.Team == "Total" ? ", totalRow" : "")">@row.Notouts</td>
+                    <td class="average @(row.Team == "Total" ? ", totalRow" : "")">@batavg</td>
+                    <td class="batBalls @(row.Team == "Total" ? ", totalRow" : "")">@row.Balls</td>
+                    <td class="hundreds @(row.Team == "Total" ? ", totalRow" : "")">@row.Hundreds</td>
+                    <td class="fifties @(row.Team == "Total" ? ", totalRow" : "")">@row.Fifties</td>
+                    <td class="batFours @(row.Team == "Total" ? ", totalRow" : "")">@row.Fours</td>
+                    <td class="batSixes @(row.Team == "Total" ? ", totalRow" : "")">@row.Sixes</td>
+                    <td class="@(row.Team == "Total" ? ", totalRow" : "")">-</td>
+                    
+                    
+                    @if (row.BowlingBalls != 0)
+                    {
+                        <td class="bowlBalls @(row.Team == "Total" ? ", totalRow" : "")">@row.BowlingBalls</td>
+                        <td class="bowlRuns @(row.Team == "Total" ? ", totalRow" : "")">@row.BowlingRuns</td>
+                        <td class="maidens @(row.Team == "Total" ? ", totalRow" : "")">@row.Maidens</td>
+                        <td class="wickets @(row.Team == "Total" ? ", totalRow" : "")">@row.Wickets</td>
+                        <td class="average @(row.Team == "Total" ? ", totalRow" : "")">@bowlavg</td>
+                        <td class="bowlFours @(row.Team == "Total" ? ", totalRow" : "")">@row.BowlingFours</td>
+                        <td class="bowlSixes @(row.Team == "Total" ? ", totalRow" : "")">@row.BowlingSixes</td>
+                        <td class="bowlBalls @(row.Team == "Total" ? ", totalRow" : "")">@row.Wides</td>
+                        <td class="noBalls @(row.Team == "Total" ? ", totalRow" : "")">@row.NoBalls</td>
+                    }
+                    else
+                    {
+                        <td class="bowlBalls @(row.Team == "Total" ? ", totalRow" : "")">-</td>
+                        <td class="bowlRuns @(row.Team == "Total" ? ", totalRow" : "")">-</td>
+                        <td class="maidens @(row.Team == "Total" ? ", totalRow" : "")">-</td>
+                        <td class="wickets @(row.Team == "Total" ? ", totalRow" : "")">-</td>
+                        <td class="average @(row.Team == "Total" ? ", totalRow" : "")">-</td>
+                        <td class="bowlFours @(row.Team == "Total" ? ", totalRow" : "")">-</td>
+                        <td class="bowlSixes @(row.Team == "Total" ? ", totalRow" : "")">-</td>
+                        <td class="bowlBalls @(row.Team == "Total" ? ", totalRow" : "")">-</td>
+                        <td class="noBalls @(row.Team == "Total" ? ", totalRow" : "")">-</td>
+                    }
+                </tr>
+            }
+            </tbody>
+        </table>
+    </section>
+    <section id="batting">
+
+        @foreach (var matchType in listOfSortedMatchType)
+        {
+            if (Model.BattingDetails.TryGetValue(matchType, out var listOfBattingDetails))
+            {
+                <section>
+                    <H2>@ConvertMatchType(matchType)</H2>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <td class="teamname">Team</td>
+                            <td class="opponents">Opponents</td>
+                            <td class="ground">Ground</td>
+                            <td class="startDate">Start Date</td>
+                            <td class="score">Score</td>
+                            <td class="dismissal">Dismissal</td>
+                            <td class="batBalls">Balls</td>
+                            <td class="minutes">Minutes</td>
+                            <td class="batFours">Fours</td>
+                            <td class="batSixes">Sixes</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @{
+                            var previousMatchId = 0;
+                        }
+                        @foreach (var row in listOfBattingDetails)
+                        {
+                            string cwk = BuildCaptainOrWk(row);
+                            <tr @(previousMatchId != row.Id && row.MatchType is "f" or "wf" or "t" or "wt" ? "class=matchRow" : "") >
+                                <td class="teamname">@(previousMatchId == row.Id ? "" : row.Team)</td>
+                                <td class="opponents">@(previousMatchId == row.Id ? "" : row.Opponents)</td>
+                                <td class="ground">@(previousMatchId == row.Id ? "" : row.Ground)</td>
+                                <td class="startDate">@(previousMatchId == row.Id ? "" : row.MatchStartDate)</td>
+                                <td class="score">
+                                    @if (row.DismissalType != 11 && row.DismissalType != 14)
+                                    {
+                                        @row.Score<span class="position">[@row.InningsNumber]</span>
+                                        <span class="cwk">@cwk</span>
+                                    }
+                                    else
+                                    {
+                                        @:-
+                                    }
+                                </td>
+                                <td class="dismissal">@row.Dismissal</td>
+                                <td class="batBalls">@(row.Balls == null ? "-" : @row.Balls)</td>
+                                <td class="minutes">@(row.Minutes == null ? "-" : @row.Minutes)</td>
+                                <td class="batFours">@(row.Fours == null ? "-" : @row.Fours)</td>
+                                <td class="batSixes">@(row.Sixes == null ? "-" : @row.Sixes)</td>
+                            </tr>
+                            previousMatchId = row.Id;
+                        }
+                        </tbody>
+                    </table>
+                </section>
+            }
+        }
+
+    </section>
+    <section id="bowling">
+        @foreach (var matchType in listOfSortedMatchType)
+        {
+            if (Model.BowlingDetails.TryGetValue(matchType, out var listOfBowlingDetails))
+            {
+                <section>
+                    <H2>@ConvertMatchType(matchType)</H2>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <td class="teamname">Team</td>
+                            <td class="opponents">Opponents</td>
+                            <td class="ground">Ground</td>
+                            <td class="startDate">Start Date</td>
+                            <td class="overs">Overs</td>
+                            <td class="maidens">Maidens (Dots)</td>
+                            <td class="bowlRuns">Runs</td>
+                            <td class="wickets">Wickets</td>
+                            <td class="wides">Wides</td>
+                            <td class="noBalls">No Balls</td>
+                            <td class="bowlFours">Fours</td>
+                            <td class="bowlSixes">Sixes</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @{
+                            var previousMatchId = 0;
+                        }
+                        @foreach (var row in listOfBowlingDetails)
+                        {
+                            <tr @(previousMatchId != row.Id && row.MatchType is "f" or "wf" or "t" or "wt" ? "class=matchRow" : "") >
+                                <td class="teamname">@(previousMatchId == row.Id ? "" : row.Team)</td>
+                                <td class="opponents">@(previousMatchId == row.Id ? "" : row.Opponents)</td>
+                                <td class="ground">@(previousMatchId == row.Id ? "" : row.Ground)</td>
+                                <td class="startDate">@(previousMatchId == row.Id ? "" : row.MatchStartDate)</td>
+                                <td class="overs">@CaluclateOvers(@row.Balls, @row.BallsPerOver)</td>
+                                <td class="maidens">@row.Maidens (@(row.Dots == null ? "-" : @row.Dots))</td>
+                                <td class="bowlRuns">@row.Runs</td>
+                                <td class="wickets">@row.Wickets</td>
+                                <td class="wides">@row.Wides</td>
+                                <td class="noBalls">@row.NoBalls</td>
+                                <td class="bowlFours">@row.Fours</td>
+                                <td class="bowlSixes">@row.Sixes</td>
+                            </tr>
+                            previousMatchId = row.Id;
+                        }
+                        </tbody>
+                    </table>
+                </section>
+            }
+        }
+    </section>
+}
+</div>
+<div class="sidebar">
+
+</div>
+
+</div>

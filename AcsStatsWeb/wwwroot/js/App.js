@@ -337,12 +337,24 @@ var Team = /** @class */ (function () {
     }
     return Team;
 }());
+var Overall = /** @class */ (function () {
+    function Overall() {
+    }
+    return Overall;
+}());
 var TeamEnvelope = /** @class */ (function (_super) {
     __extends(TeamEnvelope, _super);
     function TeamEnvelope() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     return TeamEnvelope;
+}(Envelope));
+var OverallEnvelope = /** @class */ (function (_super) {
+    __extends(OverallEnvelope, _super);
+    function OverallEnvelope() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return OverallEnvelope;
 }(Envelope));
 var DatesEnvelope = /** @class */ (function (_super) {
     __extends(DatesEnvelope, _super);

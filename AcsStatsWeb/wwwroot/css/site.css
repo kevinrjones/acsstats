@@ -122,7 +122,7 @@ div.scorecard > table > thead {
     background-color: rgb(246, 247, 248);
 }
 
-div.scorecard > table > tbody > tr {
+table > tbody > tr {
     border-bottom: solid 1px lightgray
 }
 
@@ -251,5 +251,124 @@ form > div:nth-child(1) > span > label, div:nth-child(2) > span > label {
 
 .matchlist td {
     padding-right: 1rem;
+}
+
+.position {
+    vertical-align: super;
+    font-size: 0.75rem;
+}
+
+#batting, #bowling, #biography, #overall {
+    padding-bottom: 5rem;
+}
+
+#batting > section, #bowling > section, #biography > section, #overall > section {
+    padding-bottom: 5rem;
+}
+
+#biography > table > tbody > tr {
+    border-bottom: none;
+}
+
+#biography > table > tbody > tr > td:nth-child(1) {
+    width: 10rem;
+}
+
+
+#overall > table > thead > tr, 
+#batting > section > table > thead > tr, 
+#bowling > section > table > thead > tr
+{
+    border-bottom: solid 1px lightgray;
+    height: 2.5rem;
+}
+
+#batting > section > table > tbody > tr.matchRow,
+#bowling > section > table > tbody > tr.matchRow
+{
+    border-top: solid 2px darkgray;
+}
+
+#overall > table > thead > tr > td, 
+#overall > table > tbody > tr > td,
+#batting > section > table > thead > tr > td,
+#bowling > section > table > thead > tr > td
+{
+    width: 5rem;
+    text-align: left;
+}
+
+
+#overall > table > thead > tr > td.teamname, 
+#overall > table > tbody > tr > td.teamname,
+#batting > section > table > thead > tr > td.teamname,
+#batting > section > table > tbody > tr > td.teamname,
+#bowling > section > table > thead > tr > td.teamname,
+#bowling > section > table > tbody > tr > td.teamname,
+#batting > section > table > thead > tr > td.opponents,
+#batting > section > table > tbody > tr > td.opponents,
+#bowling > section > table > thead > tr > td.opponents,
+#bowling > section > table > tbody > tr > td.opponents,
+#batting > section > table > thead > tr > td.startDate,
+#batting > section > table > tbody > tr > td.startDate,
+#bowling > section > table > thead > tr > td.startDate,
+#bowling > section > table > tbody > tr > td.startDate
+{
+    width: 15rem;
+}
+
+#batting > section > table > thead > tr > td.startDate,
+#batting > section > table > tbody > tr > td.startDate,
+#bowling > section > table > thead > tr > td.startDate,
+#bowling > section > table > tbody > tr > td.startDate,
+#batting > section > table > thead > tr > td.dismissal,
+#batting > section > table > tbody > tr > td.dismissal,
+#batting > section > table > thead > tr > td.score,
+#batting > section > table > tbody > tr > td.score
+{
+    padding-left: 1.5rem;
+}
+
+#batting > section > table > thead > tr > td.score,
+#batting > section > table > tbody > tr > td.score,
+#bowling > section > table > thead > tr > td.wickets,
+#bowling > section > table > tbody > tr > td.wickets
+{
+    font-weight: bold;
+}
+
+#batting > section > table > thead > tr > td.dismissal,
+#batting > section > table > tbody > tr > td.dismissal
+{
+    width: 20rem;    
+}
+
+#batting > section > table > thead > tr > td.ground,
+#batting > section > table > tbody > tr > td.ground,
+#bowling > section > table > thead > tr > td.ground,
+#bowling > section > table > tbody > tr > td.ground
+{
+    width: 30rem;
+    padding-left: 2rem;
+}
+
+#overall > table > thead > tr > td.matchType, 
+#overall > table > tbody > tr > td.matchType,
+#batting > section > table > thead > tr > td.matchType,
+#batting > section > table > tbody > tr > td.matchType,
+#bowling > section > table > thead > tr > td.matchType,
+#bowling > section > table > tbody > tr > td.matchType
+{
+    width: 12rem;
+    padding-left: 1rem;
+}
+
+td.totalRow {
+    border-top: 2px solid darkgray;
+    padding-bottom: 10px;
+}
+
+#biography > table > tbody > tr > td:nth-child(2) {
+    font-weight: bold;
 }
 

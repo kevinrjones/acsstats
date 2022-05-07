@@ -95,6 +95,7 @@ namespace AcsStatsWeb
             services.AddScoped<ITeamsService, TeamsService>();
             services.AddScoped<IPartnershipService, PartnershipService>();
             services.AddScoped<IRemoteTeamsService, RemoteTeamsService>();
+            services.AddScoped<IRemotePlayerService, RemotePlayerService>();
             services.AddScoped<IRemoteBattingRecordsService, RemoteBattingRecordsService>();
             services.AddScoped<IRemoteFieldingRecordsService, RemoteFieldingRecordsService>();
             services.AddScoped<IRemoteBowlingRecordsService, RemoteBowlingRecordsService>();

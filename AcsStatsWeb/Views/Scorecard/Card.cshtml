@@ -19,23 +19,36 @@ else
             <h2>Result</h2>
             <div>@Model.Header.MatchDesignator @Model.Header.Where.Name @Model.Header.MatchDate (@Model.Header.Toss?.name won the toss)</div>
         </div>
+        <div>
+            <strong>Umpires etc...</strong>
+        </div>
         <div class="scorecard-scores-container">
             <div>
                 <div>
-                    @if (Model.Header.Result.VictoryType != VictoryType.Drawn
+                    @if (Model.Header.Result.WhoWon != null
+                         && Model.Header.Result.VictoryType != VictoryType.Drawn
+                         && Model.Header.Result.VictoryType == VictoryType.NoResult
+                         && Model.Header.Result.VictoryType == VictoryType.Abandoned
                          && Model.Header.Result.WhoWon.Value.Key == Model.Header.HomeTeam.Key)
                     {
                         @:<strong>
                     }
                     @Model.Header.HomeTeam.name
-                    @if (Model.Header.Result.VictoryType != VictoryType.Drawn
+                    @if (Model.Header.Result.WhoWon != null
+                         && Model.Header.Result.VictoryType != VictoryType.Drawn
+                         && Model.Header.Result.VictoryType == VictoryType.NoResult
+                         && Model.Header.Result.VictoryType == VictoryType.Abandoned
                          && Model.Header.Result.WhoWon.Value.Key == Model.Header.HomeTeam.Key)
                     {
                         @:</strong>
                     }
+
                 </div>
                 <div>
-                    @if (Model.Header.Result.VictoryType != VictoryType.Drawn
+                    @if (Model.Header.Result.WhoWon != null
+                         && Model.Header.Result.VictoryType != VictoryType.Drawn
+                         && Model.Header.Result.VictoryType == VictoryType.NoResult
+                         && Model.Header.Result.VictoryType == VictoryType.Abandoned
                          && Model.Header.Result.WhoWon.Value.Key == Model.Header.HomeTeam.Key)
                     {
                         @:<strong>
@@ -46,7 +59,10 @@ else
                         <text>& </text>
                         @Model.Header.HomeTeamScores[1]
                     }
-                    @if (Model.Header.Result.VictoryType != VictoryType.Drawn
+                    @if (Model.Header.Result.WhoWon != null
+                         && Model.Header.Result.VictoryType != VictoryType.Drawn
+                         && Model.Header.Result.VictoryType == VictoryType.NoResult
+                         && Model.Header.Result.VictoryType == VictoryType.Abandoned
                          && Model.Header.Result.WhoWon.Value.Key == Model.Header.HomeTeam.Key)
                     {
                         @:</strong>
@@ -56,20 +72,29 @@ else
 
             <div>
                 <div>
-                    @if (Model.Header.Result.VictoryType != VictoryType.Drawn
+                    @if (Model.Header.Result.WhoWon != null 
+                         && Model.Header.Result.VictoryType != VictoryType.Drawn 
+                         && Model.Header.Result.VictoryType == VictoryType.NoResult
+                         && Model.Header.Result.VictoryType == VictoryType.Abandoned
                          && Model.Header.Result.WhoWon.Value.Key == Model.Header.AwayTeam.Key)
                     {
                         @:<strong>
                     }
                     @Model.Header.AwayTeam.name
-                    @if (Model.Header.Result.VictoryType != VictoryType.Drawn
+                    @if (Model.Header.Result.WhoWon != null 
+                         && Model.Header.Result.VictoryType != VictoryType.Drawn 
+                         && Model.Header.Result.VictoryType == VictoryType.NoResult
+                         && Model.Header.Result.VictoryType == VictoryType.Abandoned
                          && Model.Header.Result.WhoWon.Value.Key == Model.Header.AwayTeam.Key)
                     {
                         @:</strong>
                     }
                 </div>
                 <div>
-                    @if (Model.Header.Result.VictoryType != VictoryType.Drawn
+                    @if (Model.Header.Result.WhoWon != null 
+                         && Model.Header.Result.VictoryType != VictoryType.Drawn 
+                         && Model.Header.Result.VictoryType == VictoryType.NoResult
+                         && Model.Header.Result.VictoryType == VictoryType.Abandoned
                          && Model.Header.Result.WhoWon.Value.Key == Model.Header.AwayTeam.Key)
                     {
                         @:<strong>
@@ -80,7 +105,10 @@ else
                         <text>& </text>
                         @Model.Header.AwayTeamScores[1]
                     }
-                    @if (Model.Header.Result.VictoryType != VictoryType.Drawn
+                    @if (Model.Header.Result.WhoWon != null 
+                         && Model.Header.Result.VictoryType != VictoryType.Drawn 
+                         && Model.Header.Result.VictoryType == VictoryType.NoResult
+                         && Model.Header.Result.VictoryType == VictoryType.Abandoned
                          && Model.Header.Result.WhoWon.Value.Key == Model.Header.AwayTeam.Key)
                     {
                         @:</strong>
@@ -88,7 +116,7 @@ else
                 </div>
             </div>
             <div>
-                @Model.Header.Result.ResultString
+                <strong>@Model.Header.Result.ResultString</strong>
             </div>
         </div>
     </div>
@@ -132,7 +160,7 @@ else
                                     {
                                         if (battingLine.Dismissal.Bowler.Key == battingLine.Dismissal.Fielder.Key)
                                         {
-                                            <text>c&b</text>
+                                            <text>c & b</text>
                                             <a href="/player/@battingLine.Dismissal.Bowler.Key">@battingLine.Dismissal.Bowler.Name</a>
                                         }
                                         else
@@ -263,10 +291,3 @@ else
 </div>
 
 </div>
-
-@section Scripts
-{
-    <script>
-    document.onload = setupWomensHomePage()
-</script>
-}

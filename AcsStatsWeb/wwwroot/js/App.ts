@@ -154,7 +154,7 @@ class WomensScorecard extends WomensHomePage {
 
         this.opponents = <HTMLSelectElement>document.getElementById("opponentsid");
         this.opponents.onchange = this.teamOnChange
-        
+
         this.dates = <HTMLSelectElement>document.getElementById("datesid");
         this.getCard = <HTMLButtonElement>document.getElementById("getcardid");
 
@@ -162,20 +162,20 @@ class WomensScorecard extends WomensHomePage {
             this.buildSelectList(this.team, data.result)
             this.buildSelectList(this.opponents, data.result)
         });
-        
+
         this.getCard.onclick = this.getScorecard
-        
+
     }
 
     protected getScorecard = (evt: Event) => {
         evt.preventDefault()
-        
+
         var url = `/scorecard/${encodeURIComponent(this.team.selectedOptions[0].label)}-v-${encodeURIComponent(this.opponents.selectedOptions[0].label)}-${encodeURIComponent(this.dates.selectedOptions[0].value)}`
         console.log(`url '${url}'`)
 
         window.location.href = url
     }
-    
+
     protected teamOnChange = (evt: Event) => {
         this.getMatchDatesForTeamsAndMatchType(this.team, this.opponents, this.matchType, data => {
             this.dates.options.length = 0
@@ -394,6 +394,7 @@ class WomensHomePageMatches extends WomensHomePage {
     }
 }
 
+
 class Envelope<T> {
     result: T[];
     errorMessage: string;
@@ -406,7 +407,23 @@ class Team {
     id: number;
 }
 
+class Overall {
+    matchType: string;
+    matches: number;
+    runs: number
+    notouts: number
+    balls: number
+    fours: number
+    sixes: number
+    hundreds: number
+    fifties: number
+}
+
 class TeamEnvelope extends Envelope<Team> {
+
+}
+
+class OverallEnvelope extends Envelope<Array<Overall>> {
 
 }
 

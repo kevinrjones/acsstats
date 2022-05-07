@@ -9,31 +9,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf8de37e-105f-4943-aba0-ea97cb56b98b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BattingDetailsQuery.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/BowlingDetailsQuery.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/PlayerBiographyQuery.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsCommands/Query/PlayerOverallQuery.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/BattingDetailsDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/BowlingDetailsDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/PlayerBiographyDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/PlayerOverallDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsDto/Dtos/PlayerRecordComplete.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/PlayerController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/PlayerController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/Player/Index.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/Remote/IRemotePlayerService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AcsCommands/Query/ScorecardQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsCommands/Query/ScorecardQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Api/MatchesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Api/MatchesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/ScorecardController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Controllers/ScorecardController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Controllers/WomenInternationalPlayersController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/Views/Scorecard/Card.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/Views/Scorecard/Card.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/css/site.css" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/css/site.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.ts" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Remote/RemoteMatchesService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Remote/RemoteMatchesService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsDto/Dtos/ScorecardDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AcsDto/Dtos/ScorecardDto.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,30 +19,16 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/AcsDto/Dtos/BowlingCareerRecordDto.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Controllers/ScorecardController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Controllers/ScorecardController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Controllers/ScorecardController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Controllers/ScorecardController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Controllers/ScorecardController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Controllers/ScorecardController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Controllers/ScorecardController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Controllers/ScorecardController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/kevinjones/Dropbox/projects/cricket/CricketArchive/acsstats/AcsStatsWeb/Controllers/ScorecardController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css.old/bootstrap-grid.css.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css.old/bootstrap-reboot.css.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css.old/bootstrap-reboot.min.css.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css.old/bootstrap.css.map" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css.old/bootstrap.min.css.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/js.old/bootstrap.min.js.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/AcsStatsWeb/wwwroot/lib/jquery/dist/jquery.min.map" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/68340d6b711c4cf6b8aaacfe92bffc08ace800/e2/185f5042/Prelude.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/90f759db8113d19fb412ddf678b2a5d6d243ed115611175dadd1bcb89eee4f/TaskAwaiter.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -83,7 +46,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.59705883&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.597561&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -180,9 +143,6 @@
       <workItem from="1651158846358" duration="607000" />
       <workItem from="1651238242004" duration="4608000" />
       <workItem from="1651308567008" duration="1306000" />
-      <workItem from="1651311918328" duration="1626000" />
-      <workItem from="1651609929754" duration="811000" />
-      <workItem from="1651746463195" duration="10856000" />
     </task>
     <servers />
   </component>
@@ -252,33 +212,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="82" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AcsCommands/Query/ScorecardQuery.cs</url>
-          <line>376</line>
-          <properties documentPath="$PROJECT_DIR$/AcsCommands/Query/ScorecardQuery.cs" initialLine="376" containingFunctionPresentation="method 'Handle'">
-            <startOffsets>
-              <option value="15357" />
-            </startOffsets>
-            <endOffsets>
-              <option value="15410" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="90" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AcsStatsWeb/Views/Scorecard/Card.cshtml</url>
-          <line>51</line>
-          <properties documentPath="$PROJECT_DIR$/AcsStatsWeb/Views/Scorecard/Card.cshtml" initialLine="48" isMultiMethodBreakpoint="true">
-            <option name="multiMethodBreakpoint" value="true" />
-            <startOffsets>
-              <option value="-1" />
-            </startOffsets>
-            <endOffsets>
-              <option value="-1" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="94" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

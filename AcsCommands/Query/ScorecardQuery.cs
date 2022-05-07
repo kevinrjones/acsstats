@@ -332,17 +332,20 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
                     var fallOfWicketDtos = new List<List<FallOfWicketDto>>();
 
                     inningsOrder = -1;
-                    maxInningsOrder = fowData.MaxBy(b => b.InningsOrder).InningsOrder;
-                    while (++inningsOrder <= maxInningsOrder)
+                    if (fowData.Length() > 0)
                     {
-                        fallOfWicketDtos.Add(fowData.Filter(b => b.InningsOrder == inningsOrder)
-                            .Map(f =>
-                                new FallOfWicketDto(
-                                    f.Wicket
-                                    , f.CurrentScore
-                                    , new PersonDto(f.PlayerId, f.PlayerName)
-                                    , f.overs
-                                )).ToList());
+                        maxInningsOrder = fowData.MaxBy(b => b.InningsOrder).InningsOrder;
+                        while (++inningsOrder <= maxInningsOrder)
+                        {
+                            fallOfWicketDtos.Add(fowData.Filter(b => b.InningsOrder == inningsOrder)
+                                .Map(f =>
+                                    new FallOfWicketDto(
+                                        f.Wicket
+                                        , f.CurrentScore
+                                        , new PersonDto(f.PlayerId, f.PlayerName)
+                                        , f.overs
+                                    )).ToList());
+                        }
                     }
 
                     var inningsDtos = innings.Map(inning =>
@@ -355,9 +358,9 @@ public class ScorecardQuery : IRequest<Result<ScorecardDto, Error>>
                                 inning.Total)
                             , new ExtrasDto(inning.Byes, inning.LegByes, inning.Wides, inning.Noballs, inning.Penalty,
                                 inning.Total)
-                            , battingDtos[inning.InningsOrder]
-                            , bowlingDtos[inning.InningsOrder]
-                            , fallOfWicketDtos[inning.InningsOrder]
+                            , battingDtos.Count > inning.InningsOrder ? battingDtos[inning.InningsOrder] : new List<BattlingLineDto>()
+                            , bowlingDtos.Count > inning.InningsOrder ? bowlingDtos[inning.InningsOrder] : new List<BowlingLineDto>()
+                            , fallOfWicketDtos.Count > inning.InningsOrder ? fallOfWicketDtos[inning.InningsOrder] : new List<FallOfWicketDto>()
                         )).ToList();
 
                     var scoreCard = new ScorecardDto(notes.ToList(), debuts.ToList(), scorecardHeaderDto, inningsDtos);

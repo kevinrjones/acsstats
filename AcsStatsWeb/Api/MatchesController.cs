@@ -53,17 +53,16 @@ namespace AcsStatsWeb.Api
             return res;
         }
 
-        [HttpGet("tournamentsforseason")]
-        public async Task<IActionResult> GetTournamentsForSeason([FromQuery] string[] matchtypes,
-            [FromQuery] string season)
+        [HttpGet("tournamentsforseason/{*season}")]
+        public async Task<IActionResult> GetTournamentsForSeason(string season, [FromQuery] string[] matchtypes)
         {
-            var res = (await _matchesService.GetTournamentsForSeason(matchtypes, season))
+            var res = (await _matchesService.GetTournamentsForSeason(matchtypes, HttpUtility.UrlDecode(season)))
                 .Match(Ok, (it) => Error(it.Message));
 
             return res;
         }
 
-        [HttpGet("matchesintournament/{tournament}")]
+        [HttpGet("matchesintournament/{*tournament}")]
         public async Task<IActionResult> GetMatchesInTournament(string tournament)
         {
             var res = (await _matchesService.GetMatchesInTournament(HttpUtility.UrlDecode(tournament)))
@@ -73,7 +72,7 @@ namespace AcsStatsWeb.Api
         }
 
         [HttpGet("findmatches")]
-        public async Task<IActionResult> FindMatches([FromQuery]MatchSearchModel matchSearchModel)
+        public async Task<IActionResult> FindMatches([FromQuery] MatchSearchModel matchSearchModel)
         {
             var res = await _validation.ValidateMatchSearchModel(matchSearchModel).Bind(async m =>
                     await _matchesService.GetMatchesFromSearch(matchSearchModel))
