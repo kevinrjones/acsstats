@@ -137,4 +137,19 @@ public class Validation : IValidation
 
         return Result.Combine(sResult, eResult, hTeamError, aTeamError);
     }
+
+    public Result<bool, Error> ValidatePlayerSearchModel(PlayerSearchModel playerSearchModel)
+    {
+        string format = "yyyy-MM-dd";
+
+        var startEpochDate = EpochDateType.Create(playerSearchModel.DebutDate, format);
+        var endEpochDate = EpochDateType.Create(playerSearchModel.ActiveUntil, format);
+        
+        var sResult = Result.SuccessIf<PlayerSearchModel, Error>(startEpochDate.IsSuccess, playerSearchModel,
+            Errors.ModelError("DebutDate", "Date is not valid"));
+        var eResult = Result.SuccessIf<PlayerSearchModel, Error>(endEpochDate.IsSuccess, playerSearchModel,
+            Errors.ModelError("ActiveUntil", "Date is not valid"));
+        
+        return Result.Combine(sResult, eResult);
+    }
 }

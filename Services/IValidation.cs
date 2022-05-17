@@ -20,4 +20,5 @@ public interface IValidation
      public Result<RequestDates, Error> ValidateEpochDates(string startDate, string endDate, string format = "dd MMMM yyyy");
      public Result<RequestDates, Error> ValidateEpochDates(long startDate, long endDate);
      public Result<bool, Error>  ValidateMatchSearchModel(MatchSearchModel matchSearchModel);
+     public Result<bool, Error>  ValidatePlayerSearchModel(PlayerSearchModel playerSearchModel);
 }

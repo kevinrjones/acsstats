@@ -14,14 +14,14 @@ namespace Services
 {
     public interface IMatchesService
     {
-        Task<CSharpFunctionalExtensions.Result<IReadOnlyList<MatchRecordDetailsDto>, AcsTypes.Error.Error>>
+        Task<CSharpFunctionalExtensions.Result<IReadOnlyList<MatchRecordDetailsDto>, Error>>
             GetHighestInningsForTeam(SharedModel teamModel);
 
-        Task<CSharpFunctionalExtensions.Result<IReadOnlyList<MatchRecordDetailsDto>, AcsTypes.Error.Error>>
+        Task<CSharpFunctionalExtensions.Result<IReadOnlyList<MatchRecordDetailsDto>, Error>>
             GetMatchTotals(
                 SharedModel teamModel);
 
-        Task<CSharpFunctionalExtensions.Result<IReadOnlyList<MatchResultDto>, AcsTypes.Error.Error>> GetMatchResults(
+        Task<Result<IReadOnlyList<MatchResultDto>, Error>> GetMatchResults(
             SharedModel teamModel);
 
         public Task<Result<IReadOnlyList<MatchDateDto>, Error>> GetDatesForMatchType(string matchType);

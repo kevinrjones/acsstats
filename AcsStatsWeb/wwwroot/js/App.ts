@@ -1,9 +1,13 @@
 function setupWomensHomePage() {
-    new WomensHomePageMatches()
+    new HomePageMatches()
 }
 
 function setupScorecardHomePage() {
-    new WomensScorecard()
+    new Scorecard()
+}
+
+function setupPlayerTeamSearchPage() {
+    new SearchSetup()
 }
 
 interface LoadTeams {
@@ -14,7 +18,7 @@ interface LoadDates {
     (data: DatesEnvelope): void
 }
 
-class WomensHomePage {
+class HomePage {
     private formState: FormState;
     protected team: HTMLSelectElement
     protected opponents: HTMLSelectElement
@@ -138,7 +142,7 @@ class WomensHomePage {
     }
 }
 
-class WomensScorecard extends WomensHomePage {
+class Scorecard extends HomePage {
     matchType: HTMLSelectElement
     dates: HTMLSelectElement
     getCard: HTMLButtonElement
@@ -213,7 +217,7 @@ class WomensScorecard extends WomensHomePage {
 }
 
 
-class WomensHomePageMatches extends WomensHomePage {
+class HomePageMatches extends HomePage {
     season: HTMLSelectElement
     matchType: HTMLSelectElement
     extrasByInnings: HTMLInputElement
@@ -394,6 +398,11 @@ class WomensHomePageMatches extends WomensHomePage {
     }
 }
 
+class SearchSetup {
+    constructor() {
+     
+    }
+}
 
 class Envelope<T> {
     result: T[];

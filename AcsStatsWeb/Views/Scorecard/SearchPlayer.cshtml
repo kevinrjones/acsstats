@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "_Scorecard_Layout";
+    ViewData.Add("CardClass", "tab-secondary");
+    ViewData.Add("PlayerClass", "tab-primary");
+
+}
+@model AcsDto.Models.PlayerSearchModel
+
+<div class="search-form-style">
+    <div class="search-form-style-heading">
+        <a href="/scorecard/search/card/women" class="@ViewBag.CardClass">Search Card</a>
+        <a href="#" class="@ViewBag.PlayerClass">Search Player</a>
+    </div>
+
+    <form action="/scorecard/search/player/women" method="post">
+        <div>
+            <label for="Name">Name:</label><input type="text" asp-for="Name"/>
+            <span>
+                <label for="ExactNameMatch">Exact Match?</label>
+                <input type="checkbox" asp-for="ExactNameMatch" value="true">
+                <span asp-validation-for="Name"></span>
+            </span>
+        </div>
+        <div>
+            <label for="team">Team:</label><input type="text" asp-for="Team"/>
+            <span>
+                <span asp-validation-for="Team"></span>
+            </span>
+        </div>
+        <div>
+            <label>Dates</label>
+            <label for="debutDate">Start</label><input asp-for="DebutDate" type="date"/>
+            <span asp-validation-for="DebutDate"></span>
+            <label for="ActiveUntil">End</label><input asp-for="ActiveUntil" type="date"/>
+            <span asp-validation-for="ActiveUntil"></span>
+        </div>
+        <div>
+            <button type="submit">Search</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    <script>
+    setupPlayerTeamSearchPage()
+</script>
+}

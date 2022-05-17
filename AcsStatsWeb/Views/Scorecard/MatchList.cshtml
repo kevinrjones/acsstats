@@ -1,27 +1,39 @@
+@{
+    Layout = "_Scorecard_Layout";
+}
 @using System.Text.Encodings.Web
 @model List<AcsDto.Dtos.MatchListDto>
 
-<div class="scorecard-container">
-    <div class="sidebar">
-    </div>
-
-    <div class="scorecard-main">
-        <table class="matchlist">
-            @foreach (var match in Model)
-            {
-                <tr>
-                <td>@match.MatchDate</td> <td><a href="/scorecard/tournament/@UrlEncoder.Default.Encode(match.Tournament)">@match.MatchTitle</a></td> <td><a href="/scorecard/card/@match.Key">@match.HomeTeamName v @match.AwayTeamName</a></td><td>at <a href="/location/@match.LocationId">@match.Location</a></td> 
-                </tr>
-            }
-        </table>
-    </div>
-
+<div>
 </div>
+<table class="matchlist">
+    <thead>
+    <tr>
+        <td>Date</td>
+        <td>Tournament</td>
+        <td>Match</td>
+        <td>Ground</td>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var match in Model)
+    {
+        <tr>
+            <td>@match.MatchDate</td>
+            <td>
+                <a href="/scorecard/tournament/@UrlEncoder.Default.Encode(match.Tournament)">@match.MatchTitle</a>
+            </td>
+            <td>
+                <a href="/scorecard/card/@match.Key">@match.HomeTeamName v @match.AwayTeamName</a>
+            </td><td>at <a href="/location/@match.LocationId">@match.Location</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
 
 
 @section Scripts
 {
     <script>
-    document.onload = () => {}
 </script>
 }

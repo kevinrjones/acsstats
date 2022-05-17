@@ -8,16 +8,16 @@ namespace AcsTypes.Types;
 public class EpochDateType : ValueObject<EpochDateType>
 {
     public long EpochDate { get; }
-        
-    public EpochDateType(DateTime date)
+
+    private EpochDateType(DateTime date)
     {
         EpochDate = (long) (date - new DateTime(1970, 1, 1))
             .TotalSeconds;
     }
 
-    public EpochDateType(long value)
+    private EpochDateType(long value)
     {
-        this.EpochDate = value;
+        EpochDate = value;
     }
 
     public static Result<EpochDateType, Error.Error> Create(long value)
@@ -52,6 +52,11 @@ public class EpochDateType : ValueObject<EpochDateType>
     public static implicit operator long(EpochDateType type)
     {
         return type.EpochDate;
+    }
+
+    public static explicit operator DateTime(EpochDateType type)
+    {
+        return DateTimeOffset.FromUnixTimeSeconds(type.EpochDate).DateTime;
     }
 
 }

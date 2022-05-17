@@ -14,13 +14,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 function setupWomensHomePage() {
-    new WomensHomePageMatches();
+    new HomePageMatches();
 }
 function setupScorecardHomePage() {
-    new WomensScorecard();
+    new Scorecard();
 }
-var WomensHomePage = /** @class */ (function () {
-    function WomensHomePage() {
+function setupPlayerTeamSearchPage() {
+    new SearchSetup();
+}
+var HomePage = /** @class */ (function () {
+    function HomePage() {
         var _this = this;
         this.loadState = function () {
             _this.formState = JSON.parse(localStorage.getItem("pageState"));
@@ -121,11 +124,11 @@ var WomensHomePage = /** @class */ (function () {
             team.add(newElement);
         };
     }
-    return WomensHomePage;
+    return HomePage;
 }());
-var WomensScorecard = /** @class */ (function (_super) {
-    __extends(WomensScorecard, _super);
-    function WomensScorecard() {
+var Scorecard = /** @class */ (function (_super) {
+    __extends(Scorecard, _super);
+    function Scorecard() {
         var _this = _super.call(this) || this;
         _this.getScorecard = function (evt) {
             evt.preventDefault();
@@ -179,11 +182,11 @@ var WomensScorecard = /** @class */ (function (_super) {
         _this.getCard.onclick = _this.getScorecard;
         return _this;
     }
-    return WomensScorecard;
-}(WomensHomePage));
-var WomensHomePageMatches = /** @class */ (function (_super) {
-    __extends(WomensHomePageMatches, _super);
-    function WomensHomePageMatches() {
+    return Scorecard;
+}(HomePage));
+var HomePageMatches = /** @class */ (function (_super) {
+    __extends(HomePageMatches, _super);
+    function HomePageMatches() {
         var _this = _super.call(this) || this;
         _this.matchTypeOnChange = function (evt) {
             _this.getTeamsForMatchTypes(_this.team, _this.opponents, _this.matchType, function (data) {
@@ -281,7 +284,7 @@ var WomensHomePageMatches = /** @class */ (function (_super) {
         _this.reset.onclick = _this.resetForm;
         return _this;
     }
-    WomensHomePageMatches.prototype.setTeamLimits = function () {
+    HomePageMatches.prototype.setTeamLimits = function () {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
         this.teamlimit.disabled = false;
         if ((_a = this.overallFigures) === null || _a === void 0 ? void 0 : _a.checked)
@@ -299,7 +302,7 @@ var WomensHomePageMatches = /** @class */ (function (_super) {
             this.teamlimit.disabled = true;
         }
     };
-    WomensHomePageMatches.prototype.setBattingLimit = function () {
+    HomePageMatches.prototype.setBattingLimit = function () {
         var _a, _b, _c, _d, _e, _f, _g;
         if (this.overallFigures.checked)
             this.battinglimit.value = "5000";
@@ -312,7 +315,7 @@ var WomensHomePageMatches = /** @class */ (function (_super) {
             || ((_g = this.bySeason) === null || _g === void 0 ? void 0 : _g.checked))
             this.battinglimit.value = "700";
     };
-    WomensHomePageMatches.prototype.setBowlingLimit = function () {
+    HomePageMatches.prototype.setBowlingLimit = function () {
         var _a, _b, _c, _d, _e, _f;
         if (this.overallFigures != null && this.overallFigures.checked)
             this.bowlinglimit.value = "200";
@@ -325,8 +328,13 @@ var WomensHomePageMatches = /** @class */ (function (_super) {
             || ((_f = this.bySeason) === null || _f === void 0 ? void 0 : _f.checked))
             this.bowlinglimit.value = "30";
     };
-    return WomensHomePageMatches;
-}(WomensHomePage));
+    return HomePageMatches;
+}(HomePage));
+var SearchSetup = /** @class */ (function () {
+    function SearchSetup() {
+    }
+    return SearchSetup;
+}());
 var Envelope = /** @class */ (function () {
     function Envelope() {
     }

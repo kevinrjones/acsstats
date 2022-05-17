@@ -13,4 +13,5 @@ public interface IRemoteMatchesService
     Task<Result<List<string>, Error>>  GetTournamentsForSeason(string type, string season);
     Task<Result<List<MatchListDto>, Error>> GetMatchesForTournament(string tournament);
     Task<Result<List<MatchListDto>, Error>> FindMatches(MatchSearchModel matchSearchModel);
+    Task<Result<List<PlayerListDto>, Error>> FindPlayers(PlayerSearchModel playerSearchModel);
 }

@@ -1,29 +1,24 @@
+@{
+    Layout = "_Scorecard_Layout";
+}
 @using System.Text.Encodings.Web
 @model Dictionary<int, List<string>>
 
-<div class="scorecard-container">
-    <div class="sidebar">
-    </div>
-
-    <div class="scorecard-main">
-        <ul>
-            @foreach (var decade in Model.Keys.Reverse())
-            {
-                <li>The @decade<text>s</text></li>
-                <div>
-                    @{
-                        var series = Model[decade];
-                        foreach (var date in series)
-                        {
-                            <a href="/scorecard/byyear/@ViewBag.Type/@UrlEncoder.Default.Encode(date)">@date</a>
-                        }
-                    }
-                </div>
+<ul>
+    @foreach (var decade in Model.Keys.Reverse())
+    {
+        <li>The @decade<text>s</text></li>
+        <div>
+            @{
+                var series = Model[decade];
+                foreach (var date in series)
+                {
+                    <a href="/scorecard/byyear/@ViewBag.Type/@UrlEncoder.Default.Encode(date)">@date</a>
+                }
             }
-        </ul>
-    </div>
-
-</div>
+        </div>
+    }
+</ul>
 
 
 @section Scripts

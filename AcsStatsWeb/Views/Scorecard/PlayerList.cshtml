@@ -1,0 +1,45 @@
+@{
+    Layout = "_Scorecard_Layout";
+}
+
+@model AcsDto.Dtos.PlayerSearchDto
+<section class="searchResultHeader">
+    You searched for <span>@Model.Name</span> from <span>@(Model.Team ?? "Any Team")</span> with <span>@(Model.ExactMatch ? "an exact match" : "no exact match")</span>
+    and active dates between <span>@(Model.DebutDate)</span> and <span>@(Model.ActiveUntilDate)</span>
+</section>
+<table class="matchlist">
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Teams</td>
+        <td>Debut</td>
+        <td>Actiive Until</td>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var player in Model.Players)
+    {
+        <tr>
+            <td>
+                <a href="/player/@player.Id">@player.FullName</a>
+            </td>
+            <td>
+                @player.Teams
+            </td>
+            <td>
+                @player.Debut
+            </td>
+            <td>
+                @player.ActiveUntil
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+
+@section Scripts
+{
+    <script>
+</script>
+}

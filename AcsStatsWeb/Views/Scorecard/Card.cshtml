@@ -1,13 +1,12 @@
-﻿@using System.Text
+﻿@{
+    Layout = "_Scorecard_Layout";
+}
+
+@using System.Text
 @using AcsDto.Dtos
 @using Microsoft.AspNetCore.Html
 @model AcsDto.Dtos.ScorecardDto
 
-<div class="scorecard-container">
-<div class="sidebar">
-
-</div>
-<div class="scorecard-main">
 @if (Model == null)
 {
     <h1>Sorry, that card cannot be found</h1>
@@ -72,8 +71,8 @@ else
 
             <div>
                 <div>
-                    @if (Model.Header.Result.WhoWon != null 
-                         && Model.Header.Result.VictoryType != VictoryType.Drawn 
+                    @if (Model.Header.Result.WhoWon != null
+                         && Model.Header.Result.VictoryType != VictoryType.Drawn
                          && Model.Header.Result.VictoryType == VictoryType.NoResult
                          && Model.Header.Result.VictoryType == VictoryType.Abandoned
                          && Model.Header.Result.WhoWon.Value.Key == Model.Header.AwayTeam.Key)
@@ -81,8 +80,8 @@ else
                         @:<strong>
                     }
                     @Model.Header.AwayTeam.name
-                    @if (Model.Header.Result.WhoWon != null 
-                         && Model.Header.Result.VictoryType != VictoryType.Drawn 
+                    @if (Model.Header.Result.WhoWon != null
+                         && Model.Header.Result.VictoryType != VictoryType.Drawn
                          && Model.Header.Result.VictoryType == VictoryType.NoResult
                          && Model.Header.Result.VictoryType == VictoryType.Abandoned
                          && Model.Header.Result.WhoWon.Value.Key == Model.Header.AwayTeam.Key)
@@ -91,8 +90,8 @@ else
                     }
                 </div>
                 <div>
-                    @if (Model.Header.Result.WhoWon != null 
-                         && Model.Header.Result.VictoryType != VictoryType.Drawn 
+                    @if (Model.Header.Result.WhoWon != null
+                         && Model.Header.Result.VictoryType != VictoryType.Drawn
                          && Model.Header.Result.VictoryType == VictoryType.NoResult
                          && Model.Header.Result.VictoryType == VictoryType.Abandoned
                          && Model.Header.Result.WhoWon.Value.Key == Model.Header.AwayTeam.Key)
@@ -105,8 +104,8 @@ else
                         <text>& </text>
                         @Model.Header.AwayTeamScores[1]
                     }
-                    @if (Model.Header.Result.WhoWon != null 
-                         && Model.Header.Result.VictoryType != VictoryType.Drawn 
+                    @if (Model.Header.Result.WhoWon != null
+                         && Model.Header.Result.VictoryType != VictoryType.Drawn
                          && Model.Header.Result.VictoryType == VictoryType.NoResult
                          && Model.Header.Result.VictoryType == VictoryType.Abandoned
                          && Model.Header.Result.WhoWon.Value.Key == Model.Header.AwayTeam.Key)
@@ -285,9 +284,3 @@ else
 
     </div>
 }
-</div>
-<div class="sidebar">
-
-</div>
-
-</div>

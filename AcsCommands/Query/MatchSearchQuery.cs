@@ -12,7 +12,7 @@ using MySql.Data.MySqlClient;
 
 namespace AcsCommands.Query;
 
-public class SearchQuery : IRequest<Result<IReadOnlyList<MatchListDto>, Error>>
+public class MatchSearchQuery : IRequest<Result<IReadOnlyList<MatchListDto>, Error>>
 {
     private string HomeTeamName { get; }
     public string AwayTeamName { get; }
@@ -26,7 +26,7 @@ public class SearchQuery : IRequest<Result<IReadOnlyList<MatchListDto>, Error>>
     public bool ExactHomeTeamMatch { get; set; }
     public bool ExactAwayTeamMatch { get; set; }
 
-    public SearchQuery(string? homeTeam, string? awayTeam, EpochDateType startDate,
+    public MatchSearchQuery(string? homeTeam, string? awayTeam, EpochDateType startDate,
         EpochDateType endDate, int[]? venue, int? matchResult, AcsTypes.Types.MatchType matchType,
         bool exactHomeTeamMatch, bool exactAwayTeamMatch)
     {
@@ -142,20 +142,20 @@ public class SearchQuery : IRequest<Result<IReadOnlyList<MatchListDto>, Error>>
         return Array.Empty<int>();
     }
 
-    internal class SearchQueryHandler
-        : IRequestHandler<SearchQuery, Result<IReadOnlyList<MatchListDto>, Error>>
+    internal class MatchSearchQueryHandler
+        : IRequestHandler<MatchSearchQuery, Result<IReadOnlyList<MatchListDto>, Error>>
     {
         private readonly QueriesConnectionString _queriesConnectionString;
-        private readonly ILogger<SearchQueryHandler> _logger;
+        private readonly ILogger<MatchSearchQueryHandler> _logger;
 
-        public SearchQueryHandler(QueriesConnectionString queriesConnectionString,
-            ILogger<SearchQueryHandler> logger)
+        public MatchSearchQueryHandler(QueriesConnectionString queriesConnectionString,
+            ILogger<MatchSearchQueryHandler> logger)
         {
             _queriesConnectionString = queriesConnectionString;
             _logger = logger;
         }
 
-        public async Task<Result<IReadOnlyList<MatchListDto>, Error>> Handle(SearchQuery request,
+        public async Task<Result<IReadOnlyList<MatchListDto>, Error>> Handle(MatchSearchQuery request,
             CancellationToken cancellationToken)
         {
             string sql =

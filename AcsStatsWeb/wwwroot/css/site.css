@@ -249,6 +249,10 @@ form > div:nth-child(1) > span > label, div:nth-child(2) > span > label {
     display: inline-block;
 }
 
+.matchlist {
+    padding-top: 10rem;
+}
+
 .matchlist td {
     padding-right: 1rem;
 }
@@ -258,11 +262,11 @@ form > div:nth-child(1) > span > label, div:nth-child(2) > span > label {
     font-size: 0.75rem;
 }
 
-#batting, #bowling, #biography, #overall {
+#batting, #biography, #overall {
     padding-bottom: 5rem;
 }
 
-#batting > section, #bowling > section, #biography > section, #overall > section {
+#batting > section, #biography > section, #overall > section {
     padding-bottom: 5rem;
 }
 
@@ -276,23 +280,20 @@ form > div:nth-child(1) > span > label, div:nth-child(2) > span > label {
 
 
 #overall > table > thead > tr, 
-#batting > section > table > thead > tr, 
-#bowling > section > table > thead > tr
+#batting > section > table > thead > tr
 {
     border-bottom: solid 1px lightgray;
     height: 2.5rem;
 }
 
-#batting > section > table > tbody > tr.matchRow,
-#bowling > section > table > tbody > tr.matchRow
+#batting > section > table > tbody > tr.matchRow
 {
     border-top: solid 2px darkgray;
 }
 
 #overall > table > thead > tr > td, 
 #overall > table > tbody > tr > td,
-#batting > section > table > thead > tr > td,
-#bowling > section > table > thead > tr > td
+#batting > section > table > thead > tr > td
 {
     width: 5rem;
     text-align: left;
@@ -303,24 +304,16 @@ form > div:nth-child(1) > span > label, div:nth-child(2) > span > label {
 #overall > table > tbody > tr > td.teamname,
 #batting > section > table > thead > tr > td.teamname,
 #batting > section > table > tbody > tr > td.teamname,
-#bowling > section > table > thead > tr > td.teamname,
-#bowling > section > table > tbody > tr > td.teamname,
 #batting > section > table > thead > tr > td.opponents,
 #batting > section > table > tbody > tr > td.opponents,
-#bowling > section > table > thead > tr > td.opponents,
-#bowling > section > table > tbody > tr > td.opponents,
 #batting > section > table > thead > tr > td.startDate,
-#batting > section > table > tbody > tr > td.startDate,
-#bowling > section > table > thead > tr > td.startDate,
-#bowling > section > table > tbody > tr > td.startDate
+#batting > section > table > tbody > tr > td.startDate
 {
     width: 15rem;
 }
 
 #batting > section > table > thead > tr > td.startDate,
 #batting > section > table > tbody > tr > td.startDate,
-#bowling > section > table > thead > tr > td.startDate,
-#bowling > section > table > tbody > tr > td.startDate,
 #batting > section > table > thead > tr > td.dismissal,
 #batting > section > table > tbody > tr > td.dismissal,
 #batting > section > table > thead > tr > td.score,
@@ -330,9 +323,7 @@ form > div:nth-child(1) > span > label, div:nth-child(2) > span > label {
 }
 
 #batting > section > table > thead > tr > td.score,
-#batting > section > table > tbody > tr > td.score,
-#bowling > section > table > thead > tr > td.wickets,
-#bowling > section > table > tbody > tr > td.wickets
+#batting > section > table > tbody > tr > td.score
 {
     font-weight: bold;
 }
@@ -344,9 +335,7 @@ form > div:nth-child(1) > span > label, div:nth-child(2) > span > label {
 }
 
 #batting > section > table > thead > tr > td.ground,
-#batting > section > table > tbody > tr > td.ground,
-#bowling > section > table > thead > tr > td.ground,
-#bowling > section > table > tbody > tr > td.ground
+#batting > section > table > tbody > tr > td.ground
 {
     width: 30rem;
     padding-left: 2rem;
@@ -355,9 +344,7 @@ form > div:nth-child(1) > span > label, div:nth-child(2) > span > label {
 #overall > table > thead > tr > td.matchType, 
 #overall > table > tbody > tr > td.matchType,
 #batting > section > table > thead > tr > td.matchType,
-#batting > section > table > tbody > tr > td.matchType,
-#bowling > section > table > thead > tr > td.matchType,
-#bowling > section > table > tbody > tr > td.matchType
+#batting > section > table > tbody > tr > td.matchType
 {
     width: 12rem;
     padding-left: 1rem;
@@ -372,3 +359,51 @@ td.totalRow {
     font-weight: bold;
 }
 
+.tab-primary, .tab-secondary {
+    display: inline-block;
+    width: 12rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    transition: color .15s
+}
+
+.tab-primary {
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    color: white;
+}
+
+.tab-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+.tab-primary:hover {
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+.tab-secondary:hover {
+    color: #fff;
+    background-color: #5c636a;
+    border-color: #565e64;
+}
+
+section.searchResultHeader {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+section.searchResultHeader span {
+    font-weight: bold;
+}

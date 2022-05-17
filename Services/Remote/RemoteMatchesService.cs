@@ -93,4 +93,28 @@ public class RemoteMatchesService : IRemoteMatchesService
 
         return await _httpClientProxy.GetJsonAsync<List<MatchListDto>>(url);
     }
+
+    public async Task<Result<List<PlayerListDto>, Error>> FindPlayers(PlayerSearchModel playerSearchModel)
+    {
+        var url = $"Player/findplayers?";
+
+        if (!string.IsNullOrEmpty(playerSearchModel.Name))
+            url += $"name={playerSearchModel.Name}&";
+
+        if (!string.IsNullOrEmpty(playerSearchModel.Team))
+            url += $"team={playerSearchModel.Team}&";
+        
+        url += $"exactnamematch={playerSearchModel.ExactNameMatch}&";
+
+        
+        if (!string.IsNullOrEmpty(playerSearchModel.DebutDate))
+            url += $"debutDate={playerSearchModel.DebutDate}&";
+
+        if (!string.IsNullOrEmpty(playerSearchModel.ActiveUntil))
+            url += $"activeUntil={playerSearchModel.ActiveUntil}&";
+
+        url = url.Trim('&');
+
+        return await _httpClientProxy.GetJsonAsync<List<PlayerListDto>>(url);
+    }
 }

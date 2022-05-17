@@ -18,13 +18,11 @@ namespace Services.AcsServices
 {
     public class MatchesService : IMatchesService
     {
-        private readonly IEfUnitOfWork _unitOfWork;
         private readonly IMediator _mediator;
         private readonly ILogger<MatchesService> _logger;
 
-        public MatchesService(IEfUnitOfWork unitOfWork, IMediator mediator, ILogger<MatchesService> logger)
+        public MatchesService(IMediator mediator, ILogger<MatchesService> logger)
         {
-            _unitOfWork = unitOfWork;
             _mediator = mediator;
             _logger = logger;
         }
@@ -187,7 +185,7 @@ namespace Services.AcsServices
             if (!matchType.IsSuccess)
                 return Result.Failure<IReadOnlyList<MatchListDto>, Error>(matchType.Error);
 
-            return await _mediator.Send(new SearchQuery(matchSearchModel.HomeTeam, matchSearchModel.AwayTeam,
+            return await _mediator.Send(new MatchSearchQuery(matchSearchModel.HomeTeam, matchSearchModel.AwayTeam,
                 startDate.Value,
                 endDate.Value, matchSearchModel.Venue, matchSearchModel.MatchResult, matchType.Value, matchSearchModel.ExactHomeTeamMatch, matchSearchModel.ExactAwayTeamMatch));
         }

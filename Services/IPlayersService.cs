@@ -92,5 +92,8 @@ namespace Services
 
         Task<Result<IReadOnlyList<IndividualFieldingDetailsDto>, Error>> GetFieldingIndividualMatches(
             BattingBowlingFieldingModel model);
+        
+        Task<Result<IReadOnlyList<PlayerListDto>, Error>> GetPlayersFromSearch(PlayerSearchModel playerSearchModel);
+
     }
 }
