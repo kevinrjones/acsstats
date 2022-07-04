@@ -1,44 +1,120 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AcsCommands.Query;
 using AcsDto.Dtos;
+using AcsDto.Models;
+using AcsTypes.Error;
 using CSharpFunctionalExtensions;
-using LanguageExt;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Services.Remote;
+using Services;
 
-namespace AcsStatsWeb.Controllers;
+namespace AcsStatsAngular.Controllers;
 
-public class PlayerController : Controller
+[Route("api/[controller]")]
+[ApiController]
+public class PlayerController : BaseApiController
 {
-    private readonly IRemotePlayerService _remotePlayerService;
+    private readonly IMediator _mediator;
+    private readonly IPlayersService _playersService;
+    private readonly IValidation _validation;
 
-    public PlayerController(IRemotePlayerService remotePlayerService)
+    public PlayerController(IMediator mediator
+        , IPlayersService playersService
+        , IValidation validation
+        , ILogger<PlayerController> logger) : base(logger)
     {
-        _remotePlayerService = remotePlayerService;
+        _mediator = mediator;
+        _playersService = playersService;
+        _validation = validation;
     }
 
-    // GET
-    [HttpGet("[controller]/{id}")]
-    public async Task<IActionResult> Index(int id)
+    [HttpGet("biography/{id}")]
+    public async Task<IActionResult> GetBiography(
+        [FromRoute] int id)
     {
-        PlayerBiographyDto playerBiography = new PlayerBiographyDto(new List<NameDetail>());
-        List<PlayerOverallDto> playerOverall = new List<PlayerOverallDto>();
-        Dictionary<string, List<BattingDetailsDto>> battingDetails = new Dictionary<string, List<BattingDetailsDto>>();
-        Dictionary<string, List<BowlingDetailsDto>> bowlingDetails = new Dictionary<string, List<BowlingDetailsDto>>();
+        return (await _mediator.Send(new PlayerBiographyQuery(id)))
+            .Match(Ok, it => Error(it.Message));
+    }
 
-        await _remotePlayerService.GetPlayerBiography(id).OnSuccessTry(o => playerBiography = o);
-        await _remotePlayerService.GetPlayerOverall(id).OnSuccessTry(p => playerOverall = SortOverall(p));
-        await _remotePlayerService.GetPlayerBattingDetails(id).OnSuccessTry(bd => battingDetails = bd);
-        await _remotePlayerService.GetPlayerBowlingDetails(id).OnSuccessTry(bd => bowlingDetails = bd);
+    [HttpGet("overall/{id}")]
+    public async Task<IActionResult> GetOverallStatsBy(
+        [FromRoute] int id)
+    {
+        return (await _mediator.Send(new PlayerOverallQuery(id)))
+            .Map(r => SortOverall(r.ToList()))
+            .Match(Ok, it => Error(it.Message));
+    }
+
+    [HttpGet("battingdetails/{id}")]
+    public async Task<IActionResult> GetBattingDetailsById(
+        [FromRoute] int id)
+    {
+        return (await _mediator.Send(new BattingDetailsQuery(id)))
+            .Bind(ConvertBattingDetailsToByMatchType)
+            .Match(Ok, it => Error(it.Message));
+    }
+
+    [HttpGet("bowlingdetails/{id}")]
+    public async Task<IActionResult> GetBowlingDetailsById(
+        [FromRoute] int id)
+    {
+        return (await _mediator.Send(new BowlingDetailsQuery(id)))
+            .Bind(ConvertBowlingDetailsToByMatchType)
+            .Match(Ok, it => Error(it.Message));
+    }
+
+    [HttpGet("findplayers")]
+    public async Task<IActionResult> FindPlayers([FromQuery] PlayerSearchModel playerSearchModel)
+    {
+        playerSearchModel.DebutDate ??= "0001-01-01";
+        playerSearchModel.ActiveUntil ??= "9999-12-31";
         
-        PlayerRecordComplete playerRecordComplete =
-            new PlayerRecordComplete(playerBiography, playerOverall, battingDetails, bowlingDetails);
+        var res = await _validation.ValidatePlayerSearchModel(playerSearchModel).Bind(async m =>
+                await _playersService.GetPlayersFromSearch(playerSearchModel))
+            .Match(Ok, it => Error(it));
 
-        return View(playerRecordComplete);
+        return res;
     }
 
-    private List<PlayerOverallDto> SortOverall(List<PlayerOverallDto> originalList)
+
+    private Result<Dictionary<string, List<BattingDetailsDto>>, Error> ConvertBattingDetailsToByMatchType(
+        IReadOnlyList<BattingDetailsDto> battingDetailsDtos)
+    {
+        var dict = new Dictionary<string, List<BattingDetailsDto>>();
+        foreach (var battingDetailsDto in battingDetailsDtos)
+            if (dict.TryGetValue(battingDetailsDto.MatchType, out var details))
+            {
+                details.Add(battingDetailsDto);
+            }
+            else
+            {
+                var entry = new List<BattingDetailsDto>();
+                entry.Add(battingDetailsDto);
+                dict.Add(battingDetailsDto.MatchType, entry);
+            }
+
+        return Result.Success<Dictionary<string, List<BattingDetailsDto>>, Error>(dict);
+    }
+
+    private Result<Dictionary<string, List<BowlingDetailsDto>>, Error> ConvertBowlingDetailsToByMatchType(
+        IReadOnlyList<BowlingDetailsDto> bowlingDetailsDtos)
+    {
+        var dict = new Dictionary<string, List<BowlingDetailsDto>>();
+        foreach (var bowlingDetailsDto in bowlingDetailsDtos)
+            if (dict.TryGetValue(bowlingDetailsDto.MatchType, out var details))
+            {
+                details.Add(bowlingDetailsDto);
+            }
+            else
+            {
+                var entry = new List<BowlingDetailsDto>();
+                entry.Add(bowlingDetailsDto);
+                dict.Add(bowlingDetailsDto.MatchType, entry);
+            }
+
+        return Result.Success<Dictionary<string, List<BowlingDetailsDto>>, Error>(dict);
+    }
+    
+    private IReadOnlyList<PlayerOverallDto> SortOverall(List<PlayerOverallDto> originalList)
     {
         var listOfSortedMatchType = new List<string>
             {"wt", "wo", "witt", "wf", "wa", "wtt", "t", "o", "itt", "f", "a", "tt"};
