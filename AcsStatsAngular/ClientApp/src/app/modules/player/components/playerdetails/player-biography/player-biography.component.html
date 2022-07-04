@@ -1,0 +1,8 @@
+<section id="biography">
+  <table>
+    <tr *ngFor="let nameDetails of (playerBiography$ | async)?.nameDetails; index as ndx">
+      <td><span *ngIf="ndx == 0">Name:</span></td>
+      <td>{{nameDetails.fullName}}</td>
+    </tr>
+  </table>
+</section>

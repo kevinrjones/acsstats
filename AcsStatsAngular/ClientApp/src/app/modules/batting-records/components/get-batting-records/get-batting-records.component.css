@@ -1,0 +1,186 @@
+.batting-record {
+  display: grid;
+  grid: auto-flow min-content/repeat(12, 1fr);
+  gap: 1rem;
+  row-gap: 1.5rem ;
+  margin: 1rem;
+}
+
+.selectrow {
+  grid-row-start: 2;
+}
+
+
+#batting-record-limit {
+  grid-column-start: 4;
+  grid-column-end: span 2;
+}
+.record-search-header {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-column-end: -1;
+}
+
+#batting-record-select {
+  grid-column-end: span 2;
+}
+
+#batting-record-limit {
+  grid-column-start: 6;
+}
+
+.teamrow {
+  grid-row-start: 3;
+}
+
+#batting-record-team-label {
+  grid-column-start: 1;
+}
+
+#batting-record-teams {
+  grid-column-start: 2;
+  grid-column-end: span 2;
+}
+
+#batting-record-opposition-label {
+  grid-column-start: 5;
+}
+
+#batting-record-opposition {
+  grid-column-start: 6;
+  grid-column-end: span 2;
+}
+
+.homeoraway-row {
+  grid-row-start: 4;
+}
+
+#homeoraway-value label {
+  padding-left: 15px;
+  padding-right: 5px;
+}
+
+#homeoraway-value label:nth-child(1) {
+  padding-left: 0px;
+}
+
+#homeoraway-label {
+  grid-column-start: 1;
+}
+
+#homeoraway-value {
+  grid-column-start: 2;
+  grid-column-end: span 7;
+}
+
+.country-ground-row {
+  grid-row-start: 5;
+}
+
+#batting-record-homeaway-label {
+  grid-column-end: span 1;
+}
+
+#batting-record-homeaway {
+  grid-column-end: span 2;
+}
+
+#batting-record-country-grounds-label {
+  grid-column-start: 5;
+}
+
+
+#batting-record-country-grounds {
+  grid-column-start: 6;
+  grid-column-end: span 2;
+}
+
+.daterange {
+  grid-row-start: 6;
+  align-self: center;
+}
+
+#daterange-label {
+  grid-column-end: span 1;
+}
+
+#startdate-label > label, #enddate-label > label {
+  /*padding-top: 5px;*/
+}
+
+#startdate > input, #enddate > input {
+  padding-bottom: 5px;
+}
+
+#startdate-label {
+  grid-column-end: span 1;
+}
+
+#startdate {
+  grid-column-end: span 2;
+}
+
+#enddate-label {
+  grid-column-end: span 1;
+}
+
+#enddate {
+  grid-column-end: span 2;
+}
+
+.season {
+  grid-row-start: 7;
+}
+
+#season-label {
+  grid-column-end: span 1;
+}
+
+#season-value {
+  grid-column-end: span 2;
+}
+
+.result {
+  grid-row-start: 8;
+}
+
+.result label {
+  padding-left: 5px;
+  padding-right: 15px;
+}
+
+.result label:nth-child(1) {
+}
+
+
+#result-label {
+  grid-column-end: span 1;
+}
+
+#result-value {
+  grid-column-end: span 7;
+}
+
+.view-format {
+  grid-row-start: 9;
+}
+
+#view-format-label {
+  grid-column-end: span 1;
+}
+
+#view-format-value-col1, #view-format-value-col2, #view-format-value-col3 {
+  grid-column-end: span 3;
+}
+
+.buttons {
+  grid-row-start: 10;
+}
+
+#buttons-submit {
+  grid-column-end: span 3;
+}
+
+#buttons-reset {
+  grid-column-end: span 3;
+}

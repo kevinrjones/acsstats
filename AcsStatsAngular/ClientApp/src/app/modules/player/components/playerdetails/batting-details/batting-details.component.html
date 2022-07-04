@@ -1,0 +1,44 @@
+<section id="batting">
+
+  <ng-container *ngFor="let matchType of listOfSortedMatchType">
+    <ng-container *ngIf="(playerBattingOverall$ | async) as  playerBattingOverall">
+      <section *ngIf="(playerBattingOverall[matchType] != null)">
+        <table>
+          <thead>
+          <tr>
+            <td class="teamname">Team</td>
+            <td class="opponents">Opponents</td>
+            <td class="ground">Ground</td>
+            <td class="startDate">Start Date</td>
+            <td class="score">Score</td>
+            <td class="dismissal">Dismissal</td>
+            <td class="batBalls">Balls</td>
+            <td class="minutes">Minutes</td>
+            <td class="batFours">Fours</td>
+            <td class="batSixes">Sixes</td>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let row of playerBattingOverall[matchType]" [ngClass]="getRowClass(row.id, row.matchType)">
+            <td class="teamname">{{getStringValueOrEmpty(row.id, row.team)}}</td>
+            <td class="opponents">{{getStringValueOrEmpty(row.id, row.opponents)}}</td>
+            <td class="ground">{{getStringValueOrEmpty(row.id, row.ground)}}</td>
+            <td class="startDate">{{getStringValueOrEmpty(row.id, row.matchStartDate)}}</td>
+            <td class="score" [innerHTML]="getScore(row)"></td>
+            <td class="dismissal">{{row.dismissal}}</td>
+            <td class="dismissal">{{getBalls(row)}}</td>
+            <td class="dismissal">{{getMinutes(row)}}</td>
+            <td class="dismissal">{{getFours(row)}}</td>
+            <td class="dismissal">{{getSixes(row)}}</td>
+            {{setPreviousMatchId(row.id)}}
+          </tr>
+          </tbody>
+        </table>
+      </section>
+    </ng-container>
+
+  </ng-container>
+
+
+</section>

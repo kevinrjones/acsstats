@@ -7,16 +7,18 @@
 <ul>
     @foreach (var decade in Model.Keys.Reverse())
     {
-        <li>The @decade<text>s</text></li>
-        <div>
-            @{
-                var series = Model[decade];
-                foreach (var date in series)
-                {
-                    <a href="/scorecard/byyear/@ViewBag.Type/@UrlEncoder.Default.Encode(date)">@date</a>
+        <li>
+            The @decade<text>s</text>
+            <div>
+                @{
+                    var series = Model[decade];
+                    foreach (var date in series)
+                    {
+                        <a href="/scorecard/byyear/@ViewBag.Type/@UrlEncoder.Default.Encode(date)">@date</a>
+                    }
                 }
-            }
-        </div>
+            </div>
+        </li>
     }
 </ul>
 
@@ -27,3 +29,4 @@
     document.onload = () => {}
 </script>
 }
+

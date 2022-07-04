@@ -1,0 +1,130 @@
+<p>card-display works!</p>
+
+<ng-container *ngIf="(scorecard$ | async) as  scorecard">
+  <div>
+    <div>
+      <h2>Result</h2>
+      <div>{{scorecard.header.matchDesignator}} {{scorecard.header.where.name}} {{scorecard.header.matchDate}} (
+        {{scorecard.header.toss?.name}} won the toss)
+      </div>
+      <div>
+        <strong>Umpires etc...</strong>
+      </div>
+      <div>
+        <div class="scorecard-scores-container">
+          <div>
+            <div>
+              <strong *ngIf="isVictory(scorecard, scorecard.header.homeTeam.key); else notHomeTeam">
+                {{scorecard.header.homeTeam.name}}
+              </strong>
+              <ng-template #notHomeTeam>
+                {{scorecard.header.homeTeam.name}}
+              </ng-template>
+            </div>
+            <div>
+              <strong *ngIf="isVictory(scorecard, scorecard.header.homeTeam.key); else notHomeTeamScore">
+                {{scorecard.header.homeTeamScores[0]}}
+                <ng-container *ngIf="scorecard.header.homeTeamScores.length > 1">
+                  & {{scorecard.header.homeTeamScores[1]}}
+                </ng-container>
+              </strong>
+              <ng-template #notHomeTeamScore>
+                {{scorecard.header.homeTeamScores[0]}}
+                <ng-container *ngIf="scorecard.header.homeTeamScores.length > 1">
+                  & {{scorecard.header.homeTeamScores[1]}}
+                </ng-container>
+              </ng-template>
+            </div>
+          </div>
+          <div>
+            <div>
+              <strong *ngIf="isVictory(scorecard, scorecard.header.awayTeam.key); else notAwayTeam">
+                {{scorecard.header.awayTeam.name}}
+              </strong>
+              <ng-template #notAwayTeam>
+                {{scorecard.header.awayTeam.name}}
+              </ng-template>
+            </div>
+            <div>
+              <strong *ngIf="isVictory(scorecard, scorecard.header.homeTeam.key); else notAwayTeamScore">
+                {{scorecard.header.awayTeamScores[0]}}
+                <ng-container *ngIf="scorecard.header.awayTeamScores.length > 1">
+                  & {{scorecard.header.awayTeamScores[1]}}
+                </ng-container>
+              </strong>
+              <ng-template #notAwayTeamScore>
+                {{scorecard.header.awayTeamScores[0]}}
+                <ng-container *ngIf="scorecard.header.awayTeamScores.length > 1">
+                  & {{scorecard.header.awayTeamScores[1]}}
+                </ng-container>
+              </ng-template>
+            </div>
+          </div>
+          <div>
+            <strong>{{scorecard.header.result.resultString}}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="scorecard" *ngFor="let innings of scorecard.innings">
+      <h3><a href="/teams/@innings.Team.Key">{{innings.team.name}}</a> {{getInningsDesc(innings.inningsNumber)}} Innings
+      </h3>
+      <table>
+        <thead>
+        <tr>
+          <td class="batsman">Batting</td>
+          <td class="howout">&nbsp;</td>
+          <td class="scoredetail">R</td>
+          <td class="scoredetail">B</td>
+          <td class="scoredetail">M</td>
+          <td class="scoredetail">4s</td>
+          <td class="scoredetail">6s</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let battingLine of innings.battingLines">
+          <td class="batsman">
+            <span *ngIf="battingLine.isCaptain">*</span>
+            <span *ngIf="battingLine.isWicketKeeper">+</span>
+            <a href="/player/@battingLine.Player.Key">{{battingLine.player.name}}</a>
+          </td>
+          <td class="howout" [innerHTML]="getDismisal(battingLine)"></td>
+          <td class="scoredetail">{{battingLine.runs == null ? "-" : battingLine.runs}}</td>
+          <td class="scoredetail">{{battingLine.balls == null ? "-" : battingLine.balls}}</td>
+          <td class="scoredetail">{{battingLine.minutes == null ? "-" : battingLine.minutes}}</td>
+          <td class="scoredetail">{{battingLine.fours == null ? "-" : battingLine.fours}}</td>
+          <td class="scoredetail">{{battingLine.sixes == null ? "-" : battingLine.sixes}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div>
+        <b>FoW </b>
+        <span [innerHTML]="getFow(innings)">
+        </span>
+      </div>
+      <table *ngIf="innings.bowlingLines.length> 0">
+        <thead>
+        <tr>
+          <td>Bowling</td><td>O</td><td>M</td><td>R</td><td>W</td><td>wd</td><td>nb</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let bowlingLine of innings.bowlingLines">
+          <td>
+            <a [routerLink]="['/player/' + bowlingLine.player.key]">{{bowlingLine.player.name}}</a>
+          </td>
+          <td>{{bowlingLine.overs}}</td>
+          <td>{{bowlingLine.maidens}}</td>
+          <td>{{bowlingLine.runs == null ? "-" : bowlingLine.runs}}</td>
+          <td>{{bowlingLine.wickets == null ? "-" : bowlingLine.wickets}}</td>
+          <td>{{bowlingLine.wides == null ? "-" : bowlingLine.wides}}</td>
+          <td>{{bowlingLine.noBalls == null ? "-" : bowlingLine.noBalls}}</td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-container>

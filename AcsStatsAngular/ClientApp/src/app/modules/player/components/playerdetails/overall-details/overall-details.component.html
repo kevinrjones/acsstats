@@ -1,0 +1,73 @@
+<section id="overall">
+  <table>
+    <thead>
+    <tr>
+      <td class="teamname">Team</td>
+      <td class="matchType">Match Type</td>
+      <td class="matches">Matches</td>
+      <td class="innings">Innings</td>
+      <td class="batRuns">Runs</td>
+      <td class="notOuts">Not Outs</td>
+      <td class="average">Avg</td>
+      <td class="batBalls">Balls</td>
+      <td class="hundreds">Hundreds</td>
+      <td class="fifties">Fifties</td>
+      <td class="batFours">Fours</td>
+      <td class="batSixes">Sixes</td>
+      <td>-</td>
+      <td class="bowlBalls">Balls</td>
+      <td class="bowlRuns">Runs</td>
+      <td class="maidens">Maidens</td>
+      <td class="wickets">Wickets</td>
+      <td class="average">Avg</td>
+      <td class="bowlFours">Fours</td>
+      <td class="bowlSixes">Sixes</td>
+      <td class="bowlBalls">Wides</td>
+      <td class="noBalls">No Balls</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of playerOverall$ | async">
+      <td class="teamname " [ngClass]="totalRowClass(row)">{{row.team}}</td>
+      <td class="matchType " [ngClass]="totalRowClass(row)">{{toMatchTypeDescription(row.matchType)}}</td>
+      <td class="matches " [ngClass]="totalRowClass(row)">{{row.matches}}</td>
+      <td class="innings " [ngClass]="totalRowClass(row)">{{row.innings}}</td>
+      <td class="batRuns " [ngClass]="totalRowClass(row)">{{row.runs}}</td>
+      <td class="notOuts " [ngClass]="totalRowClass(row)">{{row.notouts}}</td>
+      <td class="average " [ngClass]="totalRowClass(row)">{{getBattingAverage(row)}}</td>
+      <td class="batBalls " [ngClass]="totalRowClass(row)">{{row.balls}}</td>
+      <td class="hundreds " [ngClass]="totalRowClass(row)">{{row.hundreds}}</td>
+      <td class="fifties " [ngClass]="totalRowClass(row)">{{row.fifties}}</td>
+      <td class="batFours " [ngClass]="totalRowClass(row)">{{row.fours}}</td>
+      <td class="batSixes " [ngClass]="totalRowClass(row)">{{row.sixes}}</td>
+      <td class="" [ngClass]="totalRowClass(row)">-</td>
+
+
+      <ng-container *ngIf="row.bowlingBalls != 0; else noBowling">
+        <td class="bowlBalls " [ngClass]="totalRowClass(row)">{{row.bowlingBalls}}</td>
+        <td class="bowlRuns " [ngClass]="totalRowClass(row)">{{row.bowlingRuns}}</td>
+        <td class="maidens " [ngClass]="totalRowClass(row)">{{row.maidens}}</td>
+        <td class="wickets " [ngClass]="totalRowClass(row)">{{row.wickets}}</td>
+        <td class="average " [ngClass]="totalRowClass(row)">{{getBowlingAverage(row)}}</td>
+        <td class="bowlFours " [ngClass]="totalRowClass(row)">{{row.bowlingFours}}</td>
+        <td class="bowlSixes " [ngClass]="totalRowClass(row)">{{row.bowlingSixes}}</td>
+        <td class="bowlBalls " [ngClass]="totalRowClass(row)">{{row.wides}}</td>
+        <td class="noBalls " [ngClass]="totalRowClass(row)">{{row.noBalls}}</td>
+      </ng-container>
+
+      <ng-template #noBowling>
+        <td class="bowlBalls " [ngClass]="totalRowClass(row)">-</td>
+        <td class="bowlRuns " [ngClass]="totalRowClass(row)">-</td>
+        <td class="maidens " [ngClass]="totalRowClass(row)">-</td>
+        <td class="wickets " [ngClass]="totalRowClass(row)">-</td>
+        <td class="average " [ngClass]="totalRowClass(row)">-</td>
+        <td class="bowlFours " [ngClass]="totalRowClass(row)">-</td>
+        <td class="bowlSixes " [ngClass]="totalRowClass(row)">-</td>
+        <td class="bowlBalls " [ngClass]="totalRowClass(row)">-</td>
+        <td class="noBalls " [ngClass]="totalRowClass(row)">-</td>
+      </ng-template>
+    </tr>
+
+    </tbody>
+  </table>
+</section>

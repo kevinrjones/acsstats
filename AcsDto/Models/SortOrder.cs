@@ -55,6 +55,8 @@ namespace Services.Models
         tenfor = 49,
         fivefor = 50,
         rpo = 51,
+        strikerate = 52,
+        ballsperover = 53,
     }
     
     public enum SortDirection

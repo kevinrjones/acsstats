@@ -7,6 +7,7 @@ namespace Domain
   {
     public string Name { get; set; }
     public string Team { get; set; }
+    public string SortNamePart { get; set; }
     public string Opponents { get; set; }
     public string Year { get; set; }
     public int Matches { get; set; }

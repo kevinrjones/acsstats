@@ -4,6 +4,7 @@ namespace AcsDto.Dtos;
 
 public record BowlingCareerRecordDto(
     string Name,
+    string SortNamePart,
     string Team,
     string Opponents,
     string Year,

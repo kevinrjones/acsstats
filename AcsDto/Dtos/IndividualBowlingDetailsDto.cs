@@ -2,6 +2,7 @@ namespace AcsDto.Dtos;
 
 public record IndividualBowlingDetailsDto(
     string FullName,
+    string SortNamePart,
     string Team,
     string Opponents,
     int InningsNumber,

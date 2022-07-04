@@ -4,6 +4,7 @@ namespace AcsDto.Dtos;
 
 public record BattingCareerRecordDto(
     string Name,
+    string SortNamePart,
     string Team,
     string Opponents,
     string Year,

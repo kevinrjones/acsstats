@@ -60,7 +60,9 @@ public class PartnershipRecordsForTeamQuery :
                         matchResult = request.Model.MatchResult.Value,
                         runs_limit = request.Model.Limit.Value,
                         sort_by = (int) request.Model.SortOrder,
-                        sort_direction = request.Model.SortDirectionAsString()
+                        sort_direction = request.Model.SortDirectionAsString(),
+                    start_row = request.Model.StartRow,
+                    page_size = request.Model.PageSize
                     }, commandType: CommandType.StoredProcedure).ToList();
                 return Result.Success<IReadOnlyList<PartnershipCareerRecordDetails>, Error>(result).ToDto();
             }

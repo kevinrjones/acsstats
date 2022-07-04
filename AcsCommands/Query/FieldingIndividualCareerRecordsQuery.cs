@@ -61,7 +61,9 @@ public class FieldingIndividualCareerRecordsQuery
             matchResult = request.FieldingModel.MatchResult.Value,
             dismissals_limit = request.FieldingModel.Limit.Value,
             sort_by = (int)request.FieldingModel.SortOrder,
-            sort_direction = request.FieldingModel.SortDirectionAsString()
+            sort_direction = request.FieldingModel.SortDirectionAsString(),
+                    start_row = request.FieldingModel.StartRow,
+                    page_size = request.FieldingModel.PageSize
           }, commandType: CommandType.StoredProcedure).ToList();
         return Result.Success<IReadOnlyList<IndividualFieldingDetails>, Error>(result).ToDto();
       }

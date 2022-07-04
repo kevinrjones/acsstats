@@ -58,7 +58,9 @@ public class FieldingRecordsVsOpponentsQuery : IRequest<Result<IReadOnlyList<Fie
                         matchResult = request.FieldingModel.MatchResult.Value,
                         dismissals_limit = request.FieldingModel.Limit.Value,
                         sort_by = (int) request.FieldingModel.SortOrder,
-                        sort_direction = request.FieldingModel.SortDirectionAsString()
+                        sort_direction = request.FieldingModel.SortDirectionAsString(),
+                    start_row = request.FieldingModel.StartRow,
+                    page_size = request.FieldingModel.PageSize
                     }, commandType: CommandType.StoredProcedure).ToList();
                 return Result.Success<IReadOnlyList<PlayerFieldingCareerRecordDetails>, Error>(result).ToDto();
             }

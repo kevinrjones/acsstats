@@ -31,8 +31,7 @@ public class PlayerController : Controller
         await _remotePlayerService.GetPlayerOverall(id).OnSuccessTry(p => playerOverall = SortOverall(p));
         await _remotePlayerService.GetPlayerBattingDetails(id).OnSuccessTry(bd => battingDetails = bd);
         await _remotePlayerService.GetPlayerBowlingDetails(id).OnSuccessTry(bd => bowlingDetails = bd);
-
-
+        
         PlayerRecordComplete playerRecordComplete =
             new PlayerRecordComplete(playerBiography, playerOverall, battingDetails, bowlingDetails);
 

@@ -1,0 +1,34 @@
+<div class="search-form-style">
+  <div class="search-form-style-heading">
+    <a [routerLink]="['/search/card/women']" class="{{cardClass}}">Search Scorecard</a>
+    <a [routerLink]="['/search/player/women']" class="{{playerClass}}">Search Player</a>
+  </div>
+
+  <form (ngSubmit)="find()" [formGroup]="playerForm">
+    <div>
+      <label for="Name">Name:</label><input type="text" id="Name" name="Name" formControlName="name"/>
+      <span>
+          <label for="ExactNameMatch">Exact Match?</label>
+          <input type="checkbox"
+                 id="ExactNameMatch"
+                 formControlName="exactMatch"
+            [ngClass]="{'is-invalid': nameMessage}">
+          <div class="invalid-feedback">
+            {{nameMessage}}
+          </div>
+      </span>
+    </div>
+    <div>
+      <label for="team">Team:</label><input type="text" id="Team" name="Team" formControlName="team"/>
+    </div>
+    <div>
+      <label>Dates</label>
+      <label for="debutDate">Start</label><input id="DebutDate" name="DebutDate" type="date" formControlName="startDate"/>
+      <label for="ActiveUntil">End</label><input id="ActiveUntil" name="ActiveUntil" type="date" formControlName="endDate"/>
+    </div>
+    <div>
+      <button type="submit" [disabled]="!playerForm.valid">Search</button>
+    </div>
+  </form>
+</div>
+

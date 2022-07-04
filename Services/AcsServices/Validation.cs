@@ -61,6 +61,11 @@ public class Validation : IValidation
         return CountryId.Create(id);
     }
 
+    public Result<GroundId, Error> ValidateGround(int id)
+    {
+        return GroundId.Create(id);
+    }
+
     public Result<MatchType, Error> ValidateMatchType(string type)
     {
         return MatchType.Create(type);
@@ -146,10 +151,11 @@ public class Validation : IValidation
         var endEpochDate = EpochDateType.Create(playerSearchModel.ActiveUntil, format);
         
         var sResult = Result.SuccessIf<PlayerSearchModel, Error>(startEpochDate.IsSuccess, playerSearchModel,
-            Errors.ModelError("DebutDate", "Date is not valid"));
+            Errors.ModelError("DebutDate", "DebutDate is not valid"));
         var eResult = Result.SuccessIf<PlayerSearchModel, Error>(endEpochDate.IsSuccess, playerSearchModel,
-            Errors.ModelError("ActiveUntil", "Date is not valid"));
+            Errors.ModelError("ActiveUntil", "ActiveUntilDate is not valid"));
         
-        return Result.Combine(sResult, eResult);
+        var r= Result.Combine(sResult, eResult);
+        return r;
     }
 }

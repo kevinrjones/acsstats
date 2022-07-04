@@ -12,7 +12,7 @@ public static class DtoExtensions
     {
         return details.Map(r =>
             (IReadOnlyList<BattingCareerRecordDto>) r.Map(item =>
-                new BattingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year, item.Matches,
+                new BattingCareerRecordDto(item.Name, item.SortNamePart, item.Team, item.Opponents, item.Year, item.Matches,
                     item.Innings, item.Ground, item.CountryName, item.Runs, item.NotOuts,
                     item.HighestScore, item.NotOut, item.Avg, item.Hundreds ?? 0, item.Fifties ?? 0,
                     item.Ducks ?? 0, item.Fours ?? 0, item.Sixes ?? 0, item.Balls ?? 0)).ToList());
@@ -23,7 +23,7 @@ public static class DtoExtensions
     {
         return details.Map(r =>
             (IReadOnlyList<IndividualBattingDetailsDto>) r.Map(item =>
-                new IndividualBattingDetailsDto(item.FullName, item.Team, item.Opponents, item.InningsNumber,
+                new IndividualBattingDetailsDto(item.FullName, item.SortNamePart, item.Team, item.Opponents, item.InningsNumber,
                     item.Ground,
                     item.MatchDate, item.PlayerScore, item.Bat1, item.Bat2, item.NotOut,
                     item.Position, item.Balls, item.Fours, item.Sixes ?? 0, item.Minutes ?? 0)).ToList());
@@ -34,7 +34,7 @@ public static class DtoExtensions
     {
         return details.Map(r =>
             (IReadOnlyList<BowlingCareerRecordDto>) r.Map(item =>
-                new BowlingCareerRecordDto(item.Name, item.Team, item.Opponents, item.Year,
+                new BowlingCareerRecordDto(item.Name, item.SortNamePart, item.Team, item.Opponents, item.Year,
                     item.Matches, item.Innings, item.Ground, item.CountryName, item.Balls, item.Maidens,
                     item.Runs, item.Wickets, item.Avg ?? 0.0f, item.Fours ?? 0, item.Sixes ?? 0,
                     item.FiveFor ?? 0, item.TenFor ?? 0, item.bbiw ?? 0, item.bbir ?? 0, item.bbmw ?? 0,
@@ -46,7 +46,7 @@ public static class DtoExtensions
     {
         return details.Map(r =>
             (IReadOnlyList<IndividualBowlingDetailsDto>) r.Map(item =>
-                new IndividualBowlingDetailsDto(item.FullName, item.Team, item.Opponents, item.InningsNumber,
+                new IndividualBowlingDetailsDto(item.FullName, item.SortNamePart, item.Team, item.Opponents, item.InningsNumber,
                     item.Ground, item.MatchDate, item.PlayerBalls, item.PlayerMaidens, item.PlayerRuns,
                     item.PlayerWickets, item.BallsPerOver)).ToList());
     }

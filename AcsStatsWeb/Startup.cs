@@ -1,14 +1,11 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using AcsCommands.Query;
 using AcsHttpClient;
 using AcsRepository;
-using AcsRepository.Util;
 using AcsStatsWeb.AcsHttpClient;
 using AcsStatsWeb.Formatter;
 using AcsStatsWeb.Utils;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -52,7 +49,6 @@ namespace AcsStatsWeb
                 config.OutputFormatters.Add(new CsvOutputFormatter());
             });
             
-            services.AddMediatR(typeof(GroundsQuery).Assembly);
             services.AddControllersWithViews();
 
             services.AddLogging();
@@ -60,7 +56,6 @@ namespace AcsStatsWeb
             
             RegisterHttpProxyWithPolicy(services);
             
-            services.AddScoped<IEfUnitOfWork, EfUnitOfWork>();
             InitializeContainer(services);
             
             services.Configure<KestrelServerOptions>(options =>
@@ -77,23 +72,13 @@ namespace AcsStatsWeb
 
         private void InitializeContainer(IServiceCollection services)
         {
-            // todo: use these in place of raw connection string
-            var commandsConnectionString = new CommandsConnectionString(Configuration.GetConnectionString("commands"));
-            var queriesConnectionString = new QueriesConnectionString(Configuration.GetConnectionString("queries"));
             
             RegisterServices(services);
 
-            services.AddSingleton(commandsConnectionString);
-            services.AddSingleton(queriesConnectionString);
         }
 
         private void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped<IMatchesService, MatchesService>();
-            services.AddScoped<IPlayersService, PlayersService>();
-            services.AddScoped<ICountriesService, CountriesService>();
-            services.AddScoped<ITeamsService, TeamsService>();
-            services.AddScoped<IPartnershipService, PartnershipService>();
             services.AddScoped<IRemoteTeamsService, RemoteTeamsService>();
             services.AddScoped<IRemotePlayerService, RemotePlayerService>();
             services.AddScoped<IRemoteBattingRecordsService, RemoteBattingRecordsService>();

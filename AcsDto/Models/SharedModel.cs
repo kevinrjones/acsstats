@@ -34,6 +34,8 @@ namespace AcsDto.Models
             return SortDirection == SortDirection.Asc ? "ASC" : "DESC";
         }
 
+        public int StartRow { get; set; }
+        public int PageSize { get; set; }
     }
     
     public class BattingBowlingFieldingModel : SharedModel 

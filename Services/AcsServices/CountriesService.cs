@@ -7,6 +7,7 @@ using AcsTypes.Error;
 using AcsTypes.Types;
 using CSharpFunctionalExtensions;
 using Domain;
+using LanguageExt;
 using MediatR;
 
 namespace Services.AcsServices
@@ -34,6 +35,10 @@ namespace Services.AcsServices
 
         public async Task<Result<CountryDto, Error>> getCountryFromId(CountryId id)
         {
+            if (id.Value == 0)
+                return await Task.FromResult(Result.Success<Team, Error>(new Team {Name = "All Countries"})).Map(t => new CountryDto(t.Id, t.Name, t.MatchType));
+
+            
             return await _mediator.Send(new CountryQuery(id));
         }
     }

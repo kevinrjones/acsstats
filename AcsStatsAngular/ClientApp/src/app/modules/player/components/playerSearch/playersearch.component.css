@@ -1,0 +1,36 @@
+.search-form-style {
+  padding: 20px 12px 10px 20px;
+}
+
+.search-form-style-heading {
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  padding-bottom: 3px;
+}
+
+.search-form-style label {
+  margin: 0 0 15px 0;
+  width: 100px;
+  font-weight: bold;
+  padding-top: 8px;
+  padding-right: 5px;
+}
+
+.search-form-style input[type=text] {
+  width: 50%;
+}
+
+.venue > span > label > span {
+  vertical-align: text-bottom;
+  padding-right: 0.5rem;
+}
+
+form > div:nth-child(1) > span, div:nth-child(2) > span {
+  padding-left: 2rem;
+}
+
+form > div:nth-child(1) > span > label, div:nth-child(2) > span > label {
+  width: 8rem;
+}

@@ -1,0 +1,30 @@
+<section class="searchResultHeader">
+  You searched for <span>{{name}}</span> from <span>{{team}}</span> with <span>{{exactMatch == true ? "an exact match" : "no exact match"}}</span>
+  and active dates between <span>{{getDate(debutDate, '1001-1-1')}}</span> and <span>{{getDate(activeUntilDate, '9999-12-31')}}</span>
+</section>
+<table class="matchlist">
+  <thead>
+  <tr>
+    <td>Name</td>
+    <td>Teams</td>
+    <td>Debut</td>
+    <td>Actiive Until</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let player of players$ | async">
+    <td>
+      <a [routerLink]="['/player/' + player.id]">{{player.fullName}}</a>
+    </td>
+    <td>
+      {{player.teams}}
+    </td>
+    <td>
+      {{player.debut}}
+    </td>
+    <td>
+      {{player.activeUntil}}
+    </td>
+  </tr>
+  </tbody>
+</table>

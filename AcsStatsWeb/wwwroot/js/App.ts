@@ -6,10 +6,6 @@ function setupScorecardHomePage() {
     new Scorecard()
 }
 
-function setupPlayerTeamSearchPage() {
-    new SearchSetup()
-}
-
 interface LoadTeams {
     (data: TeamEnvelope): void
 }
@@ -28,8 +24,7 @@ class HomePage {
     protected endDate: HTMLInputElement
 
     protected loadState = () => {
-        this.formState = JSON.parse(localStorage.getItem("pageState"))
-        console.log(`loadState ${JSON.stringify(this.formState)}`);
+        this.formState = JSON.parse(localStorage.getItem('pageState'))
 
         if (this.formState != null) {
             this.team.selectedIndex = this.formState.team
@@ -47,23 +42,22 @@ class HomePage {
                 loadTeams(data)
             })
             .fail(function () {
-                alert("unable to connect to the server");
+                alert('unable to connect to the server');
             })
     }
 
     protected getStartAndEndDateForMatchTypes = (start: HTMLInputElement, end: HTMLInputElement, matchType: HTMLSelectElement) => {
         $.get(`/api/Matches/Dates/${matchType.selectedOptions[0].value}`)
             .done((data: StartEndDatesEnvelope) => {
-                this.formState = JSON.parse(localStorage.getItem("pageState"))
-                console.log("got dates: " + data.result[0].date + ", " + data.result[1].date)
+                this.formState = JSON.parse(localStorage.getItem('pageState'))
                 this.formState.startDate = data.result[0].date;
                 this.formState.endDate = data.result[1].date;
 
-                localStorage.setItem("pageState", JSON.stringify(this.formState))
+                localStorage.setItem('pageState', JSON.stringify(this.formState))
                 this.loadState()
             })
             .fail(function () {
-                alert("unable to connect to the server");
+                alert('unable to connect to the server');
             })
     }
 
@@ -75,11 +69,11 @@ class HomePage {
                         {id: ground.id, name: `${ground.code}: ${ground.knownAs}`, matchType: ground.matchType})
                     return sd
                 })
-                this.buildSelectListWithFirstEntry("all grounds", ground, selectItems, "0")
+                this.buildSelectListWithFirstEntry('all grounds', ground, selectItems, '0')
                 this.loadState()
             })
             .fail(function () {
-                alert("unable to connect to the server");
+                alert('unable to connect to the server');
             })
     }
 
@@ -91,11 +85,11 @@ class HomePage {
                         {id: country.id, name: `${country.name}`, matchType: country.matchType})
                     return sd
                 })
-                this.buildSelectListWithFirstEntry("all countries", hostCountry, selectItems, "0")
+                this.buildSelectListWithFirstEntry('all countries', hostCountry, selectItems, '0')
                 this.loadState()
             })
             .fail(function () {
-                alert("unable to connect to the server");
+                alert('unable to connect to the server');
             })
     }
 
@@ -108,16 +102,16 @@ class HomePage {
                         matchType: matchType.value
                     })
                 )
-                this.buildSelectListWithFirstEntry("all seasons", season, selectData, "0")
+                this.buildSelectListWithFirstEntry('all seasons', season, selectData, '0')
                 this.loadState()
             })
             .fail(function () {
-                alert("unable to connect to the server");
+                alert('unable to connect to the server');
             })
     }
     protected buildTeamsSelectList = (team: HTMLSelectElement, opponents: HTMLSelectElement, data: TeamEnvelope) => {
-        this.buildSelectListWithFirstEntry("all teams", team, data.result, "0")
-        this.buildSelectListWithFirstEntry("all teams", opponents, data.result, "0")
+        this.buildSelectListWithFirstEntry('all teams', team, data.result, '0')
+        this.buildSelectListWithFirstEntry('all teams', opponents, data.result, '0')
     }
 
 
@@ -150,17 +144,17 @@ class Scorecard extends HomePage {
     constructor() {
         super();
 
-        this.matchType = <HTMLSelectElement>document.getElementById("matchType");
+        this.matchType = <HTMLSelectElement>document.getElementById('matchType');
         this.matchType.onchange = this.matchTypeOnChange
 
-        this.team = <HTMLSelectElement>document.getElementById("teamid");
+        this.team = <HTMLSelectElement>document.getElementById('teamid');
         this.team.onchange = this.teamOnChange
 
-        this.opponents = <HTMLSelectElement>document.getElementById("opponentsid");
+        this.opponents = <HTMLSelectElement>document.getElementById('opponentsid');
         this.opponents.onchange = this.teamOnChange
 
-        this.dates = <HTMLSelectElement>document.getElementById("datesid");
-        this.getCard = <HTMLButtonElement>document.getElementById("getcardid");
+        this.dates = <HTMLSelectElement>document.getElementById('datesid');
+        this.getCard = <HTMLButtonElement>document.getElementById('getcardid');
 
         this.getTeamsForMatchTypes(this.team, this.opponents, this.matchType, data => {
             this.buildSelectList(this.team, data.result)
@@ -175,7 +169,6 @@ class Scorecard extends HomePage {
         evt.preventDefault()
 
         var url = `/scorecard/${encodeURIComponent(this.team.selectedOptions[0].label)}-v-${encodeURIComponent(this.opponents.selectedOptions[0].label)}-${encodeURIComponent(this.dates.selectedOptions[0].value)}`
-        console.log(`url '${url}'`)
 
         window.location.href = url
     }
@@ -195,7 +188,7 @@ class Scorecard extends HomePage {
                 loadDates(data);
             })
             .fail(function () {
-                alert("unable to connect to the server");
+                alert('unable to connect to the server');
             })
     }
 
@@ -240,30 +233,30 @@ class HomePageMatches extends HomePage {
     constructor() {
         super();
 
-        this.matchType = <HTMLSelectElement>document.getElementById("matchType");
-        this.team = <HTMLSelectElement>document.getElementById("teamid");
-        this.opponents = <HTMLSelectElement>document.getElementById("opponentsid");
-        this.hostcountry = <HTMLSelectElement>document.getElementById("hostcountryid");
-        this.ground = <HTMLSelectElement>document.getElementById("groundid");
-        this.season = <HTMLSelectElement>document.getElementById("seasonid");
-        this.startDate = <HTMLInputElement>document.getElementById("startdateid");
-        this.endDate = <HTMLInputElement>document.getElementById("enddateid");
-        this.extrasByInnings = <HTMLInputElement>document.getElementById("extrasByInnings");
-        this.InningsByInnings = <HTMLInputElement>document.getElementById("InningsByInnings");
-        this.seriesAverage = <HTMLInputElement>document.getElementById("SeriesAverages");
-        this.groundAverages = <HTMLInputElement>document.getElementById("Groundaverages");
-        this.byHostCountry = <HTMLInputElement>document.getElementById("byHostCountry");
-        this.byOppositionTeam = <HTMLInputElement>document.getElementById("byOppositionTeam");
-        this.byYearOfMatchStart = <HTMLInputElement>document.getElementById("byYearOfMatchStart");
-        this.bySeason = <HTMLInputElement>document.getElementById("bySeason");
-        this.matchTotals = <HTMLInputElement>document.getElementById("matchTotals");
-        this.teamlimit = <HTMLInputElement>document.getElementById("teamlimit");
-        this.battinglimit = <HTMLInputElement>document.getElementById("battinglimit");
-        this.bowlinglimit = <HTMLInputElement>document.getElementById("bowlinglimit");
-        this.partnershipLimit = <HTMLInputElement>document.getElementById("partnershiplimit");
-        this.overallFigures = <HTMLInputElement>document.getElementById("overallFigures");
-        this.submit = <HTMLInputElement>document.getElementById("submit");
-        this.reset = <HTMLInputElement>document.getElementById("reset");
+        this.matchType = <HTMLSelectElement>document.getElementById('matchType');
+        this.team = <HTMLSelectElement>document.getElementById('teamid');
+        this.opponents = <HTMLSelectElement>document.getElementById('opponentsid');
+        this.hostcountry = <HTMLSelectElement>document.getElementById('hostcountryid');
+        this.ground = <HTMLSelectElement>document.getElementById('groundid');
+        this.season = <HTMLSelectElement>document.getElementById('seasonid');
+        this.startDate = <HTMLInputElement>document.getElementById('startdateid');
+        this.endDate = <HTMLInputElement>document.getElementById('enddateid');
+        this.extrasByInnings = <HTMLInputElement>document.getElementById('extrasByInnings');
+        this.InningsByInnings = <HTMLInputElement>document.getElementById('InningsByInnings');
+        this.seriesAverage = <HTMLInputElement>document.getElementById('SeriesAverages');
+        this.groundAverages = <HTMLInputElement>document.getElementById('Groundaverages');
+        this.byHostCountry = <HTMLInputElement>document.getElementById('byHostCountry');
+        this.byOppositionTeam = <HTMLInputElement>document.getElementById('byOppositionTeam');
+        this.byYearOfMatchStart = <HTMLInputElement>document.getElementById('byYearOfMatchStart');
+        this.bySeason = <HTMLInputElement>document.getElementById('bySeason');
+        this.matchTotals = <HTMLInputElement>document.getElementById('matchTotals');
+        this.teamlimit = <HTMLInputElement>document.getElementById('teamlimit');
+        this.battinglimit = <HTMLInputElement>document.getElementById('battinglimit');
+        this.bowlinglimit = <HTMLInputElement>document.getElementById('bowlinglimit');
+        this.partnershipLimit = <HTMLInputElement>document.getElementById('partnershiplimit');
+        this.overallFigures = <HTMLInputElement>document.getElementById('overallFigures');
+        this.submit = <HTMLInputElement>document.getElementById('submit');
+        this.reset = <HTMLInputElement>document.getElementById('reset');
 
 
         this.matchType.onchange = this.matchTypeOnChange
@@ -326,46 +319,46 @@ class HomePageMatches extends HomePage {
         this.teamlimit.disabled = false;
 
         if (this.overallFigures?.checked)
-            this.teamlimit.value = "200";
+            this.teamlimit.value = '200';
         else if (this.extrasByInnings?.checked)
-            this.teamlimit.value = "50";
+            this.teamlimit.value = '50';
         else if (this.InningsByInnings?.checked)
-            this.teamlimit.value = "350";
+            this.teamlimit.value = '350';
         else if (this.matchTotals?.checked)
-            this.teamlimit.value = "800";
+            this.teamlimit.value = '800';
 
         else if (this.seriesAverage?.checked || this.groundAverages?.checked
             || this.byHostCountry?.checked || this.byOppositionTeam?.checked || this.byYearOfMatchStart?.checked
             || this.bySeason?.checked) {
-            this.teamlimit.value = "";
+            this.teamlimit.value = '';
             this.teamlimit.disabled = true;
         }
     }
 
     private setBattingLimit() {
         if (this.overallFigures.checked)
-            this.battinglimit.value = "5000"
+            this.battinglimit.value = '5000'
         else if (this.InningsByInnings.checked)
-            this.battinglimit.value = "200";
+            this.battinglimit.value = '200';
         else if (this.matchTotals?.checked)
-            this.battinglimit.value = "300";
+            this.battinglimit.value = '300';
         else if (this.seriesAverage?.checked || this.groundAverages?.checked
             || this.byHostCountry?.checked || this.byOppositionTeam?.checked || this.byYearOfMatchStart?.checked
             || this.bySeason?.checked)
-            this.battinglimit.value = "700";
+            this.battinglimit.value = '700';
     }
 
     private setBowlingLimit() {
         if (this.overallFigures != null && this.overallFigures.checked)
-            this.bowlinglimit.value = "200"
+            this.bowlinglimit.value = '200'
         else if (this.InningsByInnings != null && this.InningsByInnings.checked)
-            this.bowlinglimit.value = "7";
+            this.bowlinglimit.value = '7';
         else if (this.matchTotals != null && this.matchTotals.checked)
-            this.bowlinglimit.value = "10";
+            this.bowlinglimit.value = '10';
         else if (this.seriesAverage?.checked || this.groundAverages?.checked
             || this.byHostCountry?.checked || this.byOppositionTeam?.checked || this.byYearOfMatchStart?.checked
             || this.bySeason?.checked)
-            this.bowlinglimit.value = "30";
+            this.bowlinglimit.value = '30';
     }
 
     private saveState = (evt: Event) => {
@@ -378,9 +371,8 @@ class HomePageMatches extends HomePage {
         state.startDate = this.startDate.value
         state.endDate = this.endDate.value
 
-        localStorage.setItem("pageState", JSON.stringify(state))
+        localStorage.setItem('pageState', JSON.stringify(state))
 
-        console.log(`state: ${JSON.stringify(state)}`)
     }
 
     private resetForm = (evt: Event) => {
@@ -389,18 +381,12 @@ class HomePageMatches extends HomePage {
         this.hostcountry.selectedIndex = 0
         this.ground.selectedIndex = 0
         this.season.selectedIndex = 0
-        this.startDate.value = ""
-        this.endDate.value = ""
+        this.startDate.value = ''
+        this.endDate.value = ''
 
-        localStorage.setItem("pageState", JSON.stringify(new FormState()))
+        localStorage.setItem('pageState', JSON.stringify(new FormState()))
 
         this.getStartAndEndDateForMatchTypes(this.startDate, this.endDate, this.matchType)
-    }
-}
-
-class SearchSetup {
-    constructor() {
-     
     }
 }
 

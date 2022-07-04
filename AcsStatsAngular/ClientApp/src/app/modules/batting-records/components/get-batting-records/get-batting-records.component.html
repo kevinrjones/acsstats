@@ -1,0 +1,190 @@
+<app-records-header name="batting"></app-records-header>
+<form (ngSubmit)="find()" [formGroup]="battingRecordsForm">
+  <div class="batting-record">
+    <div class="selectrow" id="batting-record-select">
+      <select name="matchType" id="matchType" formControlName="matchType">
+        <option value="wt">Women's Tests</option>
+        <option value="wo">Women's ODI</option>
+        <option value="witt">Women's International T20</option>
+        <option value="wf">Women's FC</option>
+        <option value="wa">Women's List A</option>
+        <option value="wtt">Women's T20</option>
+      </select>
+    </div>
+    <div class="selectrow" id="batting-record-limit">Runs limit here as well</div>
+    <div class="teamrow" id="batting-record-team-label">
+      Team
+    </div>
+    <div class="teamrow" id="batting-record-teams">
+      <select formControlName="teamId">
+        <option [value]="0">All Teams</option>
+        <option *ngFor="let team of (teams$ | async)" [value]="team.id">{{team.name}}</option>
+      </select>
+    </div>
+    <div class="teamrow" id="batting-record-opposition-label">
+      Opposition
+    </div>
+    <div class="teamrow" id="batting-record-opposition">
+      <select formControlName="opponentsId">
+        <option [value]="0">All Teams</option>
+        <option *ngFor="let team of (teams$ | async)" [value]="team.id">{{team.name}}</option>
+      </select>
+    </div>
+    <div class="homeoraway-row" id="homeoraway-label">
+      Home or Away
+    </div>
+    <div class="homeoraway-row" id="homeoraway-value">
+      <label for="homeVenue">Home Venue</label>
+      <input type="checkbox"
+             id="homeVenue"
+             formControlName="homeVenue">
+      <label for="awayVenue">Away Venue</label>
+      <input type="checkbox"
+             id="awayVenue"
+             formControlName="awayVenue">
+      <label for="neutralVenue">Neutral Venue</label>
+      <input type="checkbox"
+             id="neutralVenue"
+             formControlName="neutralVenue">
+    </div>
+
+    <div class="country-ground-row" id="batting-record-homeaway-label">
+      Host Country
+    </div>
+    <div class="country-ground-row" id="batting-record-homeaway">
+      <select formControlName="hostCountryId">
+        <option [value]="0">All Countries</option>
+        <option *ngFor="let country of (countries$ | async)" [value]="country.id">{{country.name}}</option>
+      </select>
+    </div>
+    <div class="country-ground-row" id="batting-record-country-grounds-label">
+      Ground
+    </div>
+    <div class="country-ground-row" id="batting-record-country-grounds">
+      <select formControlName="groundId">
+        <option [value]="0">All Grounds</option>
+        <option *ngFor="let ground of (grounds$ | async)" [value]="[ground.id]">{{ground.knownAs}}</option>
+      </select>
+    </div>
+    <div class="daterange" id="daterange-label">
+      Date Range
+    </div>
+    <div class="daterange" id="startdate-label">
+      <label class="form-check-label" for="startdateid">Start date</label>
+    </div>
+    <div class="daterange" id="startdate">
+      <input class="form-control" type="date" id="startdateid" formControlName="startDate">
+    </div>
+    <div class="daterange" id="enddate-label">
+      <label class="form-check-label" for="enddateid">End date</label>
+    </div>
+    <div class="daterange" id="enddate">
+      <input class="form-control" type="date" id="enddateid" formControlName="endDate">
+    </div>
+    <div class="season" id="season-label">
+      Season
+    </div>
+    <div class="season" id="season-value">
+      <select  formControlName="season">
+        <option [value]="0">All Seasons</option>
+        <option *ngFor="let seriesDate of (seriesDates$ | async)" [value]="seriesDate">{{seriesDate}}</option>
+      </select>
+
+    </div>
+    <div class="result" id="result-label">
+      Result
+    </div>
+    <div class="result" id="result-value">
+      <input type="checkbox"
+             id="matchWon"
+             value="1"
+             formControlName="matchWon">
+      <label for="matchWon">Won</label>
+      <input type="checkbox"
+             id="matchLost"
+             value="2"
+             formControlName="matchLost">
+      <label for="matchLost">Lost</label>
+      <input type="checkbox"
+             id="matchDrawn"
+             value="4"
+             formControlName="matchDrawn">
+      <label for="matchDrawn">Drawn</label>
+      <input type="checkbox"
+             id="matchTied"
+             value="8"
+             formControlName="matchTied">
+      <label for="matchTied">Tied</label>
+    </div>
+    <div class="view-format" id="view-format-label">
+      View format:
+    </div>
+    <div class="view-format" id="view-format-value-col1">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="overallFigures" [value]="1" checked  formControlName="format">
+        <label class="form-check-label" for="overallFigures">
+          Overall figures
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="InningsByInnings" [value]="2"  formControlName="format">
+        <label class="form-check-label" for="InningsByInnings">
+          Innings by Innings list
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="matchTotals" [value]="3"  formControlName="format">
+        <label class="form-check-label" for="matchTotals">
+          Match totals
+        </label>
+      </div>
+    </div>
+    <div class="view-format" id="view-format-value-col2">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="seriesAverages" [value]="4"  formControlName="format">
+        <label class="form-check-label" for="seriesAverages">
+          Series averages
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="groundAverages" [value]="5"  formControlName="format">
+        <label class="form-check-label" for="groundAverages">
+          Ground Averages
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="byHostCountry" [value]="6"  formControlName="format">
+        <label class="form-check-label" for="byHostCountry">
+          By Host Country
+        </label>
+      </div>
+    </div>
+    <div class="view-format" id="view-format-value-col3">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="byOppositionTeam" [value]="7"  formControlName="format">
+        <label class="form-check-label" for="byOppositionTeam">
+          By Opposition Team
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="byYearOfMatchStart" [value]="8"  formControlName="format">
+        <label class="form-check-label" for="byYearOfMatchStart">
+          By Year Of Match Start
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="bySeason" [value]="9"  formControlName="format">
+        <label class="form-check-label" for="bySeason">
+          By Season
+        </label>
+      </div>
+    </div>
+    <div class="buttons" id="buttons-submit">
+      <input type="submit" name="submit" id="submit"/>
+    </div>
+    <div class="buttons" id="buttons-reset">
+      <input type="button" name="reset" id="reset" value="Reset"/>
+    </div>
+  </div>
+</form>
+

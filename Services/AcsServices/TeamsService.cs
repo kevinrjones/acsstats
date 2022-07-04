@@ -30,7 +30,7 @@ namespace Services.AcsServices
         public async Task<Result<TeamDto, Error>> GetTeam(TeamId teamIdValue)
         {
             if (teamIdValue == 0)
-                return await Task.FromResult(Result.Success<Team, Error>(new Team {Name = "All"})).Map(t => new TeamDto(t.Id, t.Name, t.MatchType));
+                return await Task.FromResult(Result.Success<Team, Error>(new Team {Name = "All Teams"})).Map(t => new TeamDto(t.Id, t.Name, t.MatchType));
             
             return await _mediator.Send(new TeamQuery(teamIdValue));
         }

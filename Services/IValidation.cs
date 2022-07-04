@@ -14,6 +14,7 @@ public interface IValidation
      public Result<MatchResult, Error> ValidateMatchResult(int matchResult);
      public Result<ScoreLimit, Error> ValidateLimit(int limit);
      public Result<CountryId, Error> ValidateCountry(int id);
+     public Result<GroundId, Error> ValidateGround(int id);
      public Result<MatchType, Error> ValidateMatchType(string type);
      public Result<VenueId, Error> ValidateVenueId(int id);
 

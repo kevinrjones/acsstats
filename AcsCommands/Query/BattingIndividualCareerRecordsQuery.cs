@@ -59,7 +59,9 @@ public class BattingIndividualCareerRecordsQuery : IRequest<Result<IReadOnlyList
                         matchResult = request.FieldingModel.MatchResult.Value,
                         runs_limit = request.FieldingModel.Limit.Value,
                         sort_by = (int)request.FieldingModel.SortOrder,
-                        sort_direction = request.FieldingModel.SortDirectionAsString()
+                        sort_direction = request.FieldingModel.SortDirectionAsString(),
+                    start_row = request.FieldingModel.StartRow,
+                    page_size = request.FieldingModel.PageSize
                     }, commandType: CommandType.StoredProcedure).ToList();
                 return Result.Success<IReadOnlyList<IndividualBattingDetails>, Error>(result).ToDto();
             }
