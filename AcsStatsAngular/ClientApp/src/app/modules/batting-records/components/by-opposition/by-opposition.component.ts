@@ -7,10 +7,7 @@ import {Location} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {BattingOverallState} from "../../models/app-state";
 import {FindBatting} from "../../models/find-batting-overall.model";
-import {
-  LoadByOppositionBattingRecordsAction,
-  SortBattingRecordsByOppositionAction
-} from "../../actions/records.actions";
+import {LoadByOppositionBattingRecordsAction} from "../../actions/records.actions";
 import {LoadRecordSummariesAction} from "../../../../actions/recordsummary.actions";
 import {BattingCareerRecordDto} from "../../models/batting-overall.model";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
@@ -91,17 +88,12 @@ export class ByOppositionComponent implements OnInit {
     if (sortOrder == this.sortOrder) {
       sortDirection = this.sortDirection == "ASC" ? "DESC" : "ASC"
     }
-    let url = this.router.url.replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
+    let url = this.router.url
+      .replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
       .replace(/sortDirection=\w+/, `sortDirection=${sortDirection}`)
+      .replace(/startRow=\w+/, "startRow=0")
 
-    this.location.go(url)
-
-    this.battingStore.dispatch(SortBattingRecordsByOppositionAction({
-      payload: {
-        sortOrder,
-        sortDirection
-      }
-    }))
+    this.router.navigateByUrl(url);
   }
 
   setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {

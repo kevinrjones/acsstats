@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {BattingOverallUiModel} from "../../models/batting-overall-ui.model";
 import {RecordsSummaryModel} from "../../../../models/records-summary.model";
@@ -7,10 +7,7 @@ import {Location} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {BattingOverallState} from "../../models/app-state";
 import {FindBatting} from "../../models/find-batting-overall.model";
-import {
-  LoadByYearBattingRecordsAction,
-  SortBattingRecordsByYearAction
-} from "../../actions/records.actions";
+import {LoadByYearBattingRecordsAction} from "../../actions/records.actions";
 import {LoadRecordSummariesAction} from "../../../../actions/recordsummary.actions";
 import {BattingCareerRecordDto} from "../../models/batting-overall.model";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
@@ -91,17 +88,12 @@ export class ByYearOfMatchStartComponent implements OnInit {
     if (sortOrder == this.sortOrder) {
       sortDirection = this.sortDirection == "ASC" ? "DESC" : "ASC"
     }
-    let url = this.router.url.replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
+    let url = this.router.url
+      .replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
       .replace(/sortDirection=\w+/, `sortDirection=${sortDirection}`)
+      .replace(/startRow=\w+/, "startRow=0")
 
-    this.location.go(url)
-
-    this.battingStore.dispatch(SortBattingRecordsByYearAction({
-      payload: {
-        sortOrder,
-        sortDirection
-      }
-    }))
+    this.router.navigateByUrl(url);
   }
 
   setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {

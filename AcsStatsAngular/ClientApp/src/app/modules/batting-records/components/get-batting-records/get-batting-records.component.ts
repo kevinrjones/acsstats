@@ -10,10 +10,9 @@ import {Country} from "../../../../models/country.model";
 import {LoadCountriesAction} from "../../../../actions/countries.actions";
 import {LoadGroundsAction} from "../../../../actions/grounds.actions";
 import {Ground} from 'src/app/models/ground.model';
-import {LoadSeriesDatesAction, LoadMatchDatesAction} from "../../../../actions/dates.actions";
+import {LoadMatchDatesAction, LoadSeriesDatesAction} from "../../../../actions/dates.actions";
 import {MatchDate} from "../../../../models/date.model";
 import {DateTime} from "luxon";
-import {LoadOverallBattingRecordsAction} from "../../actions/records.actions";
 import {FindBatting} from "../../models/find-batting-overall.model";
 
 @Component({
@@ -152,7 +151,7 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
       , matchDrawn: this.battingRecordsForm.get('matchDrawn')?.value
       , matchTied: this.battingRecordsForm.get('matchTied')?.value
       , limit: this.battingRecordsForm.get('limit')?.value
-      , startRow: 1
+      , startRow: 0
       , pageSize: 10000
     }
 

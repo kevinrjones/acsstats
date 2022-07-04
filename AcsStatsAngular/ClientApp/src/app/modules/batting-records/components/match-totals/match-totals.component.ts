@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {InningsByInningsUiModel} from "../../models/batting-overall-ui.model";
-import {
-  LoadByMatchBattingRecordsAction, SortBattingRecordsByMatchAction
-} from "../../actions/records.actions";
+import {LoadByMatchBattingRecordsAction} from "../../actions/records.actions";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import {IndividualBattingDetailsDto} from "../../models/individual-batting-details.dto";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -75,17 +73,12 @@ export class MatchTotalsComponent implements OnInit {
     if (sortOrder == this.sortOrder) {
       sortDirection = this.sortDirection == "ASC" ? "DESC" : "ASC"
     }
-    let url = this.router.url.replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
+    let url = this.router.url
+      .replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
       .replace(/sortDirection=\w+/, `sortDirection=${sortDirection}`)
+      .replace(/startRow=\w+/, "startRow=0")
 
-    this.location.go(url)
-
-    this.battingStore.dispatch(SortBattingRecordsByMatchAction({
-      payload: {
-        sortOrder,
-        sortDirection
-      }
-    }))
+    this.router.navigateByUrl(url);
   }
 
   setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {

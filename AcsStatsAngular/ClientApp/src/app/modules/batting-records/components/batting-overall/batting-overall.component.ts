@@ -95,16 +95,6 @@ export class BattingOverallComponent implements OnInit {
       .replace(/startRow=\w+/, "startRow=0")
 
     this.router.navigateByUrl(url);
-
-    // this.location.go(url)
-    //
-    // // this.battingStore.dispatch(LoadOverallBattingRecordsAction({payload: fbo}))
-    // this.battingStore.dispatch(SortBattingRecordsOverallAction({
-    //   payload: {
-    //     sortOrder,
-    //     sortDirection
-    //   }
-    // }))
   }
 
   setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {
