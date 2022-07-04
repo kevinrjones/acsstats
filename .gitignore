@@ -352,4 +352,4 @@ MigrationBackup/
 connectionstring.txt
 
 
-**/*.pack
+**/.angular/**

@@ -12,7 +12,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf8de37e-105f-4943-aba0-ea97cb56b98b" name="Changes" comment="" />
+    <list default="true" id="bf8de37e-105f-4943-aba0-ea97cb56b98b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.acsstats/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/0.pack" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/0.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/10.pack" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/10.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/11.pack" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/11.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/17.pack" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/17.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/7.pack" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/7.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/9.pack" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/9.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/index.pack" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/index.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/index.pack.old" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsAngular/ClientApp/.angular/cache/14.0.0/angular-webpack/93b2cae09f001589bbe5ad7ea192f2a2587c5604/index.pack.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/AcsStatsWeb/wwwroot/js/App.js.map" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -277,6 +288,7 @@
       <workItem from="1656431315074" duration="16853000" />
       <workItem from="1656837549167" duration="3043000" />
       <workItem from="1656930997931" duration="95000" />
+      <workItem from="1656931350434" duration="379000" />
     </task>
     <servers />
   </component>
