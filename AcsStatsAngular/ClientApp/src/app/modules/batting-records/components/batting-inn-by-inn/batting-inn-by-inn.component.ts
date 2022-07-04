@@ -7,10 +7,7 @@ import {Observable} from "rxjs";
 import {RecordsSummaryModel} from "../../../../models/records-summary.model";
 import {BattingOverallState} from "../../models/app-state";
 import {FindBatting} from "../../models/find-batting-overall.model";
-import {
-  LoadInnByInnBattingRecordsAction, SortBattingRecordsInningsByInningsAction,
-  SortBattingRecordsOverallAction
-} from "../../actions/records.actions";
+import {LoadInnByInnBattingRecordsAction} from "../../actions/records.actions";
 import {LoadRecordSummariesAction} from "../../../../actions/recordsummary.actions";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
@@ -78,17 +75,12 @@ export class BattingInnByInnComponent implements OnInit {
     if (sortOrder == this.sortOrder) {
       sortDirection = this.sortDirection == "ASC" ? "DESC" : "ASC"
     }
-    let url = this.router.url.replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
+    let url = this.router.url
+      .replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
       .replace(/sortDirection=\w+/, `sortDirection=${sortDirection}`)
+      .replace(/startRow=\w+/, "startRow=0")
 
-    this.location.go(url)
-
-    this.battingStore.dispatch(SortBattingRecordsInningsByInningsAction({
-      payload: {
-        sortOrder,
-        sortDirection
-      }
-    }))
+    this.router.navigateByUrl(url);
   }
 
   setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {

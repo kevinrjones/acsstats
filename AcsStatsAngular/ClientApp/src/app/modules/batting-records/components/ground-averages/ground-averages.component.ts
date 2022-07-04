@@ -7,7 +7,7 @@ import {Location} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {BattingOverallState} from "../../models/app-state";
 import {FindBatting} from "../../models/find-batting-overall.model";
-import {LoadByGroundBattingRecordsAction, SortBattingRecordsByGroundAction} from "../../actions/records.actions";
+import {LoadByGroundBattingRecordsAction} from "../../actions/records.actions";
 import {LoadRecordSummariesAction} from "../../../../actions/recordsummary.actions";
 import {BattingCareerRecordDto} from "../../models/batting-overall.model";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
@@ -88,17 +88,12 @@ export class GroundAveragesComponent implements OnInit {
     if (sortOrder == this.sortOrder) {
       sortDirection = this.sortDirection == "ASC" ? "DESC" : "ASC"
     }
-    let url = this.router.url.replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
+    let url = this.router.url
+      .replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
       .replace(/sortDirection=\w+/, `sortDirection=${sortDirection}`)
+      .replace(/startRow=\w+/, "startRow=0")
 
-    this.location.go(url)
-
-    this.battingStore.dispatch(SortBattingRecordsByGroundAction({
-      payload: {
-        sortOrder,
-        sortDirection
-      }
-    }))
+    this.router.navigateByUrl(url);
   }
 
   setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {

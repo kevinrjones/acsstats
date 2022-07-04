@@ -11,7 +11,7 @@ import {LoadRecordSummariesAction} from "../../../../actions/recordsummary.actio
 import {BattingCareerRecordDto} from "../../models/batting-overall.model";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
-import {LoadBySeasonBattingRecordsAction, SortBattingRecordsBySeasonAction} from "../../actions/records.actions";
+import {LoadBySeasonBattingRecordsAction} from "../../actions/records.actions";
 import {SortOrder} from "../../../../models/sortorder.model";
 
 @Component({
@@ -88,17 +88,12 @@ export class BySeasonComponent implements OnInit {
     if (sortOrder == this.sortOrder) {
       sortDirection = this.sortDirection == "ASC" ? "DESC" : "ASC"
     }
-    let url = this.router.url.replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
+    let url = this.router.url
+      .replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
       .replace(/sortDirection=\w+/, `sortDirection=${sortDirection}`)
+      .replace(/startRow=\w+/, "startRow=0")
 
-    this.location.go(url)
-
-    this.battingStore.dispatch(SortBattingRecordsBySeasonAction({
-      payload: {
-        sortOrder,
-        sortDirection
-      }
-    }))
+    this.router.navigateByUrl(url);
   }
 
   setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {
