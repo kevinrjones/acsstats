@@ -42,10 +42,6 @@
       <a (click)="sort(importedSortOrder.econ)" class="btn btn-link">Econ
         <fa-icon *ngIf="importedSortOrder.econ == sortOrder" [icon]="getSortClass(importedSortOrder.econ)"></fa-icon></a>
     </th>
-    <th class="text-right">
-      <a (click)="sort(importedSortOrder.innings)" class="btn btn-link">Innings
-        <fa-icon *ngIf="importedSortOrder.innings == sortOrder" [icon]="getSortClass(importedSortOrder.innings)"></fa-icon></a>
-    </th>
     <th class="minwidth15"></th>
     <th class="text-left">
       <a (click)="sort(importedSortOrder.opponents)" class="btn btn-link text-left">Opponents
@@ -70,8 +66,7 @@
     <td class="text-right" nowrap="nowrap">{{row.playerMaidens == null || row.playerMaidens == 0 ? "-" : row.playerMaidens}}</td>
     <td class="text-right" nowrap="nowrap">{{row.playerRuns}}</td>
     <td class="text-right" nowrap="nowrap">{{row.playerWickets}}</td>
-    <td class="text-right" nowrap="nowrap">{{getEcon(row.playerRuns, row.playerBalls)}}</td>
-    <td class="text-right" nowrap="nowrap">{{row.inningsNumber}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.econ}}</td>
     <td></td>
     <td class="text-left" nowrap="nowrap">{{row.opponents}}</td>
     <td class="text-left" nowrap="nowrap">{{row.ground}}</td>

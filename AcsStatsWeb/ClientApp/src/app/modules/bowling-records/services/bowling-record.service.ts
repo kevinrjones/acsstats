@@ -32,6 +32,8 @@ export class BowlingRecordService {
           .set('season', findBowling.season)
           .set('sortOrder', findBowling.sortOrder)
           .set('sortDirection', findBowling.sortDirection)
+          .set('startRow', findBowling.startRow)
+          .set('pageSize', findBowling.pageSize)
       } : {};
 
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/overall/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
@@ -57,6 +59,8 @@ export class BowlingRecordService {
           .set('season', findBowling.season)
           .set('sortOrder', findBowling.sortOrder)
           .set('sortDirection', findBowling.sortDirection)
+          .set('startRow', findBowling.startRow)
+          .set('pageSize', findBowling.pageSize)
       } : {};
 
     return this.httpClient.get<Envelope<IndividualBowlingDetailsDto[]>>(`/api/bowlingrecords/inningsbyinnings/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
@@ -82,6 +86,8 @@ export class BowlingRecordService {
           .set('season', findBowling.season)
           .set('sortOrder', findBowling.sortOrder)
           .set('sortDirection', findBowling.sortDirection)
+          .set('startRow', findBowling.startRow)
+          .set('pageSize', findBowling.pageSize)
       } : {};
 
     return this.httpClient.get<Envelope<IndividualBowlingDetailsDto[]>>(`/api/bowlingrecords/match/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
@@ -107,6 +113,8 @@ export class BowlingRecordService {
           .set('season', findBowling.season)
           .set('sortOrder', findBowling.sortOrder)
           .set('sortDirection', findBowling.sortDirection)
+          .set('startRow', findBowling.startRow)
+          .set('pageSize', findBowling.pageSize)
       } : {};
 
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/series/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
@@ -132,6 +140,8 @@ export class BowlingRecordService {
           .set('season', findBowling.season)
           .set('sortOrder', findBowling.sortOrder)
           .set('sortDirection', findBowling.sortDirection)
+          .set('startRow', findBowling.startRow)
+          .set('pageSize', findBowling.pageSize)
       } : {};
 
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/grounds/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
@@ -157,6 +167,8 @@ export class BowlingRecordService {
           .set('season', findBowling.season)
           .set('sortOrder', findBowling.sortOrder)
           .set('sortDirection', findBowling.sortDirection)
+          .set('startRow', findBowling.startRow)
+          .set('pageSize', findBowling.pageSize)
       } : {};
 
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/host/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
@@ -182,6 +194,8 @@ export class BowlingRecordService {
           .set('season', findBowling.season)
           .set('sortOrder', findBowling.sortOrder)
           .set('sortDirection', findBowling.sortDirection)
+          .set('startRow', findBowling.startRow)
+          .set('pageSize', findBowling.pageSize)
       } : {};
 
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/opposition/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
@@ -207,6 +221,8 @@ export class BowlingRecordService {
           .set('season', findBowling.season)
           .set('sortOrder', findBowling.sortOrder)
           .set('sortDirection', findBowling.sortDirection)
+          .set('startRow', findBowling.startRow)
+          .set('pageSize', findBowling.pageSize)
       } : {};
 
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/year/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
@@ -232,6 +248,8 @@ export class BowlingRecordService {
           .set('season', findBowling.season)
           .set('sortOrder', findBowling.sortOrder)
           .set('sortDirection', findBowling.sortDirection)
+          .set('startRow', findBowling.startRow)
+          .set('pageSize', findBowling.pageSize)
       } : {};
 
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/season/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)

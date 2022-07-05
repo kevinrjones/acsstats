@@ -17,5 +17,7 @@ export interface FindBowling {
   matchDrawn: number;
   matchTied: number;
   limit: number;
+  startRow: number;
+  pageSize: number;
 }
 

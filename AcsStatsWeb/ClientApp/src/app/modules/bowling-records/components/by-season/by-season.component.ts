@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {BowlingOverallUiModel} from "../../models/bowling-overall-ui.model";
 import {RecordsSummaryModel} from "../../../../models/records-summary.model";
@@ -7,10 +7,7 @@ import {Location} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {BowlingOverallState} from "../../models/app-state";
 import {FindBowling} from "../../models/find-bowling-overall.model";
-import {
-  LoadBySeasonBowlingRecordsAction,
-  SortBowlingRecordsBySeasonAction
-} from "../../actions/records.actions";
+import {LoadBySeasonBowlingRecordsAction} from "../../actions/records.actions";
 import {LoadRecordSummariesAction} from "../../../../actions/recordsummary.actions";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
@@ -77,17 +74,12 @@ export class BySeasonComponent implements OnInit {
     if (sortOrder == this.sortOrder) {
       sortDirection = this.sortDirection == "ASC" ? "DESC" : "ASC"
     }
-    let url = this.router.url.replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
+    let url = this.router.url
+      .replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
       .replace(/sortDirection=\w+/, `sortDirection=${sortDirection}`)
+      .replace(/startRow=\w+/, "startRow=0")
 
-    this.location.go(url)
-
-    this.bowlingStore.dispatch(SortBowlingRecordsBySeasonAction({
-      payload: {
-        sortOrder,
-        sortDirection
-      }
-    }))
+    this.router.navigateByUrl(url);
   }
 
   setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {

@@ -24,7 +24,7 @@ public static class DtoExtensions
         return details.Map(r =>
             (IReadOnlyList<IndividualBattingDetailsDto>) r.Map(item =>
                 new IndividualBattingDetailsDto(item.FullName, item.SortNamePart, item.Team, item.Opponents, item.InningsNumber,
-                    item.Ground,
+                     item.Ground,
                     item.MatchDate, item.PlayerScore, item.Bat1, item.Bat2, item.NotOut,
                     item.Position, item.Balls, item.Fours, item.Sixes ?? 0, item.Minutes ?? 0)).ToList());
     }
@@ -37,7 +37,7 @@ public static class DtoExtensions
                 new BowlingCareerRecordDto(item.Name, item.SortNamePart, item.Team, item.Opponents, item.Year,
                     item.Matches, item.Innings, item.Ground, item.CountryName, item.Balls, item.Maidens,
                     item.Runs, item.Wickets, item.Avg ?? 0.0f, item.Fours ?? 0, item.Sixes ?? 0,
-                    item.FiveFor ?? 0, item.TenFor ?? 0, item.bbiw ?? 0, item.bbir ?? 0, item.bbmw ?? 0,
+                    FiveFor: item.FiveFor ?? 0, item.TenFor ?? 0, item.bbiw ?? 0, item.bbir ?? 0, item.bbmw ?? 0,
                     item.bbmr ?? 0)).ToList());
     }
 
@@ -48,7 +48,7 @@ public static class DtoExtensions
             (IReadOnlyList<IndividualBowlingDetailsDto>) r.Map(item =>
                 new IndividualBowlingDetailsDto(item.FullName, item.SortNamePart, item.Team, item.Opponents, item.InningsNumber,
                     item.Ground, item.MatchDate, item.PlayerBalls, item.PlayerMaidens, item.PlayerRuns,
-                    item.PlayerWickets, item.BallsPerOver)).ToList());
+                    item.PlayerWickets, item.BallsPerOver, item.Econ)).ToList());
     }
 
     public static Result<IReadOnlyList<FieldingCareerRecordDto>, Error> ToDto(

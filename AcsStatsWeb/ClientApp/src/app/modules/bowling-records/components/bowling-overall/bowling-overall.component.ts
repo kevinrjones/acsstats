@@ -4,7 +4,7 @@ import {Location} from '@angular/common';
 import {Store} from "@ngrx/store";
 import {BowlingOverallState} from "../../models/app-state";
 import {FindBowling} from "../../models/find-bowling-overall.model";
-import {LoadOverallBowlingRecordsAction, SortBowlingRecordsOverallAction} from "../../actions/records.actions";
+import {LoadOverallBowlingRecordsAction} from "../../actions/records.actions";
 import {Observable} from "rxjs";
 import {BowlingOverallUiModel} from "../../models/bowling-overall-ui.model";
 import {LoadRecordSummariesAction} from "../../../../actions/recordsummary.actions";
@@ -74,17 +74,12 @@ export class BowlingOverallComponent implements OnInit {
     if (sortOrder == this.sortOrder) {
       sortDirection = this.sortDirection == "ASC" ? "DESC" : "ASC"
     }
-    let url = this.router.url.replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
+    let url = this.router.url
+      .replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
       .replace(/sortDirection=\w+/, `sortDirection=${sortDirection}`)
+      .replace(/startRow=\w+/, "startRow=0")
 
-    this.location.go(url)
-
-    this.bowlingStore.dispatch(SortBowlingRecordsOverallAction({
-      payload: {
-        sortOrder,
-        sortDirection
-      }
-    }))
+    this.router.navigateByUrl(url);
   }
 
   setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {

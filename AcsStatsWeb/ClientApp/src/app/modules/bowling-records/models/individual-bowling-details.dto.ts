@@ -11,4 +11,5 @@ export interface IndividualBowlingDetailsDto {
   playerRuns: number
   playerWickets: number
   ballsPerOver: number
+  econ: string
 }

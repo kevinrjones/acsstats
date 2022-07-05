@@ -38,7 +38,7 @@ public class FieldingIndividualSeriesQuery : IRequest<Result<IReadOnlyList<Field
 
     public async Task<Result<IReadOnlyList<FieldingCareerRecordDto>, Error>> Handle(FieldingIndividualSeriesQuery request, CancellationToken cancellationToken)
     {
-            var sql = "bowling_individual_career_records_by_series";
+            var sql = "fielding_individual_career_records_by_series";
             
             try
             {

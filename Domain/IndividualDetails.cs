@@ -7,6 +7,7 @@ public class IndividualDetails
     public string Team { get; set; }
     public string Opponents { get; set; }
     public int InningsNumber { get; set; }
+    public string Econ { get; set; }
     public string Ground { get; set; }
     public string MatchDate { get; set; }
     public string MatchDesignator { get; set; }

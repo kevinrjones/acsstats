@@ -12,7 +12,8 @@ public record IndividualBowlingDetailsDto(
     int? PlayerMaidens,
     int PlayerRuns,
     int PlayerWickets,
-    int BallsPerOver);
+    int BallsPerOver,
+    string Econ);
     
     
 public static class IndividualBowlingDetailsDtoFormatter

@@ -153,6 +153,8 @@ export class GetBowlingRecordsComponent implements OnInit {
       , matchDrawn: this.bowlingRecordsForm.get('matchDrawn')?.value
       , matchTied: this.bowlingRecordsForm.get('matchTied')?.value
       , limit: this.bowlingRecordsForm.get('limit')?.value
+      , startRow: 0
+      , pageSize: 10000
     }
 
     // this.store.dispatch(LoadBattingRecordsAction({payload: queryParams}))

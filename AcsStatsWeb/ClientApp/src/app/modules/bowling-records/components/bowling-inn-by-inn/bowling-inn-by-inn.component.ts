@@ -7,10 +7,7 @@ import {Location} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {BowlingOverallState} from "../../models/app-state";
 import {FindBowling} from "../../models/find-bowling-overall.model";
-import {
-  LoadInnByInnBowlingRecordsAction,
-  SortBowlingRecordsInningsByInningsAction
-} from "../../actions/records.actions";
+import {LoadInnByInnBowlingRecordsAction} from "../../actions/records.actions";
 import {LoadRecordSummariesAction} from "../../../../actions/recordsummary.actions";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
@@ -78,17 +75,12 @@ export class BowlingInnByInnComponent implements OnInit {
     if (sortOrder == this.sortOrder) {
       sortDirection = this.sortDirection == "ASC" ? "DESC" : "ASC"
     }
-    let url = this.router.url.replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
+    let url = this.router.url
+      .replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
       .replace(/sortDirection=\w+/, `sortDirection=${sortDirection}`)
+      .replace(/startRow=\w+/, "startRow=0")
 
-    this.location.go(url)
-
-    this.bowlingStore.dispatch(SortBowlingRecordsInningsByInningsAction({
-      payload: {
-        sortOrder,
-        sortDirection
-      }
-    }))
+    this.router.navigateByUrl(url);
   }
 
   setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {
