@@ -18,13 +18,13 @@ namespace Services
         Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingCareerRecords(
             BattingBowlingFieldingModel sharedServiceFieldingModel);
 
-        Task<Result<IReadOnlyList<IndividualBattingDetailsDto>, Error>> GetBattingIndividualInnings(
+        Task<Result<SqlResultEnvelope<IReadOnlyList<IndividualBattingDetailsDto>>, Error>> GetBattingIndividualInnings(
             BattingBowlingFieldingModel fieldingModel);
 
         Task<Result<IReadOnlyList<IndividualBowlingDetailsDto>, Error>> GetBowlingIndividualInnings(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<IndividualBattingDetailsDto>, Error>> GetBattingIndividualMatches(
+        Task<Result<SqlResultEnvelope<IReadOnlyList<IndividualBattingDetailsDto>>, Error>> GetBattingIndividualMatches(
             BattingBowlingFieldingModel fieldingModel);
 
         Task<Result<IReadOnlyList<IndividualBowlingDetailsDto>, Error>> GetBowlingIndividualMatches(

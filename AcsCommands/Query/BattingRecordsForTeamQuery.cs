@@ -59,7 +59,7 @@ public class BattingRecordsForTeamQuery : IRequest<Result<IReadOnlyList<BattingC
                     sort_by = (int) request.FieldingModel.SortOrder,
                     sort_direction = request.FieldingModel.SortDirectionAsString(),
                     start_row = request.FieldingModel.StartRow,
-                    page_size = request.FieldingModel.PageSize
+                    page_size = request.FieldingModel.EndRow
                 }, commandType:CommandType.StoredProcedure).ToList();
                 return Result.Success<IReadOnlyList<PlayerBattingCareerRecordDetails>, Error>(result).ToDto();
             }

@@ -6,11 +6,6 @@
   margin: 1rem;
 }
 
-.selectrow {
-  grid-row-start: 2;
-}
-
-
 #bowling-record-limit {
   grid-column-start: 4;
   grid-column-end: span 2;

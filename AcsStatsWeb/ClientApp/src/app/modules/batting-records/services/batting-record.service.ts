@@ -5,6 +5,7 @@ import {Envelope} from 'src/app/models/envelope';
 import {BattingCareerRecordDto} from "../models/batting-overall.model";
 import {FindBatting} from "../models/find-batting-overall.model";
 import {IndividualBattingDetailsDto} from "../models/individual-batting-details.dto";
+import {SqlResultsEnvelope} from "../../../models/sqlresultsenvelope.model";
 
 @Injectable({providedIn: 'root'})
 export class BattingRecordService {
@@ -39,7 +40,7 @@ export class BattingRecordService {
     return this.httpClient.get<Envelope<BattingCareerRecordDto[]>>(`/api/battingrecords/overall/${findBatting.matchType}/${findBatting.teamId}/${findBatting.opponentsId}`, options)
   }
 
-  getBattingInningsByInnings(findBatting: FindBatting): Observable<Envelope<IndividualBattingDetailsDto[]>> {
+  getBattingInningsByInnings(findBatting: FindBatting): Observable<Envelope<SqlResultsEnvelope<IndividualBattingDetailsDto[]>>> {
 
     let matchResult = findBatting ? findBatting.matchWon | findBatting.matchWon | findBatting.matchWon | findBatting.matchWon : 0;
 
@@ -63,10 +64,10 @@ export class BattingRecordService {
           .set('pageSize', findBatting.pageSize)
       } : {};
 
-    return this.httpClient.get<Envelope<IndividualBattingDetailsDto[]>>(`/api/battingrecords/inningsbyinnings/${findBatting.matchType}/${findBatting.teamId}/${findBatting.opponentsId}`, options)
+    return this.httpClient.get<Envelope<SqlResultsEnvelope<IndividualBattingDetailsDto[]>>>(`/api/battingrecords/inningsbyinnings/${findBatting.matchType}/${findBatting.teamId}/${findBatting.opponentsId}`, options)
   }
 
-  getBattingByMatch(findBatting: FindBatting): Observable<Envelope<IndividualBattingDetailsDto[]>> {
+  getBattingByMatch(findBatting: FindBatting): Observable<Envelope<SqlResultsEnvelope<IndividualBattingDetailsDto[]>>> {
 
     let matchResult = findBatting ? findBatting.matchWon | findBatting.matchWon | findBatting.matchWon | findBatting.matchWon : 0;
 
@@ -90,7 +91,7 @@ export class BattingRecordService {
           .set('pageSize', findBatting.pageSize)
       } : {};
 
-    return this.httpClient.get<Envelope<IndividualBattingDetailsDto[]>>(`/api/battingrecords/match/${findBatting.matchType}/${findBatting.teamId}/${findBatting.opponentsId}`, options)
+    return this.httpClient.get<Envelope<SqlResultsEnvelope<IndividualBattingDetailsDto[]>>>(`/api/battingrecords/match/${findBatting.matchType}/${findBatting.teamId}/${findBatting.opponentsId}`, options)
   }
 
   getBattingBySeries(findBatting: FindBatting): Observable<Envelope<BattingCareerRecordDto[]>> {

@@ -17,7 +17,7 @@ export interface FindBatting {
   matchDrawn: number;
   matchTied: number;
   limit: number;
-  startRow: number;
-  pageSize: number;
+  startRow: string;
+  pageSize: string;
 }
 

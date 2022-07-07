@@ -25,6 +25,7 @@ import {ByOppositionComponent} from './components/by-opposition/by-opposition.co
 import {ByYearOfMatchStartComponent} from './components/by-year-of-match-start/by-year-of-match-start.component';
 import {BySeasonComponent} from './components/by-season/by-season.component';
 import {SharedModule} from "../shared/shared.module";
+import {AppModule} from "../../app.module";
 
 
 const routes: Routes = [
@@ -42,26 +43,26 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [
-    SharedModule,
-    CommonModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    RouterModule.forChild(routes),
-    StoreModule.forFeature('battingrecords', {
-      overall: loadOverallBattingReducer,
-      inningsByInnings: loadInnByInnBattingReducer,
-      byMatch: loadByMatchBattingReducer,
-      bySeries: loadBySeriesBattingReducer,
-      byGround: loadByGroundBattingReducer,
-      byHost: loadByHostBattingReducer,
-      byOpposition: loadByOppositionBattingReducer,
-      byYear: loadByYearBattingReducer,
-      bySeason: loadBySeasonBattingReducer,
-    }),
-    EffectsModule.forFeature([RecordEffects]),
-    FontAwesomeModule,
-  ],
+    imports: [
+        SharedModule,
+        CommonModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(routes),
+        StoreModule.forFeature('battingrecords', {
+            overall: loadOverallBattingReducer,
+            inningsByInnings: loadInnByInnBattingReducer,
+            byMatch: loadByMatchBattingReducer,
+            bySeries: loadBySeriesBattingReducer,
+            byGround: loadByGroundBattingReducer,
+            byHost: loadByHostBattingReducer,
+            byOpposition: loadByOppositionBattingReducer,
+            byYear: loadByYearBattingReducer,
+            bySeason: loadBySeasonBattingReducer,
+        }),
+        EffectsModule.forFeature([RecordEffects]),
+        FontAwesomeModule,
+    ],
   exports: [RouterModule, GetBattingRecordsComponent],
   declarations: [
     GetBattingRecordsComponent,

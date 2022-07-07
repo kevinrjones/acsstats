@@ -34,6 +34,7 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router, private store: Store<AppState>) {
     this.battingRecordsForm = this.fb.group({
       matchType: 'wt',
+      pageSize: '50',
       limit: 100,
       teamId: 0,
       opponentsId: 0,
@@ -151,8 +152,8 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
       , matchDrawn: this.battingRecordsForm.get('matchDrawn')?.value
       , matchTied: this.battingRecordsForm.get('matchTied')?.value
       , limit: this.battingRecordsForm.get('limit')?.value
-      , startRow: 0
-      , pageSize: 10000
+      , startRow: '0'
+      , pageSize: this.battingRecordsForm.get('pageSize')?.value
     }
 
     // this.store.dispatch(LoadBattingRecordsAction({payload: queryParams}))

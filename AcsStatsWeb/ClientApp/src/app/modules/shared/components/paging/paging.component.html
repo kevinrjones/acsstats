@@ -1,0 +1,14 @@
+<div class="page-container">
+  <div>Page {{currentPage}} of {{totalPages}}</div>
+  <div>Showing {{currentFirstItem}} to {{currentLastItem}} of {{totalItems}}</div>
+  <!-- disable if on first row -->
+  <div class="clickable" (click)="clickFirst()">First</div>
+  <div class="clickable" (click)="clickPrevious()">Previous</div>
+  <!-- disable if on last row -->
+  <div class="clickable" (click)="clickNext()">Next</div>
+  <!-- disable if on last row -->
+  <div class="clickable" (click)="clickLast()">Last</div>
+  <div class="clickable"><span (click)="clickGoto()">Go to page: </span><input type="text"  id="gotoPageNumber"
+                                                                               name="gotoPageNumber"
+                                                                               [(ngModel)]="gotoPageNumber" ></div>
+</div>

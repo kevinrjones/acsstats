@@ -58,7 +58,7 @@ public class MatchScoresCompleteQuery : IRequest<Result<IReadOnlyList<MatchRecor
                     sort_by = (int) request.Model.SortOrder,
                     sort_direction = request.Model.SortDirectionAsString(),
                     start_row = request.Model.StartRow,
-                    page_size = request.Model.PageSize
+                    page_size = request.Model.EndRow
                 }, commandType: CommandType.StoredProcedure).ToList();
                 return Result.Success<IReadOnlyList<MatchRecordDetails>, Error>(result).ToDto();
             }

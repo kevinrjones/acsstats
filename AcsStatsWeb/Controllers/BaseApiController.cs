@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using AcsDto.Dtos;
 using AcsDto.Models;
 using AcsStatsAngular.Models.api;
 using AcsTypes.Error;
@@ -64,7 +65,7 @@ public class BaseApiController : ControllerBase
       EndDateEpoch = recordInputModel.EndDate,
       MatchResult = (MatchResult)recordInputModel.MatchResult,
       StartRow = recordInputModel.StartRow,
-      PageSize = recordInputModel.PageSize,
+      EndRow = recordInputModel.StartRow + recordInputModel.PageSize,
     };
   }
 
@@ -83,8 +84,26 @@ public class BaseApiController : ControllerBase
       .Finally(result => result.IsSuccess ? CreateOkResult(result.Value) : new BadRequestResult());
   }
 
+  protected async Task<IActionResult> HandleEx<T, TSharedModel>(ApiRecordInputModel recordInputModel
+    , Func<TSharedModel, Task<Result<SqlResultEnvelope<IReadOnlyList<T>>, Error>>> action) where TSharedModel : SharedModel, new()
+  {
+    return await Validate(recordInputModel)
+      .Map(InitializeSharedServiceModel<TSharedModel>)
+      .Bind(action)
+      .MapError(t =>
+      {
+        _logger.LogDebug(t.Message);
+        return t;
+      })
+      .Finally(result => result.IsSuccess ? CreateOkResultEx(result.Value) : new BadRequestResult());
+  }
   // ReSharper disable once InconsistentNaming
   private IActionResult CreateOkResult<T>(IReadOnlyList<T> resultValue)
+  {
+    return Ok(resultValue);
+  }
+
+  private IActionResult CreateOkResultEx<T>(SqlResultEnvelope<IReadOnlyList<T>> resultValue)
   {
     return Ok(resultValue);
   }

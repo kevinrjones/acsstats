@@ -35,7 +35,7 @@ namespace AcsDto.Models
         }
 
         public int StartRow { get; set; }
-        public int PageSize { get; set; }
+        public int EndRow { get; set; }
     }
     
     public class BattingBowlingFieldingModel : SharedModel 

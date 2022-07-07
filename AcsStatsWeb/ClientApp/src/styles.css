@@ -452,3 +452,22 @@ section.searchResultHeader span {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+.selectrow {
+  grid-row-start: 2;
+}
+
+#batting-record-select {
+  grid-column-end: span 2;
+}
+
+.app-search {
+  grid-column: 1/6;
+  display: grid;
+  /*grid-template-columns: repeat(12, 1fr);*/
+
+  grid: auto-flow min-content/repeat(4, 1fr);
+  gap: 1rem;
+  row-gap: 1.5rem;
+}
+

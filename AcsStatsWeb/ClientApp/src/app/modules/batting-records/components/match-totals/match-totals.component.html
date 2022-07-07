@@ -78,7 +78,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let row of (battingByMatch$ | async)?.data">
+  <tr *ngFor="let row of (battingByMatch$ | async)?.sqlResults?.data">
     <td class="text-left" nowrap="nowrap">{{row.fullName}}</td>
     <td class="text-left" nowrap="nowrap">{{row.team}}</td>
     <td class="text-right" nowrap="nowrap">{{row.bat1}}</td>

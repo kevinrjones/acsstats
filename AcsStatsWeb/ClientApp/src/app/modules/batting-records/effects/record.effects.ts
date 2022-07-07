@@ -50,7 +50,7 @@ export class RecordEffects {
       ofType(LoadInnByInnBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingInningsByInnings(action.payload)
         .pipe(
-          map(players => LoadInnByInnBattingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
+          map(players => LoadInnByInnBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
           catchError(() => EMPTY)
         ))
     );
@@ -61,7 +61,7 @@ export class RecordEffects {
       ofType(LoadByMatchBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByMatch(action.payload)
         .pipe(
-          map(players => LoadByMatchBattingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
+          map(players => LoadByMatchBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
           catchError(() => EMPTY)
         ))
     );

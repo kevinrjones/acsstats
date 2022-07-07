@@ -24,6 +24,12 @@ public class BattingRecordsController : BaseApiController
         _individualBattingDetailsServiceFuncs =
             new();
 
+    private readonly
+        Dictionary<string, Func<BattingBowlingFieldingModel,
+            Task<Result<SqlResultEnvelope<IReadOnlyList<IndividualBattingDetailsDto>>, Error>>>>
+        _individualBattingDetailsServiceFuncsEx =
+            new();
+
     private readonly ILogger<BattingRecordsController> _logger;
     private readonly IPlayersService _playerService;
 
@@ -49,9 +55,9 @@ public class BattingRecordsController : BaseApiController
         _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualSeason",
             playerService.GetBattingIndividualSeason);
 
-        _individualBattingDetailsServiceFuncs.Add("GetBattingIndividualInnings",
+        _individualBattingDetailsServiceFuncsEx.Add("GetBattingIndividualInnings",
             playerService.GetBattingIndividualInnings);
-        _individualBattingDetailsServiceFuncs.Add("GetBattingIndividualMatches",
+        _individualBattingDetailsServiceFuncsEx.Add("GetBattingIndividualMatches",
             playerService.GetBattingIndividualMatches);
     }
 
@@ -67,7 +73,7 @@ public class BattingRecordsController : BaseApiController
     public async Task<IActionResult> GetInningsByInnings(
         [FromRoute] ApiRecordInputModel recordInputModel)
     {
-        return await Handle(recordInputModel, _individualBattingDetailsServiceFuncs["GetBattingIndividualInnings"]);
+        return await HandleEx(recordInputModel, _individualBattingDetailsServiceFuncsEx["GetBattingIndividualInnings"]);
     }
 
     [HttpGet("match/{matchType}/{teamId}/{opponentsId}")]

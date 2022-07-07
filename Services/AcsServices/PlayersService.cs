@@ -48,14 +48,14 @@ namespace Services.AcsServices
         new BattingRecordsCompleteQuery(model, "batting_career_records_complete"));
     }
 
-    public async Task<Result<IReadOnlyList<IndividualBattingDetailsDto>, Error>> GetBattingIndividualInnings(
+    public async Task<Result<SqlResultEnvelope<IReadOnlyList<IndividualBattingDetailsDto>>, Error>> GetBattingIndividualInnings(
       BattingBowlingFieldingModel model)
     {
       return await _mediator.Send(
         new BattingIndividualCareerRecordsQuery(model, "batting_individual_career_records_by_innings"));
     }
 
-    public async Task<Result<IReadOnlyList<IndividualBattingDetailsDto>, Error>> GetBattingIndividualMatches(
+    public async Task<Result<SqlResultEnvelope<IReadOnlyList<IndividualBattingDetailsDto>>, Error>> GetBattingIndividualMatches(
       BattingBowlingFieldingModel model)
     {
       return await _mediator.Send(

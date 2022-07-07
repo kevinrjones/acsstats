@@ -59,7 +59,7 @@ public class BowlingRecordsCompleteQuery : IRequest<Result<IReadOnlyList<Bowling
                         sort_by = (int) request.FieldingModel.SortOrder,
                         sort_direction = request.FieldingModel.SortDirectionAsString(),
                     start_row = request.FieldingModel.StartRow,
-                    page_size = request.FieldingModel.PageSize
+                    page_size = request.FieldingModel.EndRow
                     }, commandType: CommandType.StoredProcedure).ToList();
                 return Result.Success<IReadOnlyList<PlayerBowlingCareerRecordDetails>, Error>(result).ToDto();
             }

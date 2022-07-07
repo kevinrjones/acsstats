@@ -6,11 +6,6 @@
   margin: 1rem;
 }
 
-.selectrow {
-  grid-row-start: 2;
-}
-
-
 #batting-record-limit {
   grid-column-start: 4;
   grid-column-end: span 2;
@@ -19,10 +14,6 @@
   grid-row-start: 1;
   grid-column-start: 1;
   grid-column-end: -1;
-}
-
-#batting-record-select {
-  grid-column-end: span 2;
 }
 
 #batting-record-limit {

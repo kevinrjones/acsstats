@@ -33,7 +33,7 @@ export const loadOverallBattingReducer = createReducer(
 );
 
 export const initialBattingInnByInnRecordState = {
-  data: Array<IndividualBattingDetailsDto>(),
+  sqlResults: {data: Array<IndividualBattingDetailsDto>(), count: 0},
   sortOrder: 4,
   sortDirection: "desc"
 };
@@ -41,7 +41,7 @@ export const loadInnByInnBattingReducer = createReducer(
   initialBattingInnByInnRecordState,
   on(LoadInnByInnBattingRecordsSuccessAction, (state, records) => {
     return {
-      data: records.payload.data,
+      sqlResults: records.payload.sqlResults,
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection
     }
@@ -52,7 +52,7 @@ export const loadByMatchBattingReducer = createReducer(
   initialBattingInnByInnRecordState,
   on(LoadByMatchBattingRecordsSuccessAction, (state, records) => {
     return {
-      data: records.payload.data,
+      sqlResults: records.payload.sqlResults,
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection
     }

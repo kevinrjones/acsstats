@@ -1,5 +1,6 @@
 import {BattingCareerRecordDto} from "./batting-overall.model";
 import {IndividualBattingDetailsDto} from "./individual-batting-details.dto";
+import {SqlResultsEnvelope} from "../../../models/sqlresultsenvelope.model";
 
 export interface BattingOverallUiModel {
   data: BattingCareerRecordDto[],
@@ -8,7 +9,7 @@ export interface BattingOverallUiModel {
 }
 
 export interface InningsByInningsUiModel {
-  data: IndividualBattingDetailsDto[],
+  sqlResults: SqlResultsEnvelope<IndividualBattingDetailsDto[]>,
   sortOrder: number,
   sortDirection: string
 }

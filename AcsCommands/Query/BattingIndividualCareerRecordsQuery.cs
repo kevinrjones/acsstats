@@ -13,7 +13,7 @@ using MySql.Data.MySqlClient;
 
 namespace AcsCommands.Query;
 
-public class BattingIndividualCareerRecordsQuery : IRequest<Result<IReadOnlyList<IndividualBattingDetailsDto>, Error>>
+public class BattingIndividualCareerRecordsQuery : IRequest<Result<SqlResultEnvelope<IReadOnlyList<IndividualBattingDetailsDto>>, Error>>
 {
     private BattingBowlingFieldingModel FieldingModel { get; }
     private string Sql { get; }
@@ -25,7 +25,7 @@ public class BattingIndividualCareerRecordsQuery : IRequest<Result<IReadOnlyList
     }
 
     internal class BattingIndividualCareerRecordsQueryHandler
-        : IRequestHandler<BattingIndividualCareerRecordsQuery, Result<IReadOnlyList<IndividualBattingDetailsDto>, Error>>
+        : IRequestHandler<BattingIndividualCareerRecordsQuery, Result<SqlResultEnvelope<IReadOnlyList<IndividualBattingDetailsDto>>, Error>>
     {
         
         private readonly QueriesConnectionString _queriesConnectionString;
@@ -39,13 +39,14 @@ public class BattingIndividualCareerRecordsQuery : IRequest<Result<IReadOnlyList
             _logger = logger;
         }
 
-        public async Task<Result<IReadOnlyList<IndividualBattingDetailsDto>, Error>> Handle(BattingIndividualCareerRecordsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<SqlResultEnvelope<IReadOnlyList<IndividualBattingDetailsDto>>, Error>> Handle(BattingIndividualCareerRecordsQuery request, CancellationToken cancellationToken)
         {
             try
             {
                 await using var connection = new MySqlConnection(_queriesConnectionString.Value);
-                var result = (IReadOnlyList<IndividualBattingDetails>)connection
-                    .Query<IndividualBattingDetails>(request.Sql, new
+
+                var grid = connection
+                    .QueryMultiple(request.Sql, new
                     {
                         team_id = request.FieldingModel.TeamId.Value,
                         opponents_id = request.FieldingModel.OpponentsId.Value,
@@ -58,12 +59,20 @@ public class BattingIndividualCareerRecordsQuery : IRequest<Result<IReadOnlyList
                         season = request.FieldingModel.Season,
                         matchResult = request.FieldingModel.MatchResult.Value,
                         runs_limit = request.FieldingModel.Limit.Value,
-                        sort_by = (int)request.FieldingModel.SortOrder,
+                        sort_by = (int) request.FieldingModel.SortOrder,
                         sort_direction = request.FieldingModel.SortDirectionAsString(),
-                    start_row = request.FieldingModel.StartRow,
-                    page_size = request.FieldingModel.PageSize
-                    }, commandType: CommandType.StoredProcedure).ToList();
-                return Result.Success<IReadOnlyList<IndividualBattingDetails>, Error>(result).ToDto();
+                        start_row = request.FieldingModel.StartRow,
+                        page_size = request.FieldingModel.EndRow
+                    }, commandType: CommandType.StoredProcedure);
+
+                
+                var result = (IReadOnlyList<IndividualBattingDetails>)grid.Read<IndividualBattingDetails>().ToList();
+                var count = grid.Read<int>().First();
+
+                var data = new SqlResultEnvelope<IReadOnlyList<IndividualBattingDetails>>(count, result);
+
+                return Result.Success<IReadOnlyList<IndividualBattingDetails>, Error>(result).ToEnvelope(count);
+                // return Result.Success<IReadOnlyList<IndividualBattingDetails>, Error>(result).ToDto();
             }
             catch (Exception e)
             {
@@ -77,7 +86,7 @@ public class BattingIndividualCareerRecordsQuery : IRequest<Result<IReadOnlyList
                     request.FieldingModel.EndDateEpoch, request.FieldingModel.Season,
                     request.FieldingModel.MatchResult.Value,
                     (int)request.FieldingModel.SortOrder, request.FieldingModel.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<IndividualBattingDetailsDto>, Error>(Errors.GetUnexpectedError(e.Message));
+                return Result.Failure<SqlResultEnvelope<IReadOnlyList<IndividualBattingDetailsDto>>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
     }

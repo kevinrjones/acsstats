@@ -34,7 +34,7 @@ import {BowlingRecordsModule} from "./modules/bowling-records/bowling-records.mo
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -61,6 +61,9 @@ import {BowlingRecordsModule} from "./modules/bowling-records/bowling-records.mo
     BowlingRecordsModule,
   ],
   providers: [],
+  exports: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

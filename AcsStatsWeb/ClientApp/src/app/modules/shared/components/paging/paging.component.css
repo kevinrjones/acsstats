@@ -1,0 +1,12 @@
+div div input {
+ max-width: 3rem;
+ max-height: 1.5rem;
+}
+.page-container {
+  display: grid;
+  grid-template-columns: 8rem 15rem repeat(4, 6rem) auto;
+}
+
+.clickable {
+  cursor: pointer;
+}

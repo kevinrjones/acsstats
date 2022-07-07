@@ -68,7 +68,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let row of (battingInnByInn$ | async)?.data">
+  <tr *ngFor="let row of (battingInnByInn$ | async)?.sqlResults?.data">
     <td class="text-left" nowrap="nowrap">{{row.fullName}}</td>
     <td class="text-left" nowrap="nowrap">{{row.team}}</td>
     <td class="text-right" nowrap="nowrap">{{getHighestScore(row)}}</td>
@@ -83,3 +83,5 @@
   </tr>
   </tbody>
 </table>
+
+<app-paging [pageSize]="pageSize"  [totalItems]="count" [currentPage]="currentPage" (first)="navigate(0)" (previous)="navigate($event)" (next)="navigate($event)" (last)="navigate($event)" (goto)="navigate($event)"></app-paging>

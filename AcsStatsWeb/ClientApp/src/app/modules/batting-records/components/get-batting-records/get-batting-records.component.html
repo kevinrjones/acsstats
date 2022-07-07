@@ -1,16 +1,7 @@
 <app-records-header name="batting"></app-records-header>
 <form (ngSubmit)="find()" [formGroup]="battingRecordsForm">
   <div class="batting-record">
-    <div class="selectrow" id="batting-record-select">
-      <select name="matchType" id="matchType" formControlName="matchType">
-        <option value="wt">Women's Tests</option>
-        <option value="wo">Women's ODI</option>
-        <option value="witt">Women's International T20</option>
-        <option value="wf">Women's FC</option>
-        <option value="wa">Women's List A</option>
-        <option value="wtt">Women's T20</option>
-      </select>
-    </div>
+    <app-search-header class="selectrow app-search" [parentFormGroup]="battingRecordsForm"></app-search-header>
     <div class="selectrow" id="batting-record-limit">Runs limit here as well</div>
     <div class="teamrow" id="batting-record-team-label">
       Team
