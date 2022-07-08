@@ -63,7 +63,7 @@ public class FieldingIndividualCareerRecordsQuery
             sort_by = (int)request.FieldingModel.SortOrder,
             sort_direction = request.FieldingModel.SortDirectionAsString(),
                     start_row = request.FieldingModel.StartRow,
-                    page_size = request.FieldingModel.EndRow
+                    page_size = request.FieldingModel.Rows
           }, commandType: CommandType.StoredProcedure).ToList();
         return Result.Success<IReadOnlyList<IndividualFieldingDetails>, Error>(result).ToDto();
       }

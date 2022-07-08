@@ -58,7 +58,7 @@ public class MatchResultVsOpponentsQuery : IRequest<Result<IReadOnlyList<MatchRe
                     sort_by = (int) request.Model.SortOrder,
                     sort_direction = request.Model.SortDirectionAsString(),
                     start_row = request.Model.StartRow,
-                    page_size = request.Model.EndRow
+                    page_size = request.Model.Rows
                 }, commandType: CommandType.StoredProcedure).ToList();
                 return Result.Success<IReadOnlyList<MatchResult>, Error>(result).ToDto();
             }

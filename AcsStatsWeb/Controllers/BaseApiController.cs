@@ -65,7 +65,7 @@ public class BaseApiController : ControllerBase
       EndDateEpoch = recordInputModel.EndDate,
       MatchResult = (MatchResult)recordInputModel.MatchResult,
       StartRow = recordInputModel.StartRow,
-      EndRow = recordInputModel.StartRow + recordInputModel.PageSize,
+      Rows = recordInputModel.PageSize,
     };
   }
 

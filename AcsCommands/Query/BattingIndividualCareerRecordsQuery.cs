@@ -62,7 +62,7 @@ public class BattingIndividualCareerRecordsQuery : IRequest<Result<SqlResultEnve
                         sort_by = (int) request.FieldingModel.SortOrder,
                         sort_direction = request.FieldingModel.SortDirectionAsString(),
                         start_row = request.FieldingModel.StartRow,
-                        page_size = request.FieldingModel.EndRow
+                        page_size = request.FieldingModel.Rows
                     }, commandType: CommandType.StoredProcedure);
 
                 
