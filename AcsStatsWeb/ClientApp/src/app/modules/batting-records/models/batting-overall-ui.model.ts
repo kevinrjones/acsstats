@@ -3,7 +3,7 @@ import {IndividualBattingDetailsDto} from "./individual-batting-details.dto";
 import {SqlResultsEnvelope} from "../../../models/sqlresultsenvelope.model";
 
 export interface BattingOverallUiModel {
-  data: BattingCareerRecordDto[],
+  sqlResults: SqlResultsEnvelope<BattingCareerRecordDto[]>,
   sortOrder: number,
   sortDirection: string
 }

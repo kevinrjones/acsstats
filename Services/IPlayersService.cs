@@ -12,7 +12,7 @@ namespace Services
 {
     public interface IPlayersService
     {
-        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingCareerRecords(
+        Task<Result<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>> GetBattingCareerRecords(
             BattingBowlingFieldingModel sharedServiceFieldingModel);
 
         Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingCareerRecords(
@@ -30,37 +30,37 @@ namespace Services
         Task<Result<IReadOnlyList<IndividualBowlingDetailsDto>, Error>> GetBowlingIndividualMatches(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualSeries(
+        Task<Result<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>> GetBattingIndividualSeries(
             BattingBowlingFieldingModel fieldingModel);
 
         Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualSeries(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualGrounds(
+        Task<Result<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>> GetBattingIndividualGrounds(
             BattingBowlingFieldingModel fieldingModel);
 
         Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualGrounds(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualHost(
+        Task<Result<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>> GetBattingIndividualHost(
             BattingBowlingFieldingModel fieldingModel);
 
         Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualHost(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualOpponents(
+        Task<Result<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>> GetBattingIndividualOpponents(
             BattingBowlingFieldingModel fieldingModel);
 
         Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualOpponents(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualSeason(
+        Task<Result<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>> GetBattingIndividualSeason(
             BattingBowlingFieldingModel fieldingModel);
 
         Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualSeason(
             BattingBowlingFieldingModel fieldingModel);
 
-        Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> GetBattingIndividualYear(
+        Task<Result<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>> GetBattingIndividualYear(
             BattingBowlingFieldingModel fieldingModel);
 
         Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualYear(

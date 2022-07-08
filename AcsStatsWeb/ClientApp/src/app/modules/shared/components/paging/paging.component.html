@@ -2,13 +2,18 @@
   <div>Page {{currentPage}} of {{totalPages}}</div>
   <div>Showing {{currentFirstItem}} to {{currentLastItem}} of {{totalItems}}</div>
   <!-- disable if on first row -->
-  <div class="clickable" (click)="clickFirst()">First</div>
-  <div class="clickable" (click)="clickPrevious()">Previous</div>
+  <div class="clickable button button-left" (click)="clickFirst()"><fa-icon [icon]="faAnglesLeft"></fa-icon> First</div>
+  <div class="clickable button button-left" (click)="clickPrevious()"><fa-icon [icon]="faAngleLeft"></fa-icon> Previous</div>
   <!-- disable if on last row -->
-  <div class="clickable" (click)="clickNext()">Next</div>
+  <!-- <span style="border: 1px solid silver; border-radius: 0.25em; padding: 0.5em;"><i class="fas fa-arrow-left fa-fw" title="Back"></i></span>
+   -->
+  <div class="clickable button button-right" (click)="clickNext()">Next <span><fa-icon [icon]="faAngleRight"></fa-icon></span> </div>
   <!-- disable if on last row -->
-  <div class="clickable" (click)="clickLast()">Last</div>
-  <div class="clickable"><span (click)="clickGoto()">Go to page: </span><input type="text"  id="gotoPageNumber"
+  <div class="clickable button button-right" (click)="clickLast()">Last <fa-icon [icon]="faAnglesRight"></fa-icon></div>
+  <div class="clickable button "><span (click)="clickGoto()">Go to page: </span><input type="text"  id="gotoPageNumber"
                                                                                name="gotoPageNumber"
                                                                                [(ngModel)]="gotoPageNumber" ></div>
 </div>
+
+
+

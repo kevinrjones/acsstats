@@ -71,7 +71,7 @@
   <tr *ngFor="let row of (battingInnByInn$ | async)?.sqlResults?.data">
     <td class="text-left" nowrap="nowrap">{{row.fullName}}</td>
     <td class="text-left" nowrap="nowrap">{{row.team}}</td>
-    <td class="text-right" nowrap="nowrap">{{getHighestScore(row)}}</td>
+    <td class="text-right" nowrap="nowrap" [innerHTML]="formatHighestScore(row)"></td>
     <td class="text-right" nowrap="nowrap">{{row.minutes == 0 ? "-" : row.minutes}}</td>
     <td class="text-right" nowrap="nowrap">{{row.balls == null ? "-" : row.balls}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fours == null ? "-" : row.fours}}</td>

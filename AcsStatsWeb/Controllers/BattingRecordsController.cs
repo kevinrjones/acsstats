@@ -15,19 +15,19 @@ public class BattingRecordsController : BaseApiController
 {
     private readonly
         Dictionary<string, Func<BattingBowlingFieldingModel,
-            Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>>>> _careerRecordDetailsServiceFuncs =
+            Task<Result<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>>>> _careerRecordDetailsServiceFuncs =
             new();
 
     private readonly
         Dictionary<string, Func<BattingBowlingFieldingModel,
-            Task<Result<IReadOnlyList<IndividualBattingDetailsDto>, Error>>>>
-        _individualBattingDetailsServiceFuncs =
+            Task<Result<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>>>> _careerRecordDetailsServiceFuncsEx =
             new();
+
 
     private readonly
         Dictionary<string, Func<BattingBowlingFieldingModel,
             Task<Result<SqlResultEnvelope<IReadOnlyList<IndividualBattingDetailsDto>>, Error>>>>
-        _individualBattingDetailsServiceFuncsEx =
+        _individualBattingDetailsServiceFuncs =
             new();
 
     private readonly ILogger<BattingRecordsController> _logger;
@@ -55,9 +55,9 @@ public class BattingRecordsController : BaseApiController
         _careerRecordDetailsServiceFuncs.Add("GetBattingIndividualSeason",
             playerService.GetBattingIndividualSeason);
 
-        _individualBattingDetailsServiceFuncsEx.Add("GetBattingIndividualInnings",
+        _individualBattingDetailsServiceFuncs.Add("GetBattingIndividualInnings",
             playerService.GetBattingIndividualInnings);
-        _individualBattingDetailsServiceFuncsEx.Add("GetBattingIndividualMatches",
+        _individualBattingDetailsServiceFuncs.Add("GetBattingIndividualMatches",
             playerService.GetBattingIndividualMatches);
     }
 
@@ -66,62 +66,62 @@ public class BattingRecordsController : BaseApiController
     public async Task<IActionResult> GetOverallResults(
         [FromRoute] ApiRecordInputModel recordInputModel)
     {
-        return await Handle(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingCareerRecords"]);
+        return await HandleEx(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingCareerRecords"]);
     }
 
     [HttpGet("inningsbyinnings/{matchType}/{teamId}/{opponentsId}")]
     public async Task<IActionResult> GetInningsByInnings(
         [FromRoute] ApiRecordInputModel recordInputModel)
     {
-        return await HandleEx(recordInputModel, _individualBattingDetailsServiceFuncsEx["GetBattingIndividualInnings"]);
+        return await HandleEx(recordInputModel, _individualBattingDetailsServiceFuncs["GetBattingIndividualInnings"]);
     }
 
     [HttpGet("match/{matchType}/{teamId}/{opponentsId}")]
     public async Task<IActionResult> GetMatchDetails(
         [FromRoute] ApiRecordInputModel recordInputModel)
     {
-        return await Handle(recordInputModel, _individualBattingDetailsServiceFuncs["GetBattingIndividualMatches"]);
+        return await HandleEx(recordInputModel, _individualBattingDetailsServiceFuncs["GetBattingIndividualMatches"]);
     }
 
     [HttpGet("series/{matchType}/{teamId}/{opponentsId}")]
     public async Task<IActionResult> GetSeriesRecords(
         [FromRoute] ApiRecordInputModel recordInputModel)
     {
-        return await Handle(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualSeries"]);
+        return await HandleEx(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualSeries"]);
     }
 
     [HttpGet("grounds/{matchType}/{teamId}/{opponentsId}")]
     public async Task<IActionResult> GetGroundRecords(
         [FromRoute] ApiRecordInputModel recordInputModel)
     {
-        return await Handle(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualGrounds"]);
+        return await HandleEx(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualGrounds"]);
     }
 
     [HttpGet("host/{matchType}/{teamId}/{opponentsId}")]
     public async Task<IActionResult> GetHostRecords(
         [FromRoute] ApiRecordInputModel recordInputModel)
     {
-        return await Handle(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualHost"]);
+        return await HandleEx(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualHost"]);
     }
 
     [HttpGet("opposition/{matchType}/{teamId}/{opponentsId}")]
     public async Task<IActionResult> GetOppositionRecords(
         [FromRoute] ApiRecordInputModel recordInputModel)
     {
-        return await Handle(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualOpponents"]);
+        return await HandleEx(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualOpponents"]);
     }
 
     [HttpGet("year/{matchType}/{teamId}/{opponentsId}")]
     public async Task<IActionResult> GetYearRecords(
         [FromRoute] ApiRecordInputModel recordInputModel)
     {
-        return await Handle(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualYear"]);
+        return await HandleEx(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualYear"]);
     }
 
     [HttpGet("season/{matchType}/{teamId}/{opponentsId}")]
     public async Task<IActionResult> GetSeasonRecords(
         [FromRoute] ApiRecordInputModel recordInputModel)
     {
-        return await Handle(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualSeason"]);
+        return await HandleEx(recordInputModel, _careerRecordDetailsServiceFuncs["GetBattingIndividualSeason"]);
     }
 }

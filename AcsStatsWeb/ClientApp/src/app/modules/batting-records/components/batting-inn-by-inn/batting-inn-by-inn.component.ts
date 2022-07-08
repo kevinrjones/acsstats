@@ -13,6 +13,7 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import {IndividualBattingDetailsDto} from "../../models/individual-batting-details.dto";
 import {SortOrder} from "../../../../models/sortorder.model";
+import {BattingHelperService} from "../../services/batting-helper.service";
 
 @Component({
   selector: 'app-batting-inn-by-inn',
@@ -37,7 +38,8 @@ export class BattingInnByInnComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private location: Location,
-              private battingStore: Store<BattingOverallState>) {
+              private battingStore: Store<BattingOverallState>,
+              private battingHelperService: BattingHelperService) {
   }
 
   ngOnDestroy() : void {
@@ -57,81 +59,45 @@ export class BattingInnByInnComponent implements OnInit, OnDestroy {
 
       this.findBattingParams = params as FindBatting
 
-      this.pageSize = parseInt(this.findBattingParams.pageSize)
-      this.pageNumber = parseInt((this.findBattingParams.startRow) + 1) / parseInt(this.findBattingParams.pageSize)
 
-      this.venue = this.setVenue(this.findBattingParams.homeVenue.toLowerCase() == "true",
+      this.venue = this.battingHelperService.setVenue(this.findBattingParams.homeVenue.toLowerCase() == "true",
         this.findBattingParams.awayVenue.toLowerCase() == "true",
         this.findBattingParams.neutralVenue.toLowerCase() == "true")
 
       this.battingStore.dispatch(LoadInnByInnBattingRecordsAction({payload: this.findBattingParams}))
-      this.battingStore.dispatch(LoadRecordSummariesAction({
-        payload: {
-          matchType: this.findBattingParams.matchType,
-          teamId: this.findBattingParams.teamId,
-          opponentsId: this.findBattingParams.opponentsId,
-          groundId: this.findBattingParams.groundId,
-          hostCountryId: this.findBattingParams.hostCountryId
-        }
-      }))
+
+      this.battingHelperService.loadSummaries(this.findBattingParams, this.battingStore)
+
+      let pageInfo = this.battingHelperService.getPageInformation(this.findBattingParams)
+
+      this.pageSize = pageInfo.pageSize
+      this.pageNumber = pageInfo.pageNumber
 
       this.batInnByInnSub$ = this.battingInnByInn$.subscribe(payload => {
         this.sortOrder = payload.sortOrder
         this.sortDirection = payload.sortDirection
         this.count = payload.sqlResults.count;
-
-        this.currentPage = (parseInt(this.findBattingParams.startRow)/parseInt(this.findBattingParams.pageSize)) + 1
-
+        this.currentPage = this.battingHelperService.getCurrentPage(this.findBattingParams)
       })
 
     });
 
   }
 
-  sort(sortOrder: SortOrder) {
-    let sortDirection = this.sortDirection
-    if (sortOrder == this.sortOrder) {
-      sortDirection = this.sortDirection == "ASC" ? "DESC" : "ASC"
-    }
-    let url = this.router.url
-      .replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
-      .replace(/sortDirection=\w+/, `sortDirection=${sortDirection}`)
-      .replace(/startRow=\w+/, "startRow=0")
-
-    this.router.navigateByUrl(url);
+  sort(newSortOrder: SortOrder) {
+    this.battingHelperService.sort(this.sortOrder, newSortOrder, this.sortDirection, this.router)
   }
 
-  setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {
-    if (!homeVenue && !awayVenue && !neutralVenue) return "All Venues";
-    if (homeVenue && awayVenue && neutralVenue) return "All Venues"
-    if (homeVenue && awayVenue) return "Home and Away"
-    if (homeVenue && neutralVenue) return "Home and Neutral"
-    if (awayVenue && neutralVenue) return "Away and Neutral"
-    if (homeVenue) return "Home Venues"
-    if (awayVenue) return "Away Venues"
-    if (neutralVenue) return "Neutral Venues"
-
-    return "Unknown"
+  formatHighestScore(row: IndividualBattingDetailsDto) {
+    return this.battingHelperService.formatHighestScore(row.notOut, row.playerScore)
   }
-
 
   getSortClass(sortOrder: SortOrder): IconProp {
-    if (sortOrder == this.sortOrder) {
-      return this.sortDirection == "DESC" ? faArrowDown : faArrowUp
-    }
-    return faArrowDown
+    return this.battingHelperService.getSortClass(sortOrder, this.sortDirection)
   }
 
-  getHighestScore(row: IndividualBattingDetailsDto) {
-    return row.notOut ? `${row.playerScore}*` : `${row.playerScore} `;
-  }
-  
   navigate(startRow: number) {
-
-    let url = this.router.url
-      .replace(/startRow=\d+/, `startRow=${startRow}`)
-
-    this.router.navigateByUrl(url);
+    this.battingHelperService.navigate(startRow, this.router)
   }
 
 }

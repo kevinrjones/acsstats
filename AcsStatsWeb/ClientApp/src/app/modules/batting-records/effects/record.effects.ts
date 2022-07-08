@@ -38,7 +38,7 @@ export class RecordEffects {
       ofType(LoadOverallBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingOverall(action.payload)
         .pipe(
-          map(players => LoadOverallBattingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
+          map(players => LoadOverallBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
           catchError(() => EMPTY)
         ))
     );
@@ -72,7 +72,7 @@ export class RecordEffects {
       ofType(LoadBySeriesBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingBySeries(action.payload)
         .pipe(
-          map(players => LoadBySeriesBattingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
+          map(players => LoadBySeriesBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
           catchError(() => EMPTY)
         ))
     );
@@ -83,7 +83,7 @@ export class RecordEffects {
       ofType(LoadByGroundBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByGround(action.payload)
         .pipe(
-          map(players => LoadByGroundBattingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
+          map(players => LoadByGroundBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
           catchError(() => EMPTY)
         ))
     );
@@ -94,7 +94,7 @@ export class RecordEffects {
       ofType(LoadByHostBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByHostCountry(action.payload)
         .pipe(
-          map(players => LoadByHostBattingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
+          map(players => LoadByHostBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
           catchError(() => EMPTY)
         ))
     );
@@ -105,7 +105,7 @@ export class RecordEffects {
       ofType(LoadByOppositionBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByOpposition(action.payload)
         .pipe(
-          map(players => LoadByOppositionBattingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
+          map(players => LoadByOppositionBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
           catchError(() => EMPTY)
         ))
     );
@@ -116,7 +116,7 @@ export class RecordEffects {
       ofType(LoadByYearBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByYear(action.payload)
         .pipe(
-          map(players => LoadByYearBattingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
+          map(players => LoadByYearBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
           catchError(() => EMPTY)
         ))
     );
@@ -127,7 +127,7 @@ export class RecordEffects {
       ofType(LoadBySeasonBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingBySeason(action.payload)
         .pipe(
-          map(players => LoadBySeasonBattingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
+          map(players => LoadBySeasonBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
           catchError(() => EMPTY)
         ))
     );

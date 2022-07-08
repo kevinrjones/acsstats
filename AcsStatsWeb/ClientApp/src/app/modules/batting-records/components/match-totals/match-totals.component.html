@@ -95,3 +95,5 @@
   </tr>
   </tbody>
 </table>
+
+<app-paging [pageSize]="pageSize"  [totalItems]="count" [currentPage]="currentPage" (first)="navigate(0)" (previous)="navigate($event)" (next)="navigate($event)" (last)="navigate($event)" (goto)="navigate($event)"></app-paging>

@@ -9,9 +9,13 @@ import {EffectsModule} from '@ngrx/effects';
 import {BattingOverallComponent} from './components/batting-overall/batting-overall.component';
 import {RecordEffects} from "./effects/record.effects";
 import {
-  loadByGroundBattingReducer, loadByHostBattingReducer,
-  loadByMatchBattingReducer, loadByOppositionBattingReducer, loadBySeasonBattingReducer,
-  loadBySeriesBattingReducer, loadByYearBattingReducer,
+  loadByGroundBattingReducer,
+  loadByHostBattingReducer,
+  loadByMatchBattingReducer,
+  loadByOppositionBattingReducer,
+  loadBySeasonBattingReducer,
+  loadBySeriesBattingReducer,
+  loadByYearBattingReducer,
   loadInnByInnBattingReducer,
   loadOverallBattingReducer
 } from "./reducers/record.reducer";
@@ -25,7 +29,6 @@ import {ByOppositionComponent} from './components/by-opposition/by-opposition.co
 import {ByYearOfMatchStartComponent} from './components/by-year-of-match-start/by-year-of-match-start.component';
 import {BySeasonComponent} from './components/by-season/by-season.component';
 import {SharedModule} from "../shared/shared.module";
-import {AppModule} from "../../app.module";
 
 
 const routes: Routes = [

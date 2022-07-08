@@ -5,6 +5,7 @@ import {RouterModule} from "@angular/router";
 import {PagingComponent} from "./components/paging/paging.component";
 import { SearchHeaderComponent } from './search-header/search-header.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    FontAwesomeModule
   ],
     exports: [RecordsHeaderComponent, PagingComponent, SearchHeaderComponent]
 })

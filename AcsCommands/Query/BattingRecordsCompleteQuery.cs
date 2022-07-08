@@ -14,7 +14,8 @@ using Services.Models;
 
 namespace AcsCommands.Query;
 
-public class BattingRecordsCompleteQuery : IRequest<Result<IReadOnlyList<BattingCareerRecordDto>, Error>>
+public class
+    BattingRecordsCompleteQuery : IRequest<Result<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>>
 {
     private BattingBowlingFieldingModel FieldingModel { get; }
     private string Sql { get; }
@@ -26,7 +27,8 @@ public class BattingRecordsCompleteQuery : IRequest<Result<IReadOnlyList<Batting
     }
 
     internal class BattingRecordsCompleteQueryHandler
-        : IRequestHandler<BattingRecordsCompleteQuery, Result<IReadOnlyList<BattingCareerRecordDto>, Error>>
+        : IRequestHandler<BattingRecordsCompleteQuery,
+            Result<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>>
     {
         private readonly QueriesConnectionString _queriesConnectionString;
         private readonly ILogger<BattingRecordsCompleteQueryHandler> _logger;
@@ -36,15 +38,16 @@ public class BattingRecordsCompleteQuery : IRequest<Result<IReadOnlyList<Batting
             ILogger<BattingRecordsCompleteQueryHandler> logger)
         {
             _queriesConnectionString = queriesConnectionString;
-            _logger = logger;  
+            _logger = logger;
         }
-        
-        public async Task<Result<IReadOnlyList<BattingCareerRecordDto>, Error>> Handle(BattingRecordsCompleteQuery request, CancellationToken cancellationToken)
+
+        public async Task<Result<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>> Handle(
+            BattingRecordsCompleteQuery request, CancellationToken cancellationToken)
         {
             try
             {
                 await using var connection = new MySqlConnection(_queriesConnectionString.Value);
-                var result = (IReadOnlyList<PlayerBattingCareerRecordDetails>) connection.Query<PlayerBattingCareerRecordDetails>(request.Sql, new
+                var grid = connection.QueryMultiple(request.Sql, new
                 {
                     match_type = request.FieldingModel.MatchType.Value,
                     ground_id = request.FieldingModel.GroundId.Value,
@@ -59,8 +62,14 @@ public class BattingRecordsCompleteQuery : IRequest<Result<IReadOnlyList<Batting
                     sort_direction = request.FieldingModel.SortDirectionAsString(),
                     start_row = request.FieldingModel.StartRow,
                     page_size = request.FieldingModel.EndRow
-                }, commandType:CommandType.StoredProcedure).ToList();
-                return Result.Success<IReadOnlyList<PlayerBattingCareerRecordDetails>, Error>(result).ToDto();
+                }, commandType: CommandType.StoredProcedure);
+
+                var result =
+                    (IReadOnlyList<PlayerBattingCareerRecordDetails>) grid.Read<PlayerBattingCareerRecordDetails>()
+                        .ToList();
+                var count = grid.Read<int>().First();
+
+                return Result.Success<IReadOnlyList<PlayerBattingCareerRecordDetails>, Error>(result).ToEnvelope(count);
             }
             catch (Exception e)
             {
@@ -68,10 +77,13 @@ public class BattingRecordsCompleteQuery : IRequest<Result<IReadOnlyList<Batting
                                        "{groundId}, {hostCountryId},{venueId}, {startDate}, {endDate}, {season}, {matchResult}, " +
                                        "{sortBy}, {sortDirection} ",
                     request.FieldingModel.MatchType.Value, request.FieldingModel.GroundId.Value,
-                    request.FieldingModel.HostCountryId.Value, request.FieldingModel.ToVenue(), request.FieldingModel.StartDateEpoch,
-                    request.FieldingModel.EndDateEpoch, request.FieldingModel.Season, request.FieldingModel.MatchResult.Value,
+                    request.FieldingModel.HostCountryId.Value, request.FieldingModel.ToVenue(),
+                    request.FieldingModel.StartDateEpoch,
+                    request.FieldingModel.EndDateEpoch, request.FieldingModel.Season,
+                    request.FieldingModel.MatchResult.Value,
                     (int) request.FieldingModel.SortOrder, request.FieldingModel.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<BattingCareerRecordDto>, Error>(Errors.GetUnexpectedError(e.Message));
+                return Result.Failure<SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>, Error>(
+                    Errors.GetUnexpectedError(e.Message));
             }
         }
     }

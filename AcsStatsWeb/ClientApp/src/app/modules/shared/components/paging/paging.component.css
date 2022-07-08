@@ -1,12 +1,30 @@
 div div input {
- max-width: 3rem;
- max-height: 1.5rem;
+  max-width: 3rem;
+  max-height: 1.5rem;
 }
+
 .page-container {
   display: grid;
-  grid-template-columns: 8rem 15rem repeat(4, 6rem) auto;
+  grid-template-columns: 8rem 15rem repeat(4, 6rem) 10rem auto;
+  column-gap: 2rem;
 }
 
 .clickable {
   cursor: pointer;
+}
+
+.button {
+  margin: 0 0.3rem 0 0.3rem;
+  border: 1px solid silver;
+  border-radius: 0.25em;
+}
+
+.button-right {
+  text-align: right !important;
+  padding-right:0.3em;
+}
+
+.button-left {
+  text-align: left !important;
+  padding-left:0.3em;
 }

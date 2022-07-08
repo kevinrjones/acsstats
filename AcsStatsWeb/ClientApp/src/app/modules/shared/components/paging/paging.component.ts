@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight, faCoffee, faW} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-paging',
@@ -22,6 +23,11 @@ export class PagingComponent implements OnInit, OnChanges {
   @Output() last: EventEmitter<number> = new EventEmitter();
   @Output() goto: EventEmitter<number> = new EventEmitter();
   gotoPageNumber: number;
+
+  faAngleRight = faAngleRight;
+  faAnglesRight = faAnglesRight;
+  faAngleLeft = faAngleLeft;
+  faAnglesLeft = faAnglesLeft;
 
   constructor() {
     this.gotoPageNumber = 1

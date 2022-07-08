@@ -68,11 +68,8 @@ public class BattingIndividualCareerRecordsQuery : IRequest<Result<SqlResultEnve
                 
                 var result = (IReadOnlyList<IndividualBattingDetails>)grid.Read<IndividualBattingDetails>().ToList();
                 var count = grid.Read<int>().First();
-
-                var data = new SqlResultEnvelope<IReadOnlyList<IndividualBattingDetails>>(count, result);
-
+                
                 return Result.Success<IReadOnlyList<IndividualBattingDetails>, Error>(result).ToEnvelope(count);
-                // return Result.Success<IReadOnlyList<IndividualBattingDetails>, Error>(result).ToDto();
             }
             catch (Exception e)
             {

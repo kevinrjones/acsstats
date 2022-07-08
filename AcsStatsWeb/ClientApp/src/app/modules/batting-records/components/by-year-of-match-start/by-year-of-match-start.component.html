@@ -95,13 +95,13 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let row of (battingByYear$ | async)?.data">
+  <tr *ngFor="let row of (battingByYear$ | async)?.sqlResults?.data">
     <td class="text-left" nowrap="nowrap">{{row.name}}</td>
     <td class="text-right" nowrap="nowrap">{{row.matches}}</td>
     <td class="text-right" nowrap="nowrap">{{row.innings == null ? "-" : row.innings}}</td>
     <td class="text-right" nowrap="nowrap">{{row.notOuts}}</td>
     <td class="text-right" nowrap="nowrap">{{row.runs}}</td>
-    <td class="text-right" nowrap="nowrap">{{formatHighestScore(row)}}</td>
+    <td class="text-right" nowrap="nowrap" [innerHTML]="formatHighestScore(row)"></td>
     <td class="text-right" nowrap="nowrap">{{row.avg == null ? "-" : row.avg.toFixed(2)}}</td>
     <td class="text-right" nowrap="nowrap">{{row.hundreds == 0 ? "-" : row.hundreds}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fifties == 0 ? "-" : row.fifties}}</td>
@@ -114,3 +114,5 @@
   </tr>
   </tbody>
 </table>
+
+<app-paging [pageSize]="pageSize"  [totalItems]="count" [currentPage]="currentPage" (first)="navigate(0)" (previous)="navigate($event)" (next)="navigate($event)" (last)="navigate($event)" (goto)="navigate($event)"></app-paging>
