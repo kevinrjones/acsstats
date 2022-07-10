@@ -28,13 +28,15 @@ import {recordSummaryReducer} from "./reducers/recordsummary.reducer";
 import {RecordSummaryEffects} from "./effects/recordsummary.effects";
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {BowlingRecordsModule} from "./modules/bowling-records/bowling-records.module";
+import {HeaderComponent} from "./components/header/header.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),

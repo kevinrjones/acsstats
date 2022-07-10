@@ -4,7 +4,7 @@
 }
 
 .header > div {
-  margin: 0.1rem;
+  margin: 0 0.1rem;
 }
 
 .header > div > a {
@@ -12,7 +12,8 @@
 }
 
 .active {
-  background-color: #1b6ec2;
+  --tw-bg-opacity: 1;
+  background-color: rgba(33, 97, 42, var(--tw-bg-opacity));
 }
 
 .inactive {
@@ -28,5 +29,9 @@
   width: 100%;
   height: 100%;
   text-align: left;
+}
+
+.headerItem > a {
+  font-size: 0.85rem;
 }
 

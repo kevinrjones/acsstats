@@ -1,22 +1,9 @@
 <header>
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow bg-brand-green-700">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">Acs Statistics</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
       <div
-        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+        class="navbar-collapse collapse d-sm-inline-flex justify-content-start"
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
@@ -25,25 +12,50 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            <a class="nav-link" [routerLink]="['/']">Home</a>
           </li>
           <li
             class="nav-item"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/records']">Records</a>
+            <a class="nav-link" [routerLink]="['/news']">News</a>
           </li>
-<!--          <li class="nav-item" [routerLinkActive]="['link-active']">-->
-<!--            <a class="nav-link text-dark" [routerLink]="['/counter']"-->
-<!--              >Counter</a-->
-<!--            >-->
-<!--          </li>-->
-<!--          <li class="nav-item" [routerLinkActive]="['link-active']">-->
-<!--            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"-->
-<!--              >Fetch data</a-->
-<!--            >-->
-<!--          </li>-->
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a class="nav-link" [routerLink]="['/about']">About</a>
+          </li>
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a class="nav-link" [routerLink]="['/records']">Records</a>
+          </li>
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a class="nav-link" [routerLink]="['/resources']">Resources</a>
+          </li>
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a class="nav-link" [routerLink]="['/shop']">Shop</a>
+          </li>
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a class="nav-link" [routerLink]="['/members']">Members</a>
+          </li>
         </ul>
       </div>
     </div>

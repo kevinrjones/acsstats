@@ -16,3 +16,12 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+nav > div > div > ul > li {
+  padding: 0 1.25rem;
+}
+
+nav > div > div > ul > li > a {
+  --tw-text-opacity: 1;
+  color: rgba(255,255,255,var(--tw-text-opacity));
+}
