@@ -77,7 +77,7 @@ export class BattingHelperService {
   }
 
   formatHighestScore(notOut: boolean, score: number) {
-    return notOut ? `${score}*` : `${score}&npsp;`;
+    return notOut ? `${score}*` : `${score}&nbsp;`;
   }
 
   formatHighestScoreForInnings(innings: number, notOut: boolean, score: number) {

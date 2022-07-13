@@ -1,19 +1,21 @@
 import {createReducer, on} from '@ngrx/store';
 import {BattingCareerRecordDto} from "../models/batting-overall.model";
 import {
-  LoadByGroundBattingRecordsSuccessAction,
-  LoadByHostBattingRecordsSuccessAction,
-  LoadByMatchBattingRecordsSuccessAction,
-  LoadByOppositionBattingRecordsSuccessAction,
+  LoadByGroundBattingRecordsAction,
+  LoadByGroundBattingRecordsSuccessAction, LoadByHostBattingRecordsAction,
+  LoadByHostBattingRecordsSuccessAction, LoadByMatchBattingRecordsAction,
+  LoadByMatchBattingRecordsSuccessAction, LoadByOppositionBattingRecordsAction,
+  LoadByOppositionBattingRecordsSuccessAction, LoadBySeasonBattingRecordsAction,
   LoadBySeasonBattingRecordsSuccessAction,
-  LoadBySeriesBattingRecordsSuccessAction,
-  LoadByYearBattingRecordsSuccessAction,
-  LoadInnByInnBattingRecordsSuccessAction,
+  LoadBySeriesBattingRecordsSuccessAction, LoadByYearBattingRecordsAction,
+  LoadByYearBattingRecordsSuccessAction, LoadInnByInnBattingRecordsAction,
+  LoadInnByInnBattingRecordsSuccessAction, LoadOverallBattingRecordsAction,
   LoadOverallBattingRecordsSuccessAction
 } from "../actions/records.actions";
 import {IndividualBattingDetailsDto} from "../models/individual-batting-details.dto";
 import {DateTime} from "luxon";
 import {SortOrder} from 'src/app/models/sortorder.model';
+import {LoadBySeriesBowlingRecordsAction} from "../../bowling-records/actions/records.actions";
 
 
 export const initialBattingOverallRecordState = {
@@ -29,6 +31,9 @@ export const loadOverallBattingReducer = createReducer(
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection
     }
+  }),
+  on(LoadOverallBattingRecordsAction, (state, records) => {
+    return initialBattingOverallRecordState
   })
 );
 
@@ -45,6 +50,9 @@ export const loadInnByInnBattingReducer = createReducer(
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection
     }
+  }),
+  on(LoadInnByInnBattingRecordsAction, (state, records) => {
+    return initialBattingInnByInnRecordState
   })
 )
 
@@ -56,6 +64,9 @@ export const loadByMatchBattingReducer = createReducer(
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection
     }
+  }),
+  on(LoadByMatchBattingRecordsAction, (state, records) => {
+    return initialBattingInnByInnRecordState
   })
 )
 
@@ -67,6 +78,9 @@ export const loadBySeriesBattingReducer = createReducer(
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection
     }
+  }),
+  on(LoadBySeriesBowlingRecordsAction, (state, records) => {
+    return initialBattingOverallRecordState
   })
 );
 
@@ -78,6 +92,9 @@ export const loadByGroundBattingReducer = createReducer(
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection
     }
+  }),
+  on(LoadByGroundBattingRecordsAction, (state, records) => {
+    return initialBattingOverallRecordState
   })
 );
 
@@ -90,6 +107,9 @@ export const loadByHostBattingReducer = createReducer(
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection
     }
+  }),
+  on(LoadByHostBattingRecordsAction, (state, records) => {
+    return initialBattingOverallRecordState
   })
 );
 
@@ -101,6 +121,9 @@ export const loadByOppositionBattingReducer = createReducer(
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection
     }
+  }),
+  on(LoadByOppositionBattingRecordsAction, (state, records) => {
+    return initialBattingOverallRecordState
   })
 );
 
@@ -112,6 +135,9 @@ export const loadByYearBattingReducer = createReducer(
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection
     }
+  }),
+  on(LoadByYearBattingRecordsAction, (state, records) => {
+    return initialBattingOverallRecordState
   })
 );
 
@@ -123,5 +149,8 @@ export const loadBySeasonBattingReducer = createReducer(
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection
     }
+  }),
+  on(LoadBySeasonBattingRecordsAction, (state, records) => {
+    return initialBattingOverallRecordState
   })
 );
