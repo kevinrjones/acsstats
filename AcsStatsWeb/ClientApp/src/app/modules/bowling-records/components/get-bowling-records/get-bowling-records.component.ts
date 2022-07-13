@@ -16,6 +16,7 @@ import {DateTime} from "luxon";
 import {FindBatting} from "../../../batting-records/models/find-batting-overall.model";
 import {FindBowling} from "../../models/find-bowling-overall.model";
 import {SortOrder} from "../../../../models/sortorder.model";
+import {AppSettingsService} from "../../../../services/app-settings.service";
 
 @Component({
   selector: 'app-get-bowling-records',
@@ -32,10 +33,18 @@ export class GetBowlingRecordsComponent implements OnInit {
 
   bowlingRecordsForm!: FormGroup;
   private matchDateSub!: Subscription;
+  private defaultMatchType: string;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router, private store: Store<AppState>) {
+  constructor(private route: ActivatedRoute,
+              private fb: FormBuilder,
+              private router: Router,
+              private store: Store<AppState>,
+              private settings: AppSettingsService) {
+
+    this.defaultMatchType = settings.getDefaultMatchType()
+
     this.bowlingRecordsForm = this.fb.group({
-      matchType: 'wt',
+      matchType: 'itt',
       limit: 1,
       teamId: 0,
       opponentsId: 0,
@@ -64,11 +73,11 @@ export class GetBowlingRecordsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(LoadTeamsAction({payload: "wt"}))
-    this.store.dispatch(LoadCountriesAction({payload: "wt"}))
-    this.store.dispatch(LoadGroundsAction({payload: "wt"}))
-    this.store.dispatch(LoadSeriesDatesAction({payload: "wt"}))
-    this.store.dispatch(LoadMatchDatesAction({payload: "wt"}))
+    this.store.dispatch(LoadTeamsAction({payload: this.defaultMatchType}))
+    this.store.dispatch(LoadCountriesAction({payload: this.defaultMatchType}))
+    this.store.dispatch(LoadGroundsAction({payload: this.defaultMatchType}))
+    this.store.dispatch(LoadSeriesDatesAction({payload: this.defaultMatchType}))
+    this.store.dispatch(LoadMatchDatesAction({payload: this.defaultMatchType}))
 
     const matchTypeControl = this.bowlingRecordsForm.get('matchType')
 

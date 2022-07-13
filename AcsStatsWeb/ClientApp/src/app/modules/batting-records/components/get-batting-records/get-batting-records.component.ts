@@ -14,6 +14,7 @@ import {LoadMatchDatesAction, LoadSeriesDatesAction} from "../../../../actions/d
 import {MatchDate} from "../../../../models/date.model";
 import {DateTime} from "luxon";
 import {FindBatting} from "../../models/find-batting-overall.model";
+import {AppSettingsService} from "../../../../services/app-settings.service";
 
 @Component({
   selector: 'app-get-batting-records',
@@ -30,10 +31,18 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
 
   battingRecordsForm!: FormGroup;
   private matchDateSub!: Subscription;
+  private defaultMatchType: string;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router, private store: Store<AppState>) {
+  constructor(private route: ActivatedRoute,
+              private fb: FormBuilder,
+              private router: Router,
+              private store: Store<AppState>,
+              private settings: AppSettingsService) {
+
+    this.defaultMatchType = settings.getDefaultMatchType()
+
     this.battingRecordsForm = this.fb.group({
-      matchType: 'wt',
+      matchType: this.defaultMatchType,
       pageSize: '50',
       limit: 100,
       teamId: 0,
@@ -63,11 +72,11 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(LoadTeamsAction({payload: "wt"}))
-    this.store.dispatch(LoadCountriesAction({payload: "wt"}))
-    this.store.dispatch(LoadGroundsAction({payload: "wt"}))
-    this.store.dispatch(LoadSeriesDatesAction({payload: "wt"}))
-    this.store.dispatch(LoadMatchDatesAction({payload: "wt"}))
+    this.store.dispatch(LoadTeamsAction({payload: this.defaultMatchType}))
+    this.store.dispatch(LoadCountriesAction({payload: this.defaultMatchType}))
+    this.store.dispatch(LoadGroundsAction({payload: this.defaultMatchType}))
+    this.store.dispatch(LoadSeriesDatesAction({payload: this.defaultMatchType}))
+    this.store.dispatch(LoadMatchDatesAction({payload: this.defaultMatchType}))
 
     const matchTypeControl = this.battingRecordsForm.get('matchType')
 

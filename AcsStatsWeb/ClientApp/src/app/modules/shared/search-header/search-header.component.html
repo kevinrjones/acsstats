@@ -1,11 +1,13 @@
 <div id="batting-record-select" [formGroup]="parentFormGroup">
   <select name="matchType" id="matchType" formControlName="matchType">
-    <option value="wt">Women's Tests</option>
-    <option value="wo">Women's ODI</option>
+    <option value="itt">International T20</option>
+    <option value="tt">T20</option>
     <option value="witt">Women's International T20</option>
-    <option value="wf">Women's FC</option>
-    <option value="wa">Women's List A</option>
     <option value="wtt">Women's T20</option>
+<!--    <option value="wt">Women's Tests</option>-->
+<!--    <option value="wo">Women's ODI</option>-->
+<!--    <option value="wf">Women's FC</option>-->
+<!--    <option value="wa">Women's List A</option>-->
   </select>
 </div>
 <div [formGroup]="parentFormGroup" id="pageSizeContainer">

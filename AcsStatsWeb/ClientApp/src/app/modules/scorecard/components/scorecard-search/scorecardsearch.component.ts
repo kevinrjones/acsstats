@@ -36,7 +36,7 @@ export class ScorecardSearchComponent {
       venue: '0',
       startDate: '',
       endDate: '',
-      matchType: 'wt',
+      matchType: 'itt',
       matchResult: '0',
     });
 
