@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {BattingOverallState} from "../../models/app-state";
-import {FindBatting} from "../../models/find-batting-overall.model";
+import {FindRecords} from "../../../../models/find-records.model";
 import {LoadByYearBattingRecordsAction} from "../../actions/records.actions";
 import {LoadRecordSummariesAction} from "../../../../actions/recordsummary.actions";
 import {BattingCareerRecordDto} from "../../models/batting-overall.model";
@@ -29,7 +29,7 @@ export class ByYearOfMatchStartComponent implements OnInit {
   venue!: string;
   pageSize!: number;
   pageNumber!: number;
-  findBattingParams!: FindBatting;
+  findBattingParams!: FindRecords;
   private batInnByInnSub$!: Subscription;
   count!: number;
   currentPage!: number;
@@ -53,7 +53,7 @@ export class ByYearOfMatchStartComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
 
-      this.findBattingParams = params as FindBatting
+      this.findBattingParams = params as FindRecords
 
       this.venue = this.battingHelperService.setVenue(this.findBattingParams.homeVenue.toLowerCase() == "true",
         this.findBattingParams.awayVenue.toLowerCase() == "true",

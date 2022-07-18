@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {FindBowling} from "../models/find-bowling-overall.model";
 import {Observable} from "rxjs";
 import {Envelope} from "../../../models/envelope";
 import {BowlingCareerRecordDto} from "../models/bowling-overall.model";
 import {IndividualBowlingDetailsDto} from "../models/individual-bowling-details.dto";
+import {FindRecords} from "../../../models/find-records.model";
 
 @Injectable({providedIn: 'root'})
 export class BowlingRecordService {
@@ -12,7 +12,7 @@ export class BowlingRecordService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getBowlingOverall(findBowling: FindBowling): Observable<Envelope<BowlingCareerRecordDto[]>> {
+  getBowlingOverall(findBowling: FindRecords): Observable<Envelope<BowlingCareerRecordDto[]>> {
 
     let matchResult = findBowling ? findBowling.matchWon | findBowling.matchWon | findBowling.matchWon | findBowling.matchWon : 0;
 
@@ -39,7 +39,7 @@ export class BowlingRecordService {
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/overall/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
   }
 
-  getBowlingInningsByInnings(findBowling: FindBowling): Observable<Envelope<IndividualBowlingDetailsDto[]>> {
+  getBowlingInningsByInnings(findBowling: FindRecords): Observable<Envelope<IndividualBowlingDetailsDto[]>> {
 
     let matchResult = findBowling ? findBowling.matchWon | findBowling.matchWon | findBowling.matchWon | findBowling.matchWon : 0;
 
@@ -66,7 +66,7 @@ export class BowlingRecordService {
     return this.httpClient.get<Envelope<IndividualBowlingDetailsDto[]>>(`/api/bowlingrecords/inningsbyinnings/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
   }
 
-  getBowlingByMatch(findBowling: FindBowling): Observable<Envelope<IndividualBowlingDetailsDto[]>> {
+  getBowlingByMatch(findBowling: FindRecords): Observable<Envelope<IndividualBowlingDetailsDto[]>> {
 
     let matchResult = findBowling ? findBowling.matchWon | findBowling.matchWon | findBowling.matchWon | findBowling.matchWon : 0;
 
@@ -93,7 +93,7 @@ export class BowlingRecordService {
     return this.httpClient.get<Envelope<IndividualBowlingDetailsDto[]>>(`/api/bowlingrecords/match/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
   }
 
-  getBowlingBySeries(findBowling: FindBowling): Observable<Envelope<BowlingCareerRecordDto[]>> {
+  getBowlingBySeries(findBowling: FindRecords): Observable<Envelope<BowlingCareerRecordDto[]>> {
 
     let matchResult = findBowling ? findBowling.matchWon | findBowling.matchWon | findBowling.matchWon | findBowling.matchWon : 0;
 
@@ -120,7 +120,7 @@ export class BowlingRecordService {
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/series/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
   }
 
-  getBowlingByGround(findBowling: FindBowling): Observable<Envelope<BowlingCareerRecordDto[]>> {
+  getBowlingByGround(findBowling: FindRecords): Observable<Envelope<BowlingCareerRecordDto[]>> {
 
     let matchResult = findBowling ? findBowling.matchWon | findBowling.matchWon | findBowling.matchWon | findBowling.matchWon : 0;
 
@@ -147,7 +147,7 @@ export class BowlingRecordService {
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/grounds/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
   }
 
-  getBowlingByHostCountry(findBowling: FindBowling): Observable<Envelope<BowlingCareerRecordDto[]>> {
+  getBowlingByHostCountry(findBowling: FindRecords): Observable<Envelope<BowlingCareerRecordDto[]>> {
 
     let matchResult = findBowling ? findBowling.matchWon | findBowling.matchWon | findBowling.matchWon | findBowling.matchWon : 0;
 
@@ -174,7 +174,7 @@ export class BowlingRecordService {
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/host/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
   }
 
-  getBowlingByOpposition(findBowling: FindBowling): Observable<Envelope<BowlingCareerRecordDto[]>> {
+  getBowlingByOpposition(findBowling: FindRecords): Observable<Envelope<BowlingCareerRecordDto[]>> {
 
     let matchResult = findBowling ? findBowling.matchWon | findBowling.matchWon | findBowling.matchWon | findBowling.matchWon : 0;
 
@@ -201,7 +201,7 @@ export class BowlingRecordService {
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/opposition/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
   }
 
-  getBowlingByYear(findBowling: FindBowling): Observable<Envelope<BowlingCareerRecordDto[]>> {
+  getBowlingByYear(findBowling: FindRecords): Observable<Envelope<BowlingCareerRecordDto[]>> {
 
     let matchResult = findBowling ? findBowling.matchWon | findBowling.matchWon | findBowling.matchWon | findBowling.matchWon : 0;
 
@@ -228,7 +228,7 @@ export class BowlingRecordService {
     return this.httpClient.get<Envelope<BowlingCareerRecordDto[]>>(`/api/bowlingrecords/year/${findBowling.matchType}/${findBowling.teamId}/${findBowling.opponentsId}`, options)
   }
 
-  getBowlingBySeason(findBowling: FindBowling): Observable<Envelope<BowlingCareerRecordDto[]>> {
+  getBowlingBySeason(findBowling: FindRecords): Observable<Envelope<BowlingCareerRecordDto[]>> {
 
     let matchResult = findBowling ? findBowling.matchWon | findBowling.matchWon | findBowling.matchWon | findBowling.matchWon : 0;
 

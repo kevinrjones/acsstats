@@ -31,6 +31,7 @@ import {BowlingRecordsModule} from "./modules/bowling-records/bowling-records.mo
 import {HeaderComponent} from "./components/header/header.component";
 import {MatchSubTypeEffects} from "./effects/match-sub-type.effects";
 import {matchSubTypeReducer} from "./reducers/match-sub-type.reducer";
+import {loadSearchFormStateReducer} from "./reducers/form-state.reducer";
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import {matchSubTypeReducer} from "./reducers/match-sub-type.reducer";
       seriesDates: seriesDatesReducer,
       matchDates: matchDatesReducer,
       matchSubTypes: matchSubTypeReducer,
-      playerRecordSummary: recordSummaryReducer
+      playerRecordSummary: recordSummaryReducer,
+      formState: loadSearchFormStateReducer
     }, {}),
     EffectsModule.forRoot([TeamEffects, CountryEffects, GroundEffects, DateEffects, RecordSummaryEffects, MatchSubTypeEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
