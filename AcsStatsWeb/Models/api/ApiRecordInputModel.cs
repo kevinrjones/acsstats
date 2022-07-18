@@ -16,6 +16,8 @@ namespace AcsStatsAngular.Models.api
 
         [FromRoute]
         public string MatchType{ get; set; }
+        [FromQuery]
+        public string MatchSubType{ get; set; }
 
         [FromQuery]
         public int GroundId{ get; set; }

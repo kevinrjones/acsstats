@@ -15,6 +15,8 @@ import {MatchDate} from "../../../../models/date.model";
 import {DateTime} from "luxon";
 import {FindBatting} from "../../models/find-batting-overall.model";
 import {AppSettingsService} from "../../../../services/app-settings.service";
+import {LoadMatchSubTypesAction} from "../../../../actions/match-sub-types.actions";
+import {MatchSubTypeModel} from "../../../../models/match-sub-type.model";
 
 @Component({
   selector: 'app-get-batting-records',
@@ -28,10 +30,14 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
   grounds$!: Observable<Array<Ground>>;
   seriesDates$!: Observable<Array<string>>;
   matchDates$!: Observable<Array<MatchDate>>;
+  matchSubTypes$!: Observable<MatchSubTypeModel[]>;
 
   battingRecordsForm!: FormGroup;
   private matchDateSub!: Subscription;
   private defaultMatchType: string;
+  private matchSubTypesSub!: Subscription;
+  private matchTypeControlSub?: Subscription;
+  private matchSubTypeControlSub?: Subscription;
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
@@ -43,6 +49,7 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
 
     this.battingRecordsForm = this.fb.group({
       matchType: this.defaultMatchType,
+      matchSubType: '',
       pageSize: '50',
       limit: 100,
       teamId: 0,
@@ -67,26 +74,26 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
     this.grounds$ = this.store.select(s => s.grounds)
     this.seriesDates$ = this.store.select(s => s.seriesDates)
     this.matchDates$ = this.store.select(s => s.matchDates)
-
-
+    this.matchSubTypes$ = this.store.select(s => s.matchSubTypes)
   }
 
   ngOnInit(): void {
-    this.store.dispatch(LoadTeamsAction({payload: this.defaultMatchType}))
-    this.store.dispatch(LoadCountriesAction({payload: this.defaultMatchType}))
-    this.store.dispatch(LoadGroundsAction({payload: this.defaultMatchType}))
-    this.store.dispatch(LoadSeriesDatesAction({payload: this.defaultMatchType}))
-    this.store.dispatch(LoadMatchDatesAction({payload: this.defaultMatchType}))
+    this.dispatchInitializationActions(this.defaultMatchType);
+    this.store.dispatch(LoadMatchSubTypesAction({payload: this.defaultMatchType}))
 
     const matchTypeControl = this.battingRecordsForm.get('matchType')
+    const matchSubTypeControl = this.battingRecordsForm.get('matchSubType')
 
-    matchTypeControl?.valueChanges.subscribe(
+    this.matchTypeControlSub = matchTypeControl?.valueChanges.subscribe(
       value => {
-        this.store.dispatch(LoadTeamsAction({payload: value}))
-        this.store.dispatch(LoadCountriesAction({payload: value}))
-        this.store.dispatch(LoadGroundsAction({payload: value}))
-        this.store.dispatch(LoadSeriesDatesAction({payload: value}))
-        this.store.dispatch(LoadMatchDatesAction({payload: value}))
+        this.dispatchInitializationActions(value);
+        this.store.dispatch(LoadMatchSubTypesAction({payload: value}))
+      }
+    )
+
+    this.matchSubTypeControlSub = matchSubTypeControl?.valueChanges.subscribe(
+      value => {
+        this.dispatchInitializationActions(value);
       }
     )
 
@@ -94,10 +101,25 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
       this.battingRecordsForm.patchValue({'startDate': s[0]?.date, 'endDate': s[1]?.date})
     });
 
+    this.matchSubTypesSub = this.matchSubTypes$.subscribe((s: Array<MatchSubTypeModel>) => {
+      this.battingRecordsForm.patchValue({'matchSubType': s[0]?.key})
+    });
+
+  }
+
+  private dispatchInitializationActions(matchStype: string) {
+    this.store.dispatch(LoadTeamsAction({payload: matchStype}))
+    this.store.dispatch(LoadCountriesAction({payload: matchStype}))
+    this.store.dispatch(LoadGroundsAction({payload: matchStype}))
+    this.store.dispatch(LoadSeriesDatesAction({payload: matchStype}))
+    this.store.dispatch(LoadMatchDatesAction({payload: matchStype}))
   }
 
   ngOnDestroy() {
     this.matchDateSub.unsubscribe()
+    this.matchSubTypesSub.unsubscribe()
+    this.matchTypeControlSub?.unsubscribe();
+    this.matchSubTypeControlSub?.unsubscribe();
   }
 
   public find() {
@@ -144,6 +166,7 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
 
     let queryParams: FindBatting = {
       matchType: this.battingRecordsForm.get('matchType')?.value
+      , matchSubType: this.battingRecordsForm.get('matchSubType')?.value
       , teamId: this.battingRecordsForm.get('teamId')?.value
       , opponentsId: this.battingRecordsForm.get('opponentsId')?.value
       , groundId: this.battingRecordsForm.get('groundId')?.value
@@ -164,8 +187,6 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
       , startRow: '0'
       , pageSize: this.battingRecordsForm.get('pageSize')?.value
     }
-
-    // this.store.dispatch(LoadBattingRecordsAction({payload: queryParams}))
 
     this.router.navigate([route], {queryParams})
 

@@ -49,6 +49,7 @@ public class FieldingIndividualSeriesQuery : IRequest<Result<IReadOnlyList<Field
                         team_id = request.FieldingModel.TeamId.Value,
                         opponents_id = request.FieldingModel.OpponentsId.Value,
                         match_type = request.FieldingModel.MatchType.Value,
+                        match_subtype = request.FieldingModel.MatchSubType.Value,
                         ground_id = request.FieldingModel.GroundId.Value,
                         homecountry_id = request.FieldingModel.HostCountryId.Value,
                         homeOrAway = request.FieldingModel.ToVenue(),

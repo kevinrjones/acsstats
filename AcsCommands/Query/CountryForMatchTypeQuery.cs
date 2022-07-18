@@ -34,9 +34,17 @@ public class CountryForMatchTypeQuery : IRequest<Result<IReadOnlyList<CountryDto
 
         public async Task<Result<IReadOnlyList<CountryDto>, Error>> Handle(CountryForMatchTypeQuery request, CancellationToken cancellationToken)
         {
+            /*
+             * SELECT DISTINCT CountryId AS Id, CountryName AS Name, @matchtype AS MatchType
+                    FROM Grounds
+                    join groundsmatchtypes on grounds.Id = GroundsMatchTypes.GroundId
+                    WHERE groundsmatchtypes.MatchType = @matchtype;
+
+             */
             string sql =
                 @"SELECT DISTINCT CountryId AS Id, CountryName AS Name, @MatchType AS MatchType
                     FROM Grounds 
+                    join groundsmatchtypes on grounds.Id = GroundsMatchTypes.GroundId
                     WHERE MatchType = @MatchType";
             try
             {

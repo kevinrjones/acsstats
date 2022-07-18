@@ -47,6 +47,7 @@ public class MatchScoresCompleteQuery : IRequest<Result<IReadOnlyList<MatchRecor
                 var result = (IReadOnlyList<MatchRecordDetails>) connection.Query<MatchRecordDetails>(request.Sql, new
                 {
                     match_type = request.Model.MatchType.Value,
+                    match_subtype = request.Model.MatchSubType.Value,
                     ground_id = request.Model.GroundId.Value,
                     homecountry_id = request.Model.HostCountryId.Value,
                     homeOrAway = request.Model.ToVenue(),

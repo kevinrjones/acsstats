@@ -50,6 +50,7 @@ public class BaseApiController : ControllerBase
    return new T
     {
       MatchType = (MatchType)recordInputModel.MatchType,
+      MatchSubType = (MatchType)recordInputModel.MatchSubType,
       TeamId = (TeamId)recordInputModel.TeamId,
       OpponentsId = (TeamId)recordInputModel.OpponentsId,
       GroundId = (GroundId)recordInputModel.GroundId,

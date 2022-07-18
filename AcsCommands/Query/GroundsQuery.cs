@@ -38,8 +38,9 @@ public class GroundsQuery : IRequest<Result<IReadOnlyList<GroundWithCodeDto>, Er
             string sql =
                 @"SELECT `g`.`Id`, @MatchType AS `MatchType`, `c`.`Code`, `c`.`Country` AS `CountryName`, `g`.`GroundId`, `g`.`KnownAs`
                     FROM `Grounds` AS `g`
+                    join groundsmatchtypes AS `gmt` on `g`.Id = `gmt`.GroundId
                     INNER JOIN `CountryCodes` AS `c` ON `g`.`CountryName` = `c`.`Country`
-                    WHERE `g`.`MatchType` = @MatchType
+                    WHERE `gmt`.`MatchType` = @MatchType
                     ORDER BY `g`.`CountryName`, `g`.`KnownAs`";
             try
             {

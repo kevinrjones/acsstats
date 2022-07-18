@@ -1,5 +1,6 @@
 export interface FindBatting {
   matchType: string;
+  matchSubType: string;
   teamId: number;
   opponentsId: number;
   groundId: number;

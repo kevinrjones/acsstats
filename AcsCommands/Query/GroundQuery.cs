@@ -35,7 +35,7 @@ public class GroundQuery : IRequest<Result<GroundDto, Error>>
             CancellationToken cancellationToken)
         {
             string sql =
-                @"SELECT Id, GroundId, KnownAs, CountryId, CountryName, MatchType from grounds where id=@id";
+                @"SELECT Id, GroundId, KnownAs, CountryId, CountryName from grounds where id=@id";
             try
             {
                 await using var connection = new MySqlConnection(_queriesConnectionString.Value);

@@ -8,4 +8,5 @@ export class AppSettingsService {
   getDefaultMatchType() {
     return this.defaultMatchType;
   }
+
 }

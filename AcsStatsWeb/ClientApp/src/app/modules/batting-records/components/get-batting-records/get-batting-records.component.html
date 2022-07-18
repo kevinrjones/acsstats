@@ -1,7 +1,7 @@
 <app-records-header name="batting"></app-records-header>
 <form (ngSubmit)="find()" [formGroup]="battingRecordsForm">
   <div class="batting-record">
-    <app-search-header class="selectrow app-search" [parentFormGroup]="battingRecordsForm"></app-search-header>
+    <app-search-header class="selectrow app-search" [parentFormGroup]="battingRecordsForm" [matchSubTypes$]="matchSubTypes$"></app-search-header>
     <div class="selectrow" id="batting-record-limit">Runs limit here as well</div>
     <div class="teamrow" id="batting-record-team-label">
       Team
@@ -178,4 +178,3 @@
     </div>
   </div>
 </form>
-

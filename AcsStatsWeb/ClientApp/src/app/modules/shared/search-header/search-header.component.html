@@ -1,4 +1,4 @@
-<div id="batting-record-select" [formGroup]="parentFormGroup">
+<div id="matchtype-select" [formGroup]="parentFormGroup">
   <select name="matchType" id="matchType" formControlName="matchType">
     <option value="itt">International T20</option>
     <option value="tt">T20</option>
@@ -10,6 +10,11 @@
 <!--    <option value="wa">Women's List A</option>-->
   </select>
 </div>
+<div id="match-subtype-select" [formGroup]="parentFormGroup">
+  <select name="matchSubType" id="matchSubType" formControlName="matchSubType">
+    <option *ngFor="let matchSubType of (matchSubTypes$ | async)" [value]="matchSubType.key">{{matchSubType.name}}</option>
+  </select>
+</div>
 <div [formGroup]="parentFormGroup" id="pageSizeContainer">
   Page Size:
   <select name="pageSize" id="pageSize" formControlName="pageSize">
@@ -18,3 +23,4 @@
     <option value="200">200</option>
   </select>
 </div>
+

@@ -7,6 +7,7 @@ namespace AcsDto.Models
     public class SharedModel
     {
         public MatchType? MatchType { get;  init; }
+        public MatchType? MatchSubType { get;  init; }
         public TeamId? TeamId { get;  init; }
         public TeamId? OpponentsId { get;  init; }
         public GroundId? GroundId { get;  init; }

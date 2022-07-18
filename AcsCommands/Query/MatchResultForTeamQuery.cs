@@ -47,6 +47,7 @@ public class MatchResultForTeamQuery : IRequest<Result<IReadOnlyList<MatchResult
                 {
                     team_id = request.Model.TeamId.Value,
                     match_type = request.Model.MatchType.Value,
+                    match_subtype = request.Model.MatchSubType.Value,
                     ground_id = request.Model.GroundId.Value,
                     homecountry_id = request.Model.HostCountryId.Value,
                     homeOrAway = request.Model.ToVenue(),

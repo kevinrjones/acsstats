@@ -16,6 +16,5 @@ public record GroundDto(
     int GroundId,
     string KnownAs,
     int CountryId,
-    string CountryName,
-    string MatchType
+    string CountryName
 );

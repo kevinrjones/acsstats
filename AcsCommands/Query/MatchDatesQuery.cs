@@ -33,19 +33,20 @@ public class MatchDatesQuery : IRequest<Result<IReadOnlyList<MatchDateDto>, Erro
             _logger = logger;
         }
 
-        public async Task<Result<IReadOnlyList<MatchDateDto>, Error>> Handle(MatchDatesQuery request, CancellationToken cancellationToken)
+        public async Task<Result<IReadOnlyList<MatchDateDto>, Error>> Handle(MatchDatesQuery request,
+            CancellationToken cancellationToken)
         {
             string getFirstDateSql =
                 @"SELECT Id, MatchStartDate as Date, MatchStartDateAsOffset as DateOffset, MatchType, SeriesDate
                     FROM Matches 
-                    WHERE MatchType = @MatchType
+                    WHERE Id in (select matchid from MatchSubType where MatchType = @matchtype)
                     ORDER BY MatchStartDateAsOffset
                 LIMIT 1";
 
             string getLastDateSql =
                 @"SELECT Id, MatchStartDate as Date, MatchStartDateAsOffset as DateOffset, MatchType, SeriesDate
                     FROM Matches 
-                    WHERE MatchType = @MatchType
+                    WHERE Id in (select matchid from MatchSubType where MatchType = @matchtype)
                     ORDER BY MatchStartDateAsOffset DESC
                 LIMIT 1";
 
@@ -56,7 +57,7 @@ public class MatchDatesQuery : IRequest<Result<IReadOnlyList<MatchDateDto>, Erro
                 {
                     MatchType = request.MatchType.Value
                 }).First();
-                
+
                 var lastDate = connection.Query<MatchDate>(getLastDateSql, new
                 {
                     MatchType = request.MatchType.Value
@@ -67,15 +68,14 @@ public class MatchDatesQuery : IRequest<Result<IReadOnlyList<MatchDateDto>, Erro
                     new MatchDateDto(firstDate.Date, firstDate.DateOffset, firstDate.MatchType),
                     new MatchDateDto(lastDate.Date, lastDate.DateOffset, lastDate.MatchType),
                 };
-                
+
                 return Result.Success<IReadOnlyList<MatchDateDto>, Error>(result);
             }
             catch (Exception e)
             {
-                _logger.LogCritical(e, "Unable to process this request: {MatchType}", request.MatchType);
+                _logger.LogCritical(e, "Unable to process this request: {MatchType}", request.MatchType.Value);
                 return Result.Failure<IReadOnlyList<MatchDateDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
-
         }
     }
 }

@@ -50,6 +50,7 @@ public class
                 var grid = connection.QueryMultiple(request.Sql, new
                 {
                     match_type = request.FieldingModel.MatchType.Value,
+                    match_subtype = request.FieldingModel.MatchSubType.Value,
                     ground_id = request.FieldingModel.GroundId.Value,
                     homecountry_id = request.FieldingModel.HostCountryId.Value,
                     homeOrAway = request.FieldingModel.ToVenue(),

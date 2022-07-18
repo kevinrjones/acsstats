@@ -44,7 +44,8 @@ export class GetBowlingRecordsComponent implements OnInit {
     this.defaultMatchType = settings.getDefaultMatchType()
 
     this.bowlingRecordsForm = this.fb.group({
-      matchType: 'itt',
+      matchType: this.defaultMatchType,
+      matchSubType: '',
       limit: 1,
       teamId: 0,
       opponentsId: 0,

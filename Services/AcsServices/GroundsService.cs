@@ -31,7 +31,7 @@ namespace Services.AcsServices
         {
             if (id == 0)
             {
-                return new GroundDto(0, 0, "All Grounds", 0, "", "");
+                return new GroundDto(0, 0, "All Grounds", 0, "");
             }
             return await _mediator.Send(new GroundQuery(id));
         }

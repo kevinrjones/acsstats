@@ -2,6 +2,7 @@ import {Team} from './team.model'
 import {Country} from './country.model'
 import { Ground } from './ground.model'
 import {MatchDate} from "./date.model";
+import {MatchSubTypeModel} from "./match-sub-type.model";
 
 export interface AppState {
   teams: Team[],
@@ -9,4 +10,5 @@ export interface AppState {
   grounds: Ground[],
   seriesDates: string[],
   matchDates: MatchDate[],
+  matchSubTypes: MatchSubTypeModel[],
 }

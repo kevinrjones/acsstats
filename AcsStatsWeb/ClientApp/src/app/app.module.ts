@@ -29,6 +29,8 @@ import {RecordSummaryEffects} from "./effects/recordsummary.effects";
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {BowlingRecordsModule} from "./modules/bowling-records/bowling-records.module";
 import {HeaderComponent} from "./components/header/header.component";
+import {MatchSubTypeEffects} from "./effects/match-sub-type.effects";
+import {matchSubTypeReducer} from "./reducers/match-sub-type.reducer";
 
 @NgModule({
   declarations: [
@@ -52,9 +54,10 @@ import {HeaderComponent} from "./components/header/header.component";
       grounds: groundsReducer,
       seriesDates: seriesDatesReducer,
       matchDates: matchDatesReducer,
+      matchSubTypes: matchSubTypeReducer,
       playerRecordSummary: recordSummaryReducer
     }, {}),
-    EffectsModule.forRoot([TeamEffects, CountryEffects, GroundEffects, DateEffects, RecordSummaryEffects]),
+    EffectsModule.forRoot([TeamEffects, CountryEffects, GroundEffects, DateEffects, RecordSummaryEffects, MatchSubTypeEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     FontAwesomeModule,
     PlayerModule,

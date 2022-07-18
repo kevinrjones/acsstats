@@ -48,6 +48,7 @@ public class BowlingRecordsCompleteQuery : IRequest<Result<IReadOnlyList<Bowling
                     .Query<PlayerBowlingCareerRecordDetails>(request.Sql, new
                     {
                         match_type = request.FieldingModel.MatchType.Value,
+                        match_subtype = request.FieldingModel.MatchSubType.Value,
                         ground_id = request.FieldingModel.GroundId.Value,
                         homecountry_id = request.FieldingModel.HostCountryId.Value,
                         homeOrAway = request.FieldingModel.ToVenue(),

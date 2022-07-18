@@ -476,7 +476,7 @@ section.searchResultHeader span {
   display: grid;
   /*grid-template-columns: repeat(12, 1fr);*/
 
-  grid: auto-flow min-content/repeat(4, 1fr);
+  grid: auto-flow min-content/repeat(3, 1fr);
   gap: 1rem;
   row-gap: 1.5rem;
 }

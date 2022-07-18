@@ -38,7 +38,7 @@ public class MatchSeriesDatesQuery : IRequest<Result<IReadOnlyList<string>, Erro
             string sql =
                 @"SELECT DISTINCT SeriesDate 
                     FROM Matches 
-                    WHERE MatchType = @MatchType";
+                    WHERE Id in (select matchid from MatchSubType where MatchType = @matchtype)";
             
             try
             {
