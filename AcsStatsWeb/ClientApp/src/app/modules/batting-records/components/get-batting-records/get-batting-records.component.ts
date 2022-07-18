@@ -13,10 +13,11 @@ import {Ground} from 'src/app/models/ground.model';
 import {LoadMatchDatesAction, LoadSeriesDatesAction} from "../../../../actions/dates.actions";
 import {MatchDate} from "../../../../models/date.model";
 import {DateTime} from "luxon";
-import {FindBatting} from "../../models/find-batting-overall.model";
 import {AppSettingsService} from "../../../../services/app-settings.service";
 import {LoadMatchSubTypesAction} from "../../../../actions/match-sub-types.actions";
 import {MatchSubTypeModel} from "../../../../models/match-sub-type.model";
+import {FindRecords} from "../../../../models/find-records.model";
+import {SaveRecordsFormAction} from "../../../../actions/form-state.actions";
 
 @Component({
   selector: 'app-get-batting-records',
@@ -38,6 +39,7 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
   private matchSubTypesSub!: Subscription;
   private matchTypeControlSub?: Subscription;
   private matchSubTypeControlSub?: Subscription;
+  private formState$: Observable<FindRecords>;
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
@@ -46,6 +48,8 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
               private settings: AppSettingsService) {
 
     this.defaultMatchType = settings.getDefaultMatchType()
+
+    // this.reset()
 
     this.battingRecordsForm = this.fb.group({
       matchType: this.defaultMatchType,
@@ -75,6 +79,7 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
     this.seriesDates$ = this.store.select(s => s.seriesDates)
     this.matchDates$ = this.store.select(s => s.matchDates)
     this.matchSubTypes$ = this.store.select(s => s.matchSubTypes)
+    this.formState$ = this.store.select(s => s.formState)
   }
 
   ngOnInit(): void {
@@ -103,6 +108,12 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
 
     this.matchSubTypesSub = this.matchSubTypes$.subscribe((s: Array<MatchSubTypeModel>) => {
       this.battingRecordsForm.patchValue({'matchSubType': s[0]?.key})
+    });
+
+    this.formState$.subscribe((fs: FindRecords) => {
+      if (fs.matchType != "") {
+        this.battingRecordsForm.patchValue(fs)
+      }
     });
 
   }
@@ -164,7 +175,7 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
     let sortDirection = this.battingRecordsForm.get('sortDirection') ? this.battingRecordsForm.get('sortDirection')?.value : "DESC";
 
 
-    let queryParams: FindBatting = {
+    let queryParams: FindRecords = {
       matchType: this.battingRecordsForm.get('matchType')?.value
       , matchSubType: this.battingRecordsForm.get('matchSubType')?.value
       , teamId: this.battingRecordsForm.get('teamId')?.value
@@ -188,8 +199,43 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
       , pageSize: this.battingRecordsForm.get('pageSize')?.value
     }
 
+    this.store.dispatch(SaveRecordsFormAction({
+      payload:
+        this.battingRecordsForm.getRawValue()
+    }))
+
     this.router.navigate([route], {queryParams})
 
+  }
+
+  public reset() {
+    this.store.dispatch(SaveRecordsFormAction({
+      payload: {
+        matchType: this.defaultMatchType,
+        matchSubType: '',
+        teamId: 0,
+        opponentsId: 0,
+        groundId: 0,
+        hostCountryId: 0,
+        homeVenue: '',
+        awayVenue: '',
+        neutralVenue: '',
+        startDate: '',
+        endDate: '',
+        season: '0',
+        matchWon: 0,
+        matchLost: 0,
+        matchDrawn: 0,
+        matchTied: 0,
+        limit: 100,
+        startRow: '0',
+        pageSize: '50',
+        format: 1
+      }
+    }))
+    this.dispatchInitializationActions(this.defaultMatchType);
+    this.store.dispatch(LoadMatchSubTypesAction({payload: ""}))
+    this.store.dispatch(LoadMatchSubTypesAction({payload: this.defaultMatchType}))
   }
 
 }

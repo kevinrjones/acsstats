@@ -6,13 +6,13 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {BowlingOverallState} from "../../models/app-state";
-import {FindBowling} from "../../models/find-bowling-overall.model";
 import {LoadByMatchBowlingRecordsAction} from "../../actions/records.actions";
 import {LoadRecordSummariesAction} from "../../../../actions/recordsummary.actions";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import {IndividualBowlingDetailsDto} from "../../models/individual-bowling-details.dto";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {SortOrder} from "../../../../models/sortorder.model";
+import {FindRecords} from "../../../../models/find-records.model";
 
 @Component({
   selector: 'app-match-totals',
@@ -44,7 +44,7 @@ export class MatchTotalsComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
 
-      let fbo = params as FindBowling
+      let fbo = params as FindRecords
 
       this.venue = this.setVenue(fbo.homeVenue.toLowerCase() == "true",
         fbo.awayVenue.toLowerCase() == "true",

@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from '@angular/common';
 import {Store} from "@ngrx/store";
 import {BattingOverallState} from "../../models/app-state";
-import {FindBatting} from "../../models/find-batting-overall.model";
 import {LoadOverallBattingRecordsAction} from "../../actions/records.actions";
 import {Observable, Subscription} from "rxjs";
 import {BattingOverallUiModel} from "../../models/batting-overall-ui.model";
@@ -14,6 +13,7 @@ import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {BattingCareerRecordDto} from "../../models/batting-overall.model";
 import {SortOrder} from "../../../../models/sortorder.model";
 import {BattingHelperService} from "../../services/batting-helper.service";
+import {FindRecords} from "../../../../models/find-records.model";
 
 @Component({
   selector: 'app-batting-overall',
@@ -30,7 +30,7 @@ export class BattingOverallComponent implements OnInit {
 
   pageSize!: number;
   pageNumber!: number;
-  findBattingParams!: FindBatting;
+  findBattingParams!: FindRecords;
   private batInnByInnSub$!: Subscription;
   count!: number;
   currentPage!: number;
@@ -55,7 +55,7 @@ export class BattingOverallComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
 
-      this.findBattingParams = params as FindBatting
+      this.findBattingParams = params as FindRecords
 
 
       this.venue = this.battingHelperService.setVenue(this.findBattingParams.homeVenue.toLowerCase() == "true",

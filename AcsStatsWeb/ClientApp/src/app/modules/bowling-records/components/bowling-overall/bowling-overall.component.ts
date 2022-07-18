@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from '@angular/common';
 import {Store} from "@ngrx/store";
 import {BowlingOverallState} from "../../models/app-state";
-import {FindBowling} from "../../models/find-bowling-overall.model";
 import {LoadOverallBowlingRecordsAction} from "../../actions/records.actions";
 import {Observable} from "rxjs";
 import {BowlingOverallUiModel} from "../../models/bowling-overall-ui.model";
@@ -12,6 +11,7 @@ import {RecordsSummaryModel} from "../../../../models/records-summary.model";
 import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {SortOrder} from "../../../../models/sortorder.model";
+import {FindRecords} from "../../../../models/find-records.model";
 
 @Component({
   selector: 'app-bowling-overall',
@@ -44,7 +44,7 @@ export class BowlingOverallComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
 
-      let fbo = params as FindBowling
+      let fbo = params as FindRecords
 
       this.venue = this.setVenue(fbo.homeVenue.toLowerCase() == "true",
         fbo.awayVenue.toLowerCase() == "true",

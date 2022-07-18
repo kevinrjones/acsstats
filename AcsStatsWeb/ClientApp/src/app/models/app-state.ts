@@ -3,6 +3,7 @@ import {Country} from './country.model'
 import { Ground } from './ground.model'
 import {MatchDate} from "./date.model";
 import {MatchSubTypeModel} from "./match-sub-type.model";
+import {FindRecords} from "./find-records.model";
 
 export interface AppState {
   teams: Team[],
@@ -11,4 +12,5 @@ export interface AppState {
   seriesDates: string[],
   matchDates: MatchDate[],
   matchSubTypes: MatchSubTypeModel[],
+  formState: FindRecords
 }

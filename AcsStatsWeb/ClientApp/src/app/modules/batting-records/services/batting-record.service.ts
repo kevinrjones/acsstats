@@ -3,9 +3,9 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Envelope} from 'src/app/models/envelope';
 import {BattingCareerRecordDto} from "../models/batting-overall.model";
-import {FindBatting} from "../models/find-batting-overall.model";
 import {IndividualBattingDetailsDto} from "../models/individual-batting-details.dto";
 import {SqlResultsEnvelope} from "../../../models/sqlresultsenvelope.model";
+import {FindRecords} from "../../../models/find-records.model";
 
 @Injectable({providedIn: 'root'})
 export class BattingRecordService {
@@ -13,7 +13,7 @@ export class BattingRecordService {
   constructor(private httpClient: HttpClient) {
   }
 
-  private setBattingParams(findBatting: FindBatting, matchResult: number) {
+  private setBattingParams(findBatting: FindRecords, matchResult: number) {
     return findBatting ?
       {
 
@@ -37,7 +37,7 @@ export class BattingRecordService {
 
   }
 
-  getBattingOverall(findBatting: FindBatting): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
+  getBattingOverall(findBatting: FindRecords): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
 
     let matchResult = findBatting ? findBatting.matchWon | findBatting.matchWon | findBatting.matchWon | findBatting.matchWon : 0;
 
@@ -47,7 +47,7 @@ export class BattingRecordService {
   }
 
 
-  getBattingInningsByInnings(findBatting: FindBatting): Observable<Envelope<SqlResultsEnvelope<IndividualBattingDetailsDto[]>>> {
+  getBattingInningsByInnings(findBatting: FindRecords): Observable<Envelope<SqlResultsEnvelope<IndividualBattingDetailsDto[]>>> {
 
     let matchResult = findBatting ? findBatting.matchWon | findBatting.matchWon | findBatting.matchWon | findBatting.matchWon : 0;
 
@@ -56,7 +56,7 @@ export class BattingRecordService {
     return this.httpClient.get<Envelope<SqlResultsEnvelope<IndividualBattingDetailsDto[]>>>(`/api/battingrecords/inningsbyinnings/${findBatting.matchType}/${findBatting.teamId}/${findBatting.opponentsId}`, options)
   }
 
-  getBattingByMatch(findBatting: FindBatting): Observable<Envelope<SqlResultsEnvelope<IndividualBattingDetailsDto[]>>> {
+  getBattingByMatch(findBatting: FindRecords): Observable<Envelope<SqlResultsEnvelope<IndividualBattingDetailsDto[]>>> {
 
     let matchResult = findBatting ? findBatting.matchWon | findBatting.matchWon | findBatting.matchWon | findBatting.matchWon : 0;
 
@@ -65,7 +65,7 @@ export class BattingRecordService {
     return this.httpClient.get<Envelope<SqlResultsEnvelope<IndividualBattingDetailsDto[]>>>(`/api/battingrecords/match/${findBatting.matchType}/${findBatting.teamId}/${findBatting.opponentsId}`, options)
   }
 
-  getBattingBySeries(findBatting: FindBatting): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
+  getBattingBySeries(findBatting: FindRecords): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
 
     let matchResult = findBatting ? findBatting.matchWon | findBatting.matchWon | findBatting.matchWon | findBatting.matchWon : 0;
 
@@ -74,7 +74,7 @@ export class BattingRecordService {
     return this.httpClient.get<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>>(`/api/battingrecords/series/${findBatting.matchType}/${findBatting.teamId}/${findBatting.opponentsId}`, options)
   }
 
-  getBattingByGround(findBatting: FindBatting): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
+  getBattingByGround(findBatting: FindRecords): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
 
     let matchResult = findBatting ? findBatting.matchWon | findBatting.matchWon | findBatting.matchWon | findBatting.matchWon : 0;
 
@@ -83,7 +83,7 @@ export class BattingRecordService {
     return this.httpClient.get<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>>(`/api/battingrecords/grounds/${findBatting.matchType}/${findBatting.teamId}/${findBatting.opponentsId}`, options)
   }
 
-  getBattingByHostCountry(findBatting: FindBatting): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
+  getBattingByHostCountry(findBatting: FindRecords): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
 
     let matchResult = findBatting ? findBatting.matchWon | findBatting.matchWon | findBatting.matchWon | findBatting.matchWon : 0;
 
@@ -92,7 +92,7 @@ export class BattingRecordService {
     return this.httpClient.get<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>>(`/api/battingrecords/host/${findBatting.matchType}/${findBatting.teamId}/${findBatting.opponentsId}`, options)
   }
 
-  getBattingByOpposition(findBatting: FindBatting): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
+  getBattingByOpposition(findBatting: FindRecords): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
 
     let matchResult = findBatting ? findBatting.matchWon | findBatting.matchWon | findBatting.matchWon | findBatting.matchWon : 0;
 
@@ -101,7 +101,7 @@ export class BattingRecordService {
     return this.httpClient.get<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>>(`/api/battingrecords/opposition/${findBatting.matchType}/${findBatting.teamId}/${findBatting.opponentsId}`, options)
   }
 
-  getBattingByYear(findBatting: FindBatting): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
+  getBattingByYear(findBatting: FindRecords): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
 
     let matchResult = findBatting ? findBatting.matchWon | findBatting.matchWon | findBatting.matchWon | findBatting.matchWon : 0;
 
@@ -110,7 +110,7 @@ export class BattingRecordService {
     return this.httpClient.get<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>>(`/api/battingrecords/year/${findBatting.matchType}/${findBatting.teamId}/${findBatting.opponentsId}`, options)
   }
 
-  getBattingBySeason(findBatting: FindBatting): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
+  getBattingBySeason(findBatting: FindRecords): Observable<Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>> {
 
     let matchResult = findBatting ? findBatting.matchWon | findBatting.matchWon | findBatting.matchWon | findBatting.matchWon : 0;
 

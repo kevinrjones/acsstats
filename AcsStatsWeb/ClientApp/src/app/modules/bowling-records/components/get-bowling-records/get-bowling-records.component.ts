@@ -13,10 +13,9 @@ import {LoadCountriesAction} from "../../../../actions/countries.actions";
 import {LoadGroundsAction} from "../../../../actions/grounds.actions";
 import {LoadMatchDatesAction, LoadSeriesDatesAction} from "../../../../actions/dates.actions";
 import {DateTime} from "luxon";
-import {FindBatting} from "../../../batting-records/models/find-batting-overall.model";
-import {FindBowling} from "../../models/find-bowling-overall.model";
 import {SortOrder} from "../../../../models/sortorder.model";
 import {AppSettingsService} from "../../../../services/app-settings.service";
+import {FindRecords} from "../../../../models/find-records.model";
 
 @Component({
   selector: 'app-get-bowling-records',
@@ -144,8 +143,9 @@ export class GetBowlingRecordsComponent implements OnInit {
     let sortDirection = this.bowlingRecordsForm.get('sortDirection') ? this.bowlingRecordsForm.get('sortDirection')?.value : "DESC";
 
 
-    let queryParams: FindBowling = {
+    let queryParams: FindRecords = {
       matchType: this.bowlingRecordsForm.get('matchType')?.value
+      , matchSubType: this.bowlingRecordsForm.get('matchType')?.value
       , teamId: this.bowlingRecordsForm.get('teamId')?.value
       , opponentsId: this.bowlingRecordsForm.get('opponentsId')?.value
       , groundId: this.bowlingRecordsForm.get('groundId')?.value
@@ -163,8 +163,8 @@ export class GetBowlingRecordsComponent implements OnInit {
       , matchDrawn: this.bowlingRecordsForm.get('matchDrawn')?.value
       , matchTied: this.bowlingRecordsForm.get('matchTied')?.value
       , limit: this.bowlingRecordsForm.get('limit')?.value
-      , startRow: 0
-      , pageSize: 10000
+      , startRow: '0'
+      , pageSize: '10000'
     }
 
     // this.store.dispatch(LoadBattingRecordsAction({payload: queryParams}))

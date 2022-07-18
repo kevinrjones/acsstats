@@ -46,26 +46,26 @@ const routes: Routes = [
 
 
 @NgModule({
-    imports: [
-        SharedModule,
-        CommonModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        RouterModule.forChild(routes),
-        StoreModule.forFeature('battingrecords', {
-            overall: loadOverallBattingReducer,
-            inningsByInnings: loadInnByInnBattingReducer,
-            byMatch: loadByMatchBattingReducer,
-            bySeries: loadBySeriesBattingReducer,
-            byGround: loadByGroundBattingReducer,
-            byHost: loadByHostBattingReducer,
-            byOpposition: loadByOppositionBattingReducer,
-            byYear: loadByYearBattingReducer,
-            bySeason: loadBySeasonBattingReducer,
-        }),
-        EffectsModule.forFeature([RecordEffects]),
-        FontAwesomeModule,
-    ],
+  imports: [
+    SharedModule,
+    CommonModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    StoreModule.forFeature('battingrecords', {
+      overall: loadOverallBattingReducer,
+      inningsByInnings: loadInnByInnBattingReducer,
+      byMatch: loadByMatchBattingReducer,
+      bySeries: loadBySeriesBattingReducer,
+      byGround: loadByGroundBattingReducer,
+      byHost: loadByHostBattingReducer,
+      byOpposition: loadByOppositionBattingReducer,
+      byYear: loadByYearBattingReducer,
+      bySeason: loadBySeasonBattingReducer
+    } ),
+    EffectsModule.forFeature([RecordEffects]),
+    FontAwesomeModule,
+  ],
   exports: [RouterModule, GetBattingRecordsComponent],
   declarations: [
     GetBattingRecordsComponent,

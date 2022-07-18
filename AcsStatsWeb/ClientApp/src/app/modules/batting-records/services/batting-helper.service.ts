@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {FindBatting} from "../models/find-batting-overall.model";
 import {Router} from "@angular/router";
 import {SortOrder} from "../../../models/sortorder.model";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
@@ -7,10 +6,11 @@ import {Store} from "@ngrx/store";
 import {BattingOverallState} from "../models/app-state";
 import {LoadRecordSummariesAction} from "../../../actions/recordsummary.actions";
 import {BattingCareerRecordDto} from "../models/batting-overall.model";
+import {FindRecords} from "../../../models/find-records.model";
 
 @Injectable({providedIn: 'root'})
 export class BattingHelperService {
-  getPageInformation(findBattingParams: FindBatting) {
+  getPageInformation(findBattingParams: FindRecords) {
     let pageSize = parseInt(findBattingParams.pageSize)
     let pageNumber = parseInt((findBattingParams.startRow) + 1) / parseInt(findBattingParams.pageSize)
 
@@ -20,7 +20,7 @@ export class BattingHelperService {
     }
   }
 
-  getCurrentPage(findBattingParams: FindBatting) {
+  getCurrentPage(findBattingParams: FindRecords) {
     return (parseInt(findBattingParams.startRow) / parseInt(findBattingParams.pageSize)) + 1
   }
 
@@ -38,7 +38,7 @@ export class BattingHelperService {
     return faArrowDown
   }
 
-  loadSummaries(findBattingParams: FindBatting, battingStore: Store<BattingOverallState>) {
+  loadSummaries(findBattingParams: FindRecords, battingStore: Store<BattingOverallState>) {
     battingStore.dispatch(LoadRecordSummariesAction({
       payload: {
         matchType: findBattingParams.matchType,
