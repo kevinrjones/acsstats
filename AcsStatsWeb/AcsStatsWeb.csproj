@@ -74,7 +74,6 @@
       <Folder Include="ClientApp\src\app\directives" />
       <Folder Include="ClientApp\src\app\features\search" />
       <Folder Include="ClientApp\src\app\guards" />
-      <Folder Include="ClientApp\src\app\helpers" />
       <Folder Include="ClientApp\src\app\interceptors" />
       <Folder Include="ClientApp\src\app\modules\batting-records\components" />
       <Folder Include="ClientApp\src\app\pipes" />

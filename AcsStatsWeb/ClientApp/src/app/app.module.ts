@@ -32,6 +32,9 @@ import {HeaderComponent} from "./components/header/header.component";
 import {MatchSubTypeEffects} from "./effects/match-sub-type.effects";
 import {matchSubTypeReducer} from "./reducers/match-sub-type.reducer";
 import {loadSearchFormStateReducer} from "./reducers/form-state.reducer";
+import {setErrorState} from "./reducers/error-state.reducer";
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -45,6 +48,8 @@ import {loadSearchFormStateReducer} from "./reducers/form-state.reducer";
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: '**', component: PageNotFoundComponent, pathMatch: 'full'},
@@ -57,7 +62,8 @@ import {loadSearchFormStateReducer} from "./reducers/form-state.reducer";
       matchDates: matchDatesReducer,
       matchSubTypes: matchSubTypeReducer,
       playerRecordSummary: recordSummaryReducer,
-      formState: loadSearchFormStateReducer
+      formState: loadSearchFormStateReducer,
+      errorState: setErrorState,
     }, {}),
     EffectsModule.forRoot([TeamEffects, CountryEffects, GroundEffects, DateEffects, RecordSummaryEffects, MatchSubTypeEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),

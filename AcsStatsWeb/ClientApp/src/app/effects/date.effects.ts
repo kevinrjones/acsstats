@@ -1,16 +1,18 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {catchError, map, mergeMap} from "rxjs/operators";
-import {EMPTY} from "rxjs";
+import {EMPTY, of} from "rxjs";
 import {
   LoadSeriesDatesAction,
   LoadSeriesDatesSuccessAction,
   LoadMatchDatesAction,
-  LoadMatchDatesSuccessAction, LoadMatchDatesFailureAction
+  LoadMatchDatesSuccessAction, LoadMatchDatesFailureAction, LoadSeriesDatesFailureAction
 } from "../actions/dates.actions";
 import {DatesService} from "../services/dates.service";
 import {Envelope} from "../models/envelope";
 import {MatchDate} from "../models/date.model";
+import {LoadCountriesFailureAction} from "../actions/countries.actions";
+import {createError} from "../helpers/ErrorHelper";
 
 @Injectable()
 export class DateEffects {
@@ -27,7 +29,7 @@ export class DateEffects {
       mergeMap(action => this.datesService.getSeriesDatesForMatchType(action.payload)
         .pipe(
           map(seriesDates => LoadSeriesDatesSuccessAction({payload: seriesDates.result})),
-          catchError(() => EMPTY)
+          catchError(() => of(LoadSeriesDatesFailureAction({payload: createError(1)})))
         ))
     );
   });
@@ -48,7 +50,7 @@ export class DateEffects {
               return LoadMatchDatesSuccessAction({payload: dates})
             }
           ),
-          catchError(() => EMPTY)
+          catchError(() => of(LoadMatchDatesFailureAction({payload: createError(1)})))
         ))
     );
   });

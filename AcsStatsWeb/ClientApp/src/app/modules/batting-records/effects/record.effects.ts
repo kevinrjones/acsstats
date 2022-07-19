@@ -1,28 +1,31 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, mergeMap} from 'rxjs/operators';
-import {EMPTY} from 'rxjs';
+import {EMPTY, of} from 'rxjs';
 import {
-  LoadByGroundBattingRecordsAction,
+  LoadByGroundBattingRecordsAction, LoadByGroundBattingRecordsFailureAction,
   LoadByGroundBattingRecordsSuccessAction,
-  LoadByHostBattingRecordsAction,
+  LoadByHostBattingRecordsAction, LoadByHostBattingRecordsFailureAction,
   LoadByHostBattingRecordsSuccessAction,
-  LoadByMatchBattingRecordsAction,
+  LoadByMatchBattingRecordsAction, LoadByMatchBattingRecordsFailureAction,
   LoadByMatchBattingRecordsSuccessAction,
-  LoadByOppositionBattingRecordsAction,
+  LoadByOppositionBattingRecordsAction, LoadByOppositionBattingRecordsFailureAction,
   LoadByOppositionBattingRecordsSuccessAction,
-  LoadBySeasonBattingRecordsAction,
+  LoadBySeasonBattingRecordsAction, LoadBySeasonBattingRecordsFailureAction,
   LoadBySeasonBattingRecordsSuccessAction,
-  LoadBySeriesBattingRecordsAction,
+  LoadBySeriesBattingRecordsAction, LoadBySeriesBattingRecordsFailureAction,
   LoadBySeriesBattingRecordsSuccessAction,
-  LoadByYearBattingRecordsAction,
+  LoadByYearBattingRecordsAction, LoadByYearBattingRecordsFailureAction,
   LoadByYearBattingRecordsSuccessAction,
-  LoadInnByInnBattingRecordsAction,
+  LoadInnByInnBattingRecordsAction, LoadInnByInnBattingRecordsFailureAction,
   LoadInnByInnBattingRecordsSuccessAction,
   LoadOverallBattingRecordsAction,
   LoadOverallBattingRecordsSuccessAction
 } from "../actions/records.actions";
 import {BattingRecordService} from "../services/batting-record.service";
+import {LoadCountriesFailureAction} from "../../../actions/countries.actions";
+import {createError} from "../../../helpers/ErrorHelper";
+import {SetErrorState} from "../../../actions/error.actions";
 
 @Injectable()
 export class RecordEffects {
@@ -38,8 +41,16 @@ export class RecordEffects {
       ofType(LoadOverallBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingOverall(action.payload)
         .pipe(
-          map(players => LoadOverallBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => EMPTY)
+          map(players => LoadOverallBattingRecordsSuccessAction({
+            payload: {
+              sqlResults: players.result,
+              sortOrder: action.payload.sortOrder,
+              sortDirection: action.payload.sortDirection
+            }
+          })),
+          catchError((err) => {
+            return of(SetErrorState({payload: createError(1)}))
+          })
         ))
     );
   });
@@ -50,8 +61,14 @@ export class RecordEffects {
       ofType(LoadInnByInnBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingInningsByInnings(action.payload)
         .pipe(
-          map(players => LoadInnByInnBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => EMPTY)
+          map(players => LoadInnByInnBattingRecordsSuccessAction({
+            payload: {
+              sqlResults: players.result,
+              sortOrder: action.payload.sortOrder,
+              sortDirection: action.payload.sortDirection
+            }
+          })),
+          catchError(() => of(LoadInnByInnBattingRecordsFailureAction({payload: createError(1)})))
         ))
     );
   });
@@ -61,8 +78,14 @@ export class RecordEffects {
       ofType(LoadByMatchBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByMatch(action.payload)
         .pipe(
-          map(players => LoadByMatchBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => EMPTY)
+          map(players => LoadByMatchBattingRecordsSuccessAction({
+            payload: {
+              sqlResults: players.result,
+              sortOrder: action.payload.sortOrder,
+              sortDirection: action.payload.sortDirection
+            }
+          })),
+          catchError(() => of(LoadByMatchBattingRecordsFailureAction({payload: createError(1)})))
         ))
     );
   });
@@ -72,8 +95,14 @@ export class RecordEffects {
       ofType(LoadBySeriesBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingBySeries(action.payload)
         .pipe(
-          map(players => LoadBySeriesBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => EMPTY)
+          map(players => LoadBySeriesBattingRecordsSuccessAction({
+            payload: {
+              sqlResults: players.result,
+              sortOrder: action.payload.sortOrder,
+              sortDirection: action.payload.sortDirection
+            }
+          })),
+          catchError(() => of(LoadBySeriesBattingRecordsFailureAction({payload: createError(1)})))
         ))
     );
   });
@@ -83,8 +112,14 @@ export class RecordEffects {
       ofType(LoadByGroundBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByGround(action.payload)
         .pipe(
-          map(players => LoadByGroundBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => EMPTY)
+          map(players => LoadByGroundBattingRecordsSuccessAction({
+            payload: {
+              sqlResults: players.result,
+              sortOrder: action.payload.sortOrder,
+              sortDirection: action.payload.sortDirection
+            }
+          })),
+          catchError(() => of(LoadByGroundBattingRecordsFailureAction({payload: createError(1)})))
         ))
     );
   });
@@ -94,8 +129,14 @@ export class RecordEffects {
       ofType(LoadByHostBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByHostCountry(action.payload)
         .pipe(
-          map(players => LoadByHostBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => EMPTY)
+          map(players => LoadByHostBattingRecordsSuccessAction({
+            payload: {
+              sqlResults: players.result,
+              sortOrder: action.payload.sortOrder,
+              sortDirection: action.payload.sortDirection
+            }
+          })),
+          catchError(() => of(LoadByHostBattingRecordsFailureAction({payload: createError(1)})))
         ))
     );
   });
@@ -105,8 +146,14 @@ export class RecordEffects {
       ofType(LoadByOppositionBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByOpposition(action.payload)
         .pipe(
-          map(players => LoadByOppositionBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => EMPTY)
+          map(players => LoadByOppositionBattingRecordsSuccessAction({
+            payload: {
+              sqlResults: players.result,
+              sortOrder: action.payload.sortOrder,
+              sortDirection: action.payload.sortDirection
+            }
+          })),
+          catchError(() => of(LoadByOppositionBattingRecordsFailureAction({payload: createError(1)})))
         ))
     );
   });
@@ -116,8 +163,14 @@ export class RecordEffects {
       ofType(LoadByYearBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByYear(action.payload)
         .pipe(
-          map(players => LoadByYearBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => EMPTY)
+          map(players => LoadByYearBattingRecordsSuccessAction({
+            payload: {
+              sqlResults: players.result,
+              sortOrder: action.payload.sortOrder,
+              sortDirection: action.payload.sortDirection
+            }
+          })),
+          catchError(() => of(LoadByYearBattingRecordsFailureAction({payload: createError(1)})))
         ))
     );
   });
@@ -127,8 +180,14 @@ export class RecordEffects {
       ofType(LoadBySeasonBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingBySeason(action.payload)
         .pipe(
-          map(players => LoadBySeasonBattingRecordsSuccessAction({payload: {sqlResults: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => EMPTY)
+          map(players => LoadBySeasonBattingRecordsSuccessAction({
+            payload: {
+              sqlResults: players.result,
+              sortOrder: action.payload.sortOrder,
+              sortDirection: action.payload.sortDirection
+            }
+          })),
+          catchError(() => of(LoadBySeasonBattingRecordsFailureAction({payload: createError(1)})))
         ))
     );
   });

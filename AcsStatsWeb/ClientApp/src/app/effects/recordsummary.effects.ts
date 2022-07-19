@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {catchError, map, mergeMap} from "rxjs/operators";
-import {EMPTY} from "rxjs";
+import {EMPTY, of} from "rxjs";
 import {
   LoadSeriesDatesAction,
   LoadSeriesDatesSuccessAction,
@@ -12,7 +12,13 @@ import {DatesService} from "../services/dates.service";
 import {Envelope} from "../models/envelope";
 import {MatchDate} from "../models/date.model";
 import {RecordHelperService} from "../services/record-helper.service";
-import {LoadRecordSummariesAction, LoadRecordSummariesSuccessAction} from "../actions/recordsummary.actions";
+import {
+  LoadRecordSummariesAction,
+  LoadRecordSummariesFailureAction,
+  LoadRecordSummariesSuccessAction
+} from "../actions/recordsummary.actions";
+import {LoadCountriesFailureAction} from "../actions/countries.actions";
+import {createError} from "../helpers/ErrorHelper";
 
 @Injectable()
 export class RecordSummaryEffects {
@@ -35,7 +41,7 @@ export class RecordSummaryEffects {
           action.payload.hostCountryId)
           .pipe(
             map(result => LoadRecordSummariesSuccessAction({payload: result.result})),
-            catchError(() => EMPTY)
+            catchError(() => of(LoadRecordSummariesFailureAction({payload: createError(1)})))
           ))
     );
   });
