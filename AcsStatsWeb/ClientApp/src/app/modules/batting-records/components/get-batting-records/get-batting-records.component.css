@@ -175,3 +175,7 @@
 #buttons-reset {
   grid-column-end: span 3;
 }
+
+#batting-record-limit > label {
+  padding-right: 0.5rem;
+}

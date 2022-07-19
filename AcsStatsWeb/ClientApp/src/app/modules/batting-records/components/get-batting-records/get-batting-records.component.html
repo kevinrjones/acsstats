@@ -2,7 +2,12 @@
 <form (ngSubmit)="find()" [formGroup]="battingRecordsForm">
   <div class="batting-record">
     <app-search-header class="selectrow app-search" [parentFormGroup]="battingRecordsForm" [matchSubTypes$]="matchSubTypes$"></app-search-header>
-    <div class="selectrow" id="batting-record-limit">Runs limit here as well</div>
+    <div class="selectrow" id="batting-record-limit">
+      <label for="limit">Limit</label>
+      <input type="text"
+             id="limit"
+             formControlName="limit">
+    </div>
     <div class="teamrow" id="batting-record-team-label">
       Team
     </div>

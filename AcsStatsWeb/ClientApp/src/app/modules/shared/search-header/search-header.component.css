@@ -2,3 +2,7 @@
   grid-column-start: 3;
   grid-column-end: 5;
 }
+
+#pageSizeContainer > label {
+  padding-right: 0.5rem;
+}

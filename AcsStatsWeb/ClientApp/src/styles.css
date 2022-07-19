@@ -492,3 +492,6 @@ section.searchResultHeader span {
   background-color: rgba(25, 73, 32, var(--tw-bg-opacity));
 }
 
+select {
+  padding: 0.1rem;
+}
