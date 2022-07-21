@@ -1,25 +1,21 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, mergeMap} from 'rxjs/operators';
-import {EMPTY, of} from 'rxjs';
+import {of} from 'rxjs';
 import {
   LoadByDecadeAction,
-  LoadByDecadeFailureAction,
   LoadByDecadeSuccessAction,
   LoadByYearAction,
-  LoadByYearFailureAction,
   LoadByYearSuccessAction,
   LoadScorecardAction,
-  LoadScorecardFailureAction,
   LoadScorecardListAction,
-  LoadScorecardListFailureAction,
   LoadScorecardListSuccessAction,
   LoadScorecardSuccessAction,
   LoadScorecardTournamentListAction
 } from '../actions/scorecard.actions';
 import {ScorecardSearchService} from '../services/scorecard-search.service';
-import {LoadOverallBowlingRecordsFailureAction} from "../../bowling-records/actions/records.actions";
 import {createError} from "../../../helpers/ErrorHelper";
+import {RaiseErrorAction} from "../../../actions/error.actions";
 
 @Injectable()
 export class ScorecardEffects {
@@ -36,7 +32,7 @@ export class ScorecardEffects {
       mergeMap(action => this.scorecardSearchService.findMatches(action.payload)
         .pipe(
           map(players => LoadScorecardListSuccessAction({payload: players.result})),
-          catchError(() => of(LoadScorecardListFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -47,7 +43,7 @@ export class ScorecardEffects {
       mergeMap(action => this.scorecardSearchService.findTournament(action.payload)
         .pipe(
           map(players => LoadScorecardListSuccessAction({payload: players.result})),
-          catchError(() => of(LoadScorecardFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -58,7 +54,7 @@ export class ScorecardEffects {
       mergeMap(action => this.scorecardSearchService.findCard(action.payload)
         .pipe(
           map(players => LoadScorecardSuccessAction({payload: players.result})),
-          catchError(() => of(LoadScorecardFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -69,7 +65,7 @@ export class ScorecardEffects {
       mergeMap(action => this.scorecardSearchService.findByDecade(action.payload)
         .pipe(
           map(decades => LoadByDecadeSuccessAction({payload: decades.result})),
-          catchError(() => of(LoadByDecadeFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -80,7 +76,7 @@ export class ScorecardEffects {
       mergeMap(action => this.scorecardSearchService.findByYear(action.payload.year, action.payload.type)
         .pipe(
           map(decades => LoadByYearSuccessAction({payload: decades.result})),
-          catchError(() => of(LoadByYearFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });

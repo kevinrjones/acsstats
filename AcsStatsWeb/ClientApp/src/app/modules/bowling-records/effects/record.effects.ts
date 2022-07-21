@@ -3,31 +3,30 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {EMPTY, of} from 'rxjs';
 import {
-  LoadByGroundBowlingRecordsAction, LoadByGroundBowlingRecordsFailureAction,
+  LoadByGroundBowlingRecordsAction,
   LoadByGroundBowlingRecordsSuccessAction,
-  LoadByHostBowlingRecordsAction, LoadByHostBowlingRecordsFailureAction,
+  LoadByHostBowlingRecordsAction,
   LoadByHostBowlingRecordsSuccessAction,
-  LoadByMatchBowlingRecordsAction, LoadByMatchBowlingRecordsFailureAction,
+  LoadByMatchBowlingRecordsAction,
   LoadByMatchBowlingRecordsSuccessAction,
-  LoadByOppositionBowlingRecordsAction, LoadByOppositionBowlingRecordsFailureAction,
+  LoadByOppositionBowlingRecordsAction,
   LoadByOppositionBowlingRecordsSuccessAction,
-  LoadBySeasonBowlingRecordsAction, LoadBySeasonBowlingRecordsFailureAction,
+  LoadBySeasonBowlingRecordsAction,
   LoadBySeasonBowlingRecordsSuccessAction,
-  LoadBySeriesBowlingRecordsAction, LoadBySeriesBowlingRecordsFailureAction,
+  LoadBySeriesBowlingRecordsAction,
   LoadBySeriesBowlingRecordsSuccessAction,
-  LoadByYearBowlingRecordsAction, LoadByYearBowlingRecordsFailureAction,
+  LoadByYearBowlingRecordsAction,
   LoadByYearBowlingRecordsSuccessAction,
-  LoadInnByInnBowlingRecordsAction, LoadInnByInnBowlingRecordsFailureAction,
+  LoadInnByInnBowlingRecordsAction,
   LoadInnByInnBowlingRecordsSuccessAction,
-  LoadOverallBowlingRecordsAction, LoadOverallBowlingRecordsFailureAction,
+  LoadOverallBowlingRecordsAction,
   LoadOverallBowlingRecordsSuccessAction
 } from "../actions/records.actions";
 import {BowlingRecordService} from "../services/bowling-record.service";
-import {
-  LoadByYearBattingRecordsFailureAction,
-  LoadInnByInnBattingRecordsFailureAction
-} from "../../batting-records/actions/records.actions";
 import {createError} from "../../../helpers/ErrorHelper";
+import {RaiseErrorAction} from "../../../actions/error.actions";
+import { Envelope } from 'src/app/models/envelope';
+import {BowlingCareerRecordDto} from "../models/bowling-overall.model";
 
 @Injectable()
 export class RecordEffects {
@@ -43,8 +42,19 @@ export class RecordEffects {
       ofType(LoadOverallBowlingRecordsAction),
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingOverall(action.payload)
         .pipe(
-          map(players => LoadOverallBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => of(LoadOverallBowlingRecordsFailureAction({payload: createError(1)})))
+          map((players: Envelope<BowlingCareerRecordDto[]>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the match records")})
+
+            return LoadOverallBowlingRecordsSuccessAction({
+              payload: {
+                data: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            })
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -56,7 +66,7 @@ export class RecordEffects {
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingInningsByInnings(action.payload)
         .pipe(
           map(players => LoadInnByInnBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => of(LoadInnByInnBowlingRecordsFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -67,7 +77,7 @@ export class RecordEffects {
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingByMatch(action.payload)
         .pipe(
           map(players => LoadByMatchBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => of(LoadByMatchBowlingRecordsFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -78,7 +88,7 @@ export class RecordEffects {
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingBySeries(action.payload)
         .pipe(
           map(players => LoadBySeriesBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => of(LoadBySeriesBowlingRecordsFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -89,7 +99,7 @@ export class RecordEffects {
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingByGround(action.payload)
         .pipe(
           map(players => LoadByGroundBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => of(LoadByGroundBowlingRecordsFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -100,7 +110,7 @@ export class RecordEffects {
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingByHostCountry(action.payload)
         .pipe(
           map(players => LoadByHostBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => of(LoadByHostBowlingRecordsFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -111,7 +121,7 @@ export class RecordEffects {
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingByOpposition(action.payload)
         .pipe(
           map(players => LoadByOppositionBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => of(LoadByOppositionBowlingRecordsFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -122,7 +132,7 @@ export class RecordEffects {
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingByYear(action.payload)
         .pipe(
           map(players => LoadByYearBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError(() => of(LoadByYearBowlingRecordsFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -133,7 +143,7 @@ export class RecordEffects {
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingBySeason(action.payload)
         .pipe(
           map(players => LoadBySeasonBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-          catchError((err) => of(LoadBySeasonBowlingRecordsFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });

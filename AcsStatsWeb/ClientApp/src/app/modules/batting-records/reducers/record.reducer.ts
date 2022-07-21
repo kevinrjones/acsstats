@@ -2,22 +2,17 @@ import {createReducer, on} from '@ngrx/store';
 import {BattingCareerRecordDto} from "../models/batting-overall.model";
 import {
   LoadByGroundBattingRecordsAction,
-  LoadByGroundBattingRecordsFailureAction,
   LoadByGroundBattingRecordsSuccessAction,
   LoadByHostBattingRecordsAction,
-  LoadByHostBattingRecordsFailureAction,
   LoadByHostBattingRecordsSuccessAction,
   LoadByMatchBattingRecordsAction,
-  LoadByMatchBattingRecordsFailureAction,
   LoadByMatchBattingRecordsSuccessAction,
   LoadByOppositionBattingRecordsAction,
-  LoadByOppositionBattingRecordsFailureAction,
   LoadByOppositionBattingRecordsSuccessAction,
-  LoadBySeasonBattingRecordsAction, LoadBySeasonBattingRecordsFailureAction,
+  LoadBySeasonBattingRecordsAction,
   LoadBySeasonBattingRecordsSuccessAction,
-  LoadBySeriesBattingRecordsFailureAction,
   LoadBySeriesBattingRecordsSuccessAction,
-  LoadByYearBattingRecordsAction, LoadByYearBattingRecordsFailureAction,
+  LoadByYearBattingRecordsAction,
   LoadByYearBattingRecordsSuccessAction,
   LoadInnByInnBattingRecordsAction,
   LoadInnByInnBattingRecordsSuccessAction,
@@ -28,10 +23,9 @@ import {IndividualBattingDetailsDto} from "../models/individual-batting-details.
 import {DateTime} from "luxon";
 import {SortOrder} from 'src/app/models/sortorder.model';
 import {
-  LoadBySeriesBowlingRecordsAction,
-  LoadInnByInnBowlingRecordsFailureAction
+  LoadBySeriesBowlingRecordsAction
 } from "../../bowling-records/actions/records.actions";
-import {SetErrorState} from "../../../actions/error.actions";
+import {RaiseErrorAction} from "../../../actions/error.actions";
 
 
 export const initialBattingOverallRecordState = {
@@ -69,12 +63,6 @@ export const loadInnByInnBattingReducer = createReducer(
       sortDirection: records.payload.sortDirection
     }
   }),
-  on(LoadInnByInnBowlingRecordsFailureAction, (state, error) => {
-    return {
-      ...state,
-      error: error
-    }
-  }),
   on(LoadInnByInnBattingRecordsAction, (state, records) => {
     return initialBattingInnByInnRecordState
   })
@@ -87,12 +75,6 @@ export const loadByMatchBattingReducer = createReducer(
       sqlResults: records.payload.sqlResults,
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection
-    }
-  }),
-  on(LoadByMatchBattingRecordsFailureAction, (state, error) => {
-    return {
-      ...state,
-      error: error
     }
   }),
   on(LoadByMatchBattingRecordsAction, (state, records) => {
@@ -110,12 +92,6 @@ export const loadBySeriesBattingReducer = createReducer(
       error: {}
     }
   }),
-  on(LoadBySeriesBattingRecordsFailureAction, (state, error) => {
-    return {
-      ...state,
-      error: error
-    }
-  }),
   on(LoadBySeriesBowlingRecordsAction, (state, records) => {
     return initialBattingOverallRecordState
   })
@@ -129,12 +105,6 @@ export const loadByGroundBattingReducer = createReducer(
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection,
       error: {}
-    }
-  }),
-  on(LoadByGroundBattingRecordsFailureAction, (state, error) => {
-    return {
-      ...state,
-      error: error
     }
   }),
   on(LoadByGroundBattingRecordsAction, (state, records) => {
@@ -153,12 +123,6 @@ export const loadByHostBattingReducer = createReducer(
       error: {}
     }
   }),
-  on(LoadByHostBattingRecordsFailureAction, (state, error) => {
-    return {
-      ...state,
-      error: error
-    }
-  }),
   on(LoadByHostBattingRecordsAction, (state, records) => {
     return initialBattingOverallRecordState
   })
@@ -172,12 +136,6 @@ export const loadByOppositionBattingReducer = createReducer(
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection,
       error: {}
-    }
-  }),
-  on(LoadByOppositionBattingRecordsFailureAction, (state, error) => {
-    return {
-      ...state,
-      error: error
     }
   }),
   on(LoadByOppositionBattingRecordsAction, (state, records) => {
@@ -195,12 +153,6 @@ export const loadByYearBattingReducer = createReducer(
       error: {}
     }
   }),
-  on(LoadByYearBattingRecordsFailureAction, (state, error) => {
-    return {
-      ...state,
-      error: error
-    }
-  }),
   on(LoadByYearBattingRecordsAction, (state, records) => {
     return initialBattingOverallRecordState
   })
@@ -214,12 +166,6 @@ export const loadBySeasonBattingReducer = createReducer(
       sortOrder: records.payload.sortOrder,
       sortDirection: records.payload.sortDirection,
       error: {}
-    }
-  }),
-  on(LoadBySeasonBattingRecordsFailureAction, (state, error) => {
-    return {
-      ...state,
-      error: error
     }
   }),
   on(LoadBySeasonBattingRecordsAction, (state, records) => {

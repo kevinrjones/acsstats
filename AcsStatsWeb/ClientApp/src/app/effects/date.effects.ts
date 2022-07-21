@@ -1,18 +1,18 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {catchError, map, mergeMap} from "rxjs/operators";
-import {EMPTY, of} from "rxjs";
+import {of} from "rxjs";
 import {
-  LoadSeriesDatesAction,
-  LoadSeriesDatesSuccessAction,
   LoadMatchDatesAction,
-  LoadMatchDatesSuccessAction, LoadMatchDatesFailureAction, LoadSeriesDatesFailureAction
+  LoadMatchDatesSuccessAction,
+  LoadSeriesDatesAction,
+  LoadSeriesDatesSuccessAction
 } from "../actions/dates.actions";
 import {DatesService} from "../services/dates.service";
 import {Envelope} from "../models/envelope";
 import {MatchDate} from "../models/date.model";
-import {LoadCountriesFailureAction} from "../actions/countries.actions";
 import {createError} from "../helpers/ErrorHelper";
+import {RaiseErrorAction} from "../actions/error.actions";
 
 @Injectable()
 export class DateEffects {
@@ -29,7 +29,7 @@ export class DateEffects {
       mergeMap(action => this.datesService.getSeriesDatesForMatchType(action.payload)
         .pipe(
           map(seriesDates => LoadSeriesDatesSuccessAction({payload: seriesDates.result})),
-          catchError(() => of(LoadSeriesDatesFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -41,16 +41,16 @@ export class DateEffects {
         .pipe(
           map((matchDates: Envelope<MatchDate[]>) => {
               if (matchDates.errorMessage != null && matchDates.errorMessage != "")
-                return LoadMatchDatesFailureAction
+                return RaiseErrorAction({payload: createError(2, "Unable to get match dates")})
 
               let dates = matchDates.result
               if (dates.length != 2)
-                return LoadMatchDatesFailureAction
+                return RaiseErrorAction({payload: createError(2, "Invalid match dates")})
 
               return LoadMatchDatesSuccessAction({payload: dates})
             }
           ),
-          catchError(() => of(LoadMatchDatesFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1, "Unable to get match dates")})))
         ))
     );
   });

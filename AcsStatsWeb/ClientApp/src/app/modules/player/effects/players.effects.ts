@@ -2,21 +2,21 @@ import {Injectable} from '@angular/core';
 import {PlayerSearchService} from '../services/playersearch.service';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, mergeMap} from 'rxjs/operators';
-import {EMPTY, of} from 'rxjs';
+import {of} from 'rxjs';
 import {
-  LoadPlayerBattingDetailsAction, LoadPlayerBattingDetailsFailureAction,
+  LoadPlayerBattingDetailsAction,
   LoadPlayerBattingDetailsSuccessAction,
-  LoadPlayerBiographyAction, LoadPlayerBiographyFailureAction,
+  LoadPlayerBiographyAction,
   LoadPlayerBiographySuccessAction,
-  LoadPlayerBowlingDetailsAction, LoadPlayerBowlingDetailsFailureAction,
+  LoadPlayerBowlingDetailsAction,
   LoadPlayerBowlingDetailsSuccessAction,
-  LoadPlayerOverallAction, LoadPlayerOverallFailureAction,
+  LoadPlayerOverallAction,
   LoadPlayerOverallSuccessAction,
-  LoadPlayersAction, LoadPlayersFailureAction,
+  LoadPlayersAction,
   LoadPlayersSuccessAction
 } from '../actions/players.actions';
-import {LoadOverallBowlingRecordsFailureAction} from "../../bowling-records/actions/records.actions";
 import {createError} from "../../../helpers/ErrorHelper";
+import {RaiseErrorAction} from "../../../actions/error.actions";
 
 @Injectable()
 export class PlayerEffects {
@@ -33,7 +33,7 @@ export class PlayerEffects {
       mergeMap(action => this.playerSearchService.findPlayers(action.payload)
         .pipe(
           map(players => LoadPlayersSuccessAction({payload: players.result})),
-          catchError(() => of(LoadPlayersFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -44,7 +44,7 @@ export class PlayerEffects {
       mergeMap(action => this.playerSearchService.getPlayerBiography(action.payload)
         .pipe(
           map(players => LoadPlayerBiographySuccessAction({payload: players.result})),
-          catchError(() => of(LoadPlayerBiographyFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -55,7 +55,7 @@ export class PlayerEffects {
       mergeMap(action => this.playerSearchService.getPlayerOverall(action.payload)
         .pipe(
           map(players => LoadPlayerOverallSuccessAction({payload: players.result})),
-          catchError(() => of(LoadPlayerOverallFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -66,7 +66,7 @@ export class PlayerEffects {
       mergeMap(action => this.playerSearchService.getPlayerBattingOverall(action.payload)
         .pipe(
           map(players => LoadPlayerBattingDetailsSuccessAction({payload: players.result})),
-          catchError(() => of(LoadPlayerBattingDetailsFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -77,7 +77,7 @@ export class PlayerEffects {
       mergeMap(action => this.playerSearchService.getPlayerBowlingOverall(action.payload)
         .pipe(
           map(players => LoadPlayerBowlingDetailsSuccessAction({payload: players.result})),
-          catchError(() => of(LoadPlayerBowlingDetailsFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });

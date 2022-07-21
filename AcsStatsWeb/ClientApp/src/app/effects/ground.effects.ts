@@ -1,12 +1,13 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {TeamSearchService} from "../services/teamsearch.service";
 import {catchError, map, mergeMap} from "rxjs/operators";
-import {EMPTY, of} from "rxjs";
-import {LoadGroundsAction, LoadGroundsFailureAction, LoadGroundsSuccessAction} from "../actions/grounds.actions";
+import {of} from "rxjs";
+import {LoadGroundsAction, LoadGroundsSuccessAction} from "../actions/grounds.actions";
 import {GroundSearchService} from "../services/groundsearch.service";
-import {LoadCountriesFailureAction} from "../actions/countries.actions";
 import {createError} from "../helpers/ErrorHelper";
+import {RaiseErrorAction} from "../actions/error.actions";
+import { Envelope } from "../models/envelope";
+import { Ground } from "../models/ground.model";
 
 
 @Injectable()
@@ -23,8 +24,13 @@ export class GroundEffects {
       ofType(LoadGroundsAction),
       mergeMap(action => this.groundSearchService.findGroundsForMatchType(action.payload)
         .pipe(
-          map(grounds => LoadGroundsSuccessAction({payload: grounds.result})),
-          catchError(() => of(LoadGroundsFailureAction({payload: createError(1)})))
+          map((grounds: Envelope<Ground[]>) => {
+            if (grounds.errorMessage != null && grounds.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get grounds")})
+
+            return LoadGroundsSuccessAction({payload: grounds.result})
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });

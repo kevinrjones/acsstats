@@ -5,10 +5,13 @@ import {EMPTY, of} from "rxjs";
 import {CountrySearchService} from "../services/countrysearch.service";
 import {
   LoadCountriesAction,
-  LoadCountriesFailureAction,
   LoadCountriesSuccessAction
 } from "../actions/countries.actions";
 import {createError} from "../helpers/ErrorHelper";
+import {RaiseErrorAction} from "../actions/error.actions";
+import {Envelope} from "../models/envelope";
+import {Country} from "../models/country.model";
+import {LoadMatchDatesSuccessAction} from "../actions/dates.actions";
 
 @Injectable()
 export class CountryEffects {
@@ -24,8 +27,16 @@ export class CountryEffects {
       ofType(LoadCountriesAction),
       mergeMap(action => this.countrySearchService.findCountriesForMatchType(action.payload)
         .pipe(
-          map(countries => LoadCountriesSuccessAction({payload: countries.result})),
-          catchError(() => of(LoadCountriesFailureAction({payload: createError(1)})))
+          map((countries: Envelope<Country[]>) => {
+
+              if (countries.errorMessage != null && countries.errorMessage != "")
+                return RaiseErrorAction({payload: createError(2, "Unable to get countries")})
+
+              return LoadCountriesSuccessAction({payload: countries.result})
+
+            }
+          ),
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });

@@ -1,31 +1,34 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, mergeMap} from 'rxjs/operators';
-import {EMPTY, of} from 'rxjs';
+import {of} from 'rxjs';
 import {
-  LoadByGroundBattingRecordsAction, LoadByGroundBattingRecordsFailureAction,
+  LoadByGroundBattingRecordsAction,
   LoadByGroundBattingRecordsSuccessAction,
-  LoadByHostBattingRecordsAction, LoadByHostBattingRecordsFailureAction,
+  LoadByHostBattingRecordsAction,
   LoadByHostBattingRecordsSuccessAction,
-  LoadByMatchBattingRecordsAction, LoadByMatchBattingRecordsFailureAction,
+  LoadByMatchBattingRecordsAction,
   LoadByMatchBattingRecordsSuccessAction,
-  LoadByOppositionBattingRecordsAction, LoadByOppositionBattingRecordsFailureAction,
+  LoadByOppositionBattingRecordsAction,
   LoadByOppositionBattingRecordsSuccessAction,
-  LoadBySeasonBattingRecordsAction, LoadBySeasonBattingRecordsFailureAction,
+  LoadBySeasonBattingRecordsAction,
   LoadBySeasonBattingRecordsSuccessAction,
-  LoadBySeriesBattingRecordsAction, LoadBySeriesBattingRecordsFailureAction,
+  LoadBySeriesBattingRecordsAction,
   LoadBySeriesBattingRecordsSuccessAction,
-  LoadByYearBattingRecordsAction, LoadByYearBattingRecordsFailureAction,
+  LoadByYearBattingRecordsAction,
   LoadByYearBattingRecordsSuccessAction,
-  LoadInnByInnBattingRecordsAction, LoadInnByInnBattingRecordsFailureAction,
+  LoadInnByInnBattingRecordsAction,
   LoadInnByInnBattingRecordsSuccessAction,
   LoadOverallBattingRecordsAction,
   LoadOverallBattingRecordsSuccessAction
 } from "../actions/records.actions";
 import {BattingRecordService} from "../services/batting-record.service";
-import {LoadCountriesFailureAction} from "../../../actions/countries.actions";
 import {createError} from "../../../helpers/ErrorHelper";
-import {SetErrorState} from "../../../actions/error.actions";
+import {RaiseErrorAction} from "../../../actions/error.actions";
+import {Envelope} from 'src/app/models/envelope';
+import {SqlResultsEnvelope} from "../../../models/sqlresultsenvelope.model";
+import {BattingCareerRecordDto} from "../models/batting-overall.model";
+import {IndividualBattingDetailsDto} from "../models/individual-batting-details.dto";
 
 @Injectable()
 export class RecordEffects {
@@ -41,16 +44,19 @@ export class RecordEffects {
       ofType(LoadOverallBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingOverall(action.payload)
         .pipe(
-          map(players => LoadOverallBattingRecordsSuccessAction({
-            payload: {
-              sqlResults: players.result,
-              sortOrder: action.payload.sortOrder,
-              sortDirection: action.payload.sortDirection
-            }
-          })),
-          catchError((err) => {
-            return of(SetErrorState({payload: createError(1)}))
-          })
+          map((players: Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the overall records")})
+
+            return LoadOverallBattingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            })
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -61,14 +67,19 @@ export class RecordEffects {
       ofType(LoadInnByInnBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingInningsByInnings(action.payload)
         .pipe(
-          map(players => LoadInnByInnBattingRecordsSuccessAction({
-            payload: {
-              sqlResults: players.result,
-              sortOrder: action.payload.sortOrder,
-              sortDirection: action.payload.sortDirection
-            }
-          })),
-          catchError(() => of(LoadInnByInnBattingRecordsFailureAction({payload: createError(1)})))
+          map((players: Envelope<SqlResultsEnvelope<IndividualBattingDetailsDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the inningsrecords")})
+
+            return LoadInnByInnBattingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            })
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -78,14 +89,19 @@ export class RecordEffects {
       ofType(LoadByMatchBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByMatch(action.payload)
         .pipe(
-          map(players => LoadByMatchBattingRecordsSuccessAction({
-            payload: {
-              sqlResults: players.result,
-              sortOrder: action.payload.sortOrder,
-              sortDirection: action.payload.sortDirection
-            }
-          })),
-          catchError(() => of(LoadByMatchBattingRecordsFailureAction({payload: createError(1)})))
+          map((players: Envelope<SqlResultsEnvelope<IndividualBattingDetailsDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the match records")})
+
+            return LoadByMatchBattingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            })
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -95,14 +111,18 @@ export class RecordEffects {
       ofType(LoadBySeriesBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingBySeries(action.payload)
         .pipe(
-          map(players => LoadBySeriesBattingRecordsSuccessAction({
-            payload: {
-              sqlResults: players.result,
-              sortOrder: action.payload.sortOrder,
-              sortDirection: action.payload.sortDirection
-            }
-          })),
-          catchError(() => of(LoadBySeriesBattingRecordsFailureAction({payload: createError(1)})))
+          map((players: Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the seriesrecords")})
+            return LoadBySeriesBattingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            })
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -112,14 +132,18 @@ export class RecordEffects {
       ofType(LoadByGroundBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByGround(action.payload)
         .pipe(
-          map(players => LoadByGroundBattingRecordsSuccessAction({
-            payload: {
-              sqlResults: players.result,
-              sortOrder: action.payload.sortOrder,
-              sortDirection: action.payload.sortDirection
-            }
-          })),
-          catchError(() => of(LoadByGroundBattingRecordsFailureAction({payload: createError(1)})))
+          map((players: Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the groundrecords")})
+            return LoadBySeriesBattingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            })
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -129,14 +153,18 @@ export class RecordEffects {
       ofType(LoadByHostBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByHostCountry(action.payload)
         .pipe(
-          map(players => LoadByHostBattingRecordsSuccessAction({
-            payload: {
-              sqlResults: players.result,
-              sortOrder: action.payload.sortOrder,
-              sortDirection: action.payload.sortDirection
-            }
-          })),
-          catchError(() => of(LoadByHostBattingRecordsFailureAction({payload: createError(1)})))
+          map((players: Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the host countryrecords")})
+            return LoadBySeriesBattingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            })
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -146,14 +174,18 @@ export class RecordEffects {
       ofType(LoadByOppositionBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByOpposition(action.payload)
         .pipe(
-          map(players => LoadByOppositionBattingRecordsSuccessAction({
-            payload: {
-              sqlResults: players.result,
-              sortOrder: action.payload.sortOrder,
-              sortDirection: action.payload.sortDirection
-            }
-          })),
-          catchError(() => of(LoadByOppositionBattingRecordsFailureAction({payload: createError(1)})))
+          map((players: Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the oppositionrecords")})
+            return LoadBySeriesBattingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            })
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -163,14 +195,18 @@ export class RecordEffects {
       ofType(LoadByYearBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingByYear(action.payload)
         .pipe(
-          map(players => LoadByYearBattingRecordsSuccessAction({
-            payload: {
-              sqlResults: players.result,
-              sortOrder: action.payload.sortOrder,
-              sortDirection: action.payload.sortDirection
-            }
-          })),
-          catchError(() => of(LoadByYearBattingRecordsFailureAction({payload: createError(1)})))
+          map((players: Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the yearlyrecords")})
+            return LoadBySeriesBattingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            })
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });
@@ -180,14 +216,18 @@ export class RecordEffects {
       ofType(LoadBySeasonBattingRecordsAction),
       mergeMap(action => this.battingRecordsSearchService.getBattingBySeason(action.payload)
         .pipe(
-          map(players => LoadBySeasonBattingRecordsSuccessAction({
-            payload: {
-              sqlResults: players.result,
-              sortOrder: action.payload.sortOrder,
-              sortDirection: action.payload.sortDirection
-            }
-          })),
-          catchError(() => of(LoadBySeasonBattingRecordsFailureAction({payload: createError(1)})))
+          map((players: Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the seasonrecords")})
+            return LoadBySeriesBattingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            })
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
         ))
     );
   });

@@ -48,8 +48,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      enableHtml: true
+    }),
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: '**', component: PageNotFoundComponent, pathMatch: 'full'},
@@ -74,9 +77,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BowlingRecordsModule,
   ],
   providers: [],
-  exports: [
-
-  ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

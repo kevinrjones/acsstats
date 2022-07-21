@@ -1,24 +1,13 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {catchError, map, mergeMap} from "rxjs/operators";
-import {EMPTY, of} from "rxjs";
-import {
-  LoadSeriesDatesAction,
-  LoadSeriesDatesSuccessAction,
-  LoadMatchDatesAction,
-  LoadMatchDatesSuccessAction, LoadMatchDatesFailureAction
-} from "../actions/dates.actions";
-import {DatesService} from "../services/dates.service";
-import {Envelope} from "../models/envelope";
-import {MatchDate} from "../models/date.model";
+import {of} from "rxjs";
 import {RecordHelperService} from "../services/record-helper.service";
-import {
-  LoadRecordSummariesAction,
-  LoadRecordSummariesFailureAction,
-  LoadRecordSummariesSuccessAction
-} from "../actions/recordsummary.actions";
-import {LoadCountriesFailureAction} from "../actions/countries.actions";
-import {createError} from "../helpers/ErrorHelper";
+import {LoadRecordSummariesAction, LoadRecordSummariesSuccessAction} from "../actions/recordsummary.actions";
+import {createError, handleError} from "../helpers/ErrorHelper";
+import {RaiseErrorAction} from "../actions/error.actions";
+import { Envelope } from "../models/envelope";
+import { RecordsSummaryModel } from "../models/records-summary.model";
 
 @Injectable()
 export class RecordSummaryEffects {
@@ -40,8 +29,16 @@ export class RecordSummaryEffects {
           action.payload.groundId,
           action.payload.hostCountryId)
           .pipe(
-            map(result => LoadRecordSummariesSuccessAction({payload: result.result})),
-            catchError(() => of(LoadRecordSummariesFailureAction({payload: createError(1)})))
+            map((result: Envelope<RecordsSummaryModel>) => {
+              if (result.errorMessage != null && result.errorMessage != "")
+                return RaiseErrorAction({payload: createError(2, "Unable to get the record summary")})
+
+              return LoadRecordSummariesSuccessAction({payload: result.result})
+            }),
+            catchError((err: any) => {
+              let error = handleError(err, "Unknown Error")
+              return of(RaiseErrorAction({payload: error}))
+            })
           ))
     );
   });

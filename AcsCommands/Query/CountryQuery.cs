@@ -35,8 +35,9 @@ public class CountryQuery : IRequest<Result<CountryDto, Error>>
             CancellationToken cancellationToken)
         {
             string sql =
-                @"SELECT Id, CountryName as Name, MatchType
+                @"SELECT grounds.Id, CountryName as Name, MatchType
                     FROM Grounds 
+                    join groundsmatchtypes on grounds.Id = GroundsMatchTypes.GroundId
                     WHERE CountryId = @Id
                     LIMIT 1";
             try

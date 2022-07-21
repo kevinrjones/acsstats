@@ -1,19 +1,11 @@
 import {Injectable} from "@angular/core";
-import {PlayerSearchService} from "../modules/player/services/playersearch.service";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {TeamSearchService} from "../services/teamsearch.service";
-import {LoadPlayersAction, LoadPlayersSuccessAction} from "../modules/player/actions/players.actions";
 import {catchError, map, mergeMap} from "rxjs/operators";
-import {EMPTY, of} from "rxjs";
-import {LoadTeamsAction, LoadTeamsSuccessAction} from "../actions/teams.actions";
+import {of} from "rxjs";
 import {MatchSubTypeSearchService} from "../services/match-sub-type-search.service";
-import {
-  LoadMatchSubTypesAction,
-  LoadMatchSubTypesFailureAction,
-  LoadMatchSubTypesSuccessAction
-} from "../actions/match-sub-types.actions";
-import {LoadCountriesFailureAction} from "../actions/countries.actions";
+import {LoadMatchSubTypesAction, LoadMatchSubTypesSuccessAction} from "../actions/match-sub-types.actions";
 import {createError} from "../helpers/ErrorHelper";
+import {RaiseErrorAction} from "../actions/error.actions";
 
 @Injectable()
 export class MatchSubTypeEffects {
@@ -30,7 +22,7 @@ export class MatchSubTypeEffects {
       mergeMap(action => this.subMatchSearchService.getMatchSubTypesForMatchType(action.payload)
         .pipe(
           map((matchSubType) => LoadMatchSubTypesSuccessAction({payload: matchSubType})),
-          catchError(() => of(LoadMatchSubTypesFailureAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: createError(3, "Unable to get tournament types")})))
         ))
     );
   });

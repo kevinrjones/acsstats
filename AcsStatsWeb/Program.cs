@@ -12,7 +12,7 @@ using Serilog;
 using Services;
 using Services.AcsServices;
 
-namespace AcsStatsAngular;
+namespace AcsStatsWeb;
 
 public static class Program
 {

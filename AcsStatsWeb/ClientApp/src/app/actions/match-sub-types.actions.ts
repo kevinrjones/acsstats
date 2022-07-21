@@ -6,10 +6,8 @@ import {ErrorDetails} from "../models/error.model";
 
 export const LOAD_MATCHSUBTYPES = 'LOAD_MATCHSUBTYPES;';
 export const LOAD_MATCHSUBTYPES_SUCCESS = 'LOAD_MATCHSUBTYPES_SUCCESS;';
-export const LOAD_MATCHSUBTYPES_FAILURE = 'LOAD_MATCHSUBTYPES_FAILURE;';
 
 export const LoadMatchSubTypesAction = createAction(LOAD_MATCHSUBTYPES, props<{ payload: string }>())
 export const LoadMatchSubTypesSuccessAction = createAction(LOAD_MATCHSUBTYPES_SUCCESS, props<{ payload: MatchSubTypeModel[] }>())
-export const LoadMatchSubTypesFailureAction = createAction(LOAD_MATCHSUBTYPES_FAILURE, props<{ payload: ErrorDetails }>())
 
 

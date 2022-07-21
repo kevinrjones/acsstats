@@ -6,7 +6,6 @@ import {ErrorDetails} from "../models/error.model";
 
 export const LOAD_RECORDSUMMARIES = 'LOAD_RECORDSUMMARIES;';
 export const LOAD_RECORDSUMMARIES_SUCCESS = 'LOAD_RECORDSUMMARIES_SUCCESS;';
-export const LOAD_RECORDSUMMARIES_FAILURE = 'LOAD_RECORDSUMMARIES_FAILURE;';
 
 export const LoadRecordSummariesAction = createAction(LOAD_RECORDSUMMARIES, props<{
   payload: {
@@ -14,6 +13,5 @@ export const LoadRecordSummariesAction = createAction(LOAD_RECORDSUMMARIES, prop
   }
 }>())
 export const LoadRecordSummariesSuccessAction = createAction(LOAD_RECORDSUMMARIES_SUCCESS, props<{ payload: RecordsSummaryModel }>())
-export const LoadRecordSummariesFailureAction = createAction(LOAD_RECORDSUMMARIES_FAILURE, props<{ payload: ErrorDetails }>())
 
 

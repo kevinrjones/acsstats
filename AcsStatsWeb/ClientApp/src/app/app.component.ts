@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {createSelector, Store} from "@ngrx/store";
 import {AppState} from "./models/app-state";
 import {ErrorDetails} from "./models/error.model";
-import {SetErrorState} from "./actions/error.actions";
+import {RaiseErrorAction} from "./actions/error.actions";
 import {Observable} from "rxjs";
 import {ToastrService} from "ngx-toastr";
+import {ErrorLookupService} from "./services/error-lookup.service";
 
 @Component({
   selector: 'app-root',
@@ -13,15 +14,9 @@ import {ToastrService} from "ngx-toastr";
 export class AppComponent implements OnInit {
   title = 'app';
 
-  // selectFeature = (state: AppState) => state.errorState;
-  //
-  // selectError = createSelector(
-  //   this.selectFeature,
-  //   (state: ErrorDetails) => state
-  // );
   private errorState$: Observable<ErrorDetails>;
 
-  constructor(private appStore: Store<AppState>, private toastr: ToastrService) {
+  constructor(private appStore: Store<AppState>, private toastr: ToastrService, private errorLookupService: ErrorLookupService) {
 
     this.resetErrorState()
 
@@ -30,10 +25,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.errorState$.subscribe(s => {
-        console.log("App Store")
+        var message: string
         if (s.id != 0) {
-          this.toastr.error("Error", "Error Title")
-          console.log("AppStore: error", s.id)
+          if (s.message != null)
+            message = this.errorLookupService.getErrorForCode(s.id) + '<br />' + s.message
+          else
+            message = this.errorLookupService.getErrorForCode(s.id)
+          this.toastr.error(message, "Error")
           this.resetErrorState()
         }
       }
@@ -41,6 +39,6 @@ export class AppComponent implements OnInit {
   }
 
   resetErrorState() {
-    this.appStore.dispatch(SetErrorState({payload: {id: 0, message: null}}))
+    this.appStore.dispatch(RaiseErrorAction({payload: {id: 0, message: null}}))
   }
 }
