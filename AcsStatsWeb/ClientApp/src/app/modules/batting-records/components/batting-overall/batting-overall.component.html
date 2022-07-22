@@ -80,10 +80,16 @@
         <fa-icon *ngIf="importedSortOrder.balls == sortOrder" [icon]="getSortClass(importedSortOrder.balls)"></fa-icon>
       </a>
     </th>
-    <th class="text-right">
+<th class="text-right">
       <a (click)="sort(importedSortOrder.strikeRate)" class="btn btn-link">SR
         <fa-icon *ngIf="importedSortOrder.strikeRate == sortOrder"
                  [icon]="getSortClass(importedSortOrder.strikeRate)"></fa-icon>
+      </a>
+    </th>
+    <th class="text-right">
+      <a (click)="sort(importedSortOrder.battingImpact)" class="btn btn-link">BI
+        <fa-icon *ngIf="importedSortOrder.battingImpact == sortOrder"
+                 [icon]="getSortClass(importedSortOrder.battingImpact)"></fa-icon>
       </a>
     </th>
   </tr>
@@ -103,7 +109,8 @@
     <td class="text-right" nowrap="nowrap">{{row.fours == 0 ? "-" : row.fours}}</td>
     <td class="text-right" nowrap="nowrap">{{row.sixes == 0 ? "-" : row.sixes}}</td>
     <td class="text-right" nowrap="nowrap">{{row.balls == 0 ? "-" : row.balls}}</td>
-    <td class="text-right" nowrap="nowrap">{{getStrikeRate(row.runs, row.balls)}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.sr.toFixed(2)}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.bi.toFixed(2)}}</td>
   </tr>
   </tbody>
 </table>

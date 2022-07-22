@@ -57,6 +57,7 @@ namespace Services.Models
         rpo = 51,
         strikerate = 52,
         ballsperover = 53,
+        battingimpact = 54,
     }
     
     public enum SortDirection

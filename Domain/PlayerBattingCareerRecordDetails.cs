@@ -10,6 +10,8 @@ public class PlayerBattingCareerRecordDetails : PlayerCareerRecordDetails
     public int HighestScore { get; set; }
     public bool NotOut { get; set; }
     public float? Avg { get; set; }
+    public float? SR { get; set; }
+    public float? BI { get; set; }
     public int? Hundreds { get; set; }
     public int? Fifties { get; set; }
     public int? Ducks { get; set; }

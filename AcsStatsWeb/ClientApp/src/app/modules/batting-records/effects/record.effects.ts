@@ -23,7 +23,7 @@ import {
   LoadOverallBattingRecordsSuccessAction
 } from "../actions/records.actions";
 import {BattingRecordService} from "../services/batting-record.service";
-import {createError} from "../../../helpers/ErrorHelper";
+import {createError, handleError} from "../../../helpers/ErrorHelper";
 import {RaiseErrorAction} from "../../../actions/error.actions";
 import {Envelope} from 'src/app/models/envelope';
 import {SqlResultsEnvelope} from "../../../models/sqlresultsenvelope.model";
@@ -56,7 +56,7 @@ export class RecordEffects {
               }
             })
           }),
-          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Batting Overall Records")})))
         ))
     );
   });
@@ -79,7 +79,7 @@ export class RecordEffects {
               }
             })
           }),
-          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Batting By Innings Records")})))
         ))
     );
   });
@@ -101,7 +101,7 @@ export class RecordEffects {
               }
             })
           }),
-          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Batting By Match Records")})))
         ))
     );
   });
@@ -122,7 +122,7 @@ export class RecordEffects {
               }
             })
           }),
-          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Batting By Series Records")})))
         ))
     );
   });
@@ -135,7 +135,7 @@ export class RecordEffects {
           map((players: Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>) => {
             if (players.errorMessage != null && players.errorMessage != "")
               return RaiseErrorAction({payload: createError(2, "Unable to get the groundrecords")})
-            return LoadBySeriesBattingRecordsSuccessAction({
+            return LoadByGroundBattingRecordsSuccessAction({
               payload: {
                 sqlResults: players.result,
                 sortOrder: action.payload.sortOrder,
@@ -143,7 +143,7 @@ export class RecordEffects {
               }
             })
           }),
-          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Batting By Ground Records")})))
         ))
     );
   });
@@ -156,7 +156,7 @@ export class RecordEffects {
           map((players: Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>) => {
             if (players.errorMessage != null && players.errorMessage != "")
               return RaiseErrorAction({payload: createError(2, "Unable to get the host countryrecords")})
-            return LoadBySeriesBattingRecordsSuccessAction({
+            return LoadByHostBattingRecordsSuccessAction({
               payload: {
                 sqlResults: players.result,
                 sortOrder: action.payload.sortOrder,
@@ -164,7 +164,7 @@ export class RecordEffects {
               }
             })
           }),
-          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Batting By Host Records")})))
         ))
     );
   });
@@ -177,7 +177,7 @@ export class RecordEffects {
           map((players: Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>) => {
             if (players.errorMessage != null && players.errorMessage != "")
               return RaiseErrorAction({payload: createError(2, "Unable to get the oppositionrecords")})
-            return LoadBySeriesBattingRecordsSuccessAction({
+            return LoadByOppositionBattingRecordsSuccessAction({
               payload: {
                 sqlResults: players.result,
                 sortOrder: action.payload.sortOrder,
@@ -185,7 +185,7 @@ export class RecordEffects {
               }
             })
           }),
-          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Batting By Opposition Records")})))
         ))
     );
   });
@@ -198,7 +198,7 @@ export class RecordEffects {
           map((players: Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>) => {
             if (players.errorMessage != null && players.errorMessage != "")
               return RaiseErrorAction({payload: createError(2, "Unable to get the yearlyrecords")})
-            return LoadBySeriesBattingRecordsSuccessAction({
+            return LoadByYearBattingRecordsSuccessAction({
               payload: {
                 sqlResults: players.result,
                 sortOrder: action.payload.sortOrder,
@@ -206,7 +206,7 @@ export class RecordEffects {
               }
             })
           }),
-          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Batting By Year Records")})))
         ))
     );
   });
@@ -219,7 +219,7 @@ export class RecordEffects {
           map((players: Envelope<SqlResultsEnvelope<BattingCareerRecordDto[]>>) => {
             if (players.errorMessage != null && players.errorMessage != "")
               return RaiseErrorAction({payload: createError(2, "Unable to get the seasonrecords")})
-            return LoadBySeriesBattingRecordsSuccessAction({
+            return LoadBySeasonBattingRecordsSuccessAction({
               payload: {
                 sqlResults: players.result,
                 sortOrder: action.payload.sortOrder,
@@ -227,7 +227,7 @@ export class RecordEffects {
               }
             })
           }),
-          catchError((err) => of(RaiseErrorAction({payload: createError(1)})))
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Batting By Season Records")})))
         ))
     );
   });

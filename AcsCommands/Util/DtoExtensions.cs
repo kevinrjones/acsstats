@@ -15,7 +15,7 @@ public static class DtoExtensions
                 new BattingCareerRecordDto(item.Name, item.SortNamePart, item.Team, item.Opponents, item.Year,
                     item.Matches,
                     item.Innings, item.Ground, item.CountryName, item.Runs, item.NotOuts,
-                    item.HighestScore, item.NotOut, item.Avg, item.Hundreds ?? 0, item.Fifties ?? 0,
+                    item.HighestScore, item.NotOut, item.Avg, item.SR, item.BI, item.Hundreds ?? 0, item.Fifties ?? 0,
                     item.Ducks ?? 0, item.Fours ?? 0, item.Sixes ?? 0, item.Balls ?? 0)).ToList());
     }
 
@@ -27,7 +27,7 @@ public static class DtoExtensions
                     new BattingCareerRecordDto(item.Name, item.SortNamePart, item.Team, item.Opponents, item.Year,
                         item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Runs, item.NotOuts,
-                        item.HighestScore, item.NotOut, item.Avg, item.Hundreds ?? 0, item.Fifties ?? 0,
+                        item.HighestScore, item.NotOut, item.Avg, item.SR, item.BI, item.Hundreds ?? 0, item.Fifties ?? 0,
                         item.Ducks ?? 0, item.Fours ?? 0, item.Sixes ?? 0, item.Balls ?? 0)).ToList())
             .Map(r => new SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>(count, r));
     }

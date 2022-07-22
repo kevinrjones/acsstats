@@ -81,7 +81,8 @@
     <td class="text-right" nowrap="nowrap">{{row.fours == 0 ? "-" : row.fours}}</td>
     <td class="text-right" nowrap="nowrap">{{row.sixes == 0 ? "-" : row.sixes}}</td>
     <td class="text-right" nowrap="nowrap">{{row.balls == 0 ? "-" : row.balls}}</td>
-    <td class="text-right" nowrap="nowrap">{{getStrikeRate(row.runs, row.balls)}}</td>
+        <td class="text-right" nowrap="nowrap">{{row.sr.toFixed(2)}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.bi.toFixed(2)}}</td>
   </tr>
   </tbody>
 </table>

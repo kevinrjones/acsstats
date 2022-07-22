@@ -54,4 +54,5 @@ export enum SortOrder {
   econ = 51,
   strikeRate = 52,
   ballsPerOver = 53,
+  battingImpact = 54,
 }

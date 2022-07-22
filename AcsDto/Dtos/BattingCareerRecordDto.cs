@@ -17,6 +17,8 @@ public record BattingCareerRecordDto(
     int HighestScore,
     bool NotOut,
     float? Avg,
+    float? SR,
+    float? BI,
     int Hundreds,
     int Fifties,
     int Ducks,

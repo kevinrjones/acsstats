@@ -13,6 +13,8 @@ export interface BattingCareerRecordDto {
   highestScore: number;
   notOut: boolean;
   avg: number;
+  sr: number;
+  bi: number;
   hundreds: number;
   fifties: number;
   ducks: number;
