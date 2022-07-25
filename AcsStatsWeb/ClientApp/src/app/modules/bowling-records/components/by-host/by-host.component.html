@@ -14,6 +14,17 @@
       <a (click)="sort(importedSortOrder.name)" class="btn btn-link">Name
         <fa-icon *ngIf="importedSortOrder.name == sortOrder" [icon]="getSortClass(importedSortOrder.name)"></fa-icon></a>
     </th>
+    <th>
+      <a (click)="sort(importedSortOrder.team)" class="btn text-left">Team
+        <fa-icon *ngIf="importedSortOrder.team == sortOrder" [icon]="getSortClass(importedSortOrder.team)"></fa-icon>
+      </a>
+    </th>
+    <th>
+      <a (click)="sort(importedSortOrder.hostCountry)" class="btn text-left">Country
+        <fa-icon *ngIf="importedSortOrder.hostCountry == sortOrder"
+                 [icon]="getSortClass(importedSortOrder.hostCountry)"></fa-icon>
+      </a>
+    </th>
     <th class="text-right">
       <a (click)="sort(importedSortOrder.matches)" class="btn btn-link">M
         <fa-icon *ngIf="importedSortOrder.matches == sortOrder" [icon]="getSortClass(importedSortOrder.matches)"></fa-icon></a>
@@ -74,11 +85,21 @@
       <a (click)="sort(importedSortOrder.sixes)" class="btn btn-link">6s
         <fa-icon *ngIf="importedSortOrder.sixes == sortOrder" [icon]="getSortClass(importedSortOrder.sixes)"></fa-icon></a>
     </th>
+    <th class="text-right">
+      <a (click)="sort(importedSortOrder.battingImpact)" class="btn btn-link">BI
+        <fa-icon *ngIf="importedSortOrder.battingImpact == sortOrder"
+                 [icon]="getSortClass(importedSortOrder.battingImpact)"></fa-icon>
+      </a>
+    </th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let row of (bowlingByHost$ | async)?.data">
+  <tr *ngFor="let row of (bowlingStore$ | async)?.sqlResults?.data">
     <td class="text-left" nowrap="nowrap">{{row.name}}</td>
+    <td class="text-left" nowrap="nowrap">{{row.team}}</td>
+    <td class="text-left maxWidth20" nowrap="nowrap">
+      <span class="text-left maxWidth20" style="display: inline-block">{{row.countryName}}</span>
+    </td>
     <td class="text-right" nowrap="nowrap">{{row.matches}}</td>
     <td class="text-right" nowrap="nowrap">{{row.innings == null ? "-" : row.innings}}</td>
     <td class="text-right" nowrap="nowrap">{{row.balls}}</td>
@@ -89,11 +110,16 @@
     <td class="text-right" nowrap="nowrap">{{getBb(row.bbiw, row.bbir)}}</td>
     <td class="text-right" nowrap="nowrap">{{getBb(row.bbmw, row.bbmr)}}</td>
     <td class="text-right" nowrap="nowrap">{{getEcon(row.runs, row.balls)}}</td>
-    <td class="text-right" nowrap="nowrap">{{getStrikeRate(row.wickets, row.balls)}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.sr.toFixed(2)}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fiveFor}}</td>
     <td class="text-right" nowrap="nowrap">{{row.tenFor}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fours}}</td>
     <td class="text-right" nowrap="nowrap">{{row.sixes}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.bi.toFixed(2)}}</td>
   </tr>
   </tbody>
 </table>
+
+<app-paging [pageSize]="pageSize" [totalItems]="count" [currentPage]="currentPage" (first)="navigate(0)"
+            (previous)="navigate($event)" (next)="navigate($event)" (last)="navigate($event)"
+            (goto)="navigate($event)"></app-paging>

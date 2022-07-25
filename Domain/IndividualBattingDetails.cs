@@ -17,5 +17,6 @@ namespace Domain
         public int? Fours { get; set; }
         public int? Sixes { get; set; }
         public int? Minutes { get; set; }
+        public float? SR { get; set; }
     }
 }

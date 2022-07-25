@@ -13,6 +13,8 @@ export interface BowlingCareerRecordDto {
   runs: number;
   wickets: number;
   avg: number;
+  sr: number;
+  bi: number;
   fours: number;
   sixes: number;
   fiveFor: number;

@@ -14,6 +14,7 @@ import {IndividualBattingDetailsDto} from "../../models/individual-batting-detai
 import {SortOrder} from "../../../../models/sortorder.model";
 import {BattingHelperService} from "../../services/batting-helper.service";
 import {FindRecords} from "../../../../models/find-records.model";
+import {RecordHelperService} from "../../../../services/record-helper.service";
 
 @Component({
   selector: 'app-batting-inn-by-inn',
@@ -39,7 +40,8 @@ export class BattingInnByInnComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private location: Location,
               private battingStore: Store<BattingOverallState>,
-              private battingHelperService: BattingHelperService) {
+              private battingHelperService: BattingHelperService,
+              private recordHelperService: RecordHelperService) {
   }
 
   ngOnDestroy() : void {
@@ -60,7 +62,7 @@ export class BattingInnByInnComponent implements OnInit, OnDestroy {
       this.findBattingParams = params as FindRecords
 
 
-      this.venue = this.battingHelperService.setVenue(this.findBattingParams.homeVenue.toLowerCase() == "true",
+      this.venue = this.recordHelperService.setVenue(this.findBattingParams.homeVenue.toLowerCase() == "true",
         this.findBattingParams.awayVenue.toLowerCase() == "true",
         this.findBattingParams.neutralVenue.toLowerCase() == "true")
 
@@ -68,7 +70,7 @@ export class BattingInnByInnComponent implements OnInit, OnDestroy {
 
       this.battingHelperService.loadSummaries(this.findBattingParams, this.battingStore)
 
-      let pageInfo = this.battingHelperService.getPageInformation(this.findBattingParams)
+      let pageInfo = this.recordHelperService.getPageInformation(this.findBattingParams)
 
       this.pageSize = pageInfo.pageSize
       this.pageNumber = pageInfo.pageNumber
@@ -77,7 +79,7 @@ export class BattingInnByInnComponent implements OnInit, OnDestroy {
         this.sortOrder = payload.sortOrder
         this.sortDirection = payload.sortDirection
         this.count = payload.sqlResults.count;
-        this.currentPage = this.battingHelperService.getCurrentPage(this.findBattingParams)
+        this.currentPage = this.recordHelperService.getCurrentPage(this.findBattingParams)
       })
 
     });
@@ -85,7 +87,7 @@ export class BattingInnByInnComponent implements OnInit, OnDestroy {
   }
 
   sort(newSortOrder: SortOrder) {
-    this.battingHelperService.sort(this.sortOrder, newSortOrder, this.sortDirection, this.router)
+    this.recordHelperService.sort(this.sortOrder, newSortOrder, this.sortDirection, this.router)
   }
 
   formatHighestScore(row: IndividualBattingDetailsDto) {
@@ -93,11 +95,11 @@ export class BattingInnByInnComponent implements OnInit, OnDestroy {
   }
 
   getSortClass(sortOrder: SortOrder): IconProp {
-    return this.battingHelperService.getSortClass(sortOrder, this.sortDirection)
+    return this.recordHelperService.getSortClass(sortOrder, this.sortDirection)
   }
 
   navigate(startRow: number) {
-    this.battingHelperService.navigate(startRow, this.router)
+    this.recordHelperService.navigate(startRow, this.router)
   }
 
 }

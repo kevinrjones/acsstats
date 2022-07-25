@@ -17,6 +17,8 @@ public record BowlingCareerRecordDto(
     int? Runs,
     int Wickets,
     float? Avg,
+    float? Sr,
+    float? Bi,
     int? Fours,
     int? Sixes,
     int? FiveFor,
@@ -33,7 +35,7 @@ public static class PlayerBowlingCareerRecordDetailsDtoFormatter
 
         return $"{dto.Name}, {dto.Team.Replace(",", ";")}, {dto.Matches}, " +
                $"{dto.Innings}, {dto.Balls}, {dto.Maidens}, {dto.Runs}, {dto.Wickets}, " +
-               $"{dto.Avg}, {dto.Fours}, {dto.Sixes}, {dto.FiveFor}, {dto.TenFor}, {dto.bbiw}/{dto.bbir}, " +
+               $"{dto.Avg}, {dto.Sr}, {dto.Bi}, {dto.Fours}, {dto.Sixes}, {dto.FiveFor}, {dto.TenFor}, {dto.bbiw}/{dto.bbir}, " +
                $"{dto.bbmw}/{dto.bbmr}";
     }
 

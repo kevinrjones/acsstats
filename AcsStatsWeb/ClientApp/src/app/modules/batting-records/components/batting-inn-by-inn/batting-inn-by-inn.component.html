@@ -45,8 +45,15 @@
         <fa-icon *ngIf="importedSortOrder.sixes == sortOrder" [icon]="getSortClass(importedSortOrder.sixes)"></fa-icon>
       </a>
     </th>
-    <th class="minwidth15">
-
+    <th class="text-right">
+      <a (click)="sort(importedSortOrder.strikeRate)" class="btn btn-link">SR
+        <fa-icon *ngIf="importedSortOrder.strikeRate == sortOrder"
+                 [icon]="getSortClass(importedSortOrder.strikeRate)"></fa-icon>
+      </a>
+    </th>
+    <th class="text-right">
+      <a (click)="sort(importedSortOrder.inningsNumber)" class="btn btn-link">Innings
+        <fa-icon *ngIf="importedSortOrder.inningsNumber == sortOrder" [icon]="getSortClass(importedSortOrder.inningsNumber)"></fa-icon></a>
     </th>
     <th class="text-left">
       <a (click)="sort(importedSortOrder.opponents)" class="btn text-left">Opponents
@@ -76,7 +83,8 @@
     <td class="text-right" nowrap="nowrap">{{row.balls == null ? "-" : row.balls}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fours == null ? "-" : row.fours}}</td>
     <td class="text-right" nowrap="nowrap">{{row.sixes == null || row.sixes == 0 ? "-" : row.sixes}}</td>
-    <td></td>
+    <td class="text-right" nowrap="nowrap">{{row.sr == null ? "-" : row.sr.toFixed(2)}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.inningsNumber}}</td>
     <td class="text-left" nowrap="nowrap">{{row.opponents}}</td>
     <td class="text-right" nowrap="nowrap">{{row.ground}}</td>
     <td class="text-right" nowrap="nowrap">{{row.matchDate}}</td>

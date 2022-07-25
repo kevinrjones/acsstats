@@ -441,12 +441,12 @@ section.searchResultHeader span {
 
 .text-left {
   text-align: left !important;
-  padding-left: 0 !important;
+  padding-left: 0.5rem !important;
 }
 
 .text-right {
   text-align: right !important;
-  padding-right: 0 !important;
+  padding-right: 0rem !important;
 }
 
 .width5 > a {
@@ -457,8 +457,8 @@ section.searchResultHeader span {
   min-width: 1.5rem
 }
 
-.maxWidth50 {
-  max-width: 10rem;
+.maxWidth20 {
+  max-width: 20rem;
   text-overflow: ellipsis;
   overflow: hidden;
 }

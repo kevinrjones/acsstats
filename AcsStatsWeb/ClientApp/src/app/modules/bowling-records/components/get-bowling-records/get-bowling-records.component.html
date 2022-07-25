@@ -1,19 +1,13 @@
 <app-records-header name="bowling"></app-records-header>
 <form (ngSubmit)="find()" [formGroup]="bowlingRecordsForm">
   <div class="bowling-record">
-    <div class="selectrow" id="bowling-record-select">
-      <select name="matchType" id="matchType" formControlName="matchType">
-        <option value="itt">International T20</option>
-        <option value="tt">T20</option>
-        <option value="witt">Women's International T20</option>
-        <option value="wtt">Women's T20</option>
-        <!--    <option value="wt">Women's Tests</option>-->
-        <!--    <option value="wo">Women's ODI</option>-->
-        <!--    <option value="wf">Women's FC</option>-->
-        <!--    <option value="wa">Women's List A</option>-->
-      </select>
+    <app-search-header class="selectrow app-search" [parentFormGroup]="bowlingRecordsForm" [matchSubTypes$]="matchSubTypes$"></app-search-header>
+    <div class="selectrow" id="bowling-record-limit">
+      <label for="limit">Limit</label>
+      <input type="text"
+             id="limit"
+             formControlName="limit">
     </div>
-    <div class="selectrow" id="bowling-record-limit">Runs limit here as well</div>
     <div class="teamrow" id="bowling-record-team-label">
       Team
     </div>

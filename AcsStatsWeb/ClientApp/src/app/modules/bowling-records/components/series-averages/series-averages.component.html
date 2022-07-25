@@ -77,7 +77,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let row of (bowlingSeries$ | async)?.data">
+  <tr *ngFor="let row of (bowlingSeries$ | async)?.sqlResults?.data">
     <td class="text-left" nowrap="nowrap">{{row.name}}</td>
     <td class="text-right" nowrap="nowrap">{{row.matches}}</td>
     <td class="text-right" nowrap="nowrap">{{row.innings == null ? "-" : row.innings}}</td>

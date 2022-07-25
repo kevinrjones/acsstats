@@ -7,6 +7,7 @@ export interface IndividualBattingDetailsDto {
   ground: string
   matchDate: string
   playerScore: number
+  sr: number
   bat1: number
   bat2: number
   notOut: boolean

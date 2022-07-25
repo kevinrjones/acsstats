@@ -18,6 +18,10 @@
       <a (click)="sort(importedSortOrder.team)" class="btn btn-link text-left">Team
         <fa-icon *ngIf="importedSortOrder.team == sortOrder" [icon]="getSortClass(importedSortOrder.team)"></fa-icon></a>
     </th>
+    <th class="text-left">
+      <a (click)="sort(importedSortOrder.opponents)" class="btn btn-link text-left">Opponents
+        <fa-icon *ngIf="importedSortOrder.opponents == sortOrder" [icon]="getSortClass(importedSortOrder.opponents)"></fa-icon></a>
+    </th>
     <th class="text-right">
       <a (click)="sort(importedSortOrder.balls)" class="btn btn-link">Overs
         <fa-icon *ngIf="importedSortOrder.balls == sortOrder" [icon]="getSortClass(importedSortOrder.balls)"></fa-icon></a>
@@ -44,10 +48,6 @@
     </th>
     <th class="minwidth15"></th>
     <th class="text-left">
-      <a (click)="sort(importedSortOrder.opponents)" class="btn btn-link text-left">Opponents
-        <fa-icon *ngIf="importedSortOrder.opponents == sortOrder" [icon]="getSortClass(importedSortOrder.opponents)"></fa-icon></a>
-    </th>
-    <th class="text-left">
       <a (click)="sort(importedSortOrder.ground)" class="btn btn-link text-left">Ground
         <fa-icon *ngIf="importedSortOrder.ground == sortOrder" [icon]="getSortClass(importedSortOrder.ground)"></fa-icon></a>
     </th>
@@ -58,9 +58,10 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let row of (bowlingMatch$ | async)?.data">
+  <tr *ngFor="let row of (bowlingMatch$ | async)?.sqlResults?.data">
     <td class="text-left" nowrap="nowrap">{{row.fullName}}</td>
     <td class="text-left" nowrap="nowrap">{{row.team}}</td>
+    <td class="text-left" nowrap="nowrap">{{row.opponents}}</td>
     <td class="text-right" nowrap="nowrap">{{getOvers(row)}}</td>
     <td class="text-right" nowrap="nowrap">{{row.ballsPerOver}}</td>
     <td class="text-right" nowrap="nowrap">{{row.playerMaidens == null || row.playerMaidens == 0 ? "-" : row.playerMaidens}}</td>
@@ -68,7 +69,6 @@
     <td class="text-right" nowrap="nowrap">{{row.playerWickets}}</td>
     <td class="text-right" nowrap="nowrap">{{row.econ}}</td>
     <td></td>
-    <td class="text-left" nowrap="nowrap">{{row.opponents}}</td>
     <td class="text-left" nowrap="nowrap">{{row.ground}}</td>
     <td class="text-right" nowrap="nowrap">{{row.matchDate}}</td>
   </tr>

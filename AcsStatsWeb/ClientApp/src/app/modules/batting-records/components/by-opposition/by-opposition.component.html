@@ -16,14 +16,14 @@
       </a>
     </th>
     <th>
-      <a (click)="sort(importedSortOrder.team)" class="btn text-left">Opponents
+      <a (click)="sort(importedSortOrder.team)" class="btn text-left">Teams
         <fa-icon *ngIf="importedSortOrder.team == sortOrder" [icon]="getSortClass(importedSortOrder.team)"></fa-icon>
       </a>
     </th>
     <th>
-      <a (click)="sort(importedSortOrder.hostCountry)" class="btn text-left">Country
-        <fa-icon *ngIf="importedSortOrder.hostCountry == sortOrder"
-                 [icon]="getSortClass(importedSortOrder.hostCountry)"></fa-icon>
+      <a (click)="sort(importedSortOrder.opponents)" class="btn text-left">Opponents
+        <fa-icon *ngIf="importedSortOrder.opponents == sortOrder"
+                 [icon]="getSortClass(importedSortOrder.opponents)"></fa-icon>
       </a>
     </th>
     <th class="text-right">
@@ -109,7 +109,7 @@
   <tr *ngFor="let row of (battingByOpposition$ | async)?.sqlResults?.data">
     <td class="text-left" nowrap="nowrap">{{row.name}}</td>
     <td class="text-left" nowrap="nowrap">{{row.team}}</td>
-    <td class="text-left maxWidth50" nowrap="nowrap">{{row.opponents}}</td>
+    <td class="text-left maxWidth20" nowrap="nowrap">{{row.opponents}}</td>
     <td class="text-right" nowrap="nowrap">{{row.matches}}</td>
     <td class="text-right" nowrap="nowrap">{{row.innings == null ? "-" : row.innings}}</td>
     <td class="text-right" nowrap="nowrap">{{row.notOuts}}</td>

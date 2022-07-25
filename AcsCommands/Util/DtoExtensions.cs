@@ -27,7 +27,8 @@ public static class DtoExtensions
                     new BattingCareerRecordDto(item.Name, item.SortNamePart, item.Team, item.Opponents, item.Year,
                         item.Matches,
                         item.Innings, item.Ground, item.CountryName, item.Runs, item.NotOuts,
-                        item.HighestScore, item.NotOut, item.Avg, item.SR, item.BI, item.Hundreds ?? 0, item.Fifties ?? 0,
+                        item.HighestScore, item.NotOut, item.Avg, item.SR, item.BI, item.Hundreds ?? 0,
+                        item.Fifties ?? 0,
                         item.Ducks ?? 0, item.Fours ?? 0, item.Sixes ?? 0, item.Balls ?? 0)).ToList())
             .Map(r => new SqlResultEnvelope<IReadOnlyList<BattingCareerRecordDto>>(count, r));
     }
@@ -41,7 +42,7 @@ public static class DtoExtensions
                         item.InningsNumber,
                         item.Ground,
                         item.MatchDate, item.PlayerScore, item.Bat1, item.Bat2, item.NotOut,
-                        item.Position, item.Balls, item.Fours, item.Sixes ?? 0, item.Minutes ?? 0)).ToList())
+                        item.Position, item.Balls, item.Fours, item.Sixes ?? 0, item.Minutes ?? 0, item.SR)).ToList())
             .Map(r =>
                 new SqlResultEnvelope<IReadOnlyList<IndividualBattingDetailsDto>>(count, r));
     }
@@ -53,9 +54,24 @@ public static class DtoExtensions
             (IReadOnlyList<BowlingCareerRecordDto>) r.Map(item =>
                 new BowlingCareerRecordDto(item.Name, item.SortNamePart, item.Team, item.Opponents, item.Year,
                     item.Matches, item.Innings, item.Ground, item.CountryName, item.Balls, item.Maidens,
-                    item.Runs, item.Wickets, item.Avg ?? 0.0f, item.Fours ?? 0, item.Sixes ?? 0,
+                    item.Runs, item.Wickets, item.Avg ?? 0.0f, item.Sr ?? 0.0f, item.Bi ?? 0.0f, item.Fours ?? 0,
+                    item.Sixes ?? 0,
                     FiveFor: item.FiveFor ?? 0, item.TenFor ?? 0, item.bbiw ?? 0, item.bbir ?? 0, item.bbmw ?? 0,
                     item.bbmr ?? 0)).ToList());
+    }
+
+    public static Result<SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>, Error> ToEnvelope(
+        this Result<IReadOnlyList<PlayerBowlingCareerRecordDetails>, Error> details, int count)
+    {
+        return details.Map(r =>
+                (IReadOnlyList<BowlingCareerRecordDto>) r.Map(item =>
+                    new BowlingCareerRecordDto(item.Name, item.SortNamePart, item.Team, item.Opponents, item.Year,
+                        item.Matches, item.Innings, item.Ground, item.CountryName, item.Balls, item.Maidens,
+                        item.Runs, item.Wickets, item.Avg ?? 0.0f, item.Sr ?? 0.0f, item.Bi ?? 0.0f, item.Fours ?? 0,
+                        item.Sixes ?? 0,
+                        FiveFor: item.FiveFor ?? 0, item.TenFor ?? 0, item.bbiw ?? 0, item.bbir ?? 0, item.bbmw ?? 0,
+                        item.bbmr ?? 0)).ToList())
+            .Map(r => new SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>(count, r));
     }
 
     public static Result<IReadOnlyList<IndividualBowlingDetailsDto>, Error> ToDto(
@@ -67,6 +83,18 @@ public static class DtoExtensions
                     item.InningsNumber,
                     item.Ground, item.MatchDate, item.PlayerBalls, item.PlayerMaidens, item.PlayerRuns,
                     item.PlayerWickets, item.BallsPerOver, item.Econ)).ToList());
+    }
+
+    public static Result<SqlResultEnvelope<IReadOnlyList<IndividualBowlingDetailsDto>>, Error> ToEnvelope(
+        this Result<IReadOnlyList<IndividualBowlingDetails>, Error> details, int count)
+    {
+        return details.Map(r =>
+                (IReadOnlyList<IndividualBowlingDetailsDto>) r.Map(item =>
+                    new IndividualBowlingDetailsDto(item.FullName, item.SortNamePart, item.Team, item.Opponents,
+                        item.InningsNumber,
+                        item.Ground, item.MatchDate, item.PlayerBalls, item.PlayerMaidens, item.PlayerRuns,
+                        item.PlayerWickets, item.BallsPerOver, item.Econ)).ToList())
+            .Map(r => new SqlResultEnvelope<IReadOnlyList<IndividualBowlingDetailsDto>>(count, r));
     }
 
     public static Result<IReadOnlyList<FieldingCareerRecordDto>, Error> ToDto(

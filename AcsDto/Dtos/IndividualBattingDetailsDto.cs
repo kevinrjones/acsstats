@@ -16,7 +16,8 @@ public record IndividualBattingDetailsDto(
     int? Balls,
     int? Fours,
     int? Sixes,
-    int? Minutes);
+    int? Minutes,
+    float? SR);
 
 public static class IndividualBattingDetailsDtoFormatter
 {

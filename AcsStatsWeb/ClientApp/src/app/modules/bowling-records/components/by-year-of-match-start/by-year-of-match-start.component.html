@@ -74,10 +74,22 @@
       <a (click)="sort(importedSortOrder.sixes)" class="btn btn-link">6s
         <fa-icon *ngIf="importedSortOrder.sixes == sortOrder" [icon]="getSortClass(importedSortOrder.sixes)"></fa-icon></a>
     </th>
+    <th class="text-right">
+      <a (click)="sort(importedSortOrder.battingImpact)" class="btn btn-link">BI
+        <fa-icon *ngIf="importedSortOrder.battingImpact == sortOrder"
+                 [icon]="getSortClass(importedSortOrder.battingImpact)"></fa-icon>
+      </a>
+    </th>
+    <th class="text-right">
+      <a (click)="sort(importedSortOrder.matchStartYear)" class="btn btn-link">Year
+        <fa-icon *ngIf="importedSortOrder.matchStartYear == sortOrder"
+                 [icon]="getSortClass(importedSortOrder.matchStartYear)"></fa-icon>
+      </a>
+    </th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let row of (bowlingByYear$ | async)?.data">
+  <tr *ngFor="let row of (bowlingStore$ | async)?.sqlResults?.data">
     <td class="text-left" nowrap="nowrap">{{row.name}}</td>
     <td class="text-right" nowrap="nowrap">{{row.matches}}</td>
     <td class="text-right" nowrap="nowrap">{{row.innings == null ? "-" : row.innings}}</td>
@@ -89,11 +101,17 @@
     <td class="text-right" nowrap="nowrap">{{getBb(row.bbiw, row.bbir)}}</td>
     <td class="text-right" nowrap="nowrap">{{getBb(row.bbmw, row.bbmr)}}</td>
     <td class="text-right" nowrap="nowrap">{{getEcon(row.runs, row.balls)}}</td>
-    <td class="text-right" nowrap="nowrap">{{getStrikeRate(row.wickets, row.balls)}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.sr.toFixed(2)}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fiveFor}}</td>
     <td class="text-right" nowrap="nowrap">{{row.tenFor}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fours}}</td>
     <td class="text-right" nowrap="nowrap">{{row.sixes}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.bi.toFixed(2)}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.year}}</td>
   </tr>
   </tbody>
 </table>
+
+<app-paging [pageSize]="pageSize" [totalItems]="count" [currentPage]="currentPage" (first)="navigate(0)"
+            (previous)="navigate($event)" (next)="navigate($event)" (last)="navigate($event)"
+            (goto)="navigate($event)"></app-paging>

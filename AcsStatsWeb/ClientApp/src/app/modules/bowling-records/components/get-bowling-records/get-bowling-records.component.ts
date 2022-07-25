@@ -16,6 +16,9 @@ import {DateTime} from "luxon";
 import {SortOrder} from "../../../../models/sortorder.model";
 import {AppSettingsService} from "../../../../services/app-settings.service";
 import {FindRecords} from "../../../../models/find-records.model";
+import {MatchSubTypeModel} from "../../../../models/match-sub-type.model";
+import {LoadMatchSubTypesAction} from "../../../../actions/match-sub-types.actions";
+import {SaveRecordsFormAction} from "../../../../actions/form-state.actions";
 
 @Component({
   selector: 'app-get-bowling-records',
@@ -29,10 +32,15 @@ export class GetBowlingRecordsComponent implements OnInit {
   grounds$!: Observable<Array<Ground>>;
   seriesDates$!: Observable<Array<string>>;
   matchDates$!: Observable<Array<MatchDate>>;
+  matchSubTypes$!: Observable<MatchSubTypeModel[]>;
 
   bowlingRecordsForm!: FormGroup;
   private matchDateSub!: Subscription;
   private defaultMatchType: string;
+  private matchSubTypesSub!: Subscription;
+  private matchTypeControlSub?: Subscription;
+  private matchSubTypeControlSub?: Subscription;
+  private formState$: Observable<FindRecords>;
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
@@ -45,6 +53,7 @@ export class GetBowlingRecordsComponent implements OnInit {
     this.bowlingRecordsForm = this.fb.group({
       matchType: this.defaultMatchType,
       matchSubType: '',
+      pageSize: '50',
       limit: 1,
       teamId: 0,
       opponentsId: 0,
@@ -68,26 +77,28 @@ export class GetBowlingRecordsComponent implements OnInit {
     this.grounds$ = this.store.select(s => s.grounds)
     this.seriesDates$ = this.store.select(s => s.seriesDates)
     this.matchDates$ = this.store.select(s => s.matchDates)
-
+    this.matchSubTypes$ = this.store.select(s => s.matchSubTypes)
+    this.formState$ = this.store.select(s => s.formState)
 
   }
 
   ngOnInit(): void {
-    this.store.dispatch(LoadTeamsAction({payload: this.defaultMatchType}))
-    this.store.dispatch(LoadCountriesAction({payload: this.defaultMatchType}))
-    this.store.dispatch(LoadGroundsAction({payload: this.defaultMatchType}))
-    this.store.dispatch(LoadSeriesDatesAction({payload: this.defaultMatchType}))
-    this.store.dispatch(LoadMatchDatesAction({payload: this.defaultMatchType}))
+    this.dispatchInitializationActions(this.defaultMatchType);
+    this.store.dispatch(LoadMatchSubTypesAction({payload: this.defaultMatchType}))
 
     const matchTypeControl = this.bowlingRecordsForm.get('matchType')
+    const matchSubTypeControl = this.bowlingRecordsForm.get('matchSubType')
 
     matchTypeControl?.valueChanges.subscribe(
       value => {
-        this.store.dispatch(LoadTeamsAction({payload: value}))
-        this.store.dispatch(LoadCountriesAction({payload: value}))
-        this.store.dispatch(LoadGroundsAction({payload: value}))
-        this.store.dispatch(LoadSeriesDatesAction({payload: value}))
-        this.store.dispatch(LoadMatchDatesAction({payload: value}))
+        this.dispatchInitializationActions(value);
+        this.store.dispatch(LoadMatchSubTypesAction({payload: value}))
+      }
+    )
+
+    this.matchSubTypeControlSub = matchSubTypeControl?.valueChanges.subscribe(
+      value => {
+        this.dispatchInitializationActions(value);
       }
     )
 
@@ -95,10 +106,31 @@ export class GetBowlingRecordsComponent implements OnInit {
       this.bowlingRecordsForm.patchValue({'startDate': s[0]?.date, 'endDate': s[1]?.date})
     });
 
+    this.matchSubTypesSub = this.matchSubTypes$.subscribe((s: Array<MatchSubTypeModel>) => {
+      this.bowlingRecordsForm.patchValue({'matchSubType': s[0]?.key})
+    });
+
+    this.formState$.subscribe((fs: FindRecords) => {
+      if (fs.matchType != "") {
+        this.bowlingRecordsForm.patchValue(fs)
+      }
+    });
+
+  }
+
+  private dispatchInitializationActions(matchStype: string) {
+    this.store.dispatch(LoadTeamsAction({payload: matchStype}))
+    this.store.dispatch(LoadCountriesAction({payload: matchStype}))
+    this.store.dispatch(LoadGroundsAction({payload: matchStype}))
+    this.store.dispatch(LoadSeriesDatesAction({payload: matchStype}))
+    this.store.dispatch(LoadMatchDatesAction({payload: matchStype}))
   }
 
   ngOnDestroy() {
     this.matchDateSub.unsubscribe()
+    this.matchSubTypesSub.unsubscribe()
+    this.matchTypeControlSub?.unsubscribe();
+    this.matchSubTypeControlSub?.unsubscribe();
   }
 
   public find() {
@@ -145,7 +177,7 @@ export class GetBowlingRecordsComponent implements OnInit {
 
     let queryParams: FindRecords = {
       matchType: this.bowlingRecordsForm.get('matchType')?.value
-      , matchSubType: this.bowlingRecordsForm.get('matchType')?.value
+      , matchSubType: this.bowlingRecordsForm.get('matchSubType')?.value
       , teamId: this.bowlingRecordsForm.get('teamId')?.value
       , opponentsId: this.bowlingRecordsForm.get('opponentsId')?.value
       , groundId: this.bowlingRecordsForm.get('groundId')?.value
@@ -164,13 +196,46 @@ export class GetBowlingRecordsComponent implements OnInit {
       , matchTied: this.bowlingRecordsForm.get('matchTied')?.value
       , limit: this.bowlingRecordsForm.get('limit')?.value
       , startRow: '0'
-      , pageSize: '10000'
+      , pageSize: this.bowlingRecordsForm.get('pageSize')?.value
     }
 
-    // this.store.dispatch(LoadBattingRecordsAction({payload: queryParams}))
+    this.store.dispatch(SaveRecordsFormAction({
+      payload:
+        this.bowlingRecordsForm.getRawValue()
+    }))
 
     this.router.navigate([route], {queryParams})
 
+  }
+
+  public reset() {
+    this.store.dispatch(SaveRecordsFormAction({
+      payload: {
+        matchType: this.defaultMatchType,
+        matchSubType: '',
+        teamId: 0,
+        opponentsId: 0,
+        groundId: 0,
+        hostCountryId: 0,
+        homeVenue: '',
+        awayVenue: '',
+        neutralVenue: '',
+        startDate: '',
+        endDate: '',
+        season: '0',
+        matchWon: 0,
+        matchLost: 0,
+        matchDrawn: 0,
+        matchTied: 0,
+        limit: 100,
+        startRow: '0',
+        pageSize: '50',
+        format: 1
+      }
+    }))
+    this.dispatchInitializationActions(this.defaultMatchType);
+    this.store.dispatch(LoadMatchSubTypesAction({payload: ""}))
+    this.store.dispatch(LoadMatchSubTypesAction({payload: this.defaultMatchType}))
   }
 
 }

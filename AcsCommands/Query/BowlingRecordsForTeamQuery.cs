@@ -13,7 +13,8 @@ using MySql.Data.MySqlClient;
 
 namespace AcsCommands.Query;
 
-public class BowlingRecordsForTeamQuery : IRequest<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>>
+public class
+    BowlingRecordsForTeamQuery : IRequest<Result<SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>, Error>>
 {
     private BattingBowlingFieldingModel FieldingModel { get; }
     private string Sql { get; }
@@ -25,7 +26,8 @@ public class BowlingRecordsForTeamQuery : IRequest<Result<IReadOnlyList<BowlingC
     }
 
     internal class BowlingRecordsForTeamQueryHandler
-        : IRequestHandler<BowlingRecordsForTeamQuery, Result<IReadOnlyList<BowlingCareerRecordDto>, Error>>
+        : IRequestHandler<BowlingRecordsForTeamQuery,
+            Result<SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>, Error>>
     {
         private readonly QueriesConnectionString _queriesConnectionString;
         private readonly ILogger<BowlingRecordsForTeamQueryHandler> _logger;
@@ -38,14 +40,15 @@ public class BowlingRecordsForTeamQuery : IRequest<Result<IReadOnlyList<BowlingC
             _logger = logger;
         }
 
-        public async Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> Handle(BowlingRecordsForTeamQuery request,
+        public async Task<Result<SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>, Error>> Handle(
+            BowlingRecordsForTeamQuery request,
             CancellationToken cancellationToken)
         {
             try
             {
                 await using var connection = new MySqlConnection(_queriesConnectionString.Value);
-                var result = (IReadOnlyList<PlayerBowlingCareerRecordDetails>) connection
-                    .Query<PlayerBowlingCareerRecordDetails>(request.Sql, new
+                var grid = connection
+                    .QueryMultiple(request.Sql, new
                     {
                         team_id = request.FieldingModel.TeamId.Value,
                         match_type = request.FieldingModel.MatchType.Value,
@@ -60,10 +63,13 @@ public class BowlingRecordsForTeamQuery : IRequest<Result<IReadOnlyList<BowlingC
                         wickets_limit = request.FieldingModel.Limit.Value,
                         sort_by = (int) request.FieldingModel.SortOrder,
                         sort_direction = request.FieldingModel.SortDirectionAsString(),
-                    start_row = request.FieldingModel.StartRow,
-                    page_size = request.FieldingModel.Rows
-                    }, commandType: CommandType.StoredProcedure).ToList();
-                return Result.Success<IReadOnlyList<PlayerBowlingCareerRecordDetails>, Error>(result).ToDto();
+                        start_row = request.FieldingModel.StartRow,
+                        page_size = request.FieldingModel.Rows
+                    }, commandType: CommandType.StoredProcedure);
+
+                var result = (IReadOnlyList<PlayerBowlingCareerRecordDetails>) grid.Read<PlayerBowlingCareerRecordDetails>().ToList();
+                var count = grid.Read<int>().First();
+                return Result.Success<IReadOnlyList<PlayerBowlingCareerRecordDetails>, Error>(result).ToEnvelope(count);
             }
             catch (Exception e)
             {
@@ -76,7 +82,8 @@ public class BowlingRecordsForTeamQuery : IRequest<Result<IReadOnlyList<BowlingC
                     request.FieldingModel.EndDateEpoch, request.FieldingModel.Season,
                     request.FieldingModel.MatchResult.Value,
                     (int) request.FieldingModel.SortOrder, request.FieldingModel.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<BowlingCareerRecordDto>, Error>(Errors.GetUnexpectedError(e.Message));
+                return Result.Failure<SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>, Error>(
+                    Errors.GetUnexpectedError(e.Message));
             }
         }
     }

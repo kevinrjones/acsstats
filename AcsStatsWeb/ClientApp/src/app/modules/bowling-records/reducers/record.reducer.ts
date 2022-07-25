@@ -14,26 +14,29 @@ import {
 import {IndividualBowlingDetailsDto} from "../models/individual-bowling-details.dto";
 import {DateTime} from "luxon";
 import {SortOrder} from 'src/app/models/sortorder.model';
+import {BattingCareerRecordDto} from "../../batting-records/models/batting-overall.model";
 
 
 export const initialBowlingOverallRecordState = {
-  data: Array<BowlingCareerRecordDto>(),
+  sqlResults: {data:Array<BowlingCareerRecordDto>(), count: 0},
   sortOrder: SortOrder.wickets,
-  sortDirection: "desc"
+  sortDirection: "desc",
+  error: {}
 };
 export const loadOverallBowlingReducer = createReducer(
   initialBowlingOverallRecordState,
   on(LoadOverallBowlingRecordsSuccessAction, (state, records) => {
     return {
-      data: records.payload.data,
+      sqlResults: records.payload.sqlResults,
       sortOrder: records.payload.sortOrder,
-      sortDirection: records.payload.sortDirection
+      sortDirection: records.payload.sortDirection,
+      error: {}
     }
   })
 );
 
 export const initialBowlingInnByInnRecordState = {
-  data: Array<IndividualBowlingDetailsDto>(),
+  sqlResults: {data:Array<IndividualBowlingDetailsDto>(), count: 0},
   sortOrder: SortOrder.wickets,
   sortDirection: "desc"
 };
@@ -41,9 +44,10 @@ export const loadInnByInnBowlingReducer = createReducer(
   initialBowlingInnByInnRecordState,
   on(LoadInnByInnBowlingRecordsSuccessAction, (state, records) => {
     return {
-      data: records.payload.data,
+      sqlResults:records.payload.sqlResults,
       sortOrder: records.payload.sortOrder,
-      sortDirection: records.payload.sortDirection
+      sortDirection: records.payload.sortDirection,
+      error: {}
     }
   })
 )
@@ -52,9 +56,10 @@ export const loadByMatchBowlingReducer = createReducer(
   initialBowlingInnByInnRecordState,
   on(LoadByMatchBowlingRecordsSuccessAction, (state, records) => {
     return {
-      data: records.payload.data,
+      sqlResults:records.payload.sqlResults,
       sortOrder: records.payload.sortOrder,
-      sortDirection: records.payload.sortDirection
+      sortDirection: records.payload.sortDirection,
+      error: {}
     }
   })
 )
@@ -63,9 +68,10 @@ export const loadBySeriesBowlingReducer = createReducer(
   initialBowlingOverallRecordState,
   on(LoadBySeriesBowlingRecordsSuccessAction, (state, records) => {
     return {
-      data: records.payload.data,
+      sqlResults:records.payload.sqlResults,
       sortOrder: records.payload.sortOrder,
-      sortDirection: records.payload.sortDirection
+      sortDirection: records.payload.sortDirection,
+      error: {}
     }
   })
 );
@@ -74,9 +80,10 @@ export const loadByGroundBowlingReducer = createReducer(
   initialBowlingOverallRecordState,
   on(LoadByGroundBowlingRecordsSuccessAction, (state, records) => {
     return {
-      data: records.payload.data,
+      sqlResults:records.payload.sqlResults,
       sortOrder: records.payload.sortOrder,
-      sortDirection: records.payload.sortDirection
+      sortDirection: records.payload.sortDirection,
+      error: {}
     }
   })
 );
@@ -86,9 +93,10 @@ export const loadByHostBowlingReducer = createReducer(
   initialBowlingOverallRecordState,
   on(LoadByHostBowlingRecordsSuccessAction, (state, records) => {
     return {
-      data: records.payload.data,
+      sqlResults:records.payload.sqlResults,
       sortOrder: records.payload.sortOrder,
-      sortDirection: records.payload.sortDirection
+      sortDirection: records.payload.sortDirection,
+      error: {}
     }
   })
 );
@@ -97,9 +105,10 @@ export const loadByOppositionBowlingReducer = createReducer(
   initialBowlingOverallRecordState,
   on(LoadByOppositionBowlingRecordsSuccessAction, (state, records) => {
     return {
-      data: records.payload.data,
+      sqlResults:records.payload.sqlResults,
       sortOrder: records.payload.sortOrder,
-      sortDirection: records.payload.sortDirection
+      sortDirection: records.payload.sortDirection,
+      error: {}
     }
   })
 );
@@ -108,9 +117,10 @@ export const loadByYearBowlingReducer = createReducer(
   initialBowlingOverallRecordState,
   on(LoadByYearBowlingRecordsSuccessAction, (state, records) => {
     return {
-      data: records.payload.data,
+      sqlResults:records.payload.sqlResults,
       sortOrder: records.payload.sortOrder,
-      sortDirection: records.payload.sortDirection
+      sortDirection: records.payload.sortDirection,
+      error: {}
     }
   })
 );
@@ -119,9 +129,10 @@ export const loadBySeasonBowlingReducer = createReducer(
   initialBowlingOverallRecordState,
   on(LoadBySeasonBowlingRecordsSuccessAction, (state, records) => {
     return {
-      data: records.payload.data,
+      sqlResults:records.payload.sqlResults,
       sortOrder: records.payload.sortOrder,
-      sortDirection: records.payload.sortDirection
+      sortDirection: records.payload.sortDirection,
+      error: {}
     }
   })
 );

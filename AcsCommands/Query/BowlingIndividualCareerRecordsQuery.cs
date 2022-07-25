@@ -13,8 +13,8 @@ using MySql.Data.MySqlClient;
 
 namespace AcsCommands.Query;
 
-public class BowlingIndividualCareerRecordsQuery 
-    : IRequest<Result<IReadOnlyList<IndividualBowlingDetailsDto>, Error>>
+public class BowlingIndividualCareerRecordsQuery
+    : IRequest<Result<SqlResultEnvelope<IReadOnlyList<IndividualBowlingDetailsDto>>, Error>>
 {
     private BattingBowlingFieldingModel FieldingModel { get; }
     private string Sql { get; }
@@ -27,9 +27,8 @@ public class BowlingIndividualCareerRecordsQuery
 
     internal class BowlingIndividualCareerRecordsQueryHandler
         : IRequestHandler<BowlingIndividualCareerRecordsQuery,
-            Result<IReadOnlyList<IndividualBowlingDetailsDto>, Error>>
+            Result<SqlResultEnvelope<IReadOnlyList<IndividualBowlingDetailsDto>>, Error>>
     {
-
         private readonly QueriesConnectionString _queriesConnectionString;
         private readonly ILogger<BowlingIndividualCareerRecordsQueryHandler> _logger;
 
@@ -41,13 +40,14 @@ public class BowlingIndividualCareerRecordsQuery
             _logger = logger;
         }
 
-        public async Task<Result<IReadOnlyList<IndividualBowlingDetailsDto>, Error>> Handle(BowlingIndividualCareerRecordsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<SqlResultEnvelope<IReadOnlyList<IndividualBowlingDetailsDto>>, Error>> Handle(
+            BowlingIndividualCareerRecordsQuery request, CancellationToken cancellationToken)
         {
             try
             {
                 await using var connection = new MySqlConnection(_queriesConnectionString.Value);
-                var result = (IReadOnlyList<IndividualBowlingDetails>)connection
-                    .Query<IndividualBowlingDetails>(request.Sql, new
+                var grid = connection
+                    .QueryMultiple(request.Sql, new
                     {
                         team_id = request.FieldingModel.TeamId.Value,
                         opponents_id = request.FieldingModel.OpponentsId.Value,
@@ -61,12 +61,15 @@ public class BowlingIndividualCareerRecordsQuery
                         season = request.FieldingModel.Season,
                         matchResult = request.FieldingModel.MatchResult.Value,
                         wickets_limit = request.FieldingModel.Limit.Value,
-                        sort_by = (int)request.FieldingModel.SortOrder,
+                        sort_by = (int) request.FieldingModel.SortOrder,
                         sort_direction = request.FieldingModel.SortDirectionAsString(),
-                    start_row = request.FieldingModel.StartRow,
-                    page_size = request.FieldingModel.Rows
-                    }, commandType: CommandType.StoredProcedure).ToList();
-                return Result.Success<IReadOnlyList<IndividualBowlingDetails>, Error>(result).ToDto();
+                        start_row = request.FieldingModel.StartRow,
+                        page_size = request.FieldingModel.Rows
+                    }, commandType: CommandType.StoredProcedure);
+
+                var result = grid.Read<IndividualBowlingDetails>().ToList();
+                var count = grid.Read<int>().First();
+                return Result.Success<IReadOnlyList<IndividualBowlingDetails>, Error>(result).ToEnvelope(count);
             }
             catch (Exception e)
             {
@@ -79,10 +82,10 @@ public class BowlingIndividualCareerRecordsQuery
                     request.FieldingModel.StartDateEpoch,
                     request.FieldingModel.EndDateEpoch, request.FieldingModel.Season,
                     request.FieldingModel.MatchResult.Value,
-                    (int)request.FieldingModel.SortOrder, request.FieldingModel.SortDirectionAsString());
-                return Result.Failure<IReadOnlyList<IndividualBowlingDetailsDto>, Error>(Errors.GetUnexpectedError(e.Message));
+                    (int) request.FieldingModel.SortOrder, request.FieldingModel.SortDirectionAsString());
+                return Result.Failure<SqlResultEnvelope<IReadOnlyList<IndividualBowlingDetailsDto>>, Error>(
+                    Errors.GetUnexpectedError(e.Message));
             }
-
         }
     }
 }

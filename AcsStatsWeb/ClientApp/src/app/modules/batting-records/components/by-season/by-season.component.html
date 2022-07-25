@@ -15,6 +15,10 @@
         <fa-icon *ngIf="importedSortOrder.name == sortOrder" [icon]="getSortClass(importedSortOrder.name)"></fa-icon>
       </a>
     </th>
+    <th class="text-left">
+      <a (click)="sort(importedSortOrder.team)" class="btn btn-link">Team
+        <fa-icon *ngIf="importedSortOrder.team == sortOrder" [icon]="getSortClass(importedSortOrder.team)"></fa-icon></a>
+    </th>
     <th class="text-right">
       <a (click)="sort(importedSortOrder.matches)" class="btn btn-link">M
         <fa-icon *ngIf="importedSortOrder.matches == sortOrder"
@@ -103,6 +107,7 @@
   <tbody>
   <tr *ngFor="let row of (battingBySeason$ | async)?.sqlResults?.data">
     <td class="text-left" nowrap="nowrap">{{row.name}}</td>
+    <td class="text-left" nowrap="nowrap">{{row.team}}</td>
     <td class="text-right" nowrap="nowrap">{{row.matches}}</td>
     <td class="text-right" nowrap="nowrap">{{row.innings == null ? "-" : row.innings}}</td>
     <td class="text-right" nowrap="nowrap">{{row.notOuts}}</td>

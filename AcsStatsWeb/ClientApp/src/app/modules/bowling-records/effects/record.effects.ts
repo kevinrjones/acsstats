@@ -25,8 +25,10 @@ import {
 import {BowlingRecordService} from "../services/bowling-record.service";
 import {createError, handleError} from "../../../helpers/ErrorHelper";
 import {RaiseErrorAction} from "../../../actions/error.actions";
-import { Envelope } from 'src/app/models/envelope';
+import {Envelope} from 'src/app/models/envelope';
 import {BowlingCareerRecordDto} from "../models/bowling-overall.model";
+import {SqlResultsEnvelope} from "../../../models/sqlresultsenvelope.model";
+import {IndividualBowlingDetailsDto} from "../models/individual-bowling-details.dto";
 
 @Injectable()
 export class RecordEffects {
@@ -42,13 +44,13 @@ export class RecordEffects {
       ofType(LoadOverallBowlingRecordsAction),
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingOverall(action.payload)
         .pipe(
-          map((players: Envelope<BowlingCareerRecordDto[]>) => {
+          map((players: Envelope<SqlResultsEnvelope<BowlingCareerRecordDto[]>>) => {
             if (players.errorMessage != null && players.errorMessage != "")
               return RaiseErrorAction({payload: createError(2, "Unable to get the match records")})
 
             return LoadOverallBowlingRecordsSuccessAction({
               payload: {
-                data: players.result,
+                sqlResults: players.result,
                 sortOrder: action.payload.sortOrder,
                 sortDirection: action.payload.sortDirection
               }
@@ -65,8 +67,19 @@ export class RecordEffects {
       ofType(LoadInnByInnBowlingRecordsAction),
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingInningsByInnings(action.payload)
         .pipe(
-          map(players => LoadInnByInnBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-                catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Inning Records")})))
+          map((players: Envelope<SqlResultsEnvelope<IndividualBowlingDetailsDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the innings records")})
+
+            return LoadInnByInnBowlingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            });
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Inning Records")})))
         ))
     );
   });
@@ -76,8 +89,19 @@ export class RecordEffects {
       ofType(LoadByMatchBowlingRecordsAction),
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingByMatch(action.payload)
         .pipe(
-          map(players => LoadByMatchBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-                catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Match Records")})))
+          map((players: Envelope<SqlResultsEnvelope<IndividualBowlingDetailsDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the match records")})
+
+            return LoadByMatchBowlingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            });
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Match Records")})))
         ))
     );
   });
@@ -87,8 +111,19 @@ export class RecordEffects {
       ofType(LoadBySeriesBowlingRecordsAction),
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingBySeries(action.payload)
         .pipe(
-          map(players => LoadBySeriesBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-                catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Series Records")})))
+          map((players: Envelope<SqlResultsEnvelope<BowlingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the series records")})
+
+            return LoadBySeriesBowlingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            });
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Series Records")})))
         ))
     );
   });
@@ -98,8 +133,19 @@ export class RecordEffects {
       ofType(LoadByGroundBowlingRecordsAction),
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingByGround(action.payload)
         .pipe(
-          map(players => LoadByGroundBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-                catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Ground Records")})))
+          map((players: Envelope<SqlResultsEnvelope<BowlingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the ground records")})
+
+            return LoadByGroundBowlingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            });
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Ground Records")})))
         ))
     );
   });
@@ -109,8 +155,19 @@ export class RecordEffects {
       ofType(LoadByHostBowlingRecordsAction),
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingByHostCountry(action.payload)
         .pipe(
-          map(players => LoadByHostBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-                catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Host Records")})))
+          map((players: Envelope<SqlResultsEnvelope<BowlingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the host records")})
+
+            return LoadByHostBowlingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            });
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Host Records")})))
         ))
     );
   });
@@ -120,8 +177,19 @@ export class RecordEffects {
       ofType(LoadByOppositionBowlingRecordsAction),
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingByOpposition(action.payload)
         .pipe(
-          map(players => LoadByOppositionBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-                catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Opposition Records")})))
+          map((players: Envelope<SqlResultsEnvelope<BowlingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the oppostion records")})
+
+            return LoadByOppositionBowlingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            });
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Opposition Records")})))
         ))
     );
   });
@@ -131,8 +199,19 @@ export class RecordEffects {
       ofType(LoadByYearBowlingRecordsAction),
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingByYear(action.payload)
         .pipe(
-          map(players => LoadByYearBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-                catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Year Records")})))
+          map((players: Envelope<SqlResultsEnvelope<BowlingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the yearly records")})
+
+            return LoadByYearBowlingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            });
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Year Records")})))
         ))
     );
   });
@@ -142,8 +221,19 @@ export class RecordEffects {
       ofType(LoadBySeasonBowlingRecordsAction),
       mergeMap(action => this.bowlingRecordsSearchService.getBowlingBySeason(action.payload)
         .pipe(
-          map(players => LoadBySeasonBowlingRecordsSuccessAction({payload: {data: players.result, sortOrder: action.payload.sortOrder, sortDirection: action.payload.sortDirection}})),
-                catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Season Records")})))
+          map((players: Envelope<SqlResultsEnvelope<BowlingCareerRecordDto[]>>) => {
+            if (players.errorMessage != null && players.errorMessage != "")
+              return RaiseErrorAction({payload: createError(2, "Unable to get the season records")})
+
+            return LoadBySeasonBowlingRecordsSuccessAction({
+              payload: {
+                sqlResults: players.result,
+                sortOrder: action.payload.sortOrder,
+                sortDirection: action.payload.sortDirection
+              }
+            });
+          }),
+          catchError((err) => of(RaiseErrorAction({payload: handleError(err, "Getting Bowling By Season Records")})))
         ))
     );
   });

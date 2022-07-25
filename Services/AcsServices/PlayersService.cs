@@ -93,7 +93,7 @@ namespace Services.AcsServices
         "batting_individual_career_records_by_ground_complete"));
     }
 
-    public async Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingCareerRecords(
+    public async Task<Result<SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>, Error>> GetBowlingCareerRecords(
       BattingBowlingFieldingModel model)
     {
       if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
@@ -119,27 +119,27 @@ namespace Services.AcsServices
     }
 
 
-    public async Task<Result<IReadOnlyList<IndividualBowlingDetailsDto>, Error>> GetBowlingIndividualInnings(
+    public async Task<Result<SqlResultEnvelope<IReadOnlyList<IndividualBowlingDetailsDto>>, Error>> GetBowlingIndividualInnings(
       BattingBowlingFieldingModel model)
     {
       return await _mediator.Send(
         new BowlingIndividualCareerRecordsQuery(model, "bowling_individual_career_records_by_innings"));
     }
 
-    public async Task<Result<IReadOnlyList<IndividualBowlingDetailsDto>, Error>> GetBowlingIndividualMatches(
+    public async Task<Result<SqlResultEnvelope<IReadOnlyList<IndividualBowlingDetailsDto>>, Error>> GetBowlingIndividualMatches(
       BattingBowlingFieldingModel model)
     {
       return await _mediator.Send(
         new BowlingIndividualCareerRecordsQuery(model, "bowling_individual_career_records_by_match"));
     }
 
-    public async Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualSeries(
+    public async Task<Result<SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>, Error>> GetBowlingIndividualSeries(
       BattingBowlingFieldingModel model)
     {
       return await _mediator.Send(new BowlingIndividualSeriesQuery(model));
     }
 
-    public async Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualGrounds(
+    public async Task<Result<SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>, Error>> GetBowlingIndividualGrounds(
       BattingBowlingFieldingModel model)
     {
       if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
@@ -189,7 +189,7 @@ namespace Services.AcsServices
         "batting_individual_career_records_by_host_complete"));
     }
 
-    public async Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualHost(
+    public async Task<Result<SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>, Error>> GetBowlingIndividualHost(
       BattingBowlingFieldingModel model)
     {
       if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
@@ -239,7 +239,7 @@ namespace Services.AcsServices
         "batting_individual_career_records_by_opp_complete"));
     }
 
-    public async Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>>
+    public async Task<Result<SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>, Error>>
       GetBowlingIndividualOpponents(
         BattingBowlingFieldingModel model)
     {
@@ -290,7 +290,7 @@ namespace Services.AcsServices
         "batting_individual_career_records_by_season_complete"));
     }
 
-    public async Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualSeason(
+    public async Task<Result<SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>, Error>> GetBowlingIndividualSeason(
       BattingBowlingFieldingModel model)
     {
       if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)
@@ -340,7 +340,7 @@ namespace Services.AcsServices
         "batting_individual_career_records_by_year_complete"));
     }
 
-    public async Task<Result<IReadOnlyList<BowlingCareerRecordDto>, Error>> GetBowlingIndividualYear(
+    public async Task<Result<SqlResultEnvelope<IReadOnlyList<BowlingCareerRecordDto>>, Error>> GetBowlingIndividualYear(
       BattingBowlingFieldingModel model)
     {
       if (model.TeamId.Value != 0 && model.OpponentsId.Value != 0)

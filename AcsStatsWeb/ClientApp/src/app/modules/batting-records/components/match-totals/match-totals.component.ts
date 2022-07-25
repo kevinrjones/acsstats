@@ -14,6 +14,7 @@ import {FindRecords} from "../../../../models/find-records.model";
 import {LoadRecordSummariesAction} from "../../../../actions/recordsummary.actions";
 import {SortOrder} from "../../../../models/sortorder.model";
 import {BattingHelperService} from "../../services/batting-helper.service";
+import {RecordHelperService} from "../../../../services/record-helper.service";
 
 @Component({
   selector: 'app-match-totals',
@@ -30,7 +31,6 @@ export class MatchTotalsComponent implements OnInit {
   pageSize!: number;
   pageNumber!: number;
   findBattingParams!: FindRecords;
-  private batInnByInnSub$!: Subscription;
   count!: number;
   currentPage!: number;
 
@@ -38,7 +38,8 @@ export class MatchTotalsComponent implements OnInit {
               private route: ActivatedRoute,
               private location: Location,
               private battingStore: Store<BattingOverallState>,
-              private battingHelperService: BattingHelperService) { }
+              private battingHelperService: BattingHelperService,
+              private recordHelperService: RecordHelperService) { }
 
   ngOnInit(): void {
     this.battingByMatch$ = this.battingStore.select(s => {
@@ -53,14 +54,14 @@ export class MatchTotalsComponent implements OnInit {
 
       this.findBattingParams = params as FindRecords
 
-      this.venue = this.battingHelperService.setVenue(this.findBattingParams.homeVenue.toLowerCase() == "true",
+      this.venue = this.recordHelperService.setVenue(this.findBattingParams.homeVenue.toLowerCase() == "true",
         this.findBattingParams.awayVenue.toLowerCase() == "true",
         this.findBattingParams.neutralVenue.toLowerCase() == "true")
 
       this.battingStore.dispatch(LoadByMatchBattingRecordsAction({payload: this.findBattingParams}))
       this.battingHelperService.loadSummaries(this.findBattingParams, this.battingStore)
 
-      let pageInfo = this.battingHelperService.getPageInformation(this.findBattingParams)
+      let pageInfo = this.recordHelperService.getPageInformation(this.findBattingParams)
 
       this.pageSize = pageInfo.pageSize
       this.pageNumber = pageInfo.pageNumber
@@ -70,22 +71,22 @@ export class MatchTotalsComponent implements OnInit {
         this.sortDirection = payload.sortDirection
         this.count = payload.sqlResults.count
 
-        this.currentPage = this.battingHelperService.getCurrentPage(this.findBattingParams)
+        this.currentPage = this.recordHelperService.getCurrentPage(this.findBattingParams)
       })
 
     });
   }
 
   sort(newSortOrder: SortOrder) {
-    this.battingHelperService.sort(this.sortOrder, newSortOrder, this.sortDirection, this.router)
+    this.recordHelperService.sort(this.sortOrder, newSortOrder, this.sortDirection, this.router)
   }
 
   getSortClass(sortOrder: SortOrder): IconProp {
-    return this.battingHelperService.getSortClass(sortOrder, this.sortDirection)
+    return this.recordHelperService.getSortClass(sortOrder, this.sortDirection)
   }
 
   navigate(startRow: number) {
-    this.battingHelperService.navigate(startRow, this.router)
+    this.recordHelperService.navigate(startRow, this.router)
   }
 
   getScore(row: IndividualBattingDetailsDto) {

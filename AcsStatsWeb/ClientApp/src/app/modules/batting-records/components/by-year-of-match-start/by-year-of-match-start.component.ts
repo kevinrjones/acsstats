@@ -14,6 +14,7 @@ import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {SortOrder} from "../../../../models/sortorder.model";
 import {BattingHelperService} from "../../services/batting-helper.service";
+import {RecordHelperService} from "../../../../services/record-helper.service";
 
 @Component({
   selector: 'app-by-year-of-match-start',
@@ -38,7 +39,8 @@ export class ByYearOfMatchStartComponent implements OnInit {
               private route: ActivatedRoute,
               private location: Location,
               private battingStore: Store<BattingOverallState>,
-              private battingHelperService: BattingHelperService) {
+              private battingHelperService: BattingHelperService,
+              private recordHelperService: RecordHelperService) {
   }
 
   ngOnInit(): void {
@@ -55,14 +57,14 @@ export class ByYearOfMatchStartComponent implements OnInit {
 
       this.findBattingParams = params as FindRecords
 
-      this.venue = this.battingHelperService.setVenue(this.findBattingParams.homeVenue.toLowerCase() == "true",
+      this.venue = this.recordHelperService.setVenue(this.findBattingParams.homeVenue.toLowerCase() == "true",
         this.findBattingParams.awayVenue.toLowerCase() == "true",
         this.findBattingParams.neutralVenue.toLowerCase() == "true")
 
       this.battingStore.dispatch(LoadByYearBattingRecordsAction({payload: this.findBattingParams}))
       this.battingHelperService.loadSummaries(this.findBattingParams, this.battingStore)
 
-      let pageInfo = this.battingHelperService.getPageInformation(this.findBattingParams)
+      let pageInfo = this.recordHelperService.getPageInformation(this.findBattingParams)
 
       this.pageSize = pageInfo.pageSize
       this.pageNumber = pageInfo.pageNumber
@@ -73,7 +75,7 @@ export class ByYearOfMatchStartComponent implements OnInit {
 
         this.count = payload.sqlResults.count
 
-        this.currentPage = this.battingHelperService.getCurrentPage(this.findBattingParams)
+        this.currentPage = this.recordHelperService.getCurrentPage(this.findBattingParams)
       })
 
     });
@@ -89,14 +91,14 @@ export class ByYearOfMatchStartComponent implements OnInit {
   }
 
   sort(newSortOrder: SortOrder) {
-    this.battingHelperService.sort(this.sortOrder, newSortOrder, this.sortDirection, this.router)
+    this.recordHelperService.sort(this.sortOrder, newSortOrder, this.sortDirection, this.router)
   }
 
   getSortClass(sortOrder: SortOrder): IconProp {
-    return this.battingHelperService.getSortClass(sortOrder, this.sortDirection)
+    return this.recordHelperService.getSortClass(sortOrder, this.sortDirection)
   }
 
   navigate(startRow: number) {
-    this.battingHelperService.navigate(startRow, this.router)
+    this.recordHelperService.navigate(startRow, this.router)
   }
 }

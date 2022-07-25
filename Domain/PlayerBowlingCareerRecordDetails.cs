@@ -7,6 +7,8 @@ public class PlayerBowlingCareerRecordDetails : PlayerCareerRecordDetails
     public int? Runs { get; set; }
     public int Wickets { get; set; }
     public float? Avg { get; set; }
+    public float? Sr { get; set; }
+    public float? Bi { get; set; }
     public int? Fours { get; set; }
     public int? Sixes { get; set; }
     public int? FiveFor { get; set; }

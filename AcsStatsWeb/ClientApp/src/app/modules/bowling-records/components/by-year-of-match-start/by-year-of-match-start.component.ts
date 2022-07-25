@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {BowlingOverallUiModel} from "../../models/bowling-overall-ui.model";
 import {RecordsSummaryModel} from "../../../../models/records-summary.model";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -7,11 +7,11 @@ import {Location} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {BowlingOverallState} from "../../models/app-state";
 import {LoadByYearBowlingRecordsAction} from "../../actions/records.actions";
-import {LoadRecordSummariesAction} from "../../../../actions/recordsummary.actions";
-import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {SortOrder} from "../../../../models/sortorder.model";
 import {FindRecords} from "../../../../models/find-records.model";
+import {BowlingHelperService} from "../../services/bowling-helper.service";
+import {RecordHelperService} from "../../../../services/record-helper.service";
 
 @Component({
   selector: 'app-by-year-of-match-start',
@@ -19,22 +19,35 @@ import {FindRecords} from "../../../../models/find-records.model";
   styleUrls: ['./by-year-of-match-start.component.css']
 })
 export class ByYearOfMatchStartComponent implements OnInit {
-  bowlingByYear$!: Observable<BowlingOverallUiModel>;
+  bowlingStore$!: Observable<BowlingOverallUiModel>;
   bowlingSummary$!: Observable<RecordsSummaryModel>;
   sortOrder!: number;
+  pageSize!: number;
+  pageNumber!: number;
   private sortDirection!: string;
   importedSortOrder = SortOrder;
   venue!: string;
+  findBowlingParams!: FindRecords
+  private bowlInnByInnSub$!: Subscription;
+  count!: number;
+  currentPage!: number;
+  private bowlingStoreSub$!: Subscription;
 
-
-  constructor(private router: Router, private route: ActivatedRoute,
+  constructor(private router: Router,
+              private route: ActivatedRoute,
               private location: Location,
-              private bowlingStore: Store<BowlingOverallState>) {
+              private bowlingStore: Store<BowlingOverallState>,
+              private bowlingHelperService: BowlingHelperService,
+              private recordHelperService: RecordHelperService) {
+  }
+
+  ngOnDestroy() {
+    this.bowlingStoreSub$.unsubscribe();
   }
 
   ngOnInit(): void {
 
-    this.bowlingByYear$ = this.bowlingStore.select(s => {
+    this.bowlingStore$ = this.bowlingStore.select(s => {
         return s.bowlingrecords.byYear
       }
     )
@@ -44,83 +57,42 @@ export class ByYearOfMatchStartComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
 
-      let fbo = params as FindRecords
+      this.findBowlingParams = params as FindRecords
 
-      this.venue = this.setVenue(fbo.homeVenue.toLowerCase() == "true",
-        fbo.awayVenue.toLowerCase() == "true",
-        fbo.neutralVenue.toLowerCase() == "true")
+      this.venue = this.recordHelperService.setVenue(this.findBowlingParams.homeVenue.toLowerCase() == "true",
+        this.findBowlingParams.awayVenue.toLowerCase() == "true",
+        this.findBowlingParams.neutralVenue.toLowerCase() == "true")
 
-      this.bowlingStore.dispatch(LoadByYearBowlingRecordsAction({payload: fbo}))
-      this.bowlingStore.dispatch(LoadRecordSummariesAction({
-        payload: {
-          matchType: fbo.matchType,
-          teamId: fbo.teamId,
-          opponentsId: fbo.opponentsId,
-          groundId: fbo.groundId,
-          hostCountryId: fbo.hostCountryId
-        }
-      }))
+      this.bowlingStore.dispatch(LoadByYearBowlingRecordsAction({payload: this.findBowlingParams}))
+      this.bowlingHelperService.loadSummaries(this.findBowlingParams, this.bowlingStore)
 
-      this.bowlingByYear$.subscribe(payload => {
+      let pageInfo = this.recordHelperService.getPageInformation(this.findBowlingParams)
+
+      this.pageSize = pageInfo.pageSize
+      this.pageNumber = pageInfo.pageNumber
+
+      this.bowlingStoreSub$ = this.bowlingStore$.subscribe(payload => {
         this.sortOrder = payload.sortOrder
         this.sortDirection = payload.sortDirection
+        this.count = payload.sqlResults.count;
+        this.currentPage = this.recordHelperService.getCurrentPage(this.findBowlingParams)
       })
 
     });
   }
 
-  sort(sortOrder: SortOrder) {
-    let sortDirection = this.sortDirection
-    if (sortOrder == this.sortOrder) {
-      sortDirection = this.sortDirection == "ASC" ? "DESC" : "ASC"
-    }
-    let url = this.router.url
-      .replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
-      .replace(/sortDirection=\w+/, `sortDirection=${sortDirection}`)
-      .replace(/startRow=\w+/, "startRow=0")
-
-    this.router.navigateByUrl(url);
+  sort(newSortOrder: SortOrder) {
+    this.recordHelperService.sort(this.sortOrder, newSortOrder, this.sortDirection, this.router)
   }
 
-  setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {
-    if (!homeVenue && !awayVenue && !neutralVenue) return "All Venues";
-    if (homeVenue && awayVenue && neutralVenue) return "All Venues"
-    if (homeVenue && awayVenue) return "Home and Away"
-    if (homeVenue && neutralVenue) return "Home and Neutral"
-    if (awayVenue && neutralVenue) return "Away and Neutral"
-    if (homeVenue) return "Home Venues"
-    if (awayVenue) return "Away Venues"
-    if (neutralVenue) return "Neutral Venues"
-
-    return "Unknown"
-  }
+  getSortClass = (sortOrder: SortOrder): IconProp => this.recordHelperService.getSortClass(sortOrder, this.sortDirection);
 
 
-  getSortClass(sortOrder: SortOrder): IconProp {
-    if (sortOrder == this.sortOrder) {
-      return this.sortDirection == "DESC" ? faArrowDown : faArrowUp
-    }
-    return faArrowDown
-  }
+  getBb = (wickets: number, runs: number) => this.bowlingHelperService.getBb(wickets, runs);
 
-  getBb(wickets: number, runs: number) {
-    return `${wickets}/${runs}`
-  }
+  getEcon = (runs: number, balls: number) => this.bowlingHelperService.getEcon(runs, balls);
 
-  getEcon(runs: number, balls: number) {
-    let economy = null
-    if (balls != null && balls != 0) {
-      economy = (runs / balls) * 6;
-    }
-    return economy != null ? economy.toFixed(2) : "-";
-  }
-
-  getStrikeRate(wickets: number, balls: number) {
-    let sr = null
-    if (balls != null && balls != 0) {
-      sr = (balls / wickets);
-    }
-    return sr != null ? sr.toFixed(2) : "-";
-
+  navigate(startRow: number) {
+    this.recordHelperService.navigate(startRow, this.router)
   }
 }
