@@ -29,6 +29,7 @@ import {ByOppositionComponent} from './components/by-opposition/by-opposition.co
 import {ByHostComponent} from './components/by-host/by-host.component';
 import {ByYearOfMatchStartComponent} from './components/by-year-of-match-start/by-year-of-match-start.component';
 import {BySeasonComponent} from './components/by-season/by-season.component';
+import {PopoverModule, TooltipModule} from "@coreui/angular";
 
 
 const routes: Routes = [
@@ -64,7 +65,7 @@ const routes: Routes = [
       bySeason: loadBySeasonBowlingReducer,
     }),
     EffectsModule.forFeature([RecordEffects]),
-    FontAwesomeModule,
+    FontAwesomeModule
   ],
   exports: [RouterModule,
     GetBowlingRecordsComponent,

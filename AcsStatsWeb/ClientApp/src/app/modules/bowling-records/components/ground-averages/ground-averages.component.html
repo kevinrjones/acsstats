@@ -86,7 +86,7 @@
         <fa-icon *ngIf="importedSortOrder.sixes == sortOrder" [icon]="getSortClass(importedSortOrder.sixes)"></fa-icon></a>
     </th>
     <th class="text-right">
-      <a (click)="sort(importedSortOrder.battingImpact)" class="btn btn-link">BI
+      <a (click)="sort(importedSortOrder.battingImpact)" class="me-1 btn btn-link" cTooltip="Bowling Impact" cTooltipPlacement="top" >BI
         <fa-icon *ngIf="importedSortOrder.battingImpact == sortOrder"
                  [icon]="getSortClass(importedSortOrder.battingImpact)"></fa-icon>
       </a>
@@ -96,9 +96,13 @@
   <tbody>
   <tr *ngFor="let row of (bowlingStore$ | async)?.sqlResults?.data">
     <td class="text-left" nowrap="nowrap">{{row.name}}</td>
-    <td class="text-left" nowrap="nowrap">{{row.team}}</td>
-    <td class="text-left maxWidth20" nowrap="nowrap">
-      <span class="text-left maxWidth20" style="display: inline-block">{{row.ground}}</span>
+    <td class="text-left" nowrap="nowrap">
+          <span class="text-left ellipsed-cell me-1" [cPopoverTrigger]="'hover'" cPopover="{{row.team}}"
+                cPopoverPlacement="top">{{row.team}}</span>
+    </td>
+    <td class="text-left" nowrap="nowrap">
+      <span class="text-left ground-cell me-1" [cPopoverTrigger]="'hover'" cPopover="{{row.ground}}"
+            cPopoverPlacement="top">{{row.ground}}</span>
     </td>
     <td class="text-right" nowrap="nowrap">{{row.matches}}</td>
     <td class="text-right" nowrap="nowrap">{{row.innings == null ? "-" : row.innings}}</td>

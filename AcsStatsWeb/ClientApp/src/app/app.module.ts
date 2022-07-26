@@ -77,7 +77,7 @@ import {loadingStateReducer} from "./reducers/loading.reducer";
     PlayerModule,
     ScorecardModule,
     BattingRecordsModule,
-    BowlingRecordsModule,
+    BowlingRecordsModule
   ],
   providers: [
     {

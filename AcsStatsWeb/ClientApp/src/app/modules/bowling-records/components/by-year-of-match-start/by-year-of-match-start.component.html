@@ -75,7 +75,7 @@
         <fa-icon *ngIf="importedSortOrder.sixes == sortOrder" [icon]="getSortClass(importedSortOrder.sixes)"></fa-icon></a>
     </th>
     <th class="text-right">
-      <a (click)="sort(importedSortOrder.battingImpact)" class="btn btn-link">BI
+      <a (click)="sort(importedSortOrder.battingImpact)" class="me-1 btn btn-link" cTooltip="Bowling Impact" cTooltipPlacement="top" >BI
         <fa-icon *ngIf="importedSortOrder.battingImpact == sortOrder"
                  [icon]="getSortClass(importedSortOrder.battingImpact)"></fa-icon>
       </a>

@@ -6,6 +6,7 @@ import {PagingComponent} from "./components/paging/paging.component";
 import { SearchHeaderComponent } from './search-header/search-header.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {PopoverModule, TooltipModule} from "@coreui/angular";
 
 
 @NgModule({
@@ -15,9 +16,11 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    PopoverModule,
+    TooltipModule
   ],
-    exports: [RecordsHeaderComponent, PagingComponent, SearchHeaderComponent]
+    exports: [RecordsHeaderComponent, PagingComponent, SearchHeaderComponent, PopoverModule, TooltipModule]
 })
 export class SharedModule {
 }

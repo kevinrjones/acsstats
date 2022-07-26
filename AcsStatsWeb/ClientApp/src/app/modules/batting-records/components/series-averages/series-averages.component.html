@@ -67,7 +67,10 @@
   <tbody>
   <tr *ngFor="let row of (battingBySeries$ | async)?.sqlResults?.data">
     <td class="text-left" nowrap="nowrap">{{row.name}}</td>
-    <td class="text-left" nowrap="nowrap">{{row.team}}</td>
+    <td class="text-left" nowrap="nowrap">
+          <span class="text-left ellipsed-cell me-1" [cPopoverTrigger]="'hover'" cPopover="{{row.team}}"
+                cPopoverPlacement="top">{{row.team}}</span>
+    </td>
     <td class="text-left" nowrap="nowrap">{{row.opponents}}</td>
     <td class="text-right" nowrap="nowrap">{{row.matches}}</td>
     <td class="text-right" nowrap="nowrap">{{row.innings == null ? "-" : row.innings}}</td>
