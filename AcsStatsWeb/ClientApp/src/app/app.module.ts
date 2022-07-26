@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 
 import {StoreModule} from '@ngrx/store';
@@ -32,9 +32,11 @@ import {HeaderComponent} from "./components/header/header.component";
 import {MatchSubTypeEffects} from "./effects/match-sub-type.effects";
 import {matchSubTypeReducer} from "./reducers/match-sub-type.reducer";
 import {loadSearchFormStateReducer} from "./reducers/form-state.reducer";
-import {setErrorState} from "./reducers/error-state.reducer";
+import {setErrorStateReducer} from "./reducers/error-state.reducer";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {HttpRequestInterceptor} from "./interceptors/http-request.interceptor";
+import {loadingStateReducer} from "./reducers/loading.reducer";
 
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
       matchSubTypes: matchSubTypeReducer,
       playerRecordSummary: recordSummaryReducer,
       formState: loadSearchFormStateReducer,
-      errorState: setErrorState,
+      errorState: setErrorStateReducer,
+      loading: loadingStateReducer
     }, {}),
     EffectsModule.forRoot([TeamEffects, CountryEffects, GroundEffects, DateEffects, RecordSummaryEffects, MatchSubTypeEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
@@ -76,7 +79,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BattingRecordsModule,
     BowlingRecordsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpRequestInterceptor,
+      multi: true
+    }
+  ],
   exports: [],
   bootstrap: [AppComponent]
 })

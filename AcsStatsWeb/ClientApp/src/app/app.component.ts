@@ -1,26 +1,34 @@
 import {Component, OnInit} from '@angular/core';
-import {createSelector, Store} from "@ngrx/store";
+import {Store} from "@ngrx/store";
 import {AppState} from "./models/app-state";
 import {ErrorDetails} from "./models/error.model";
 import {RaiseErrorAction} from "./actions/error.actions";
 import {Observable} from "rxjs";
 import {ToastrService} from "ngx-toastr";
 import {ErrorLookupService} from "./services/error-lookup.service";
+import {LoadingService} from "./services/loading.service";
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+  title = 'ACS Cricket Records';
+  loading: boolean = false;
 
   private errorState$: Observable<ErrorDetails>;
+  private loadingState$: Observable<boolean>;
 
-  constructor(private appStore: Store<AppState>, private toastr: ToastrService, private errorLookupService: ErrorLookupService) {
+  constructor(private appStore: Store<AppState>,
+              private toastr: ToastrService,
+              private errorLookupService: ErrorLookupService,
+              private _loading: LoadingService) {
 
     this.resetErrorState()
 
     this.errorState$ = this.appStore.select(s => s.errorState);
+    this.loadingState$ = this.appStore.select(s => s.loading)
   }
 
   ngOnInit(): void {
@@ -36,6 +44,11 @@ export class AppComponent implements OnInit {
         }
       }
     );
+
+
+    this.loadingState$.subscribe(state => {
+      this.loading = state;
+    });
   }
 
   resetErrorState() {

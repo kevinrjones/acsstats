@@ -15,4 +15,5 @@ export interface AppState {
   matchSubTypes: MatchSubTypeModel[],
   formState: FindRecords,
   errorState: ErrorDetails,
+  loading: boolean
 }

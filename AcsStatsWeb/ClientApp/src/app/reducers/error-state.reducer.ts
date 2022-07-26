@@ -5,7 +5,7 @@ import {ErrorDetails} from "../models/error.model";
 
 
 export const initialErrorState: ErrorDetails = {id: 0, message: null};
-export const setErrorState = createReducer(
+export const setErrorStateReducer = createReducer(
   initialErrorState,
   on(RaiseErrorAction, (state, records) => {
     return records.payload;
