@@ -13,7 +13,7 @@ import {Ground} from 'src/app/models/ground.model';
 import {LoadMatchDatesAction, LoadSeriesDatesAction} from "../../../../actions/dates.actions";
 import {MatchDate} from "../../../../models/date.model";
 import {DateTime} from "luxon";
-import {AppSettingsService} from "../../../../services/app-settings.service";
+import {FormHelperService} from "../../../../services/form-helper.service";
 import {LoadMatchSubTypesAction} from "../../../../actions/match-sub-types.actions";
 import {MatchSubTypeModel} from "../../../../models/match-sub-type.model";
 import {FindRecords} from "../../../../models/find-records.model";
@@ -45,9 +45,9 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
               private fb: FormBuilder,
               private router: Router,
               private store: Store<AppState>,
-              private settings: AppSettingsService) {
+              private formHelperService: FormHelperService) {
 
-    this.defaultMatchType = settings.getDefaultMatchType()
+    this.defaultMatchType = formHelperService.getDefaultMatchType()
 
     // this.reset()
 
@@ -236,6 +236,16 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
     this.dispatchInitializationActions(this.defaultMatchType);
     this.store.dispatch(LoadMatchSubTypesAction({payload: ""}))
     this.store.dispatch(LoadMatchSubTypesAction({payload: this.defaultMatchType}))
+  }
+
+  isNotFirstClass() {
+    return this.formHelperService.isNotFirstClass(this.battingRecordsForm.get('matchType')?.value)
+  }
+
+  isNotSeries() {
+    let matchType = this.battingRecordsForm.get('matchType')?.value;
+
+    return this.formHelperService.isNotSeries(matchType)
   }
 
 }

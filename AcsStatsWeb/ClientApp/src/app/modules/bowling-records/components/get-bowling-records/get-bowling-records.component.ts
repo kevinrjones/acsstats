@@ -14,7 +14,7 @@ import {LoadGroundsAction} from "../../../../actions/grounds.actions";
 import {LoadMatchDatesAction, LoadSeriesDatesAction} from "../../../../actions/dates.actions";
 import {DateTime} from "luxon";
 import {SortOrder} from "../../../../models/sortorder.model";
-import {AppSettingsService} from "../../../../services/app-settings.service";
+import {FormHelperService} from "../../../../services/form-helper.service";
 import {FindRecords} from "../../../../models/find-records.model";
 import {MatchSubTypeModel} from "../../../../models/match-sub-type.model";
 import {LoadMatchSubTypesAction} from "../../../../actions/match-sub-types.actions";
@@ -46,9 +46,9 @@ export class GetBowlingRecordsComponent implements OnInit {
               private fb: FormBuilder,
               private router: Router,
               private store: Store<AppState>,
-              private settings: AppSettingsService) {
+              private formHelperService: FormHelperService) {
 
-    this.defaultMatchType = settings.getDefaultMatchType()
+    this.defaultMatchType = formHelperService.getDefaultMatchType()
 
     this.bowlingRecordsForm = this.fb.group({
       matchType: this.defaultMatchType,
@@ -236,6 +236,14 @@ export class GetBowlingRecordsComponent implements OnInit {
     this.dispatchInitializationActions(this.defaultMatchType);
     this.store.dispatch(LoadMatchSubTypesAction({payload: ""}))
     this.store.dispatch(LoadMatchSubTypesAction({payload: this.defaultMatchType}))
+  }
+
+  isNotFirstClass() {
+    return this.formHelperService.isNotFirstClass(this.bowlingRecordsForm.get('matchType')?.value)
+  }
+
+  isNotSeries() {
+    return this.formHelperService.isNotSeries(this.bowlingRecordsForm.get('matchType')?.value)
   }
 
 }

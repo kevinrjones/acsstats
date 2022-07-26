@@ -1,7 +1,8 @@
 <app-records-header name="batting"></app-records-header>
 <form (ngSubmit)="find()" [formGroup]="battingRecordsForm">
   <div class="batting-record">
-    <app-search-header class="selectrow app-search" [parentFormGroup]="battingRecordsForm" [matchSubTypes$]="matchSubTypes$"></app-search-header>
+    <app-search-header class="selectrow app-search" [parentFormGroup]="battingRecordsForm"
+                       [matchSubTypes$]="matchSubTypes$"></app-search-header>
     <div class="selectrow" id="batting-record-limit">
       <label for="limit">Limit</label>
       <input type="text"
@@ -81,7 +82,7 @@
       Season
     </div>
     <div class="season" id="season-value">
-      <select  formControlName="season">
+      <select formControlName="season">
         <option [value]="0">All Seasons</option>
         <option *ngFor="let seriesDate of (seriesDates$ | async)" [value]="seriesDate">{{seriesDate}}</option>
       </select>
@@ -117,39 +118,43 @@
     </div>
     <div class="view-format" id="view-format-value-col1">
       <div class="form-check">
-        <input class="form-check-input" type="radio" id="overallFigures" [value]="1" checked  formControlName="format">
+        <input class="form-check-input" type="radio" id="overallFigures" [value]="1" checked formControlName="format">
         <label class="form-check-label" for="overallFigures">
           Overall figures
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" id="InningsByInnings" [value]="2"  formControlName="format">
+        <input class="form-check-input" type="radio" id="InningsByInnings" [value]="2" formControlName="format">
         <label class="form-check-label" for="InningsByInnings">
           Innings by Innings list
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" id="matchTotals" [value]="3"  formControlName="format">
-        <label class="form-check-label" for="matchTotals">
-          Match totals
-        </label>
+        <fieldset [disabled]="isNotFirstClass()">
+          <input class="form-check-input" type="radio" id="matchTotals" [value]="3" formControlName="format">
+          <label class="form-check-label" for="matchTotals">
+            Match totals
+          </label>
+        </fieldset>
       </div>
     </div>
     <div class="view-format" id="view-format-value-col2">
       <div class="form-check">
-        <input class="form-check-input" type="radio" id="seriesAverages" [value]="4"  formControlName="format">
+        <fieldset [disabled]="isNotSeries()">
+        <input class="form-check-input" type="radio" id="seriesAverages" [value]="4" formControlName="format">
         <label class="form-check-label" for="seriesAverages">
           Series averages
         </label>
+        </fieldset>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" id="groundAverages" [value]="5"  formControlName="format">
+        <input class="form-check-input" type="radio" id="groundAverages" [value]="5" formControlName="format">
         <label class="form-check-label" for="groundAverages">
           Ground Averages
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" id="byHostCountry" [value]="6"  formControlName="format">
+        <input class="form-check-input" type="radio" id="byHostCountry" [value]="6" formControlName="format">
         <label class="form-check-label" for="byHostCountry">
           By Host Country
         </label>
@@ -157,19 +162,19 @@
     </div>
     <div class="view-format" id="view-format-value-col3">
       <div class="form-check">
-        <input class="form-check-input" type="radio" id="byOppositionTeam" [value]="7"  formControlName="format">
+        <input class="form-check-input" type="radio" id="byOppositionTeam" [value]="7" formControlName="format">
         <label class="form-check-label" for="byOppositionTeam">
           By Opposition Team
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" id="byYearOfMatchStart" [value]="8"  formControlName="format">
+        <input class="form-check-input" type="radio" id="byYearOfMatchStart" [value]="8" formControlName="format">
         <label class="form-check-label" for="byYearOfMatchStart">
           By Year Of Match Start
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" id="bySeason" [value]="9"  formControlName="format">
+        <input class="form-check-input" type="radio" id="bySeason" [value]="9" formControlName="format">
         <label class="form-check-label" for="bySeason">
           By Season
         </label>
@@ -179,7 +184,7 @@
       <input type="submit" name="submit" id="submit"/>
     </div>
     <div class="buttons" id="buttons-reset">
-      <input type="button" name="reset" id="reset" value="Reset" (click)="reset()" />
+      <input type="button" name="reset" id="reset" value="Reset" (click)="reset()"/>
     </div>
   </div>
 </form>
