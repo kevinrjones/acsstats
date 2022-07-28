@@ -16,7 +16,6 @@ export class PagingComponent implements OnInit, OnChanges {
   totalPages!: number
   currentFirstItem!: number;
   currentLastItem!: number;
-  currentItem!: number
 
   @Output() first: EventEmitter<void> = new EventEmitter();
   @Output() previous: EventEmitter<number> = new EventEmitter();
@@ -44,7 +43,7 @@ export class PagingComponent implements OnInit, OnChanges {
 
   private calculatePagingValues() {
     this.currentFirstItem = 1 + (this.pageSize * (this.currentPage - 1));
-    this.currentLastItem = (this.totalItems < this.pageSize ? this.totalItems : this.pageSize + this.currentFirstItem) - 1;
+    this.currentLastItem = (this.totalItems < this.pageSize ? this.totalItems : this.pageSize + this.currentFirstItem);
     if (this.currentLastItem > this.totalItems) this.currentLastItem = this.totalItems;
     let extrapage = this.totalItems % this.pageSize == 0 ? 0 : 1
     this.totalPages = Math.floor((this.totalItems / this.pageSize) + extrapage)
