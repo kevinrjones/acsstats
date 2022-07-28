@@ -3,6 +3,7 @@ nav div input {
   max-height: 1.5rem;
 }
 
+/* todo: media query this */
 .page-container {
   display: grid;
   grid-template-columns: 8rem 15rem repeat(4, 6rem) 10rem auto;
@@ -21,10 +22,14 @@ nav div input {
 
 .button-right {
   text-align: right !important;
-  padding-right:0.3em;
+  padding-right: 0.3em;
 }
 
 .button-left {
   text-align: left !important;
-  padding-left:0.3em;
+  padding-left: 0.3em;
+}
+
+.hidePage {
+  display: none;
 }

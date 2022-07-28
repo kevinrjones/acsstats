@@ -1,0 +1,14 @@
+.navigate > div {
+  display: inline-block;
+}
+
+.return {
+  background-color: rgba(33, 97, 4);
+  padding: 0.2rem 0.4rem 0.3rem;
+  border-radius: 5px;
+  float: right;
+}
+.navigate > div > a {
+  background-color: rgba(33, 97, 4);
+  color: white;
+}

@@ -1,11 +1,12 @@
 <h2>Series Figures</h2>
 
-<h3>{{(bowlingSummary$ | async)?.team}} v {{(bowlingSummary$ | async)?.opponents}}
-  at {{(bowlingSummary$ | async)?.ground}}
-  in {{(bowlingSummary$ | async)?.hostCountry}}
-  at {{venue}}
-  for {{(bowlingSummary$ | async)?.matchType}} </h3>
-
+<app-records-header [venue]="venue" [recordSummary$]="bowlingSummary$"
+                    [pageSize]="pageSize" [totalItems]="count" [currentPage]="currentPage"
+                    [returnUrl]="'/records/bowling'"
+                    (first)="navigate(0)"
+                    (previous)="navigate($event)" (next)="navigate($event)" (last)="navigate($event)"
+                    (goto)="navigate($event)">
+</app-records-header>
 
 <table class="table table-striped table-hover table-sm">
   <thead class="thead-dark">
@@ -89,7 +90,7 @@
     <td class="text-right" nowrap="nowrap">{{getBb(row.bbiw, row.bbir)}}</td>
     <td class="text-right" nowrap="nowrap">{{getBb(row.bbmw, row.bbmr)}}</td>
     <td class="text-right" nowrap="nowrap">{{getEcon(row.runs, row.balls)}}</td>
-    <td class="text-right" nowrap="nowrap">{{getStrikeRate(row.wickets, row.balls)}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.sr.toFixed(2)}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fiveFor}}</td>
     <td class="text-right" nowrap="nowrap">{{row.tenFor}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fours}}</td>
@@ -97,3 +98,8 @@
   </tr>
   </tbody>
 </table>
+
+<app-records-footer [pageSize]="pageSize" [totalItems]="count" [currentPage]="currentPage"
+                    (first)="navigate(0)" (previous)="navigate($event)" (next)="navigate($event)"
+                    (last)="navigate($event)"
+                    (goto)="navigate($event)"></app-records-footer>

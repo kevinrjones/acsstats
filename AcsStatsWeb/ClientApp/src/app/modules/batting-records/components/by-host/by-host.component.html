@@ -1,11 +1,13 @@
 <h2>By Host Figures</h2>
 
-<h3>{{(battingSummary$ | async)?.team}} v {{(battingSummary$ | async)?.opponents}}
-  at {{(battingSummary$ | async)?.ground}}
-  in {{(battingSummary$ | async)?.hostCountry}}
-  at {{venue}}
-  for {{(battingSummary$ | async)?.matchType}} </h3>
+<app-records-header [venue]="venue" [recordSummary$]="battingSummary$"
+                    [pageSize]="pageSize" [totalItems]="count" [currentPage]="currentPage"
+                    [returnUrl]="'/records/batting'"
+                    (first)="navigate(0)"
+                    (previous)="navigate($event)" (next)="navigate($event)" (last)="navigate($event)"
+                    (goto)="navigate($event)">
 
+</app-records-header>
 
 <table class="table table-striped table-hover table-sm">
   <thead class="thead-dark">
@@ -133,6 +135,7 @@
   </tbody>
 </table>
 
-<app-paging [pageSize]="pageSize" [totalItems]="count" [currentPage]="currentPage" (first)="navigate(0)"
-            (previous)="navigate($event)" (next)="navigate($event)" (last)="navigate($event)"
-            (goto)="navigate($event)"></app-paging>
+<app-records-footer [pageSize]="pageSize" [totalItems]="count" [currentPage]="currentPage"
+                    (first)="navigate(0)" (previous)="navigate($event)" (next)="navigate($event)"
+                    (last)="navigate($event)"
+                    (goto)="navigate($event)"></app-records-footer>

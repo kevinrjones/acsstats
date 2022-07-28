@@ -1,11 +1,13 @@
 <h2>Overall Figures</h2>
 
-<h3>{{(battingSummary$ | async)?.team}} v {{(battingSummary$ | async)?.opponents}}
-  at {{(battingSummary$ | async)?.ground}}
-  in {{(battingSummary$ | async)?.hostCountry}}
-  at {{venue}}
-  for {{(battingSummary$ | async)?.matchType}} </h3>
+<app-records-header [venue]="venue" [recordSummary$]="battingSummary$"
+                    [pageSize]="pageSize" [totalItems]="count" [currentPage]="currentPage"
+                    [returnUrl]="'/records/batting'"
+                    (first)="navigate(0)"
+                    (previous)="navigate($event)" (next)="navigate($event)" (last)="navigate($event)"
+                    (goto)="navigate($event)">
 
+</app-records-header>
 
 <table class="table table-striped table-hover table-sm">
   <thead class="thead-dark">
@@ -87,7 +89,8 @@
       </a>
     </th>
     <th class="text-right">
-      <a (click)="sort(importedSortOrder.battingImpact)" class="me-1 btn btn-link" cTooltip="Batting Impact" cTooltipPlacement="top" >BI
+      <a (click)="sort(importedSortOrder.battingImpact)" class="me-1 btn btn-link" cTooltip="Batting Impact"
+         cTooltipPlacement="top">BI
         <fa-icon *ngIf="importedSortOrder.battingImpact == sortOrder"
                  [icon]="getSortClass(importedSortOrder.battingImpact)"></fa-icon>
       </a>
@@ -115,6 +118,7 @@
   </tbody>
 </table>
 
-<app-paging [pageSize]="pageSize" [totalItems]="count" [currentPage]="currentPage" (first)="navigate(0)"
-            (previous)="navigate($event)" (next)="navigate($event)" (last)="navigate($event)"
-            (goto)="navigate($event)"></app-paging>
+<app-records-footer [pageSize]="pageSize" [totalItems]="count" [currentPage]="currentPage"
+                    (first)="navigate(0)" (previous)="navigate($event)" (next)="navigate($event)"
+                    (last)="navigate($event)"
+                    (goto)="navigate($event)"></app-records-footer>

@@ -11,6 +11,7 @@ export class PagingComponent implements OnInit, OnChanges {
   @Input() pageSize!: number
   @Input() totalItems!: number
   @Input() currentPage!: number
+  @Input() showGotoPage!: boolean;
 
   totalPages!: number
   currentFirstItem!: number;
@@ -44,9 +45,9 @@ export class PagingComponent implements OnInit, OnChanges {
   private calculatePagingValues() {
     this.currentFirstItem = 1 + (this.pageSize * (this.currentPage - 1));
     this.currentLastItem = (this.totalItems < this.pageSize ? this.totalItems : this.pageSize + this.currentFirstItem) - 1;
-    if(this.currentLastItem > this.totalItems) this.currentLastItem = this.totalItems;
+    if (this.currentLastItem > this.totalItems) this.currentLastItem = this.totalItems;
     let extrapage = this.totalItems % this.pageSize == 0 ? 0 : 1
-    this.totalPages =Math.floor((this.totalItems / this.pageSize) + extrapage)
+    this.totalPages = Math.floor((this.totalItems / this.pageSize) + extrapage)
   }
 
   clickFirst() {
@@ -56,7 +57,7 @@ export class PagingComponent implements OnInit, OnChanges {
   clickPrevious() {
     let startRow = this.currentFirstItem - this.pageSize - 1
 
-    if(startRow < 0) startRow = 0
+    if (startRow < 0) startRow = 0
 
     this.previous.emit(startRow)
   }
@@ -79,7 +80,7 @@ export class PagingComponent implements OnInit, OnChanges {
     this.currentPage = this.gotoPageNumber;
     let startRow = (this.currentPage - 1) * this.pageSize
 
-    while(startRow > this.totalItems) {
+    while (startRow > this.totalItems) {
       this.currentPage--;
       startRow = (this.currentPage - 1) * this.pageSize
     }
@@ -90,5 +91,9 @@ export class PagingComponent implements OnInit, OnChanges {
 
   valueChange($event: Event) {
     console.log("event", $event)
+  }
+
+  shouldShowGotoControl() {
+    return this.showGotoPage ? "" : "hidePage"
   }
 }

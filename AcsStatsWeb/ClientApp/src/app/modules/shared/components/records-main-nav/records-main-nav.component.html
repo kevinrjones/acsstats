@@ -1,0 +1,14 @@
+<div class="summary">
+  <app-records-summary [venue]="venue" [recordSummary$]="recordSummary$"
+  ></app-records-summary>
+</div>
+<div class="navigate">
+  <div>
+    <app-paging [pageSize]="pageSize" [totalItems]="totalItems" [currentPage]="currentPage" [showGotoPage]="false"
+                (first)="raiseFirst()"
+                (previous)="raisePrevious($event)" (next)="raiseNext($event)" (last)="raiseLast($event)"></app-paging>
+  </div>
+  <div class="return">
+    <a [routerLink]="[returnUrl]">Return to query menu</a>
+  </div>
+</div>

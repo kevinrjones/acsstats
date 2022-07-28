@@ -10,7 +10,7 @@
   <div class="clickable button button-right" (click)="clickNext()" aria-label="previous">Next <span><fa-icon [icon]="faAngleRight"></fa-icon></span> </div>
   <!-- disable if on last row -->
   <div class="clickable button button-right" (click)="clickLast()" aria-label="last">Last <fa-icon [icon]="faAnglesRight"></fa-icon></div>
-  <div class="clickable button "><span (click)="clickGoto()">Go to page: </span><input type="text"  id="gotoPageNumber"
+  <div class="clickable button" [ngClass]="shouldShowGotoControl()"><span (click)="clickGoto()">Go to page: </span><input type="text"  id="gotoPageNumber"
                                                                                name="gotoPageNumber"
                                                                                [(ngModel)]="gotoPageNumber" ></div>
 </nav>

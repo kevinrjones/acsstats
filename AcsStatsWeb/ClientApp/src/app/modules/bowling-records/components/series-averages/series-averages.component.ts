@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {BowlingOverallUiModel} from "../../models/bowling-overall-ui.model";
+import {Observable, Subscription} from "rxjs";
+import {BowlingOverallUiModel, InningsByInningsUiModel} from "../../models/bowling-overall-ui.model";
 import {RecordsSummaryModel} from "../../../../models/records-summary.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
@@ -12,6 +12,9 @@ import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {SortOrder} from "../../../../models/sortorder.model";
 import {FindRecords} from "../../../../models/find-records.model";
+import {BowlingHelperService} from "../../services/bowling-helper.service";
+import {RecordHelperService} from "../../../../services/record-helper.service";
+import {IndividualBowlingDetailsDto} from "../../models/individual-bowling-details.dto";
 
 @Component({
   selector: 'app-series-averages',
@@ -25,11 +28,20 @@ export class SeriesAveragesComponent implements OnInit {
   private sortDirection!: string;
   importedSortOrder = SortOrder;
   venue!: string;
+  pageSize!: number;
+  pageNumber!: number;
+  findBowlingParams!: FindRecords
+  private bowlMatchSub$!: Subscription;
+  count!: number;
+  currentPage!: number;
 
 
-  constructor(private router: Router, private route: ActivatedRoute,
+  constructor(private router: Router,
+              private route: ActivatedRoute,
               private location: Location,
-              private bowlingStore: Store<BowlingOverallState>) {
+              private bowlingStore: Store<BowlingOverallState>,
+              private bowlingHelperService: BowlingHelperService,
+              private recordHelperService: RecordHelperService) {
   }
 
   ngOnInit(): void {
@@ -44,83 +56,47 @@ export class SeriesAveragesComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
 
-      let fbo = params as FindRecords
+      this.findBowlingParams = params as FindRecords
 
-      this.venue = this.setVenue(fbo.homeVenue.toLowerCase() == "true",
-        fbo.awayVenue.toLowerCase() == "true",
-        fbo.neutralVenue.toLowerCase() == "true")
+      this.venue = this.recordHelperService.setVenue(this.findBowlingParams.homeVenue.toLowerCase() == "true",
+        this.findBowlingParams.awayVenue.toLowerCase() == "true",
+        this.findBowlingParams.neutralVenue.toLowerCase() == "true")
 
-      this.bowlingStore.dispatch(LoadBySeriesBowlingRecordsAction({payload: fbo}))
-      this.bowlingStore.dispatch(LoadRecordSummariesAction({
-        payload: {
-          matchType: fbo.matchType,
-          teamId: fbo.teamId,
-          opponentsId: fbo.opponentsId,
-          groundId: fbo.groundId,
-          hostCountryId: fbo.hostCountryId
-        }
-      }))
+      this.bowlingStore.dispatch(LoadBySeriesBowlingRecordsAction({payload: this.findBowlingParams}))
+      this.bowlingHelperService.loadSummaries(this.findBowlingParams, this.bowlingStore)
 
-      this.bowlingSeries$.subscribe(payload => {
+      let pageInfo = this.recordHelperService.getPageInformation(this.findBowlingParams)
+
+      this.pageSize = pageInfo.pageSize
+      this.pageNumber = pageInfo.pageNumber
+
+      this.bowlMatchSub$ = this.bowlingSeries$.subscribe(payload => {
         this.sortOrder = payload.sortOrder
         this.sortDirection = payload.sortDirection
+        this.count = payload.sqlResults.count;
+        this.currentPage = this.recordHelperService.getCurrentPage(this.findBowlingParams)
       })
 
     });
   }
 
-  sort(sortOrder: SortOrder) {
-    let sortDirection = this.sortDirection
-    if (sortOrder == this.sortOrder) {
-      sortDirection = this.sortDirection == "ASC" ? "DESC" : "ASC"
-    }
-    let url = this.router.url
-      .replace(/sortOrder=\d+/, `sortOrder=${sortOrder}`)
-      .replace(/sortDirection=\w+/, `sortDirection=${sortDirection}`)
-      .replace(/startRow=\w+/, "startRow=0")
+  getBb = (wickets: number, runs: number) => this.bowlingHelperService.getBb(wickets, runs);
 
-    this.router.navigateByUrl(url);
+  getEcon = (runs: number, balls: number) => this.bowlingHelperService.getEcon(runs, balls);
+
+  sort(newSortOrder: SortOrder) {
+    this.recordHelperService.sort(this.sortOrder, newSortOrder, this.sortDirection, this.router)
   }
-
-  setVenue(homeVenue: boolean, awayVenue: boolean, neutralVenue: boolean) {
-    if (!homeVenue && !awayVenue && !neutralVenue) return "All Venues";
-    if (homeVenue && awayVenue && neutralVenue) return "All Venues"
-    if (homeVenue && awayVenue) return "Home and Away"
-    if (homeVenue && neutralVenue) return "Home and Neutral"
-    if (awayVenue && neutralVenue) return "Away and Neutral"
-    if (homeVenue) return "Home Venues"
-    if (awayVenue) return "Away Venues"
-    if (neutralVenue) return "Neutral Venues"
-
-    return "Unknown"
-  }
-
 
   getSortClass(sortOrder: SortOrder): IconProp {
-    if (sortOrder == this.sortOrder) {
-      return this.sortDirection == "DESC" ? faArrowDown : faArrowUp
-    }
-    return faArrowDown
+    return this.recordHelperService.getSortClass(sortOrder, this.sortDirection)
   }
 
-  getBb(wickets: number, runs: number) {
-    return `${wickets}/${runs}`
+  getOvers(row: IndividualBowlingDetailsDto) {
+    return this.bowlingHelperService.getOvers(row)
   }
 
-  getEcon(runs: number, balls: number) {
-    let economy = null
-    if (balls != null && balls != 0) {
-      economy = (runs / balls) * 6;
-    }
-    return economy != null ? economy.toFixed(2) : "-";
-  }
-
-  getStrikeRate(wickets: number, balls: number) {
-    let sr = null
-    if (balls != null && balls != 0) {
-      sr = (balls / wickets);
-    }
-    return sr != null ? sr.toFixed(2) : "-";
-
+  navigate(startRow: number) {
+    this.recordHelperService.navigate(startRow, this.router)
   }
 }

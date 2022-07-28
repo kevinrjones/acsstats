@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-records-header',
-  templateUrl: './records-header.component.html',
-  styleUrls: ['./records-header.component.css']
+  selector: 'app-records-search-header',
+  templateUrl: './records-search-nav.component.html',
+  styleUrls: ['./records-search-nav.component.css']
 })
-export class RecordsHeaderComponent implements OnInit {
+export class RecordsSearchNavComponent implements OnInit {
 
   @Input() name!: string;
 
