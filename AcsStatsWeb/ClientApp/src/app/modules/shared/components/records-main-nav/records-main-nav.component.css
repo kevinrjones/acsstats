@@ -4,7 +4,7 @@
 
 .return {
   background-color: rgba(33, 97, 4);
-  padding: 0.2rem 0.4rem 0.3rem;
+  padding: 0.375rem 0.75rem ;
   border-radius: 5px;
   float: right;
 }
@@ -12,3 +12,8 @@
   background-color: rgba(33, 97, 4);
   color: white;
 }
+
+.navigate {
+  margin-top: 1rem ;
+}
+

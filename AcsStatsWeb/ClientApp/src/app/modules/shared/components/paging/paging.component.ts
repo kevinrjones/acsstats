@@ -96,4 +96,18 @@ export class PagingComponent implements OnInit, OnChanges {
   shouldShowGotoControl() {
     return this.showGotoPage ? "" : "hidePage"
   }
+
+  isNavRightDisabled() {
+    if(this.currentPage === this.totalPages) {
+      return "item-disabled"
+    }
+    return ""
+  }
+
+  isNavLeftDisabled() {
+    if(this.currentFirstItem === 1) {
+      return "item-disabled"
+    }
+    return ""
+  }
 }

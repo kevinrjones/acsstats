@@ -1,18 +1,44 @@
 <nav class="page-container">
-  <div>Page {{currentPage}} of {{totalPages}}</div>
-  <div>Showing {{currentFirstItem}} to {{currentLastItem}} of {{totalItems}}</div>
+  <div class="page-information">Page <span>{{currentPage}}</span> of <span>{{totalPages}}</span></div>
+  <div class="item-information">Showing <span>{{currentFirstItem}}</span> to <span>{{currentLastItem}}</span> of
+    <span>{{totalItems}}</span></div>
   <!-- disable if on first row -->
-  <div class="clickable button button-left" (click)="clickFirst()" aria-label="first"><fa-icon [icon]="faAnglesLeft"></fa-icon> First</div>
-  <div class="clickable button button-left" (click)="clickPrevious()" aria-label="previous"><fa-icon [icon]="faAngleLeft"></fa-icon> Previous</div>
-  <!-- disable if on last row -->
-  <!-- <span style="border: 1px solid silver; border-radius: 0.25em; padding: 0.5em;"><i class="fas fa-arrow-left fa-fw" title="Back"></i></span>
-   -->
-  <div class="clickable button button-right" (click)="clickNext()" aria-label="previous">Next <span><fa-icon [icon]="faAngleRight"></fa-icon></span> </div>
-  <!-- disable if on last row -->
-  <div class="clickable button button-right" (click)="clickLast()" aria-label="last">Last <fa-icon [icon]="faAnglesRight"></fa-icon></div>
-  <div class="clickable button" [ngClass]="shouldShowGotoControl()"><span (click)="clickGoto()">Go to page: </span><input type="text"  id="gotoPageNumber"
-                                                                               name="gotoPageNumber"
-                                                                               [(ngModel)]="gotoPageNumber" ></div>
+  <ul>
+    <li class="button-left" (click)="clickFirst()" aria-label="first">
+      <button class="item item-left" [ngClass]="isNavLeftDisabled()">
+        <fa-icon [icon]="faAnglesLeft"></fa-icon>
+        First
+      </button>
+    </li>
+    <li class="button-left" (click)="clickPrevious()" aria-label="previous">
+      <button class="item" [ngClass]="isNavLeftDisabled()">
+        <fa-icon [icon]="faAngleLeft"></fa-icon>
+        Previous
+      </button>
+    </li>
+    <li class="button-right" (click)="clickNext()" aria-label="previous">
+      <button class="item" [ngClass]="isNavRightDisabled()">Next <span><fa-icon
+        [icon]="faAngleRight"></fa-icon></span></button>
+    </li>
+    <!-- disable if on last row -->
+    <li class="button-right" (click)="clickLast()" aria-label="last">
+      <button class="item item-right" [ngClass]="isNavRightDisabled()">Last
+        <fa-icon [icon]="faAnglesRight"></fa-icon>
+      </button>
+    </li>
+  </ul>
+  <!--  <div class="clickable button button-left" (click)="clickFirst()" aria-label="first"><fa-icon [icon]="faAnglesLeft"></fa-icon> First</div>-->
+  <!--  <div class="clickable button button-left" (click)="clickPrevious()" aria-label="previous"><fa-icon [icon]="faAngleLeft"></fa-icon> Previous</div>-->
+  <!--  &lt;!&ndash; disable if on last row &ndash;&gt;-->
+  <!--  &lt;!&ndash; <span style="border: 1px solid silver; border-radius: 0.25em; padding: 0.5em;"><i class="fas fa-arrow-left fa-fw" title="Back"></i></span>-->
+  <!--   &ndash;&gt;-->
+  <!--  <div class="clickable button button-right" (click)="clickNext()" aria-label="previous">Next <span><fa-icon [icon]="faAngleRight"></fa-icon></span> </div>-->
+  <!--  &lt;!&ndash; disable if on last row &ndash;&gt;-->
+  <!--  <div class="clickable button button-right" (click)="clickLast()" aria-label="last">Last <fa-icon [icon]="faAnglesRight"></fa-icon></div>-->
+  <div class="clickable button item-goto" [ngClass]="shouldShowGotoControl()"><span
+    (click)="clickGoto()">Go to page: </span><input type="text" id="gotoPageNumberOld"
+                                                    name="gotoPageNumber"
+                                                    [(ngModel)]="gotoPageNumber"></div>
 </nav>
 
 
