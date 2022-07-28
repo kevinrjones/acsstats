@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 
 namespace AcsCommands.Query;
 
-public class TeamsQuery : IRequest<Result<IReadOnlyList<TeamDto>, Error>>
+public class TeamsQuery : IRequest<Result<IReadOnlyList<TeamForMatchTypeDto>, Error>>
 {
     private AcsTypes.Types.MatchType MatchType { get; }
 
@@ -18,7 +18,7 @@ public class TeamsQuery : IRequest<Result<IReadOnlyList<TeamDto>, Error>>
         MatchType = matchType;
     }
 
-    internal sealed class TeamsQueryHandler : IRequestHandler<TeamsQuery, Result<IReadOnlyList<TeamDto>, Error>>
+    internal sealed class TeamsQueryHandler : IRequestHandler<TeamsQuery, Result<IReadOnlyList<TeamForMatchTypeDto>, Error>>
     {
         private readonly QueriesConnectionString _queriesConnectionString;
         private readonly ILogger<TeamsQueryHandler> _logger;
@@ -29,26 +29,27 @@ public class TeamsQuery : IRequest<Result<IReadOnlyList<TeamDto>, Error>>
             _logger = logger;
         }
 
-        public async Task<Result<IReadOnlyList<TeamDto>, Error>> Handle(TeamsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<IReadOnlyList<TeamForMatchTypeDto>, Error>> Handle(TeamsQuery request, CancellationToken cancellationToken)
         {
-            string sql = @"SELECT Id, Name, MatchType
-            FROM Teams
+            string sql = @"SELECT T.Id, T.Name, TMT.MatchType
+            FROM Teams T
+            join teamsmatchtypes tmt
+            on t.Id=tmt.TeamId
             WHERE MatchType = @MatchType
-            ORDER BY Name;
-            ";
+            ORDER BY Name";
             try
             {
                 await using var connection = new MySqlConnection(_queriesConnectionString.Value);
-                var result = (IReadOnlyList<TeamDto>)connection.Query<TeamDto>(sql, new
+                var result = (IReadOnlyList<TeamForMatchTypeDto>)connection.Query<TeamForMatchTypeDto>(sql, new
                 {
                     MatchType = request.MatchType.Value
                 }).ToList();
-                return Result.Success<IReadOnlyList<TeamDto>, Error>(result);
+                return Result.Success<IReadOnlyList<TeamForMatchTypeDto>, Error>(result);
             }
             catch (Exception e)
             {
                 _logger.LogCritical(e, "Unable to process this request: {MatchType}", request.MatchType);
-                return Result.Failure<IReadOnlyList<TeamDto>, Error>(Errors.GetUnexpectedError(e.Message));
+                return Result.Failure<IReadOnlyList<TeamForMatchTypeDto>, Error>(Errors.GetUnexpectedError(e.Message));
             }
         }
 

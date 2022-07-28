@@ -1,6 +1,7 @@
 namespace AcsStatsWeb.Dtos;
 
-public record TeamDto(int Id, string Name, string MatchType);
+public record TeamForMatchTypeDto(int Id, string Name, string MatchType);
+public record TeamDto(int Id, string Name);
 
 public record GroundWithCodeDto(
     int Id,

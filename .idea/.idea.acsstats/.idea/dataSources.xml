@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Azure - Local" uuid="b89c1d6f-2d43-4ae9-b392-89497c676d2d">
+    <data-source source="LOCAL" name="cricketarchive@localhost" uuid="0e3c2f87-5bad-4946-a225-e02da3541013">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
+      <remarks>ACS-Local</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/cricketarchive</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>

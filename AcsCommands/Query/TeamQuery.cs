@@ -35,7 +35,7 @@ public class TeamQuery : IRequest<Result<TeamDto, Error>>
         public async Task<Result<TeamDto, Error>> Handle(TeamQuery request, CancellationToken cancellationToken)
         {
             string sql =
-                @"SELECT `t`.`Id`, t.Name, t.MatchType
+                @"SELECT `t`.`Id`, t.Name
                     FROM `Teams` AS `t`
                     WHERE `t`.`id` = @Id";
             try
