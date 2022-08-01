@@ -92,4 +92,8 @@ export class MatchTotalsComponent implements OnInit {
   getScore(row: IndividualBattingDetailsDto) {
     return row.notOut ? `${row.playerScore}*` : `${row.playerScore} `;
   }
+
+  getIndex(ndx: number) {
+    return ((this.currentPage - 1) * this.pageSize) + ndx + 1
+  }
 }

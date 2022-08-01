@@ -495,4 +495,5 @@ section.searchResultHeader span {
 
 select {
   padding: 0.1rem;
+  max-width: 20rem;
 }

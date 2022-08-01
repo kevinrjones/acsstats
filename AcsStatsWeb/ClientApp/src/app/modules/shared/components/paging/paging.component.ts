@@ -43,7 +43,7 @@ export class PagingComponent implements OnInit, OnChanges {
 
   private calculatePagingValues() {
     this.currentFirstItem = 1 + (this.pageSize * (this.currentPage - 1));
-    this.currentLastItem = (this.totalItems < this.pageSize ? this.totalItems : this.pageSize + this.currentFirstItem);
+    this.currentLastItem = this.totalItems < this.pageSize ? this.totalItems : (this.pageSize + this.currentFirstItem - 1);
     if (this.currentLastItem > this.totalItems) this.currentLastItem = this.totalItems;
     let extrapage = this.totalItems % this.pageSize == 0 ? 0 : 1
     this.totalPages = Math.floor((this.totalItems / this.pageSize) + extrapage)
@@ -97,14 +97,14 @@ export class PagingComponent implements OnInit, OnChanges {
   }
 
   isNavRightDisabled() {
-    if(this.currentPage === this.totalPages) {
+    if(this.currentPage === this.totalPages || this.totalItems == 0) {
       return "item-disabled"
     }
     return ""
   }
 
   isNavLeftDisabled() {
-    if(this.currentFirstItem === 1) {
+    if(this.currentFirstItem === 1 || this.totalItems == 0) {
       return "item-disabled"
     }
     return ""

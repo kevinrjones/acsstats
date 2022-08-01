@@ -110,4 +110,8 @@ export class BySeasonComponent implements OnInit {
   navigate(startRow: number) {
     this.recordHelperService.navigate(startRow, this.router)
   }
+
+  getIndex(ndx: number) {
+    return ((this.currentPage - 1) * this.pageSize) + ndx + 1
+  }
 }
