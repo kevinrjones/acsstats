@@ -1,8 +1,35 @@
+/*#pageSizeContainer{*/
+/*  grid-column-start: 3;*/
+/*  grid-column-end: 5;*/
+/*}*/
+
+/*#pageSizeContainer > label {*/
+/*  padding-right: 0.5rem;*/
+/*}*/
+
 #pageSizeContainer{
-  grid-column-start: 3;
-  grid-column-end: 5;
+  grid-row-start: 2;
+  grid-column-start: 1;
+  grid-column-end: -1;
 }
 
 #pageSizeContainer > label {
   padding-right: 0.5rem;
+}
+
+@media screen and (min-width: 1200px) {
+  #pageSizeContainer{
+    grid-row-start: 1;
+    grid-column-start: 3;
+    grid-column-end: 5;
+  }
+}
+
+
+@media screen and (min-width: 1800px) {
+  #pageSizeContainer{
+    grid-row-start: 1;
+    grid-column-start: 3;
+    grid-column-end: 5;
+  }
 }

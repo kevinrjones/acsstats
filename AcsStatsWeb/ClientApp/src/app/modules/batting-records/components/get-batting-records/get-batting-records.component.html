@@ -1,9 +1,9 @@
 <app-records-search-header name="batting"></app-records-search-header>
 <form (ngSubmit)="find()" [formGroup]="battingRecordsForm">
   <div class="batting-record">
-    <app-search-header class="selectrow app-search" [parentFormGroup]="battingRecordsForm"
+    <app-search-header [parentFormGroup]="battingRecordsForm"
                        [matchSubTypes$]="matchSubTypes$"></app-search-header>
-    <div class="selectrow" id="batting-record-limit">
+    <div class="limit" id="batting-record-limit">
       <label for="limit">Limit</label>
       <input type="text"
              id="limit"
@@ -44,7 +44,6 @@
              id="neutralVenue"
              formControlName="neutralVenue">
     </div>
-
     <div class="country-ground-row" id="batting-record-homeaway-label">
       Host Country
     </div>
@@ -86,7 +85,6 @@
         <option [value]="0">All Seasons</option>
         <option *ngFor="let seriesDate of (seriesDates$ | async)" [value]="seriesDate">{{seriesDate}}</option>
       </select>
-
     </div>
     <div class="result" id="result-label">
       Result

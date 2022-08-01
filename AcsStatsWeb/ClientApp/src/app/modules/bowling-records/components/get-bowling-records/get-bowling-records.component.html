@@ -1,9 +1,9 @@
 <app-records-search-header name="bowling"></app-records-search-header>
 <form (ngSubmit)="find()" [formGroup]="bowlingRecordsForm">
   <div class="bowling-record">
-    <app-search-header class="selectrow app-search" [parentFormGroup]="bowlingRecordsForm"
+    <app-search-header class="selectrow" [parentFormGroup]="bowlingRecordsForm"
                        [matchSubTypes$]="matchSubTypes$"></app-search-header>
-    <div class="selectrow" id="bowling-record-limit">
+    <div class="limit" id="bowling-record-limit">
       <label for="limit">Limit</label>
       <input type="text"
              id="limit"
