@@ -91,16 +91,19 @@ export class GetBowlingRecordsComponent implements OnInit {
     const matchTypeControl = this.bowlingRecordsForm.get('matchType')
     const matchSubTypeControl = this.bowlingRecordsForm.get('matchSubType')
 
-    matchTypeControl?.valueChanges.subscribe(
+    this.matchTypeControlSub = matchTypeControl?.valueChanges.subscribe(
       value => {
-        this.dispatchInitializationActions(value);
-        this.store.dispatch(LoadMatchSubTypesAction({payload: value}))
+        if (value != "" && value != undefined) {
+          this.dispatchInitializationActions(value);
+          this.store.dispatch(LoadMatchSubTypesAction({payload: value}))
+        }
       }
     )
 
     this.matchSubTypeControlSub = matchSubTypeControl?.valueChanges.subscribe(
       value => {
-        this.dispatchInitializationActions(value);
+        if(value != "" && value != undefined)
+          this.dispatchInitializationActions(value);
       }
     )
 

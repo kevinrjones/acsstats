@@ -107,6 +107,10 @@ export class GroundAveragesComponent implements OnInit {
     return row.ground.length < this.maxlength ? row.ground : row.ground.substring(0, this.maxlength) + "...";
   }
 
+  getIndex(ndx: number) {
+    return ((this.currentPage - 1) * this.pageSize) + ndx + 1
+  }
+
   getAverage = (innings: number, notOuts: number, avg: number) => this.recordHelperService.getAverage(innings, notOuts, avg);
 
 }

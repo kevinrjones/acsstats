@@ -102,4 +102,7 @@ export class BattingInnByInnComponent implements OnInit, OnDestroy {
     this.recordHelperService.navigate(startRow, this.router)
   }
 
+  getIndex(ndx: number) {
+    return ((this.currentPage - 1) * this.pageSize) + ndx + 1
+  }
 }

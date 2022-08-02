@@ -102,6 +102,10 @@ export class ByYearOfMatchStartComponent implements OnInit {
     this.recordHelperService.navigate(startRow, this.router)
   }
 
+  getIndex(ndx: number) {
+    return ((this.currentPage - 1) * this.pageSize) + ndx + 1
+  }
+
   getAverage = (innings: number, notOuts: number, avg: number) => this.recordHelperService.getAverage(innings, notOuts, avg);
 
 }

@@ -93,14 +93,17 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
 
     this.matchTypeControlSub = matchTypeControl?.valueChanges.subscribe(
       value => {
-        this.dispatchInitializationActions(value);
-        this.store.dispatch(LoadMatchSubTypesAction({payload: value}))
+        if (value != "" && value != undefined) {
+          this.dispatchInitializationActions(value);
+          this.store.dispatch(LoadMatchSubTypesAction({payload: value}))
+        }
       }
     )
 
     this.matchSubTypeControlSub = matchSubTypeControl?.valueChanges.subscribe(
       value => {
-        this.dispatchInitializationActions(value);
+        if(value != "" && value != undefined)
+          this.dispatchInitializationActions(value);
       }
     )
 
@@ -120,12 +123,12 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
 
   }
 
-  private dispatchInitializationActions(matchStype: string) {
-    this.store.dispatch(LoadTeamsAction({payload: matchStype}))
-    this.store.dispatch(LoadCountriesAction({payload: matchStype}))
-    this.store.dispatch(LoadGroundsAction({payload: matchStype}))
-    this.store.dispatch(LoadSeriesDatesAction({payload: matchStype}))
-    this.store.dispatch(LoadMatchDatesAction({payload: matchStype}))
+  private dispatchInitializationActions(matchType: string) {
+    this.store.dispatch(LoadTeamsAction({payload: matchType}))
+    this.store.dispatch(LoadCountriesAction({payload: matchType}))
+    this.store.dispatch(LoadGroundsAction({payload: matchType}))
+    this.store.dispatch(LoadSeriesDatesAction({payload: matchType}))
+    this.store.dispatch(LoadMatchDatesAction({payload: matchType}))
   }
 
   ngOnDestroy() {

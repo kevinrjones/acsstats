@@ -111,4 +111,7 @@ export class BattingOverallComponent implements OnInit {
 
 
   getAverage = (innings: number, notOuts: number, avg: number) => this.recordHelperService.getAverage(innings, notOuts, avg);
+  getIndex(ndx: number) {
+    return ((this.currentPage - 1) * this.pageSize) + ndx + 1
+  }
 }
