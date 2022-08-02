@@ -9,10 +9,6 @@ namespace AcsStatsAngular.Models.api
         [FromRoute] public int TeamId { get; set; }
 
         [FromRoute] public int OpponentsId { get; set; }
-        // {
-        //     get => throw new Exception("Use public opponentsId property instead");
-        //     set => opponentsId = AcsTypes.Types.TeamId.Create(value);
-        // }
 
         [FromRoute]
         public string MatchType{ get; set; }

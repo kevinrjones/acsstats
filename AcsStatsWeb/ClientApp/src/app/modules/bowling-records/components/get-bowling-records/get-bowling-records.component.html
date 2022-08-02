@@ -7,7 +7,8 @@
       <label for="limit">Limit</label>
       <input type="text"
              id="limit"
-             formControlName="limit">
+             formControlName="limit"
+             required>
     </div>
     <div class="teamrow" id="bowling-record-team-label">
       Team
@@ -181,7 +182,7 @@
       </div>
     </div>
     <div class="buttons" id="buttons-submit">
-      <input type="submit" name="submit" id="submit"/>
+      <input type="submit" name="submit" id="submit" [disabled]="!bowlingRecordsForm.valid" />
     </div>
     <div class="buttons" id="buttons-reset">
       <input type="button" name="reset" id="reset" value="Reset"/>

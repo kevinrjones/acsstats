@@ -103,8 +103,10 @@ export class GroundAveragesComponent implements OnInit {
     this.recordHelperService.navigate(startRow, this.router)
   }
 
-
   getGround(row: BattingCareerRecordDto): string {
     return row.ground.length < this.maxlength ? row.ground : row.ground.substring(0, this.maxlength) + "...";
   }
+
+  getAverage = (innings: number, notOuts: number, avg: number) => this.recordHelperService.getAverage(innings, notOuts, avg);
+
 }

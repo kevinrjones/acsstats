@@ -80,7 +80,7 @@
         <fa-icon *ngIf="importedSortOrder.sixes == sortOrder" [icon]="getSortClass(importedSortOrder.sixes)"></fa-icon></a>
     </th>
     <th class="text-right">
-      <a (click)="sort(importedSortOrder.battingImpact)" class="me-1 btn btn-link" cTooltip="Bowling Impact" cTooltipPlacement="top" >BI
+      <a (click)="sort(importedSortOrder.battingImpact)" class="me-1 btn btn-link" cTooltip="Bowling Impact" cTooltipPlacement="top" >BwI
         <fa-icon *ngIf="importedSortOrder.battingImpact == sortOrder"
                  [icon]="getSortClass(importedSortOrder.battingImpact)"></fa-icon>
       </a>
@@ -104,7 +104,7 @@
     <td class="text-right" nowrap="nowrap">{{getBb(row.bbiw, row.bbir)}}</td>
     <td class="text-right" nowrap="nowrap">{{getBb(row.bbmw, row.bbmr)}}</td>
     <td class="text-right" nowrap="nowrap">{{getEcon(row.runs, row.balls)}}</td>
-    <td class="text-right" nowrap="nowrap">{{row.sr.toFixed(2)}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.sr == null ? "-" : row.sr.toFixed(2)}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fiveFor}}</td>
     <td class="text-right" nowrap="nowrap">{{row.tenFor}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fours}}</td>

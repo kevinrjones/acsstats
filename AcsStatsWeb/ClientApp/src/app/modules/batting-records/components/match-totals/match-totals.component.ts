@@ -92,4 +92,7 @@ export class MatchTotalsComponent implements OnInit {
   getScore(row: IndividualBattingDetailsDto) {
     return row.notOut ? `${row.playerScore}*` : `${row.playerScore} `;
   }
+
+  getAverage = (innings: number, notOuts: number, avg: number) => this.recordHelperService.getAverage(innings, notOuts, avg);
+
 }

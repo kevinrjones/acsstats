@@ -110,4 +110,7 @@ export class BySeasonComponent implements OnInit {
   navigate(startRow: number) {
     this.recordHelperService.navigate(startRow, this.router)
   }
+
+  getAverage = (innings: number, notOuts: number, avg: number) => this.recordHelperService.getAverage(innings, notOuts, avg);
+
 }
