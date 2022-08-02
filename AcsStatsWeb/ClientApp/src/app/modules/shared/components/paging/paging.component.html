@@ -17,12 +17,12 @@
       </button>
     </li>
     <li class="button-right" (click)="clickNext()" aria-label="previous">
-      <button class="item" [ngClass]="isNavRightDisabled()">Next <span><fa-icon
+      <button class="item" [ngClass]="isNavRightDisabled()" id="next-button">Next <span><fa-icon
         [icon]="faAngleRight"></fa-icon></span></button>
     </li>
     <!-- disable if on last row -->
     <li class="button-right" (click)="clickLast()" aria-label="last">
-      <button class="item item-right" [ngClass]="isNavRightDisabled()">Last
+      <button class="item item-right" [ngClass]="isNavRightDisabled()" id="last-button">Last
         <fa-icon [icon]="faAnglesRight"></fa-icon>
       </button>
     </li>
