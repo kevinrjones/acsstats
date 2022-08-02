@@ -19,7 +19,7 @@
 }
 
 @media screen and (min-width: 900px) {
-  .navigate > div {
+  .return {
     float: none;
   }
 
