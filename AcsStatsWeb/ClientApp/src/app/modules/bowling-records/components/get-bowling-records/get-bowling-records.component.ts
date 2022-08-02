@@ -4,7 +4,7 @@ import {Team} from "../../../../models/team.model";
 import {Country} from "../../../../models/country.model";
 import {Ground} from "../../../../models/ground.model";
 import {MatchDate} from "../../../../models/date.model";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../../models/app-state";
@@ -54,7 +54,7 @@ export class GetBowlingRecordsComponent implements OnInit {
       matchType: this.defaultMatchType,
       matchSubType: '',
       pageSize: '50',
-      limit: 1,
+      limit: new FormControl(1, Validators.required),
       teamId: 0,
       opponentsId: 0,
       homeVenue: false,
@@ -81,6 +81,8 @@ export class GetBowlingRecordsComponent implements OnInit {
     this.formState$ = this.store.select(s => s.formState)
 
   }
+
+  get limit() { return this.bowlingRecordsForm.get('limit'); }
 
   ngOnInit(): void {
     this.dispatchInitializationActions(this.defaultMatchType);
@@ -138,7 +140,9 @@ export class GetBowlingRecordsComponent implements OnInit {
 
   public find() {
 
-    // todo: validation?
+    if(this.limit?.errors?.['required']){
+      return
+    }
 
     let route = ''
     switch (this.bowlingRecordsForm.get('format')?.value) {

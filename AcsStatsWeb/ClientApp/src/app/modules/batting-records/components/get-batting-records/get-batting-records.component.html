@@ -7,7 +7,8 @@
       <label for="limit">Limit</label>
       <input type="text"
              id="limit"
-             formControlName="limit">
+             formControlName="limit"
+             required>
     </div>
     <div class="teamrow" id="batting-record-team-label">
       Team
@@ -139,10 +140,10 @@
     <div class="view-format" id="view-format-value-col2">
       <div class="form-check">
         <fieldset [disabled]="isNotSeries()">
-        <input class="form-check-input" type="radio" id="seriesAverages" [value]="4" formControlName="format">
-        <label class="form-check-label" for="seriesAverages">
-          Series averages
-        </label>
+          <input class="form-check-input" type="radio" id="seriesAverages" [value]="4" formControlName="format">
+          <label class="form-check-label" for="seriesAverages">
+            Series averages
+          </label>
         </fieldset>
       </div>
       <div class="form-check">
@@ -179,7 +180,7 @@
       </div>
     </div>
     <div class="buttons" id="buttons-submit">
-      <input type="submit" name="submit" id="submit"/>
+      <input type="submit" name="submit" id="submit" [disabled]="!battingRecordsForm.valid" />
     </div>
     <div class="buttons" id="buttons-reset">
       <input type="button" name="reset" id="reset" value="Reset" (click)="reset()"/>

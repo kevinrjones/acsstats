@@ -112,7 +112,7 @@
     <td class="text-right" nowrap="nowrap">{{getBb(row.bbiw, row.bbir)}}</td>
     <td class="text-right" nowrap="nowrap">{{getBb(row.bbmw, row.bbmr)}}</td>
     <td class="text-right" nowrap="nowrap">{{getEcon(row.runs, row.balls)}}</td>
-    <td class="text-right" nowrap="nowrap">{{row.sr.toFixed(2)}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.sr == null ? "-" : row.sr.toFixed(2)}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fiveFor}}</td>
     <td class="text-right" nowrap="nowrap">{{row.tenFor}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fours}}</td>

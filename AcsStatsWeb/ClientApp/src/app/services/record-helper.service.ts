@@ -73,4 +73,11 @@ export class RecordHelperService {
     return this.httpClient.get<Envelope<RecordsSummaryModel>>(`/api/records/summary/${matchType}/${teamId}/${opponentsId}/${groundId}/${hostCouuntryId}`)
   }
 
+  getAverage(innings: number, notOuts: number, avg: number) {
+    return avg == null ? "-" :
+      innings - notOuts === 0 ? "-" :
+        avg.toFixed(2)
+  }
+
+
 }

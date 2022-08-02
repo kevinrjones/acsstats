@@ -50,28 +50,38 @@ export class PagingComponent implements OnInit, OnChanges {
   }
 
   clickFirst() {
-    this.first.emit()
+    if (this.currentFirstItem !== 1) {
+      this.first.emit()
+    }
   }
 
   clickPrevious() {
-    let startRow = this.currentFirstItem - this.pageSize - 1
+    if (this.currentFirstItem !== 1) {
+      let startRow = this.currentFirstItem - this.pageSize - 1
 
-    if (startRow < 0) startRow = 0
+      if (startRow < 0) startRow = 0
 
-    this.previous.emit(startRow)
+      this.previous.emit(startRow)
+    }
   }
 
   clickNext() {
-    let startRow = this.currentFirstItem + this.pageSize - 1
-    this.next.emit(startRow)
+    if (this.currentPage !== this.totalPages) {
+
+      let startRow = this.currentFirstItem + this.pageSize - 1
+      this.next.emit(startRow)
+    }
   }
 
   clickLast() {
-    let totalPages = Math.floor(this.totalItems / this.pageSize)
+    if (this.currentPage !== this.totalPages) {
 
-    let startRow = totalPages * this.pageSize
+      let totalPages = Math.floor(this.totalItems / this.pageSize)
 
-    this.last.emit(startRow)
+      let startRow = totalPages * this.pageSize
+
+      this.last.emit(startRow)
+    }
   }
 
   clickGoto() {

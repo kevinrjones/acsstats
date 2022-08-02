@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {Team} from 'src/app/models/team.model';
@@ -55,7 +55,7 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
       matchType: this.defaultMatchType,
       matchSubType: '',
       pageSize: '50',
-      limit: 100,
+      limit: new FormControl(100, Validators.required),
       teamId: 0,
       opponentsId: 0,
       homeVenue: false,
@@ -81,6 +81,8 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
     this.matchSubTypes$ = this.store.select(s => s.matchSubTypes)
     this.formState$ = this.store.select(s => s.formState)
   }
+
+  get limit() { return this.battingRecordsForm.get('limit'); }
 
   ngOnInit(): void {
     this.dispatchInitializationActions(this.defaultMatchType);
@@ -138,7 +140,9 @@ export class GetBattingRecordsComponent implements OnInit, OnDestroy {
 
   public find() {
 
-    // todo: validation?
+    if(this.limit?.errors?.['required']){
+      return
+    }
 
     let route = ''
     switch (this.battingRecordsForm.get('format')?.value) {

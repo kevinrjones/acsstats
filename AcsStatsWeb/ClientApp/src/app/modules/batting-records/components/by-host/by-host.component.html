@@ -124,15 +124,15 @@
     <td class="text-right" nowrap="nowrap">{{row.notOuts}}</td>
     <td class="text-right" nowrap="nowrap">{{row.runs}}</td>
     <td class="text-right" nowrap="nowrap" [innerHTML]="formatHighestScore(row)"></td>
-    <td class="text-right" nowrap="nowrap">{{row.avg == null ? "-" : row.avg.toFixed(2)}}</td>
+    <td class="text-right" nowrap="nowrap">{{getAverage(row.innings, row.notOuts, row.avg)}}</td>
     <td class="text-right" nowrap="nowrap">{{row.hundreds == 0 ? "-" : row.hundreds}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fifties == 0 ? "-" : row.fifties}}</td>
     <td class="text-right" nowrap="nowrap">{{row.ducks == 0 ? "-" : row.ducks}}</td>
     <td class="text-right" nowrap="nowrap">{{row.fours == 0 ? "-" : row.fours}}</td>
     <td class="text-right" nowrap="nowrap">{{row.sixes == 0 ? "-" : row.sixes}}</td>
     <td class="text-right" nowrap="nowrap">{{row.balls == 0 ? "-" : row.balls}}</td>
-    <td class="text-right" nowrap="nowrap">{{row.sr.toFixed(2)}}</td>
-    <td class="text-right" nowrap="nowrap">{{row.bi.toFixed(2)}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.sr == null ? "-" : row.sr.toFixed(2)}}</td>
+    <td class="text-right" nowrap="nowrap">{{row.sr == null ? "-" : row.bi.toFixed(2)}}</td>
   </tr>
   </tbody>
 </table>
