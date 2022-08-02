@@ -28,7 +28,7 @@ button {
 /* todo: media query this */
 .page-container {
   display: grid;
-  grid-template-columns: 8rem 15rem auto 10rem;
+  grid-template-columns: 8rem 15rem auto;
   column-gap: 2rem;
 }
 
@@ -85,3 +85,12 @@ button {
   font-weight: bold;
   padding-left: 0;
 }
+
+@media screen and (min-width: 1400px) {
+  .page-container {
+    display: grid;
+    grid-template-columns: 8rem 15rem auto 10rem;
+    column-gap: 2rem;
+  }
+}
+

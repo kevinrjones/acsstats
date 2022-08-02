@@ -34,7 +34,6 @@ body {
 }
 
 
-
 @media (min-width: 768px) {
   html {
     /*font-size: 16px;*/
@@ -128,12 +127,17 @@ input[type=checkbox], input[type=radio] {
   user-select: none;
   background-color: transparent;
   border: 1px solid transparent;
-  padding: .375rem .75rem;
-  font-size: 1rem;
+  padding: 0;
+  font-size: 0.80rem;
   border-radius: .25rem;
   transition: color .15s
 }
 
+@media screen and (min-width: 1400px) {
+  .btn {
+    padding: .375rem .75rem;
+  }
+}
 
 div.scorecard > table > thead {
   background-color: rgb(246, 247, 248);
@@ -292,10 +296,6 @@ form > div:nth-child(1) > span > label, div:nth-child(2) > span > label {
   text-align: left;
 }
 
-
-#startdateid, #enddateid {
-  font-size: 0.85rem;
-}
 
 #overall > table > thead > tr > td.teamname,
 #overall > table > tbody > tr > td.teamname,
@@ -466,7 +466,7 @@ select {
   width: auto;
 }
 
-.ng-valid[required], .ng-valid.required  {
+.ng-valid[required], .ng-valid.required {
   border-left: 5px solid #42A948; /* green */
 }
 

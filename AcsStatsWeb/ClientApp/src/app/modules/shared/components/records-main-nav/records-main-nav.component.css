@@ -1,5 +1,6 @@
 .navigate > div {
   display: inline-block;
+  float: left;
 }
 
 .return {
@@ -17,3 +18,9 @@
   margin-top: 1rem ;
 }
 
+@media screen and (min-width: 900px) {
+  .navigate > div {
+    float: none;
+  }
+
+}

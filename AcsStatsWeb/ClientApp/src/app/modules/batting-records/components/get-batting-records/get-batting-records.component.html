@@ -1,28 +1,28 @@
 <app-records-search-header name="batting"></app-records-search-header>
 <form (ngSubmit)="find()" [formGroup]="battingRecordsForm">
-  <div class="batting-record">
+  <div class="record">
     <app-search-header [parentFormGroup]="battingRecordsForm"
                        [matchSubTypes$]="matchSubTypes$"></app-search-header>
-    <div class="limit" id="batting-record-limit">
+    <div class="limit" id="record-limit">
       <label for="limit">Limit</label>
       <input type="text"
              id="limit"
              formControlName="limit"
              required>
     </div>
-    <div class="teamrow" id="batting-record-team-label">
+    <div class="teamrow" id="record-team-label">
       Team
     </div>
-    <div class="teamrow" id="batting-record-teams">
+    <div class="teamrow" id="record-teams">
       <select formControlName="teamId">
         <option [value]="0">All Teams</option>
         <option *ngFor="let team of (teams$ | async)" [value]="team.id">{{team.name}}</option>
       </select>
     </div>
-    <div class="teamrow" id="batting-record-opposition-label">
+    <div class="teamrow" id="record-opposition-label">
       Opposition
     </div>
-    <div class="teamrow" id="batting-record-opposition">
+    <div class="teamrow" id="record-opposition">
       <select formControlName="opponentsId">
         <option [value]="0">All Teams</option>
         <option *ngFor="let team of (teams$ | async)" [value]="team.id">{{team.name}}</option>
@@ -45,19 +45,19 @@
              id="neutralVenue"
              formControlName="neutralVenue">
     </div>
-    <div class="country-ground-row" id="batting-record-homeaway-label">
+    <div class="country-ground-row" id="record-homeaway-label">
       Host Country
     </div>
-    <div class="country-ground-row" id="batting-record-homeaway">
+    <div class="country-ground-row" id="record-homeaway">
       <select formControlName="hostCountryId">
         <option [value]="0">All Countries</option>
         <option *ngFor="let country of (countries$ | async)" [value]="country.id">{{country.name}}</option>
       </select>
     </div>
-    <div class="country-ground-row" id="batting-record-country-grounds-label">
+    <div class="country-ground-row" id="record-country-grounds-label">
       Ground
     </div>
-    <div class="country-ground-row" id="batting-record-country-grounds">
+    <div class="country-ground-row" id="record-country-grounds">
       <select formControlName="groundId">
         <option [value]="0">All Grounds</option>
         <option *ngFor="let ground of (grounds$ | async)" [value]="[ground.id]">{{ground.knownAs}}</option>
