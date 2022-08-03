@@ -143,17 +143,23 @@ app-search-header {
 }
 
 @media screen and (min-width: 1200px) {
+
+  .record {
+    grid: auto-flow min-content/repeat(12, 1fr);
+  }
+
+
   .scorecard-container {
     grid-template-columns: [first] 15rem auto 2rem;
   }
 
   app-search-header {
-    grid-column: 1/4;
+    /*grid-column: 1/4;*/
   }
 
 
   #record-limit {
-    grid-column-start: 4;
+    grid-row-start: 2;
   }
 
   #homeoraway-value {
@@ -165,33 +171,48 @@ app-search-header {
     padding-right: 5px;
   }
 
-  .homeoraway-row {
-    grid-row: 3;
+  .teamrow {
+    grid-row-start: 3;
   }
 
-  .country-ground-row {
+  .homeoraway-row {
     grid-row: 4;
   }
 
-  .daterange {
+  .country-ground-row {
     grid-row: 5;
   }
 
-  .season {
+  .daterange {
     grid-row: 6;
   }
 
-  .result {
+  .season {
     grid-row: 7;
   }
 
-  .view-format {
+  .result {
     grid-row: 8;
   }
 
-  .buttons {
+  .view-format {
     grid-row: 9;
   }
+
+  .buttons {
+    grid-row: 11;
+  }
+
+  #view-format-value-col2 {
+    grid-row: 9;
+    grid-column: 4;
+  }
+
+  #view-format-value-col3 {
+    grid-row: 9;
+    grid-column: 5/span 5;
+  }
+
 
 }
 
