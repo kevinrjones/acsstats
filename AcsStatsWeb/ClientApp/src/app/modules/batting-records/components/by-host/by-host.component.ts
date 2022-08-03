@@ -72,6 +72,8 @@ export class ByHostComponent implements OnInit {
       this.battingByHost$.subscribe(payload => {
         this.sortOrder = payload.sortOrder
         this.sortDirection = payload.sortDirection
+        this.count = payload.sqlResults.count;
+        this.currentPage = this.recordHelperService.getCurrentPage(this.findBattingParams)
       })
 
     });
