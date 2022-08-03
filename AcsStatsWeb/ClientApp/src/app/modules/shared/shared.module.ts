@@ -10,6 +10,7 @@ import {RecordsSearchNavComponent} from "./components/records-search-nav/records
 import {RecordsSearchSelectComponent} from "./components/search-select/records-search-select.component";
 import {RecordsMainNavComponent} from "./components/records-main-nav/records-main-nav.component";
 import {RecordsMainFooterComponent} from "./components/records-main-footer/records-main-footer.component";
+import {RecordsUIComponent} from "./components/records-ui/records-ui.component";
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {RecordsMainFooterComponent} from "./components/records-main-footer/recor
     RecordsSearchSelectComponent,
     RecordsMainNavComponent,
     RecordsMainFooterComponent,
+    RecordsUIComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import {RecordsMainFooterComponent} from "./components/records-main-footer/recor
     PagingComponent,
     RecordsSearchSelectComponent,
     PopoverModule,
-    TooltipModule
+    TooltipModule,
+    RecordsUIComponent
   ]
 })
 export class SharedModule {

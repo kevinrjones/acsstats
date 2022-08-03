@@ -133,10 +133,8 @@ input[type=checkbox], input[type=radio] {
   transition: color .15s
 }
 
-@media screen and (min-width: 1400px) {
-  .btn {
-    padding: .375rem .75rem;
-  }
+.btn {
+  padding: .375rem .75rem;
 }
 
 div.scorecard > table > thead {
